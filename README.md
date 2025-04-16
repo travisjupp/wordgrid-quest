@@ -1,3 +1,3 @@
 # WordGrid Quest
 
-testing workflow: move-tasks-to-in-progress
+TESTING WORKFLOW: MOVE-TASKS-TO-IN-PROGRESs
