@@ -2,48 +2,48 @@ name: Move Tasks to In Progress
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   move-to-in-progress:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Find project card ID
-        id: find-card
+      - name: Move tasks to In Progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Fetch the issue or pull request number
+          # Get the pull request number
           PR_NUMBER=${{ github.event.pull_request.number }}
+          REPO_NAME=${{ github.repository }}
 
-          # Get the project card ID for the linked issue or pull request
-          CARD_ID=$(curl -s \
+          # Query the GraphQL API to get the project item IDs linked to the pull request
+          ITEMS=$(curl -s -X POST \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/${PR_NUMBER}/projects" | jq -r '.[0].id')
+            -H "Content-Type: application/json" \
+            -d '{"query":"query { repository(owner: \"'${REPO_NAME%/*}'\", name: \"'${REPO_NAME#*/}'\") { pullRequest(number: '${PR_NUMBER}') { projectItems(first: 10) { nodes { id project { title } } } } } }"}' \
+            https://api.github.com/graphql)
 
-          # Save the card ID as an output for the next step
-          echo "card_id=${CARD_ID}" >> $GITHUB_ENV
+          # Extract the project item ID(s) and the project title(s) using jq
+          echo "$ITEMS" | jq .
 
-      - name: Move task to In Progress
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get the ID of the "In Progress" column
-          IN_PROGRESS_COLUMN_ID=$(curl -s \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/projects/columns" | jq -r '.[] | select(.name=="In Progress").id')
+          # Loop through the project items and move them to the "In Progress" column
+          for ITEM_ID in $(echo "$ITEMS" | jq -r '.data.repository.pullRequest.projectItems.nodes[].id'); do
+            # Fetch the "In Progress" column ID for the item's project
+            COLUMN_ID=$(curl -s -X POST \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"query":"query { node(id: \"'${ITEM_ID}'\") { ... on ProjectV2Item { project { id title fields(first: 10) { nodes { ... on ProjectV2Field { name id options { id name } } } } } } } }"}' \
+              https://api.github.com/graphql | jq -r '.data.node.project.fields.nodes[] | select(.name=="Status").options[] | select(.name=="In Progress").id')
 
-          # Move the card to the "In Progress" column
-          curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/projects/columns/cards/${CARD_ID}/moves" \
-            -d '{
-              "position": "top",
-              "column_id": '"$IN_PROGRESS_COLUMN_ID"'
-            }'
+            # Update the item's status to "In Progress"
+            curl -s -X POST \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"query":"mutation { updateProjectV2ItemFieldValue(input: { projectId: \"'${ITEM_ID}'\", fieldId: \"'${COLUMN_ID}'\", value: { singleSelectOptionId: \"'${COLUMN_ID}'\" } }) { clientMutationId } }"}' \
+              https://api.github.com/graphql
+          done
+
