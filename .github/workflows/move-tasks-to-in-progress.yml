@@ -1,5 +1,11 @@
 name: Move Tasks to In Progress
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  project: write
+
 on:
   pull_request:
     types: [opened, edited]
