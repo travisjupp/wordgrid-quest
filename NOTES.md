@@ -6,7 +6,7 @@ Random and probably totally unorganized notes for WordGrid Quest
 
 ## Gameplay
 
-How do you play this f-ing game?
+How do you play this game?
 You have to match a jumbled phrase with its definition.
 
 What type of game is this? 
@@ -19,10 +19,17 @@ entertained.
 What do I hope to achieve by playing this game?
 You will gain a masterful command of a subject of your choosing.
 
+Is it really just a game, or is it a tool?
+It is a tool wrapped in a game.
+
+## Loading data
+
 How do I load my learning materials into this app?
-Choose the load material option from the menu
 
+1. Choose the load material option from the menu
+2. Fill in the Category field
+3. Create a term and its definition for the category
+4. Create more terms as needed
 
-Is it really just a game, or is it a fucking tool?
 
 
