@@ -55,7 +55,6 @@ export default function HomeScreen() {
         <Link style={styles.link} href="/details">View details</Link>
         <Link style={styles.link} href="/flex">View flex</Link>
         <Link style={styles.link} href="/bottomSheet">View bottomSheet</Link>
-        <Link style={styles.link} href="/test">View bottomSheet (test.js)</Link>
       </View>
     </PaperProvider>
   );
