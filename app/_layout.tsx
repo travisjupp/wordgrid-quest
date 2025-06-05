@@ -13,8 +13,6 @@ export default function RootLayout() {
           fontWeight: 'bold',
         },
       }}>
-      // if you want to define screen options, you can add a Stack.Screen
-      // component inside the Stack component
     </Stack>
     </GestureHandlerRootView>
   );
