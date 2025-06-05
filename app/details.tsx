@@ -1,10 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Redirect } from 'expo-router';
 
 export default function DetailsScreen() {
   return (
     <View style={styles.container}>
-      <Redirect href="/flex" />
       <Text>Details `app/details.tsx`</Text>
     </View>
   );
