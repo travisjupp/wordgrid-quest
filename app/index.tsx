@@ -16,7 +16,7 @@ export default function HomeScreen() {
       justifyContent: 'center',
       alignItems: 'center',
       // backgroundColor: 'rgb(19 37 64)',
-      backgroundColor: 'theme.colors.surface',
+      backgroundColor: theme.colors.surface,
     },
     text: {
       color: 'purple',
@@ -35,11 +35,7 @@ export default function HomeScreen() {
     },
   });
   return (
-    <View
-      // style={styles.container}
-      style={{ backgroundColor: theme.colors.surface}}
-      //style={{ backgroundColor: '#ff00ff'}}
-    >
+    <View style={styles.container}>
       <Menu
         visible={visible}
         onDismiss={closeMenu}
