@@ -27,12 +27,6 @@ export default function HomeScreen() {
       fontWeight: 'bold',
       fontSize: 26
     },
-    fab: {
-      // flex: 1,
-      // justifyContent: 'center',
-      // alignItems: 'center',
-      // width: '50%',
-    },
   });
   return (
     <View style={styles.container}>
@@ -48,17 +42,14 @@ export default function HomeScreen() {
       </Menu>
       <FAB
         icon="ladybug"
-        style={styles.fab}
         onPress={() => console.log('Pressed')}
       />
       <FAB
         icon="bird"
-        style={styles.fab}
         onPress={() => console.log('Pressed')}
       />
       <FAB
         icon="skull-outline"
-        style={styles.fab}
         onPress={() => console.log('Pressed')}
       />
       <Text variant="bodyLarge">Home `app/index.tsx`</Text>
