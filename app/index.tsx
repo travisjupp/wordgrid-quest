@@ -3,9 +3,11 @@ import 'react-native-reanimated';
 import * as React from 'react';
 import { Link } from 'expo-router';
 import { View, StyleSheet, Platform } from 'react-native';
-import { useTheme, Text, FAB, Menu, Divider, Button } from 'react-native-paper';
+import { useTheme, Text, FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
+import ThemeContext from './context/ThemeContext';
 
 export default function HomeScreen() {
+  const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -19,7 +21,7 @@ export default function HomeScreen() {
       backgroundColor: theme.colors.surface,
     },
     text: {
-      color: 'purple',
+      color: theme.colors.onSurface,
       // fontSize: 45
     },
     link: {
@@ -27,9 +29,14 @@ export default function HomeScreen() {
       fontWeight: 'bold',
       fontSize: 26
     },
+    switch: {
+      borderColor: '#00ff00',
+    },
   });
+
   return (
     <View style={styles.container}>
+      <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Menu
         visible={visible}
         onDismiss={closeMenu}
@@ -53,8 +60,9 @@ export default function HomeScreen() {
         onPress={() => console.log('Pressed')}
       />
       <Text variant="bodyLarge">Home `app/index.tsx`</Text>
-      <Text variant="displayLarge" style={styles.text}>STYLE Text</Text>
-      <Button icon="camera" mode="contained">SSS</Button>
+      <Text variant="displayLarge" style={styles.text}>DISPLAY</Text>
+      <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button>
+      <Button mode='outlined'>TEST</Button>
       <Button icon="camera" disabled={true} mode="contained">Disabled</Button>
       <Link style={{color: theme.colors.onSurface}} href="/details">View details</Link>
       <Link style={styles.link} href="/bottomSheet">View bottomSheet</Link>
