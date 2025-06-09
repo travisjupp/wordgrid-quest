@@ -4,6 +4,8 @@ import { useColorScheme, Platform, Image } from 'react-native';
 import * as React from 'react';
 import { useTheme, Text, MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, FAB, Menu, Divider, Switch, PaperProvider, Button } from 'react-native-paper';
 import ThemeContext from './context/ThemeContext';
+import * as StatusBar from 'expo-status-bar';
+
 const fontConfig = {
   // fontFamily: 'Abel', // override all variants (only if no variants)
   default: {
@@ -49,6 +51,15 @@ export default function RootLayout() {
     setIsDarkTheme(prevTheme => !prevTheme);
   };
   const theme = isDarkTheme ? darkTheme : lightTheme; 
+  React.useEffect(() => {
+    StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark');
+    if (Platform.OS === "android") {
+      StatusBar.setStatusBarBackgroundColor(theme.colors.surfaceContainer, true);
+    }
+    return () => {
+      StatusBar.setStatusBarStyle('auto');
+    };
+  }, [theme]);
   return (
     <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
       <PaperProvider theme={theme}>
@@ -59,11 +70,14 @@ export default function RootLayout() {
                 backgroundColor: theme.colors.surfaceContainer,
               },
               headerTintColor: theme.colors.onSurface,
+              headerShown: true, 
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
               headerTitle: (props) => (
-                <Image source={require('../assets/images/adaptive-icon.png')} style={{ width: 80, height: 40 }} />
+                <Image 
+                  source={require('../assets/images/adaptive-icon.png')} 
+                  style={{ width: 80, height: 40 }} />
               ),
             }}>
           </Stack>

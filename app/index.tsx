@@ -60,7 +60,7 @@ export default function HomeScreen() {
         onPress={() => console.log('Pressed')}
       />
       <Text variant="bodyLarge">Home `app/index.tsx`</Text>
-      <Text variant="displayLarge" style={styles.text}>DISPLAY</Text>
+      <Text variant="displayLarge" style={styles.text}>TXCT</Text>
       <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button>
       <Button mode='outlined'>TEST</Button>
       <Button icon="camera" disabled={true} mode="contained">Disabled</Button>
