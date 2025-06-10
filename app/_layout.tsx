@@ -3,7 +3,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform, Image } from 'react-native';
 import * as React from 'react';
 import { useTheme, Text, MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, FAB, Menu, Divider, Switch, PaperProvider, Button } from 'react-native-paper';
-import ThemeContext from './context/ThemeContext';
+import ThemeContext from '../src/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 
 const fontConfig = {
