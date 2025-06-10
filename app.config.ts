@@ -2,17 +2,16 @@ import { ConfigContext, ExpoConfig } from 'expo/config';
 
 const IS_DEV = process.env.APP_VARIANT === 'development';
 const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
-
 const getUniqueIdentifier = () => {
   if (IS_DEV) {
-    return 'com.tjupp.wordgrid-quest.dev';
+    return 'com.tjupp.wordgridquest.dev';
   }
 
   if (IS_PREVIEW) {
-    return 'com.tjupp.wordgrid-quest.preview';
+    return 'com.tjupp.wordgridquest.preview';
   }
 
-  return 'com.tjupp.wordgrid-quest';
+  return 'com.tjupp.wordgridquest';
 };
 
 const getAppName = () => {
