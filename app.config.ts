@@ -44,11 +44,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: getUniqueIdentifier(),
+    userInterfaceStyle: "automatic",
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false
     }
   },
   android: {
+    userInterfaceStyle: "automatic",
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff"
@@ -56,6 +58,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: getUniqueIdentifier(),
   },
   web: {
+    userInterfaceStyle: "automatic",
     bundler: "metro",
     output: "static",
     favicon: "./assets/images/favicon.png"

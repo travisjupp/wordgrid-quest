@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform, Image } from 'react-native';
 import * as React from 'react';
-import { useTheme, Text, MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, FAB, Menu, Divider, Switch, PaperProvider, Button } from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider} from 'react-native-paper';
 import ThemeContext from '../src/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 
@@ -46,20 +46,29 @@ const lightTheme = {
 }
 
 export default function RootLayout() {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(true);
+  const deviceThemeIsDark = useColorScheme() === 'dark';
+  const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
+  const theme = isDarkTheme ? darkTheme : lightTheme; 
+  // Respond to device settings
+  React.useEffect(() => {
+    setIsDarkTheme(deviceThemeIsDark);
+  }, [setIsDarkTheme, deviceThemeIsDark]);
+
   const toggleTheme = () => {
     setIsDarkTheme(prevTheme => !prevTheme);
   };
-  const theme = isDarkTheme ? darkTheme : lightTheme; 
+
   React.useEffect(() => {
-    StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark');
+    StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark', true);
     if (Platform.OS === "android") {
-      StatusBar.setStatusBarBackgroundColor(theme.colors.surfaceContainer, true);
+      StatusBar
+        .setStatusBarBackgroundColor(theme.colors.surfaceContainer, true);
     }
     return () => {
       StatusBar.setStatusBarStyle('auto');
     };
   }, [theme]);
+
   return (
     <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
       <PaperProvider theme={theme}>
@@ -74,7 +83,7 @@ export default function RootLayout() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
-              headerTitle: (props) => (
+              headerTitle: () => (
                 <Image 
                   source={require('../assets/images/adaptive-icon.png')} 
                   style={{ width: 80, height: 40 }} />
