@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Link } from 'expo-router';
 import { View, StyleSheet, Platform } from 'react-native';
 import { useTheme, Text, FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
-import ThemeContext from '../src/contexts/ThemeContext';
+import ThemeContext from '@/contexts/ThemeContext';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
