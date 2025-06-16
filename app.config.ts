@@ -73,6 +73,33 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         resizeMode: "contain",
         backgroundColor: "#ffffff"
       }
+    ],
+    [
+      "expo-font",
+      {
+        "fonts": [
+          "./assets/fonts/Inter24pt-Black.ttf"
+        ],
+        "android": {
+          "fonts": [
+            {
+              "fontFamily": "Inter24pt-Black",
+              "fontDefinitions": [
+                {
+                  "path": "./assets/fonts/Inter24pt-Black.ttf",
+                  "weight": 300,
+                  "style": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        "ios": {
+          "fonts": [
+            "./assets/fonts/Inter24pt-Black.ttf"
+          ]
+        }
+      }
     ]
   ],
   experiments: {

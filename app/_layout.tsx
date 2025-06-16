@@ -7,13 +7,17 @@ import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 
 const fontConfig = {
-  // fontFamily: 'Abel', // override all variants (only if no variants)
+  // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
+  // override property for existing variant
+  bodyLarge: {
+    fontFamily: 'Inter24pt-Black',
+  },
+  // If any component uses Paper's Text component, without 
+  // specified variant, then *default* variant is applied
   default: {
     fontSize: 12,
-    // fontFamily: 'sans-serif',
     fontFamily: Platform.select({
       web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      // ios: 'Default',
       ios: 'System',
       default: 'sans-serif',
     }),
