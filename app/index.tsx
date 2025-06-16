@@ -3,7 +3,8 @@ import 'react-native-reanimated';
 import * as React from 'react';
 import { Link } from 'expo-router';
 import { View, StyleSheet, Platform } from 'react-native';
-import { useTheme, Text, FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
+import { useTheme, FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
+import { Text } from '@/components/Text';
 import ThemeContext from '@/contexts/ThemeContext';
 import * as expoFont from 'expo-font';
 console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
@@ -72,6 +73,8 @@ export default function HomeScreen() {
       <Text>NO variant, NO inline style</Text>
 
       <Text style={styles.text}>NO variant, object style</Text>
+
+      <Text variant="customVariant">CUSTOM variant, No inline style</Text>
 
       <Text 
         variant="bodyLarge"

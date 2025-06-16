@@ -7,6 +7,9 @@ import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 
 const fontConfig = {
+  customVariant: {
+    fontSize: 45,
+  },
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
   // override property for existing variant
   bodyLarge: {
