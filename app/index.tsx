@@ -76,7 +76,7 @@ export default function HomeScreen() {
       <Text 
         variant="bodyLarge"
         style={{fontFamily: "Inter24pt-Black"}}
-      >YES variant (bodyLarge), NO inline style/object style</Text>
+      >YES variant (bodyLarge), inline style fontFamily: "Inter24pt-Black"</Text>
 
       <Text variant="displayLarge" style={styles.text}>WordGrid Quest</Text>
       <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button>
