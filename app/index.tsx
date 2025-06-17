@@ -78,7 +78,9 @@ export default function HomeScreen() {
 
       <Text style={styles.text}>NO variant, object style</Text>
 
-      <Text variant="customVariant">CUSTOM variant, No inline style</Text>
+      <Text variant="brandMobile">CUSTOM variant (brandMobile), No inline style</Text>
+
+      <Text variant="letterTileMobile">CUSTOM variant (letterTileMobile), No inline style</Text>
 
       <Text 
         variant="bodyLarge"

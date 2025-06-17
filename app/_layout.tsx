@@ -7,8 +7,13 @@ import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 
 const fontConfig = {
-  customVariant: {
-    fontSize: 45,
+  brandMobile: {
+    fontSize: 30,
+    fontFamily: 'InriaSerif-Regular',
+  },
+  letterTileMobile: {
+    fontSize: 38,
+    fontFamily: 'Inter24pt-Black',
   },
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
   // override property for existing variant
