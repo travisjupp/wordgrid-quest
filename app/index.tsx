@@ -70,6 +70,10 @@ export default function HomeScreen() {
         style={{fontFamily: "Inter24pt-Black"}}
       >NO variant, inline style fontFamily: "Inter24pt-Black"</Text>
 
+      <Text 
+        style={{fontFamily: "InriaSerif-Regular"}}
+      >NO variant, inline style fontFamily: "InriaSerif-Regular"</Text>
+
       <Text>NO variant, NO inline style</Text>
 
       <Text style={styles.text}>NO variant, object style</Text>

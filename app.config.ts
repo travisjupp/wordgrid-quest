@@ -78,25 +78,34 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-font",
       {
         "fonts": [
-          "./assets/fonts/Inter24pt-Black.ttf"
+          "./assets/fonts/Inter24pt-Black.ttf",
+          "./assets/fonts/InriaSerif-Regular.ttf"
         ],
         "android": {
+          // Ready for SDK 53 accepts array of font definitions, 
+          // 52 only accepts strings
+
+          // "fonts": [
+          //   {
+          //     "fontFamily": "Inter24pt-Black",
+          //     "fontDefinitions": [
+          //       {
+          //         "path": "./assets/fonts/Inter24pt-Black.ttf",
+          //         "weight": 300,
+          //         "style": "normal"
+          //       }
+          //     ]
+          //   }
+          // ]
           "fonts": [
-            {
-              "fontFamily": "Inter24pt-Black",
-              "fontDefinitions": [
-                {
-                  "path": "./assets/fonts/Inter24pt-Black.ttf",
-                  "weight": 300,
-                  "style": "normal"
-                }
-              ]
-            }
-          ]
+            "./assets/fonts/Inter24pt-Black.ttf",
+            "./assets/fonts/InriaSerif-Regular.ttf"
+          ],
         },
         "ios": {
           "fonts": [
-            "./assets/fonts/Inter24pt-Black.ttf"
+            "./assets/fonts/Inter24pt-Black.ttf",
+            "./assets/fonts/InriaSerif-Regular.ttf"
           ]
         }
       }
