@@ -5,6 +5,12 @@ import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider} from 'react-native-paper';
 import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
+import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
+import * as expoFont from 'expo-font';
+
+
+SplashScreen.preventAutoHideAsync();
 
 const fontConfig = {
   brandMobile: {
@@ -58,6 +64,26 @@ const lightTheme = {
 }
 
 export default function RootLayout() {
+  // Load Web Fonts
+  const [loaded, error] = Platform.OS === 'web'
+    ? useFonts(
+      {
+        'Inter24pt-Black': require('@/fonts/Inter24pt-Black.ttf'),
+        'InriaSerif-Regular': require('@/fonts/InriaSerif-Regular.ttf'),
+        'material-community': require('@/fonts/material-community.ttf')
+      }) : [true, null]; // For iOS/Android, assume fonts loaded
+
+  React.useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null; // Keep splash visible while fonts load (web)
+  };
+
+  console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
   const deviceThemeIsDark = useColorScheme() === 'dark';
   const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
   const theme = isDarkTheme ? darkTheme : lightTheme; 

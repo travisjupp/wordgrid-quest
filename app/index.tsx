@@ -6,8 +6,6 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { useTheme, FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
 import { Text } from '@/components/Text';
 import ThemeContext from '@/contexts/ThemeContext';
-import * as expoFont from 'expo-font';
-console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
