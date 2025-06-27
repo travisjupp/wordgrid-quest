@@ -1,14 +1,14 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme, Platform, Image } from 'react-native';
+import { useColorScheme, Platform, Image, View } from 'react-native';
 import * as React from 'react';
-import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider} from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider, ActivityIndicator } from 'react-native-paper';
 import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import * as expoFont from 'expo-font';
-
+import Spinner from '@/src/components/Spinner';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -64,6 +64,8 @@ const lightTheme = {
 }
 
 export default function RootLayout() {
+  const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
+
   // Load Web Fonts
   const [loaded, error] = Platform.OS === 'web'
     ? useFonts(
@@ -80,14 +82,34 @@ export default function RootLayout() {
   }, [loaded, error]);
 
   if (!loaded && !error) {
-    return null; // Keep splash visible while fonts load (web)
+    return null; // Keep Splash visible while fonts load (web)
   };
 
-  console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
+  // Use Font Loading API to check Web Fonts loaded (web)
+  // Expo Fonts `useFonts` `loaded` is inaccurate for web
+  async function checkBrowserFontsLoaded() {
+    const FontFaceSetReady = await document.fonts.ready; 
+    const loaded = FontFaceSetReady.status === "loaded";
+    console.log('FontFaceSetReady', FontFaceSetReady);
+    return loaded
+      ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
+  };
+
+  React.useEffect(() => {
+    if (Platform.OS === 'web') {
+      checkBrowserFontsLoaded();
+    }
+  }, [checkBrowserFontsLoaded]);
+
+
+  // console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
+
+  // Check/Store Device Settings
   const deviceThemeIsDark = useColorScheme() === 'dark';
   const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
   const theme = isDarkTheme ? darkTheme : lightTheme; 
-  // Respond to device settings
+
+  // Respond to Device Settings
   React.useEffect(() => {
     setIsDarkTheme(deviceThemeIsDark);
   }, [setIsDarkTheme, deviceThemeIsDark]);
@@ -96,16 +118,22 @@ export default function RootLayout() {
     setIsDarkTheme(prevTheme => !prevTheme);
   };
 
+  // Set Status Bar style on theme change
   React.useEffect(() => {
     StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark', true);
     if (Platform.OS === "android") {
       StatusBar
         .setStatusBarBackgroundColor(theme.colors.surfaceContainer, true);
-    }
+    };
     return () => {
       StatusBar.setStatusBarStyle('auto');
     };
   }, [theme]);
+
+  // Show Spinner until Web Fonts/Icons loaded (web)
+  if (!browserFontsLoaded && Platform.OS === 'web') {
+    return <Spinner theme={theme} />
+  }
 
   return (
     <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
