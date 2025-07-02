@@ -1,13 +1,12 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme, Platform, Image} from 'react-native';
+import { useColorScheme, Platform, Image, StyleSheet} from 'react-native';
 import * as React from 'react';
-import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider} from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider, useTheme } from 'react-native-paper';
 import ThemeContext from '@/contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import * as expoFont from 'expo-font';
 import Spinner from '@/src/components/Spinner';
 
 SplashScreen.preventAutoHideAsync();
@@ -40,28 +39,52 @@ const fontConfig = {
     lineHeight: 20,
   },
 };
+// console.log('MD3DarkTheme', MD3DarkTheme);
 
-const darkTheme = {
-  ...MD3DarkTheme,
-  fonts: configureFonts({config: fontConfig}),
-  colors: {
-    ...MD3DarkTheme.colors,
-    surfaceContainer: 'rgba(33, 31, 38, 1)',
-    // primary: 'tomato',
-    // secondary: 'yellow',
-  },
-} 
+// Build theme-variant-based theme object
+const themeBuilder = (isDarkTheme: boolean) => {
+  let themeVariant;
+  isDarkTheme ? themeVariant = MD3DarkTheme : themeVariant = DefaultTheme;
+  const customProperties =
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: themeVariant.colors.surface,
+    },
+    text: {
+      color: themeVariant.colors.onSurface,
+      fontFamily: 'Inter24pt-Black',
+      // fontSize: 45
+    },
+    link: {
+      color: themeVariant.colors.onSurface,
+      fontWeight: 'bold',
+      fontSize: 26
+    },
+    switch: {
+      borderColor: '#00ff00',
+    },
+  });
+  return {
+    ...themeVariant,
+    container: customProperties.container,
+    text: customProperties.text,
+    link: customProperties.link,
+    fonts: configureFonts({config: fontConfig}),
+    colors: {
+      ...themeVariant.colors,
+      // Custom color properties
+      surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+    },
+  }
+};
 
-const lightTheme = {
-  ...DefaultTheme,
-  fonts: configureFonts({config: fontConfig}),
-  colors: {
-    ...DefaultTheme.colors,
-    surfaceContainer: 'rgba(243, 237, 247, 1)',
-    // primary: 'tomato',
-    // secondary: 'yellow',
-  },
-}
+// Sub-components can access Custom Theme-properties
+const themeType = themeBuilder(true);
+export type appTheme = typeof themeType;
+export const useAppTheme = () => useTheme<appTheme>();
 
 export default function RootLayout() {
   const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
@@ -101,13 +124,10 @@ export default function RootLayout() {
     }
   }, [checkBrowserFontsLoaded]);
 
-
-  // console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
-
   // Check/Store Device Settings
   const deviceThemeIsDark = useColorScheme() === 'dark';
   const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
-  const theme = isDarkTheme ? darkTheme : lightTheme; 
+  const theme = themeBuilder(isDarkTheme); 
 
   // Respond to Device Settings
   React.useEffect(() => {
@@ -149,10 +169,13 @@ export default function RootLayout() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
+              headerTitleAlign: 'center',
               headerTitle: () => (
                 <Image 
-                  source={require('../assets/images/adaptive-icon.png')} 
-                  style={{ width: 80, height: 40 }} />
+                  // source={require('@/images/adaptive-icon.png')} 
+                  source={require('@/images/wgq-logo-plain.svg')} 
+                  style={{ width: 80, height: 40 }} 
+                />
               ),
             }}>
           </Stack>
