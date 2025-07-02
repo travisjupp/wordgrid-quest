@@ -8,7 +8,8 @@
       "@/components/*": ["src/components/*"],
       "@/contexts/*": ["src/contexts/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/fonts/*": ["assets/fonts/*"]
+      "@/fonts/*": ["assets/fonts/*"],
+      "@/images/*": ["assets/images/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
