@@ -44,8 +44,7 @@ const fontConfig = {
 
 // Build theme-variant-based theme object
 const themeBuilder = (isDarkTheme: boolean) => {
-  let themeVariant;
-  isDarkTheme ? themeVariant = MD3DarkTheme : themeVariant = DefaultTheme;
+  const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
   const customProperties =
   StyleSheet.create({
     container: {
