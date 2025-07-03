@@ -9,6 +9,7 @@ import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import Spinner from '@/src/components/Spinner';
+import { AppTheme } from '@/types/AppTheme';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -63,12 +64,14 @@ const themeBuilder = (isDarkTheme: boolean) => {
       fontWeight: 'bold',
       fontSize: 26
     },
+    newProp: {},
   });
   return {
     ...themeVariant,
     container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,
+    newProp: customProperties.newProp,
     fonts: configureFonts({config: fontConfig}),
     colors: {
       ...themeVariant.colors,
@@ -77,11 +80,14 @@ const themeBuilder = (isDarkTheme: boolean) => {
     },
   }
 };
-
+// console.log('customProperties', customProperties);
+console.log('MD3DarkTheme', themeBuilder(true));
+// console.log('MD3DarkTheme', themeBuilder(false));
 // Sub-components can access Custom Theme-properties
-const themeType = themeBuilder(true);
-export type appTheme = typeof themeType;
-export const useAppTheme = () => useTheme<appTheme>();
+// const themeType = themeBuilder(true);
+// console.log('themeType', typeof themeType);
+// export type appTheme = typeof themeType;
+export const useAppTheme = () => useTheme<AppTheme>();
 
 export default function RootLayout() {
   const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
@@ -138,7 +144,7 @@ export default function RootLayout() {
     return () => {
       StatusBar.setStatusBarStyle('auto');
     };
-  }, [theme]);
+  }, [isDarkTheme, theme]);
 
   if (!loaded && !error) {
     return null; // Keep Splash visible while fonts load (web)
