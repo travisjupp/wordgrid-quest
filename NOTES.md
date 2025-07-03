@@ -31,5 +31,16 @@ How do I load my learning materials into this app?
 3. Create a term and its definition for the category
 4. Create more terms as needed
 
+## Figma Prototype Data
+
+Create token with 
+Help and Account > Account Settings > Security
+Generate New Token with permissions: File Content Read 
+
+curl -H 'X-Figma-Token: YOUR_PERSONAL_ACCESS_TOKEN' 'https://api.figma.com/v1/files/<file id>'
+
+### View fonts used
+curl -H 'X-Figma-Token: YOUR_PERSONAL_ACCESS_TOKEN' 'https://api.figma.com/v1/files/IiHd2g9zMPmTjf26rPoZbq' | jq '[.. | select(type == "object" and has("style")) | .style] | unique'
+
 
 
