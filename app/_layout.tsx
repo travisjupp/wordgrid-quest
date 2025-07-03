@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme, Platform, Image, StyleSheet} from 'react-native';
+import { useColorScheme, Platform, StyleSheet} from 'react-native';
+import { Image } from 'expo-image';
 import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider, useTheme } from 'react-native-paper';
 import ThemeContext from '@/contexts/ThemeContext';
