@@ -99,25 +99,20 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
-  if (!loaded && !error) {
-    return null; // Keep Splash visible while fonts load (web)
-  };
-
-  // Use Font Loading API to check Web Fonts loaded (web)
-  // Expo Fonts `useFonts` `loaded` is inaccurate for web
-  async function checkBrowserFontsLoaded() {
-    const FontFaceSetReady = await document.fonts.ready; 
-    const loaded = FontFaceSetReady.status === "loaded";
-    console.log('FontFaceSetReady', FontFaceSetReady);
-    return loaded
-      ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
-  };
-
   React.useEffect(() => {
+    // Use Font Loading API to check Web Fonts loaded (web)
+    // Expo Fonts `useFonts` `loaded` is inaccurate for web
+    async function checkBrowserFontsLoaded() {
+      const FontFaceSetReady = await document.fonts.ready; 
+      const loaded = FontFaceSetReady.status === "loaded";
+      console.log('FontFaceSetReady', FontFaceSetReady);
+      return loaded
+        ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
+    };
     if (Platform.OS === 'web') {
       checkBrowserFontsLoaded();
     }
-  }, [checkBrowserFontsLoaded]);
+  }, []);
 
   // Check/Store Device Settings
   const deviceThemeIsDark = useColorScheme() === 'dark';
@@ -144,6 +139,10 @@ export default function RootLayout() {
       StatusBar.setStatusBarStyle('auto');
     };
   }, [theme]);
+
+  if (!loaded && !error) {
+    return null; // Keep Splash visible while fonts load (web)
+  };
 
   // Show Spinner until Web Fonts/Icons loaded (web)
   if (!browserFontsLoaded && Platform.OS === 'web') {
