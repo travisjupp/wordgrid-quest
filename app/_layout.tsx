@@ -63,9 +63,6 @@ const themeBuilder = (isDarkTheme: boolean) => {
       fontWeight: 'bold',
       fontSize: 26
     },
-    switch: {
-      borderColor: '#00ff00',
-    },
   });
   return {
     ...themeVariant,
