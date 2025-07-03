@@ -36,7 +36,26 @@ export interface AppTheme {
   };
   container: object;
   dark: boolean;
-  fonts: object;
+  fonts: {
+    bodyLarge: object;
+    bodyMedium: object;
+    bodySmall: object;
+    brandMobile: object; // custom
+    default: object;
+    displayLarge: object;
+    displayMedium: object;
+    displaySmall: object;
+    headlineLarge: object;
+    headlineMedium: object;
+    headlineSmall: object;
+    labelLarge: object;
+    labelMedium: object;
+    labelSmall: object;
+    letterTileMobile: object; // custom
+    titleLarge: object;
+    titleMedium: object;
+    titleSmall: object;
+  };
   isV3: boolean;
   link: object;
   newProp: object;
