@@ -87,13 +87,11 @@ export default function RootLayout() {
   const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
 
   // Load Web Fonts
-  const [loaded, error] = Platform.OS === 'web'
-    ? useFonts(
-      {
-        'Inter24pt-Black': require('@/fonts/Inter24pt-Black.ttf'),
-        'InriaSerif-Regular': require('@/fonts/InriaSerif-Regular.ttf'),
-        'material-community': require('@/fonts/material-community.ttf')
-      }) : [true, null]; // For iOS/Android, assume fonts loaded
+  const [loaded, error] = useFonts({
+    'Inter24pt-Black': require('@/fonts/Inter24pt-Black.ttf'),
+    'InriaSerif-Regular': require('@/fonts/InriaSerif-Regular.ttf'),
+    'material-community': require('@/fonts/material-community.ttf')
+  }); // For iOS/Android, assume fonts loaded
 
   React.useEffect(() => {
     if (loaded || error) {
