@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform, StyleSheet} from 'react-native';
-import { Image } from 'expo-image';
 import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider, useTheme } from 'react-native-paper';
 import ThemeContext from '@/contexts/ThemeContext';
@@ -10,6 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import Spinner from '@/src/components/Spinner';
 import { AppTheme } from '@/types/AppTheme';
+import CLogo from '@/src/components/CLogo';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -64,14 +64,21 @@ const themeBuilder = (isDarkTheme: boolean) => {
       fontWeight: 'bold',
       fontSize: 26
     },
-    newProp: {},
+    logo: {
+      display: 'flex',
+      alignContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: 'red',
+      borderStyle: 'solid',
+    },
   });
   return {
     ...themeVariant,
     container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,
-    newProp: customProperties.newProp,
+    logo: customProperties.logo,
     fonts: configureFonts({config: fontConfig}),
     colors: {
       ...themeVariant.colors,
@@ -81,7 +88,7 @@ const themeBuilder = (isDarkTheme: boolean) => {
   }
 };
 // console.log('customProperties', customProperties);
-console.log('MD3DarkTheme', themeBuilder(true));
+// console.log('MD3DarkTheme', themeBuilder(true));
 // console.log('MD3DarkTheme', themeBuilder(false));
 // Sub-components can access Custom Theme-properties
 // const themeType = themeBuilder(true);
@@ -170,13 +177,7 @@ export default function RootLayout() {
                 fontWeight: 'bold',
               },
               headerTitleAlign: 'center',
-              headerTitle: () => (
-                <Image 
-                  // source={require('@/images/adaptive-icon.png')} 
-                  source={require('@/images/wgq-logo-plain.svg')} 
-                  style={{ width: 80, height: 40 }} 
-                />
-              ),
+              headerTitle: () => (<CLogo/>),
             }}>
           </Stack>
         </GestureHandlerRootView>

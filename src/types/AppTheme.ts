@@ -58,6 +58,7 @@ export interface AppTheme {
   };
   isV3: boolean;
   link: object;
+  logo: object; // custom
   newProp: object;
   mode: string;
   roundness: number;
