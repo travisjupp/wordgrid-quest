@@ -10,7 +10,8 @@
       "@/utils/*": ["src/utils/*"],
       "@/fonts/*": ["assets/fonts/*"],
       "@/images/*": ["assets/images/*"],
-      "@/types/*": ["src/types/*"]
+      "@/types/*": ["src/types/*"],
+      "@/theme/*": ["src/theme/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true

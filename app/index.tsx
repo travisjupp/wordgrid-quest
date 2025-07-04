@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import { FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
 import { Text } from '@/components/Text';
 import ThemeContext from '@/contexts/ThemeContext';
-import { useAppTheme } from '@/app/_layout';
+import { useAppTheme } from '@/theme/themeConfig';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);

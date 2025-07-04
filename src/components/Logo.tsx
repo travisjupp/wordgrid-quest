@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { Rect, Path, G} from 'react-native-svg';
 import { View } from 'react-native';
-import { useAppTheme } from '@/app/_layout';
+import { useAppTheme } from '@/theme/themeConfig';
 
 interface Props {
   width?:number; 
