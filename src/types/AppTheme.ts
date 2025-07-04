@@ -59,6 +59,8 @@ export interface AppTheme {
   isV3: boolean;
   link: object;
   logo: object; // custom
+  clogo: object; // custom
+  clogoweb: object; // custom
   newProp: object;
   mode: string;
   roundness: number;

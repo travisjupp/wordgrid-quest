@@ -10,10 +10,10 @@ interface Props {
 
 const Logo = ({width=50, height=50}: Props) => {
   // Retrieve Custom Theme-properties
-  const { colors: { primary } } = useAppTheme();
+  const { logo, colors: { primary } } = useAppTheme();
 
   return (
-    <View>
+    <View style={logo}>
       <Svg width={width} height={height} viewBox="0 0 1046 849" fill="none" >
         <G id="wgq-logo-plain">
           <Rect id="crown-block-r" x="664.686" y="141.421" width="200" height="200" 

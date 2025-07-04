@@ -1,18 +1,19 @@
-
 import { Text } from '@/components/Text';
 import Logo from './Logo';
-
+import { View, Platform } from 'react-native';
 import { useAppTheme } from '@/app/_layout';
 
 const CLogo = () => {
   // Retrieve Custom Theme-properties
-  const {  logo } = useAppTheme();
+  const { clogo, clogoweb } = useAppTheme();
   return (
-      <Text variant="brandMobile" style={logo}>
+    <View style={Platform.OS === 'web' ? clogoweb : clogo}>
+      <Text variant="brandMobile">
         Wordgrid Quest
-        <Logo width={25.9} height={25.9} />
       </Text>
-      
+      <Logo width={25.9} height={25.9} />
+    </View>
+
   )
 }
 
