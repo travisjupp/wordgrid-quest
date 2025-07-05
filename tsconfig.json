@@ -5,13 +5,13 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["src/components/*"],
-      "@/contexts/*": ["src/contexts/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/fonts/*": ["assets/fonts/*"],
-      "@/images/*": ["assets/images/*"],
-      "@/types/*": ["src/types/*"],
-      "@/theme/*": ["src/theme/*"]
+      "@components/*": ["src/components/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@utils/*": ["src/utils/*"],
+      "@fonts/*": ["assets/fonts/*"],
+      "@images/*": ["assets/images/*"],
+      "@types/*": ["src/types/*"],
+      "@theme/*": ["src/theme/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true

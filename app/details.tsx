@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { Text } from '@/components/Text';
-import { useAppTheme } from '@/theme/themeConfig';
+import { Text } from '@components/Text';
+import { useAppTheme } from '@theme/themeConfig';
 
 export default function DetailsScreen() {
   // Retrieve Custom Properties

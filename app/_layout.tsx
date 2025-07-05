@@ -3,13 +3,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform} from 'react-native';
 import * as React from 'react';
 import { PaperProvider } from 'react-native-paper';
-import ThemeContext from '@/contexts/ThemeContext';
+import ThemeContext from '@contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import Spinner from '@/src/components/Spinner';
-import CLogo from '@/src/components/CLogo';
-import { themeBuilder } from '@/src/theme/themeConfig';
+import Spinner from '@components/Spinner';
+import CLogo from '@components/CLogo';
+import { themeBuilder } from '@theme/themeConfig';
 
 SplashScreen.preventAutoHideAsync();
 

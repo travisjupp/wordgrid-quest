@@ -1,7 +1,7 @@
-import { Text } from '@/components/Text';
+import { Text } from '@components/Text';
 import Logo from './Logo';
 import { View, Platform } from 'react-native';
-import { useAppTheme } from '@/theme/themeConfig';
+import { useAppTheme } from '@theme/themeConfig';
 
 const CLogo = () => {
   // Retrieve Custom Theme-properties
