@@ -3,18 +3,14 @@ import 'react-native-reanimated';
 import * as React from 'react';
 import { Link } from 'expo-router';
 import { View } from 'react-native';
-import { FAB, Menu, Divider, Button, Switch } from 'react-native-paper';
+import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
+import Menu from '@/src/components/Menu';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
-
-  // Menu state
-  const [visible, setVisible] = React.useState(false);
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
 
   // Retrieve Custom Theme-properties
   const {
@@ -23,25 +19,13 @@ export default function HomeScreen() {
     link,
     // newsurfaceContainer,
     // colors: { brandPrimary },
-    colors: { surfaceContainer },
+    // colors: { surfaceContainer },
   } = useAppTheme();
 
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
-      <Menu
-        style={{
-          outlineColor: surfaceContainer
-        }}
-        visible={visible}
-        onDismiss={closeMenu}
-        anchor={<Button icon="dots-vertical" onPress={openMenu}>Show menu
-        </Button>}>
-        <Menu.Item onPress={() => {}} title="Item 1" />
-        <Menu.Item onPress={() => {}} title="Item 2" />
-        <Divider />
-        <Menu.Item onPress={() => {}} title="Item 3" />
-      </Menu>
+      <Menu />
       <FAB
         icon="ladybug"
         onPress={() => console.log('Pressed')}
