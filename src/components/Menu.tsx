@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Menu as RNPMenu, Button, Divider } from "react-native-paper";
+import { Menu as RNPMenu, Button, Divider, Icon } from "react-native-paper";
 import { useAppTheme } from "../theme/themeConfig";
 
 const Menu = () => {
@@ -9,20 +9,20 @@ const Menu = () => {
   const closeRNPMenu = () => setVisible(false);
   // Retrieve Custom Theme-properties
   const {
-    // newsurfaceContainer,
-    // colors: { brandPrimary },
-    colors: { surfaceContainer },
+    menu,
   } = useAppTheme();
 
   return (
     <RNPMenu
-      style={{
-        outlineColor: surfaceContainer
-      }}
+      style={menu}
       visible={visible}
       onDismiss={closeRNPMenu}
-      anchor={<Button icon="dots-vertical" onPress={openRNPMenu}>Show menu
-      </Button>}>
+      anchor={
+        <Button onPress={openRNPMenu}>
+          <Icon size={25} source="dots-vertical" />
+        </Button>
+      }
+    >
       <RNPMenu.Item onPress={() => {}} title="Item 1" />
       <RNPMenu.Item onPress={() => {}} title="Item 2" />
       <Divider />

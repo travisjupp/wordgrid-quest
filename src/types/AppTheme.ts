@@ -1,5 +1,6 @@
 export interface AppTheme {
   animation: object;
+
   colors: {
     backdrop: string;
     background: string;
@@ -34,8 +35,10 @@ export interface AppTheme {
     tertiary: string;
     tertiaryContainer: string;
   };
+
   container: object;
   dark: boolean;
+
   fonts: {
     bodyLarge: object;
     bodyMedium: object;
@@ -56,14 +59,15 @@ export interface AppTheme {
     titleMedium: object;
     titleSmall: object;
   };
+
   isV3: boolean;
   link: object;
   logo: object; // custom
   clogo: object; // custom
-  clogoweb: object; // custom
   newProp: object;
   mode: string;
   roundness: number;
   text: object;
   version: number;
+  menu: object;
 }

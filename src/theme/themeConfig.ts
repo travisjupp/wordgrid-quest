@@ -63,28 +63,49 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       left: 4,
     },
     clogo: {
+      ...Platform.select({
+        ios: {
+          position: 'relative',
+          top: -3,
+          borderColor: 'red',
+        },
+        android: {
+          position: 'relative',
+          top: -3,
+          borderColor: 'green',
+        },
+        web: {
+          borderColor: 'blue',
+        },
+      }),
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'nowrap',
       alignItems: 'center',
       height: '100%',
-      borderWidth: 0,
-      borderColor: 'red',
+      borderWidth: 1,
       borderStyle: 'solid',
-      position: 'relative',
-      top: -3,
     },
-    clogoweb: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'nowrap',
-      alignItems: 'center',
-      height: '100%',
-      borderWidth: 0,
-      borderColor: '#ff00ff',
+    menu: {
+      ...Platform.select({
+        ios: {
+          top: 100,
+          borderColor: 'red',
+        },
+        android: {
+          top: 60,
+          borderColor: 'green',
+        },
+        web: {
+          top: 60,
+          borderColor: 'blue',
+        },
+      }),
+      borderWidth: 1,
       borderStyle: 'solid',
     },
   });
+
   return {
     ...themeVariant,
     container: customProperties.container,
@@ -92,7 +113,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     link: customProperties.link,
     logo: customProperties.logo,
     clogo: customProperties.clogo,
-    clogoweb: customProperties.clogoweb,
+    menu: customProperties.menu,
     fonts: configureFonts({config: fontConfig}),
     colors: {
       ...themeVariant.colors,

@@ -10,6 +10,7 @@ import { useFonts } from 'expo-font';
 import Spinner from '@components/Spinner';
 import CLogo from '@components/CLogo';
 import { themeBuilder } from '@theme/themeConfig';
+import Menu from '@components/Menu';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -92,7 +93,8 @@ export default function RootLayout() {
                 fontWeight: 'bold',
               },
               headerTitleAlign: 'center',
-              headerTitle: () => (<CLogo/>),
+              headerTitle: () => (<CLogo />),
+              headerRight: () => (<Menu />)
             }}>
           </Stack>
         </GestureHandlerRootView>
