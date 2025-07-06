@@ -10,7 +10,7 @@
       "@utils/*": ["src/utils/*"],
       "@fonts/*": ["assets/fonts/*"],
       "@images/*": ["assets/images/*"],
-      "@types/*": ["src/types/*"],
+      "@custom-types/*": ["src/types/*"],
       "@theme/*": ["src/theme/*"]
     },
     "resolveJsonModule": true,

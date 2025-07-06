@@ -1,6 +1,6 @@
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, useTheme } from 'react-native-paper';
 import { Platform, StyleSheet } from 'react-native';
-import { AppTheme } from '../types/AppTheme';
+import { AppTheme } from '@custom-types/AppTheme';
 
 
 const fontConfig = {
