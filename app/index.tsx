@@ -54,9 +54,9 @@ export default function HomeScreen() {
 
       <Text style={text}>NO variant, object style</Text>
 
-      <Text variant="brandMobile">CUSTOM variant (brandMobile), No inline style</Text>
+      <Text variant="brand">CUSTOM variant (brand), No inline style</Text>
 
-      <Text variant="letterTileMobile">CUSTOM variant (letterTileMobile), No inline style</Text>
+      <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text>
 
       <Text 
         variant="bodyLarge"

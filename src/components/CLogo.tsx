@@ -10,7 +10,7 @@ const CLogo = () => {
 
   return (
     <View style={clogo}>
-      <Text variant="brandMobile">
+      <Text variant="brand">
         Wordgrid Quest
       </Text>
       <Logo width={25.9} height={25.9} />

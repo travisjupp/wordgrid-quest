@@ -4,11 +4,11 @@ import { AppTheme } from '@custom-types/AppTheme';
 
 
 const fontConfig = {
-  brandMobile: {
+  brand: {
     fontSize: 30,
     fontFamily: 'InriaSerif-Regular',
   },
-  letterTileMobile: {
+  letterTile: {
     fontSize: 38,
     fontFamily: 'Inter24pt-Black',
   },

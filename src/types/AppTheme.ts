@@ -43,7 +43,7 @@ export interface AppTheme {
     bodyLarge: object;
     bodyMedium: object;
     bodySmall: object;
-    brandMobile: object; // custom
+    brand: object; // custom
     default: object;
     displayLarge: object;
     displayMedium: object;
@@ -54,7 +54,7 @@ export interface AppTheme {
     labelLarge: object;
     labelMedium: object;
     labelSmall: object;
-    letterTileMobile: object; // custom
+    letterTile: object; // custom
     titleLarge: object;
     titleMedium: object;
     titleSmall: object;
