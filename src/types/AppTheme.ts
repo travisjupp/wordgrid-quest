@@ -68,6 +68,7 @@ export interface AppTheme {
   mode: string;
   roundness: number;
   text: object;
+  timer: object; // custom
   version: number;
   menu: object;
 }

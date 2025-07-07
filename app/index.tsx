@@ -8,6 +8,7 @@ import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import Menu from '@/src/components/Menu';
+import Timer from '@/src/components/Timer';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
@@ -26,6 +27,7 @@ export default function HomeScreen() {
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Menu />
+      <Timer />
       <FAB
         icon="ladybug"
         onPress={() => console.log('Pressed')}
@@ -41,7 +43,6 @@ export default function HomeScreen() {
       <Text 
         variant="bodyLarge"
         style={{ fontFamily: "Inter24pt-Black" }}>Home `app/index.tsx`</Text>
-
       <Text 
         style={{fontFamily: "Inter24pt-Black"}}
       >NO variant, inline style fontFamily: Inter24pt-Black</Text>

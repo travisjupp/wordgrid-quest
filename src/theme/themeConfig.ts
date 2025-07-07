@@ -12,6 +12,10 @@ const fontConfig = {
     fontSize: 38,
     fontFamily: 'Inter24pt-Black',
   },
+  timer: {
+    fontSize: 48,
+    fontFamily: 'Abel-Regular',
+  },
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
   // override property for existing variant
   bodyLarge: {
@@ -40,22 +44,26 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties =
   StyleSheet.create({
+
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: themeVariant.colors.surface,
     },
+
     text: {
       color: themeVariant.colors.onSurface,
       fontFamily: 'Inter24pt-Black',
       // fontSize: 45
     },
+
     link: {
       color: themeVariant.colors.onSurface,
       fontWeight: 'bold',
       fontSize: 26
     },
+
     logo: {
       borderWidth: 0,
       borderColor: 'green',
@@ -64,6 +72,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       top: 2,
       left: 4,
     },
+
     clogo: {
       ...Platform.select({
         ios: {
@@ -88,6 +97,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 1,
       borderStyle: 'solid',
     },
+
     menu: {
       ...Platform.select({
         ios: {
@@ -106,6 +116,22 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 1,
       borderStyle: 'solid',
     },
+
+    timer: {
+      ...Platform.select({
+        ios: {
+          borderColor: 'red',
+        },
+        android: {
+          borderColor: 'green',
+        },
+        web: {
+          borderColor: 'blue',
+        },
+      }),
+      borderWidth: 1,
+      borderStyle: 'solid',
+    },
   });
 
   return {
@@ -116,6 +142,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     logo: customProperties.logo,
     clogo: customProperties.clogo,
     menu: customProperties.menu,
+    timer: customProperties.timer,
     fonts: configureFonts({config: fontConfig}),
     colors: {
       ...themeVariant.colors,
