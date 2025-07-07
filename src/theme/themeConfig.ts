@@ -1,5 +1,5 @@
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, useTheme } from 'react-native-paper';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 
 
@@ -36,6 +36,8 @@ const fontConfig = {
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
   const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
+  const isIOS = Platform.OS === 'ios';
+  const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties =
   StyleSheet.create({
     container: {
@@ -89,7 +91,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     menu: {
       ...Platform.select({
         ios: {
-          top: 100,
+          top: isPad() ? 70 : 100,
           borderColor: 'red',
         },
         android: {
