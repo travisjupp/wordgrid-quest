@@ -4,10 +4,14 @@ const Spinner = ({theme}: any) => (
   <View style={{
     flex: 1, 
     justifyContent: "center", 
-    alignContent: "center"
+    alignContent: "center",
   }}>
     <ActivityIndicator 
-      style={{ backgroundColor: theme.colors.background }} 
+      style={{ 
+        backgroundColor: theme.colors.background,
+        height: "100%",
+        width: "100%"
+      }} 
       animating={true}
       size="large" 
       color={theme.colors.primary} />

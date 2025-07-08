@@ -1,115 +1,56 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme, Platform, Image} from 'react-native';
+import { useColorScheme, Platform} from 'react-native';
 import * as React from 'react';
-import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, PaperProvider} from 'react-native-paper';
-import ThemeContext from '@/contexts/ThemeContext';
+import { PaperProvider } from 'react-native-paper';
+import ThemeContext from '@contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import * as expoFont from 'expo-font';
-import Spinner from '@/src/components/Spinner';
+import Spinner from '@components/Spinner';
+import CLogo from '@components/CLogo';
+import { themeBuilder } from '@theme/themeConfig';
+import Menu from '@components/Menu';
 
 SplashScreen.preventAutoHideAsync();
-
-const fontConfig = {
-  brandMobile: {
-    fontSize: 30,
-    fontFamily: 'InriaSerif-Regular',
-  },
-  letterTileMobile: {
-    fontSize: 38,
-    fontFamily: 'Inter24pt-Black',
-  },
-  // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
-  // override property for existing variant
-  bodyLarge: {
-    fontFamily: 'Inter24pt-Black',
-  },
-  // If any component uses Paper's Text component, without 
-  // specified variant, then *default* variant is applied
-  default: {
-    fontSize: 12,
-    fontFamily: Platform.select({
-      web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      ios: 'System',
-      default: 'sans-serif',
-    }),
-    fontWeight: undefined,
-    letterSpacing: 0,
-    lineHeight: 20,
-  },
-};
-
-const darkTheme = {
-  ...MD3DarkTheme,
-  fonts: configureFonts({config: fontConfig}),
-  colors: {
-    ...MD3DarkTheme.colors,
-    surfaceContainer: 'rgba(33, 31, 38, 1)',
-    // primary: 'tomato',
-    // secondary: 'yellow',
-  },
-} 
-
-const lightTheme = {
-  ...DefaultTheme,
-  fonts: configureFonts({config: fontConfig}),
-  colors: {
-    ...DefaultTheme.colors,
-    surfaceContainer: 'rgba(243, 237, 247, 1)',
-    // primary: 'tomato',
-    // secondary: 'yellow',
-  },
-}
 
 export default function RootLayout() {
   const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
 
   // Load Web Fonts
-  const [loaded, error] = Platform.OS === 'web'
-    ? useFonts(
-      {
-        'Inter24pt-Black': require('@/fonts/Inter24pt-Black.ttf'),
-        'InriaSerif-Regular': require('@/fonts/InriaSerif-Regular.ttf'),
-        'material-community': require('@/fonts/material-community.ttf')
-      }) : [true, null]; // For iOS/Android, assume fonts loaded
+  const [loaded, error] = useFonts({
+    'Inter24pt-Black': require('@fonts/Inter24pt-Black.ttf'),
+    'InriaSerif-Regular': require('@fonts/InriaSerif-Regular.ttf'),
+    'InriaSerif-BoldItalic': require('@fonts/InriaSerif-BoldItalic.ttf'),
+    'material-community': require('@fonts/material-community.ttf'),
+    'Abel-Regular': require('@fonts/Abel-Regular.ttf')
+  }); // For iOS/Android, assume fonts loaded
 
   React.useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
+    if (loaded || error) { SplashScreen.hideAsync(); }
   }, [loaded, error]);
 
-  if (!loaded && !error) {
-    return null; // Keep Splash visible while fonts load (web)
-  };
-
-  // Use Font Loading API to check Web Fonts loaded (web)
-  // Expo Fonts `useFonts` `loaded` is inaccurate for web
-  async function checkBrowserFontsLoaded() {
-    const FontFaceSetReady = await document.fonts.ready; 
-    const loaded = FontFaceSetReady.status === "loaded";
-    console.log('FontFaceSetReady', FontFaceSetReady);
-    return loaded
-      ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
-  };
-
   React.useEffect(() => {
+    // Use Font Loading API to check Web Fonts loaded (web)
+    // Expo Fonts `useFonts` `loaded` is inaccurate for web
+    async function checkBrowserFontsLoaded() {
+      const FontFaceSetReady = await document.fonts.ready; 
+      const loaded = FontFaceSetReady.status === "loaded";
+      console.log('FontFaceSetReady', FontFaceSetReady);
+      return loaded
+        ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
+    };
     if (Platform.OS === 'web') {
       checkBrowserFontsLoaded();
     }
-  }, [checkBrowserFontsLoaded]);
+  }, []);
 
-
-  // console.log('expoFont.getLoadedFonts() =>', expoFont.getLoadedFonts());
-
-  // Check/Store Device Settings
+  // Check/Store Device Settings Dark/Light mode state
   const deviceThemeIsDark = useColorScheme() === 'dark';
   const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
-  const theme = isDarkTheme ? darkTheme : lightTheme; 
+  const theme = themeBuilder(isDarkTheme); 
 
-  // Respond to Device Settings
+  // Respond to Device Settings Dark/Light mode state
   React.useEffect(() => {
     setIsDarkTheme(deviceThemeIsDark);
   }, [setIsDarkTheme, deviceThemeIsDark]);
@@ -128,7 +69,11 @@ export default function RootLayout() {
     return () => {
       StatusBar.setStatusBarStyle('auto');
     };
-  }, [theme]);
+  }, [isDarkTheme, theme]);
+
+  if (!loaded && !error) {
+    return null; // Keep Splash visible while fonts load (web)
+  };
 
   // Show Spinner until Web Fonts/Icons loaded (web)
   if (!browserFontsLoaded && Platform.OS === 'web') {
@@ -149,11 +94,9 @@ export default function RootLayout() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
-              headerTitle: () => (
-                <Image 
-                  source={require('../assets/images/adaptive-icon.png')} 
-                  style={{ width: 80, height: 40 }} />
-              ),
+              headerTitleAlign: 'center',
+              headerTitle: () => (<CLogo />),
+              headerRight: () => (<Menu />)
             }}>
           </Stack>
         </GestureHandlerRootView>

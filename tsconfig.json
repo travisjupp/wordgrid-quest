@@ -5,10 +5,14 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["src/components/*"],
-      "@/contexts/*": ["src/contexts/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/fonts/*": ["assets/fonts/*"]
+      "@components/*": ["src/components/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@utils/*": ["src/utils/*"],
+      "@fonts/*": ["assets/fonts/*"],
+      "@images/*": ["assets/images/*"],
+      "@custom-types/*": ["src/types/*"],
+      "@theme/*": ["src/theme/*"],
+      "@prototype/*": ["prototype/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
