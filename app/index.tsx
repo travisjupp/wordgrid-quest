@@ -59,8 +59,6 @@ export default function HomeScreen() {
       <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button>
       <Button mode='outlined'>TEST</Button>
       <Button icon="camera" disabled={true} mode="contained">Disabled</Button>
-      <Link style={link} href="/details">View details</Link>
-      <Link style={link} href="/bottomSheet">View bottomSheet</Link>
     </View>
   );
 }

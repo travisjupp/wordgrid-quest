@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
 
-export default function DetailsScreen() {
+export default function SettingsScreen() {
   // Retrieve Custom Properties
   const {
     container,
@@ -11,7 +11,7 @@ export default function DetailsScreen() {
 
   return (
     <View style={container}>
-      <Text variant="bodyLarge">Details `app/details.tsx`</Text>
+      <Text variant="bodyLarge">Settings `app/settings.tsx`</Text>
     </View>
   );
 }

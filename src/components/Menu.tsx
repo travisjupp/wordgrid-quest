@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Menu as RNPMenu, Button, Divider, Icon } from "react-native-paper";
+import { router } from 'expo-router';
 import { useAppTheme } from "../theme/themeConfig";
+
 
 const Menu = () => {
   // Menu state
@@ -10,6 +12,7 @@ const Menu = () => {
   // Retrieve Custom Theme-properties
   const {
     menu,
+    link,
   } = useAppTheme();
 
   return (
@@ -23,10 +26,22 @@ const Menu = () => {
         </Button>
       }
     >
-      <RNPMenu.Item onPress={() => {}} title="Item 1" />
-      <RNPMenu.Item onPress={() => {}} title="Item 2" />
+      <RNPMenu.Item onPress={() => {
+        router.navigate('/profile'); closeRNPMenu()
+      }} title="Profile" leadingIcon="account-circle" />
+
+      <RNPMenu.Item onPress={() => {
+        router.navigate('/settings'); closeRNPMenu()
+      }} title="Settings" leadingIcon="cog-outline" />
+
+      <RNPMenu.Item onPress={() => {
+        router.navigate('/leaderboard'); closeRNPMenu()
+      }} title="Leaderboard" leadingIcon="star-circle-outline" />
+
+      <RNPMenu.Item onPress={() => {
+        router.navigate('/upload'); closeRNPMenu()
+      }} title="Load Material" leadingIcon="upload" />
       <Divider />
-      <RNPMenu.Item onPress={() => {}} title="Item 3" />
     </RNPMenu>
   )
 };
