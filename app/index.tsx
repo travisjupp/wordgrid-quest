@@ -26,16 +26,7 @@ export default function HomeScreen() {
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
-      <Menu />
       <Timer />
-      <FAB
-        icon="ladybug"
-        onPress={() => console.log('Pressed')}
-      />
-      <FAB
-        icon="bird"
-        onPress={() => console.log('Pressed')}
-      />
       <FAB
         icon="skull-outline"
         onPress={() => console.log('Pressed')}

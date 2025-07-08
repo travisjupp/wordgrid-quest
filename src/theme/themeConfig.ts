@@ -13,7 +13,10 @@ const fontConfig = {
     fontFamily: 'Inter24pt-Black',
   },
   timer: {
-    fontSize: 48,
+    fontSize: Platform.select({
+      web: 68,
+      default: 48,
+    }),
     fontFamily: 'Abel-Regular',
   },
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
@@ -55,7 +58,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     text: {
       color: themeVariant.colors.onSurface,
       fontFamily: 'Inter24pt-Black',
-      // fontSize: 45
     },
 
     link: {
@@ -129,7 +131,14 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'blue',
         },
       }),
-      borderWidth: 1,
+      display: 'flex',
+      flexWrap: 'nowrap',
+      alignItems: 'center',
+      borderRadius: 6,
+      padding: 20,
+      color: themeVariant.colors.onSecondaryContainer,
+      backgroundColor: themeVariant.colors.secondaryContainer,
+      borderWidth: 0,
       borderStyle: 'solid',
     },
   });
