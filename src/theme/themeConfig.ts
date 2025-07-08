@@ -1,6 +1,7 @@
 import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, useTheme } from 'react-native-paper';
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
+import materialColors from '@prototype/material-theme.json';
 
 
 const fontConfig = {
@@ -153,19 +154,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     menu: customProperties.menu,
     timer: customProperties.timer,
     fonts: configureFonts({config: fontConfig}),
-    colors: {
+    colors: isDarkTheme ? {
       ...themeVariant.colors,
       // Custom color properties
-      surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-    },
+      ...materialColors.schemes.dark,
+      // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+    } : {
+      ...themeVariant.colors,
+      // Custom color properties
+      ...materialColors.schemes.light,
+      // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+
+      },
   }
 };
-// console.log('customProperties', customProperties);
-// console.log('MD3DarkTheme', themeBuilder(true));
-// console.log('MD3DarkTheme', themeBuilder(false));
+
 // Sub-components can access Custom Theme-properties
-// const themeType = themeBuilder(true);
-// console.log('themeType', typeof themeType);
-// export type appTheme = typeof themeType;
 export const useAppTheme = () => useTheme<AppTheme>();
 

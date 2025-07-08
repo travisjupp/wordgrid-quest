@@ -11,7 +11,8 @@
       "@fonts/*": ["assets/fonts/*"],
       "@images/*": ["assets/images/*"],
       "@custom-types/*": ["src/types/*"],
-      "@theme/*": ["src/theme/*"]
+      "@theme/*": ["src/theme/*"],
+      "@prototype/*": ["prototype/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
