@@ -31,7 +31,6 @@ const Timer = () => {
     return `${minutes}:${seconds}`;
   };
 
-
   // Retrieve Custom Theme-properties
   const {
     // newsurfaceContainer,
@@ -42,21 +41,14 @@ const Timer = () => {
 
   return (
     <View style={timer}>
-      <Text variant="timer">
+      <Text variant="timer" style={{color: onSecondaryContainer}}>
         {formatTime(seconds)}
       </Text>
-      <Button onPress={handleTimerReset} 
-        icon="redo">
-        <Text style={{color: onSecondaryContainer}}>
-        Reset Timer
-        </Text>
-        </Button>
-      <Button onPress={handleTimerPause} 
-        icon="pause">
-        Pause Timer</Button>
-      <Button onPress={handleTimerStart} 
-        icon="play">
-        Start Timer</Button>
+      <Button onPress={handleTimerReset} icon="redo">
+        <Text style={{color: onSecondaryContainer}}> Reset Timer</Text>
+      </Button>
+      <Button onPress={handleTimerPause} icon="pause">Pause Timer</Button>
+      <Button onPress={handleTimerStart} icon="play">Start Timer</Button>
     </View>
   );
 };
