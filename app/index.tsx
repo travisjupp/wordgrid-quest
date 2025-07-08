@@ -49,6 +49,7 @@ export default function HomeScreen() {
       <Text variant="brand">CUSTOM variant (brand), No inline style</Text>
 
       <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text>
+      <Text variant="category">CUSTOM variant (category), No inline style</Text>
 
       <Text 
         variant="bodyLarge"

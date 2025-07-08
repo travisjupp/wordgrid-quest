@@ -21,6 +21,7 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     'Inter24pt-Black': require('@fonts/Inter24pt-Black.ttf'),
     'InriaSerif-Regular': require('@fonts/InriaSerif-Regular.ttf'),
+    'InriaSerif-BoldItalic': require('@fonts/InriaSerif-BoldItalic.ttf'),
     'material-community': require('@fonts/material-community.ttf'),
     'Abel-Regular': require('@fonts/Abel-Regular.ttf')
   }); // For iOS/Android, assume fonts loaded

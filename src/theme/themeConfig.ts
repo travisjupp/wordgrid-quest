@@ -9,6 +9,10 @@ const fontConfig = {
     fontSize: 30,
     fontFamily: 'InriaSerif-Regular',
   },
+  category: {
+    fontSize: 24,
+    fontFamily: 'InriaSerif-BoldItalic',
+  },
   letterTile: {
     fontSize: 38,
     fontFamily: 'Inter24pt-Black',
@@ -23,7 +27,7 @@ const fontConfig = {
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
   // override property for existing variant
   bodyLarge: {
-    fontFamily: 'Inter24pt-Black',
+    // fontFamily: 'Inter24pt-Black',
   },
   // If any component uses Paper's Text component, without 
   // specified variant, then *default* variant is applied

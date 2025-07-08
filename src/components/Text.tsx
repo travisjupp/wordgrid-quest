@@ -9,4 +9,5 @@ export const Text = customText<
 | 'brand' 
 | 'letterTile'
 | 'timer'
+| 'category'
 >()
