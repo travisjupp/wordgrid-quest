@@ -12,7 +12,6 @@ const Menu = () => {
   // Retrieve Custom Theme-properties
   const {
     menu,
-    link,
   } = useAppTheme();
 
   return (

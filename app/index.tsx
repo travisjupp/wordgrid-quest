@@ -1,13 +1,11 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import * as React from 'react';
-import { Link } from 'expo-router';
 import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
-import Menu from '@/src/components/Menu';
 import Timer from '@/src/components/Timer';
 
 export default function HomeScreen() {
@@ -17,10 +15,6 @@ export default function HomeScreen() {
   const {
     container,
     text,
-    link,
-    // newsurfaceContainer,
-    // colors: { brandPrimary },
-    // colors: { surfaceContainer },
   } = useAppTheme();
 
   return (

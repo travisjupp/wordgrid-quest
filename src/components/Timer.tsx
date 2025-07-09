@@ -2,8 +2,7 @@ import { View } from "react-native";
 import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
 import * as React from 'react';
-import { Button, Icon } from "react-native-paper";
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { Button } from "react-native-paper";
 
 
 const Timer = () => {
