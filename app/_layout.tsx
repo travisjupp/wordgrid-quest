@@ -13,6 +13,7 @@ import { themeBuilder } from '@theme/themeConfig';
 import Menu from '@components/Menu';
 
 SplashScreen.preventAutoHideAsync();
+SplashScreen.setOptions({ duration: 1000, fade: true });
 
 export default function RootLayout() {
   const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);

@@ -1,4 +1,5 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
+import materialColors from './prototype/material-theme.json';
 
 const IS_DEV = process.env.APP_VARIANT === 'development';
 const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
@@ -37,9 +38,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: "automatic",
   newArchEnabled: true,
   splash: {
-    image: "./assets/images/splash-icon.png",
+    image: "./assets/images/icon-splash.png",
     resizeMode: "contain",
-    backgroundColor: "#25292e" // TODO use RN useColorScheme() hook to programattically update this depending on device color-mode settings
+    backgroundColor: materialColors.schemes.light.background
   },
   ios: {
     supportsTablet: true,
@@ -47,13 +48,20 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     userInterfaceStyle: "automatic",
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false
+    },
+    icon: {
+      dark: "./assets/images/icon-ios-dark.png",
+      light: "./assets/images/icon-ios-light.png",
+      tinted: "./assets/images/icon-ios-tinted.png"
     }
   },
   android: {
     userInterfaceStyle: "automatic",
     adaptiveIcon: {
-      foregroundImage: "./assets/images/adaptive-icon.png",
-      backgroundColor: "#ffffff"
+      foregroundImage: "./assets/images/icon-android-adaptive-foreground.png",
+      backgroundImage: "./assets/images/icon-android-adaptive-background.png",
+      monochromeImage: "./assets/images/icon-android-adaptive-foreground.png",
+      backgroundColor: materialColors.schemes.dark.background
     },
     package: getUniqueIdentifier(),
   },
@@ -68,10 +76,24 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "expo-splash-screen",
       {
-        image: "./assets/images/splash-icon.png",
-        imageWidth: 200,
-        resizeMode: "contain",
-        backgroundColor: "#ffffff"
+        android: {
+          imageWidth: 150,
+          resizeMode: "contain",
+          image: "./assets/images/icon-splash.png",
+          backgroundColor: materialColors.schemes.light.background,
+          dark: {
+            backgroundColor: materialColors.schemes.dark.background,
+          }
+        },
+        ios: {
+          imageWidth: 200,
+          resizeMode: "cover",
+          image: "./assets/images/icon-splash.png",
+          backgroundColor: materialColors.schemes.light.background,
+          dark: {
+            backgroundColor: materialColors.schemes.dark.background,
+          }
+        }
       }
     ],
     [
@@ -82,7 +104,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           "./assets/fonts/InriaSerif-Regular.ttf",
           "./assets/fonts/InriaSerif-BoldItalic.ttf",
           "./assets/fonts/Abel-Regular.ttf"
-
         ],
         "android": {
           // Ready for SDK 53 accepts array of font definitions, 
