@@ -22,7 +22,6 @@
 
 - [ ] [Install Redux Toolkit and React Redux](https://react-redux.js.org/tutorials/quick-start#install-redux-toolkit-and-react-redux) `npm install @reduxjs/toolkit react-redux`
 
-- [ ] [Create a Redux Store](https://react-redux.js.org/tutorials/quick-start#create-a-redux-store)
 
 ### Move Timer component to `features/`
 - [ ] Move Timer component to feature specific `src/features/timer/Timer.tsx`
@@ -76,7 +75,7 @@ export default rootReducer;
 ```
 
 ### Create Store (Add root reducer to store):
-- [ ] Create store with Root Reducer
+- [ ] [Create a Redux Store](https://react-redux.js.org/tutorials/quick-start#create-a-redux-store)
 ```ts
 // src/store/index.ts
 import { configureStore } from '@reduxjs/toolkit';
@@ -201,3 +200,4 @@ export default Timer;
 ```
 
 https://react-redux.js.org/tutorials/quick-start
+
