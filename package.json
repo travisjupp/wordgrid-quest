@@ -19,6 +19,7 @@
     "@gorhom/bottom-sheet": "^5.1.4",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
+    "@reduxjs/toolkit": "^2.8.2",
     "expo": "53.0.16",
     "expo-blur": "~14.1.5",
     "expo-constants": "~17.1.6",
@@ -43,7 +44,8 @@
     "react-native-screens": "~4.11.1",
     "react-native-svg": "15.11.2",
     "react-native-web": "^0.20.0",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.13.5",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
