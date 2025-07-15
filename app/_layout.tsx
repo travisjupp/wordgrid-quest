@@ -2,6 +2,8 @@ import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform} from 'react-native';
 import * as React from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@store/index';
 import { PaperProvider } from 'react-native-paper';
 import ThemeContext from '@contexts/ThemeContext';
 import * as StatusBar from 'expo-status-bar';
@@ -82,27 +84,29 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
-      <PaperProvider theme={theme}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: theme.colors.surfaceContainer,
-              },
-              headerTintColor: theme.colors.onSurface,
-              headerShown: true, 
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-              headerTitleAlign: 'center',
-              headerTitle: () => (<CLogo />),
-              headerRight: () => (<Menu />)
-            }}>
-          </Stack>
-        </GestureHandlerRootView>
-      </PaperProvider>
-    </ThemeContext.Provider>
+    <Provider store={store}>
+      <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
+        <PaperProvider theme={theme}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Stack
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: theme.colors.surfaceContainer,
+                },
+                headerTintColor: theme.colors.onSurface,
+                headerShown: true, 
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerTitleAlign: 'center',
+                headerTitle: () => (<CLogo />),
+                headerRight: () => (<Menu />)
+              }}>
+            </Stack>
+          </GestureHandlerRootView>
+        </PaperProvider>
+      </ThemeContext.Provider>
+    </Provider>
   );
 }
 

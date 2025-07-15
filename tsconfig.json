@@ -13,7 +13,8 @@
       "@custom-types/*": ["src/types/*"],
       "@theme/*": ["src/theme/*"],
       "@prototype/*": ["prototype/*"],
-      "@features/*": ["src/features/*"]
+      "@features/*": ["src/features/*"],
+      "@store/*": ["src/store/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
