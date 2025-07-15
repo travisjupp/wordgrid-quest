@@ -6,7 +6,7 @@ import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
-import Timer from '@components/Timer';
+import Timer from '@features/timer/Timer';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);

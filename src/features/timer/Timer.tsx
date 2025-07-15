@@ -18,6 +18,7 @@ const Timer = () => {
     }
     return () => clearInterval(interval);
   }, [isRunning]);
+
   const handleTimerReset = () => { setSeconds(0); };
   const handleTimerPause = () => { setIsRunning(!isRunning); };
   const handleTimerStart = () => { setIsRunning(true); };

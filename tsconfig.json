@@ -12,7 +12,8 @@
       "@images/*": ["assets/images/*"],
       "@custom-types/*": ["src/types/*"],
       "@theme/*": ["src/theme/*"],
-      "@prototype/*": ["prototype/*"]
+      "@prototype/*": ["prototype/*"],
+      "@features/*": ["src/features/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
