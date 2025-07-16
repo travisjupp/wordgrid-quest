@@ -99,13 +99,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "expo-font",
       {
-        "fonts": [
+        fonts: [
           "./assets/fonts/Inter24pt-Black.ttf",
           "./assets/fonts/InriaSerif-Regular.ttf",
           "./assets/fonts/InriaSerif-BoldItalic.ttf",
           "./assets/fonts/Abel-Regular.ttf"
         ],
-        "android": {
+        android: {
           // Ready for SDK 53 accepts array of font definitions, 
           // 52 only accepts strings
 
@@ -121,15 +121,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           //     ]
           //   }
           // ]
-          "fonts": [
+          fonts: [
             "./assets/fonts/Inter24pt-Black.ttf",
             "./assets/fonts/InriaSerif-Regular.ttf",
             "./assets/fonts/InriaSerif-BoldItalic.ttf",
             "./assets/fonts/Abel-Regular.ttf"
           ],
         },
-        "ios": {
-          "fonts": [
+        ios: {
+          fonts: [
             "./assets/fonts/Inter24pt-Black.ttf",
             "./assets/fonts/InriaSerif-Regular.ttf",
             "./assets/fonts/InriaSerif-BoldItalic.ttf",
