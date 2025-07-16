@@ -1,34 +1,61 @@
 import { View } from "react-native";
 import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
-import * as React from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from "react-native-paper";
-
+import { useAppDispatch, useAppSelector } from "@hooks/useAppHooks";
+import { startTimer, stopTimer, resetTimer } from "@features/timer/timerSlice";
 
 const Timer = () => {
-  const [isRunning, setIsRunning] = React.useState(false);
-  const [seconds ,setSeconds] = React.useState(0);
+  const dispatch = useAppDispatch();
+  const { isRunning, targetTime } = useAppSelector((state) => state.timer);
+  // Display time remaining
+  const [ timeRemaining, setTimeRemaining ] = useState(0);
+  // Local ref for interval ID
+  const intervalIdRef = useRef<number | null>(null); 
 
-  React.useEffect(() => {
-    let interval:any;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setSeconds(s => s + 1);
-      }, 0);
+  useEffect(() => {
+    if (isRunning && targetTime) {
+      intervalIdRef.current = setInterval(() => {
+        const now = Date.now();
+        const remaining = Math.max(0, targetTime - now);
+        setTimeRemaining(remaining);
+
+        if (remaining === 0 && intervalIdRef.current) {
+          clearInterval(intervalIdRef.current);
+          dispatch(stopTimer());
+        }
+      }, 1000);
+    } else {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
     }
-    return () => clearInterval(interval);
-  }, [isRunning]);
 
-  const handleTimerReset = () => { setSeconds(0); };
-  const handleTimerPause = () => { setIsRunning(!isRunning); };
-  const handleTimerStart = () => { setIsRunning(true); };
+    return () => {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+    };
+  }, [isRunning, targetTime, dispatch]);
 
-  const formatTime = (timeInSeconds:number) => {
-    // const hours = String(Math.floor(timeInSeconds / 3600)%12).padStart(2, '0');
-    const minutes = String(Math.floor(timeInSeconds / 60)%60).padStart(2, '0');
-    const seconds = String(timeInSeconds%60).padStart(2, '0');
-    // return `${hours}:${minutes}:${seconds}`;
-    return `${minutes}:${seconds}`;
+  const handleTimerStart = () => {
+    dispatch(startTimer(Date.now() + 1000 * 60 * 5));
+  };
+  const handleTimerStop = () => {
+    dispatch(stopTimer());
+  };
+  const handleTimerReset = () => {
+    dispatch(resetTimer());
+    setTimeRemaining(0);
+  };
+
+  const formatTime = (ms:number) => {
+    // const hours = Math.floor(ms / (1000 * 60 * 60))%12;
+    const minutes = Math.floor(ms / (1000 * 60))%60;
+    const seconds = Math.floor(ms / 1000)%60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
   // Retrieve Custom Theme-properties
@@ -42,13 +69,14 @@ const Timer = () => {
   return (
     <View style={timer}>
       <Text variant="timer" style={{color: onSecondaryContainer}}>
-        {formatTime(seconds)}
+        {formatTime(timeRemaining)}
       </Text>
       <Button onPress={handleTimerReset} icon="redo">
-        <Text style={{color: onSecondaryContainer}}> Reset Timer</Text>
+        <Text style={{color: onSecondaryContainer}}>Reset Timer</Text>
       </Button>
-      <Button onPress={handleTimerPause} icon="pause">Pause Timer</Button>
+      {/* <Button onPress={handleTimerPause} icon="pause">Pause Timer</Button> */}
       <Button onPress={handleTimerStart} icon="play">Start Timer</Button>
+      <Button onPress={handleTimerStop} icon="stop">Stop Timer</Button>
     </View>
   );
 };

@@ -14,7 +14,8 @@
       "@theme/*": ["src/theme/*"],
       "@prototype/*": ["prototype/*"],
       "@features/*": ["src/features/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
