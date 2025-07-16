@@ -1,16 +1,21 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import * as React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import Timer from '@features/timer/Timer';
+import CategoryHeader from '@components/CategoryHeader';
+import * as useFonts from 'expo-font';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
 
+if (Platform.OS === "ios") {
+console.log('loaded ios fonts', useFonts.getLoadedFonts());
+  }
   // Retrieve Custom Theme-properties
   const {
     container,
@@ -21,13 +26,14 @@ export default function HomeScreen() {
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Timer />
+      <CategoryHeader headerText="Asynchronous" />
       <FAB
         icon="skull-outline"
         onPress={() => console.log('Pressed')}
       />
       <Text 
         variant="bodyLarge"
-        style={{ fontFamily: "Inter24pt-Black" }}>Home `app/index.tsx`</Text>
+        style={{ fontFamily: "InriaSerif-BoldItalic" }}>Home `app/index.tsx`</Text>
       <Text 
         style={{fontFamily: "Inter24pt-Black"}}
       >NO variant, inline style fontFamily: Inter24pt-Black</Text>
