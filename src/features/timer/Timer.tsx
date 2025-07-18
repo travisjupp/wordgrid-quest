@@ -8,7 +8,8 @@ import { startTimer, stopTimer, resetTimer } from "@features/timer/timerSlice";
 
 const Timer = () => {
   const dispatch = useAppDispatch();
-  const { isRunning, targetTime } = useAppSelector((state) => state.timer);
+  const isRunning = useAppSelector((state) => state.timer.isRunning);
+  const targetTime = useAppSelector((state) => state.timer.targetTime);
   // Display time remaining
   const [ timeRemaining, setTimeRemaining ] = useState(0);
   // Local ref for interval ID
