@@ -7,3 +7,14 @@ This project uses React Native (Expo) for a multi-platform reach while maintaini
 ...More to come!  
 
 [Project Roadmap](https://github.com/users/travisjupp/projects/2/views/3)
+
+## Setup/Run Project
+
+Checkout [README-EXPO](./README-EXPO.md)
+
+## Contributing
+
+Fork, Clone the Fork, Create Branch, Code, Push, Make a PR.
+
+Checkout [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed workflow.
+
