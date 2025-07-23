@@ -8,6 +8,7 @@ import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import Timer from '@features/timer/Timer';
 import CategoryHeader from '@components/CategoryHeader';
+import DefinitionCarousel from '@components/DefinitionCarousel';
 import * as useFonts from 'expo-font';
 
 export default function HomeScreen() {
@@ -22,11 +23,30 @@ console.log('loaded ios fonts', useFonts.getLoadedFonts());
     text,
   } = useAppTheme();
 
+  const definitionsArray = [
+    "This is the first paragraph. A little longer to see how it wraps.",
+    "Here is the second paragraph.  It's also quite informative and can be a bit lengthy to showcase the carousel's adaptability.",
+    "And finally, the third paragraph. This one provides a concise summary of the key points discussed earlier."
+  ];
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Timer />
-      <CategoryHeader headerText="Asynchronous" />
+      <View testID="Carouselwrapper" style={{
+        width: 300,
+        height: 300,
+        borderWidth: 1,
+        borderColor: 'orange'
+      }}>
+        <CategoryHeader headerText="Asynchronous" />
+        <DefinitionCarousel 
+          // definitions={['a', 'b', 'c']} 
+          definitions={definitionsArray}
+          width={200}
+          height={200}
+          // height='100%'
+        />
+      </View>
       <FAB
         icon="skull-outline"
         onPress={() => console.log('Pressed')}
