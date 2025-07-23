@@ -53,6 +53,49 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const customProperties =
   StyleSheet.create({
 
+    // START Carousel Styles
+    carouselContainer: {
+      width: 'auto', 
+      flex: 1,
+      marginTop: 20,
+      borderWidth: 1,
+      borderColor: '#00ff00'
+    },
+    carouselPage: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+      height: "auto",
+    },
+    carouselParagraphText: {
+      textAlign: 'center',
+      fontSize: 16,
+      fontFamily: 'InriaSerif-Regular',
+      lineHeight: 24,
+      borderWidth: 1,
+      borderColor: 'red',
+      color: themeVariant.colors.onSurface,
+    },
+    carouselDotsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 10,
+    },
+    carouselDot: {
+      height: 8,
+      width: 8,
+      borderRadius: 4,
+      backgroundColor: themeVariant.colors.secondaryContainer,
+      marginHorizontal: 5,
+    },
+    carouselActiveDot: {
+      backgroundColor: themeVariant.colors.secondaryContainer,
+      borderWidth: 1,
+      borderColor: themeVariant.colors.primary,
+    },
+    // END Carousel Styles 
+
     container: {
       flex: 1,
       justifyContent: 'center',
@@ -150,6 +193,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
+    carouselContainer: customProperties.carouselContainer,
+    carouselPage: customProperties.carouselPage,
+    carouselParagraphText: customProperties.carouselParagraphText,
+    carouselDotsContainer: customProperties.carouselDotsContainer,
+    carouselDot: customProperties.carouselDot,
+    carouselActiveDot: customProperties.carouselActiveDot,
     container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,
@@ -164,10 +213,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       ...materialColors.schemes.dark,
       // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
     } : {
-      ...themeVariant.colors,
-      // Custom color properties
-      ...materialColors.schemes.light,
-      // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        ...themeVariant.colors,
+        // Custom color properties
+        ...materialColors.schemes.light,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
 
       },
   }

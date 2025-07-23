@@ -1,6 +1,7 @@
 import { View, ScrollView, StyleSheet, Dimensions, DimensionValue } from 'react-native';
 import { Text } from '@components/Text';
 import { useRef, useState } from 'react';
+import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
   definitions?:string[];
@@ -8,12 +9,6 @@ interface Props {
   height?:DimensionValue;
 }
 
-// const { width } = Dimensions.get('window'); // Get the device width
-// const definitions = [
-//   "This is the first paragraph. A little longer to see how it wraps.",
-//   "Here is the second paragraph.  It's also quite informative and can be a bit lengthy to showcase the carousel's adaptability.",
-//   "And finally, the third paragraph. This one provides a concise summary of the key points discussed earlier."
-// ];
 
 const DefinitionCarousel = ({definitions, width, height}: Props ) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -32,10 +27,20 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
     }
   };
 
+  // Retrieve Custom Theme-properties
+  const {
+    carouselContainer,
+    carouselPage,
+    carouselParagraphText,
+    carouselDotsContainer,
+    carouselDot,
+    carouselActiveDot,
+  } = useAppTheme();
+
   const scrollViewRef = useRef(null);
   return (
     <View 
-      style={[styles.carouselContainer, {width, height}]}
+      style={[carouselContainer, {width, height}]}
       testID="ScrollViewWrapper"
     >
       <ScrollView
@@ -53,20 +58,20 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
         scrollEventThrottle={16} // Adjust as needed for smoother updates
       >
         {definitions?.map((paragraph, index) => (
-          <View key={index} style={[styles.page, { width, height }]}
+          <View key={index} style={[carouselPage, { width, height }]}
             testID={"ScrollView"+index}
           >
-            <Text style={styles.paragraphText}>{paragraph}</Text>
+            <Text style={carouselParagraphText}>{paragraph}</Text>
           </View>
         ))}
       </ScrollView>
-      <View style={styles.dotsContainer}>
+      <View style={carouselDotsContainer}>
         {definitions?.map((_, index) => (
           <View
             key={index}
             style={[
-              styles.dot,
-              activeIndex === index ? styles.activeDot : null,
+              carouselDot,
+              activeIndex === index ? carouselActiveDot : null,
             ]}
           />
         ))}
@@ -75,45 +80,5 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
   );
 }
 
-const styles = StyleSheet.create({
-  carouselContainer: {
-    width: "auto",
-    flex: 1,
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: '#00FF00',
-  },
-  page: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20, // Add some padding for better readability
-    height: "auto",
-    // width: "100%"
-  },
-  paragraphText: {
-    textAlign: 'center',
-    fontSize: 26,
-    lineHeight: 24,
-    borderWidth: 1,
-    borderColor: 'red',
-    color: '#FF00FF',
-  },
-  dotsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  dot: {
-    height: 8,
-    width: 8,
-    borderRadius: 4,
-    backgroundColor: '#ccc', // Inactive dot color
-    marginHorizontal: 5,
-  },
-  activeDot: {
-    backgroundColor: '#333', // Active dot color
-  },
-});
-
 export default DefinitionCarousel;
+

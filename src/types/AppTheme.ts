@@ -1,3 +1,15 @@
+export interface Carousel {
+  container: CarouselContainer;
+}
+
+export interface CarouselContainer {
+        width: string; 
+        flex: number;
+        marginTop: number;
+        borderWidth: number;
+        borderColor: string;
+  // [key: string]: any;
+}
 export interface AppTheme {
   animation: object;
 
@@ -36,6 +48,12 @@ export interface AppTheme {
     tertiaryContainer: string;
   };
 
+  carouselContainer: object; // custom
+  carouselPage: object;
+  carouselParagraphText: object;
+  carouselDotsContainer: object;
+  carouselDot: object;
+  carouselActiveDot: object;
   container: object;
   dark: boolean;
 
@@ -72,3 +90,4 @@ export interface AppTheme {
   version: number;
   menu: object;
 }
+
