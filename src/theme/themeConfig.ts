@@ -193,12 +193,14 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
-    carouselContainer: customProperties.carouselContainer,
-    carouselPage: customProperties.carouselPage,
-    carouselParagraphText: customProperties.carouselParagraphText,
-    carouselDotsContainer: customProperties.carouselDotsContainer,
-    carouselDot: customProperties.carouselDot,
-    carouselActiveDot: customProperties.carouselActiveDot,
+    carousel: {
+      container: customProperties.carouselContainer,
+      page: customProperties.carouselPage,
+      paragraphText: customProperties.carouselParagraphText,
+      dotsContainer: customProperties.carouselDotsContainer,
+      dot: customProperties.carouselDot,
+      activeDot: customProperties.carouselActiveDot,
+    },
     container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,

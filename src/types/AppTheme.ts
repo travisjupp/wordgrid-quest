@@ -1,17 +1,17 @@
-export interface Carousel {
-  container: CarouselContainer;
+import { ViewStyle, TextStyle } from 'react-native';
+
+export interface CarouselStyles {
+  container: ViewStyle;
+  dot?: ViewStyle;
+  activeDot?: ViewStyle;
+  dotsContainer?: ViewStyle;
+  page?: ViewStyle;
+  paragraphText?: TextStyle;
 }
 
-export interface CarouselContainer {
-        width: string; 
-        flex: number;
-        marginTop: number;
-        borderWidth: number;
-        borderColor: string;
-  // [key: string]: any;
-}
 export interface AppTheme {
   animation: object;
+  carousel: CarouselStyles;
 
   colors: {
     backdrop: string;
@@ -47,13 +47,6 @@ export interface AppTheme {
     tertiary: string;
     tertiaryContainer: string;
   };
-
-  carouselContainer: object; // custom
-  carouselPage: object;
-  carouselParagraphText: object;
-  carouselDotsContainer: object;
-  carouselDot: object;
-  carouselActiveDot: object;
   container: object;
   dark: boolean;
 

@@ -29,18 +29,13 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
 
   // Retrieve Custom Theme-properties
   const {
-    carouselContainer,
-    carouselPage,
-    carouselParagraphText,
-    carouselDotsContainer,
-    carouselDot,
-    carouselActiveDot,
+    carousel,
   } = useAppTheme();
 
   const scrollViewRef = useRef(null);
   return (
     <View 
-      style={[carouselContainer, {width, height}]}
+      style={[carousel.container, {width, height}]}
       testID="ScrollViewWrapper"
     >
       <ScrollView
@@ -58,20 +53,20 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
         scrollEventThrottle={16} // Adjust as needed for smoother updates
       >
         {definitions?.map((paragraph, index) => (
-          <View key={index} style={[carouselPage, { width, height }]}
+          <View key={index} style={[carousel.page, { width, height }]}
             testID={"ScrollView"+index}
           >
-            <Text style={carouselParagraphText}>{paragraph}</Text>
+            <Text style={carousel.paragraphText}>{paragraph}</Text>
           </View>
         ))}
       </ScrollView>
-      <View style={carouselDotsContainer}>
+      <View style={carousel.dotsContainer}>
         {definitions?.map((_, index) => (
           <View
             key={index}
             style={[
-              carouselDot,
-              activeIndex === index ? carouselActiveDot : null,
+              carousel.dot,
+              activeIndex === index ? carousel.activeDot : null,
             ]}
           />
         ))}
