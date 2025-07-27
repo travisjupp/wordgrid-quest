@@ -64,16 +64,17 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     carouselPage: {
       justifyContent: 'center',
       alignItems: 'center',
-      paddingHorizontal: 20,
+      // paddingHorizontal: 20,
       height: "auto",
     },
     carouselParagraphText: {
-      textAlign: 'center',
+      // textAlign: 'center',
       fontSize: 16,
       fontFamily: 'InriaSerif-Regular',
       lineHeight: 24,
       borderWidth: 1,
-      borderColor: 'red',
+      borderColor: 'magenta',
+      backgroundColor: 'darkmagenta',
       color: themeVariant.colors.onSurface,
     },
     carouselDotsContainer: {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text } from '@components/Text';
 
 interface Props {
-  headerText:string;
+  headerText:string|undefined;
 }
 
 const CategoryHeader = ({headerText}: Props) => {

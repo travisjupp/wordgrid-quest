@@ -1,22 +1,21 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import * as React from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import Timer from '@features/timer/Timer';
-import CategoryHeader from '@components/CategoryHeader';
-import DefinitionCarousel from '@components/DefinitionCarousel';
-import * as useFonts from 'expo-font';
+import TopicFrame from '@components/TopicFrame';
+// import * as useFonts from 'expo-font';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
 
-if (Platform.OS === "ios") {
-console.log('loaded ios fonts', useFonts.getLoadedFonts());
-  }
+// if (Platform.OS === "ios") {
+// console.log('loaded ios fonts', useFonts.getLoadedFonts());
+//   }
   // Retrieve Custom Theme-properties
   const {
     container,
@@ -32,21 +31,12 @@ console.log('loaded ios fonts', useFonts.getLoadedFonts());
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Timer />
-      <View testID="Carouselwrapper" style={{
-        width: 300,
-        height: 300,
-        borderWidth: 1,
-        borderColor: 'orange'
-      }}>
-        <CategoryHeader headerText="Asynchronous" />
-        <DefinitionCarousel 
-          // definitions={['a', 'b', 'c']} 
-          definitions={definitionsArray}
-          width={200}
-          height={200}
-          // height='100%'
-        />
-      </View>
+      <TopicFrame 
+        category="Asynchronous JS"
+        definitions={definitionsArray}
+        topicframeWidth={200}
+        topicframeHeight={200}
+      />
       <FAB
         icon="skull-outline"
         onPress={() => console.log('Pressed')}
