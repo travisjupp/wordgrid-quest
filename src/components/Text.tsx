@@ -10,4 +10,5 @@ export const Text = customText<
 | 'letterTile'
 | 'timer'
 | 'category'
+| 'carouselParagraph'
 >()

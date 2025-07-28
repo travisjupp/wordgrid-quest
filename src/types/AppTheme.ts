@@ -6,7 +6,7 @@ export interface CarouselStyles {
   activeDot?: ViewStyle;
   dotsContainer?: ViewStyle;
   page?: ViewStyle;
-  paragraphText?: TextStyle;
+  paragraph?: TextStyle;
 }
 
 export interface AppTheme {

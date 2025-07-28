@@ -71,8 +71,8 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
         alwaysBounceHorizontal={true}
         bounces={true}
         contentContainerStyle={{ 
-          borderWidth: 1, 
-          borderColor: 'slateblue'
+          // borderWidth: 1, 
+          // borderColor: 'slateblue'
         }}
         style={{ overflow: 'scroll' }} // Web: can scroll overflowing paragraphs
       >
@@ -81,11 +81,12 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
             style={carousel.page}
             testID={"ScrollView"+index}
           >
-          <ScrollView>
-            <Text 
-              style={[carousel.paragraphText, {width, height}]}
-            >{paragraph}</Text>
-          </ScrollView>
+            <ScrollView>
+              <Text 
+                style={[carousel.paragraph, {width, height}]}
+                variant='carouselParagraph'
+              >{paragraph}</Text>
+            </ScrollView>
           </View>
         ))}
       </ScrollView>

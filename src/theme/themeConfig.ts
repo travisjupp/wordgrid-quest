@@ -24,6 +24,11 @@ const fontConfig = {
     }),
     fontFamily: 'Abel-Regular',
   },
+  carouselParagraph: {
+    fontSize: 16,
+    fontFamily: 'InriaSerif-Regular',
+    lineHeight: 24,
+  },
   // fontFamily: 'Inter24pt-Black', // override all variants (only if no variants)
   // override property for existing variant
   bodyLarge: {
@@ -58,23 +63,19 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       width: 'auto', 
       flex: 1,
       marginTop: 20,
-      borderWidth: 1,
-      borderColor: '#00ff00'
+      // borderWidth: 1,
+      // borderColor: '#00ff00'
     },
     carouselPage: {
       justifyContent: 'center',
       alignItems: 'center',
       // paddingHorizontal: 20,
-      height: "auto",
+      height: 'auto',
     },
-    carouselParagraphText: {
-      // textAlign: 'center',
-      fontSize: 16,
-      fontFamily: 'InriaSerif-Regular',
-      lineHeight: 24,
-      borderWidth: 1,
-      borderColor: 'magenta',
-      backgroundColor: 'darkmagenta',
+    carouselParagraph: {
+      // borderWidth: 1,
+      // borderColor: 'magenta',
+      // backgroundColor: 'darkmagenta',
       color: themeVariant.colors.onSurface,
     },
     carouselDotsContainer: {
@@ -197,7 +198,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     carousel: {
       container: customProperties.carouselContainer,
       page: customProperties.carouselPage,
-      paragraphText: customProperties.carouselParagraphText,
+      paragraph: customProperties.carouselParagraph,
       dotsContainer: customProperties.carouselDotsContainer,
       dot: customProperties.carouselDot,
       activeDot: customProperties.carouselActiveDot,

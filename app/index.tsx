@@ -27,12 +27,13 @@ export default function HomeScreen() {
     "Here is the second paragraph.  It's also quite informative and can be a bit lengthy to showcase the carousel's adaptability.",
     "And finally, the third paragraph. This one provides a concise summary of the key points discussed earlier."
   ];
+  const category = 'Asynchronous JS';
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <Timer />
       <TopicFrame 
-        category="Asynchronous JS"
+        category={category}
         definitions={definitionsArray}
         topicframeWidth={200}
         topicframeHeight={200}
@@ -43,7 +44,7 @@ export default function HomeScreen() {
       />
       <Text 
         variant="bodyLarge"
-        style={{ fontFamily: "InriaSerif-BoldItalic" }}>Home `app/index.tsx`</Text>
+        style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text>
       <Text 
         style={{fontFamily: "Inter24pt-Black"}}
       >NO variant, inline style fontFamily: Inter24pt-Black</Text>

@@ -11,13 +11,14 @@ interface Props {
 
 const TopicFrame = ({ definitions, category, topicframeWidth, topicframeHeight }: Props) => {
   return (
-    <View style={{ backgroundColor: 'darkred', height:topicframeHeight, width:topicframeWidth}} testID='TopicFrame'>
+    <View style={{ 
+      height:topicframeHeight, 
+      width:topicframeWidth
+    }} testID='TopicFrame'>
       <CategoryHeader headerText={category} />
       <DefinitionCarousel definitions={definitions}
         width={topicframeWidth} 
-        // width="100%" 
         height={topicframeHeight}
-        // height="100%"
       />
     </View>
   );
