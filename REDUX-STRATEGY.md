@@ -107,7 +107,9 @@ export const useAppStore: () => AppStore = useStore
 ```
 
 ### Provide Store to React
+
 - [ ] [Provide the Redux Store to React](https://react-redux.js.org/tutorials/quick-start#provide-the-redux-store-to-react)
+
 ```js
 // app/_layout.tsx
 //...
@@ -129,7 +131,9 @@ export default function RootLayout() {
 ```
 
 ### Use State in Component
+
 - [ ] [Use Redux State and Actions in React Components](https://react-redux.js.org/tutorials/quick-start#use-redux-state-and-actions-in-react-components)
+
 ```js
 // src/features/timer/Timer.tsx
 //...
@@ -200,4 +204,127 @@ export default Timer;
 ```
 
 https://react-redux.js.org/tutorials/quick-start
+
+## Managing Data
+
+### Categories, Discovery Terms & Definitions (Items)
+
+1. Storing Discovery-terms with Defintions (Items[^5]) in Redux
+
+Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in Redux state as a property of the Category[^3] object that defines the category to which the terms belong. The structure of this data can be shown using a group of discovery-terms that fall under the category "Marsupials" that are stored in a Redux `discoveryTermsSlice`:
+
+```js
+// src/features/discoveryTermsSlice.ts
+// ...
+{ // initialState:
+    category: {
+        marsupials: [
+            { dt: 'Koala', def: 'Tree-dwelling marsupial native to Australia' },
+            { dt: 'Wombat', def: 'Burrowing marsupial with a stubby tail' },
+            { dt: 'Kangaroo', def: 'Large marsupial that hops and carries young in a pouch' }
+        ],
+        // User-supplied Custom Material loaded here 
+        // (E.g., `asyncJS: [{ dt: 'Promise', def: 'object representing...' },...`)
+    },
+    activeCategory: 'marsupials'
+},
+    reducers: {
+        addCustomCategory: () => {},
+        setActiveCategory: () => {}
+}
+```
+
+> [!NOTE]
+> As we work out the gameplay logic going forward, Discovery-term objects can
+> expand to hold more properties to simplify things, one example could be a
+> `letterTilesRemaining` property with a value range from 0 to `dt.length` for
+> tracking scorepoints.
+
+
+2. Example Data-flow
+
+We have a `TopicFrame` (#71) component that wraps the components responsible for displaying the current topic (`CategoryHeader` (#72)) with one or more definitions (`DefinitionCarousel` (#73)). Using a Redux Selector, `TopicFrame` checks `activeCategory` then passes the category and definitions to its sub-components to be displayed in the UI.
+
+Redux Selectors are defined in a `<featureName>Selectors.ts` file adjacent to the Redux Slice file `<featureName>Slice.ts` in the approprate folder:
+```ts
+// src/features/discoveryTerms/discoveryTermsSelectors.ts (same folder as discoveryTermsSlice.ts)
+export const selectDefinitionsForActiveCategory = (state: RootState) => {
+    const terms = state.discoveryTerms.categories[state.discoveryTerms.activeCategory] || [];
+    return terms.map(term => term.definition);
+};
+```
+
+Selector is used in the `TopicFrame` component:
+```ts
+// src/components/TopicFrame.tsx
+import { useAppSelector } from '@hooks/useAppHooks';
+import { selectActiveCategory, selectDefinitionsForActiveCategory } from '@features/discoveryTerms/discoveryTermsSelectors';
+
+const category = useAppSelector(selectActiveCategory);
+const definitions = useAppSelector(selectDefinitionsForActiveCategory);
+// Pass category to CategoryHeader, definitions to DefinitionsCarousel
+```
+
+
+3. Loading Custom Material (multi-step form)
+
+The steps a user takes when uploading Custom Material[^4] involves a [multi-step form](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=377-1420&p=f&t=2t3Czvs6J4u3axla-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=377%3A1420&show-proto-sidebar=1) with 3 steps:
+
+    1. Category Creation: User supplies the category for the Discovery-terms
+       
+        * Create a `LoadMaterialCategory` component that returns a JSX form
+
+        * Dispatch `addCustomCategory` action on form submit with payload
+
+        * Use Expo Router `router.replace()` to move to next form step 
+
+          Note: We can pass `activeCategory` data to the next component at
+                this point using query parameters:
+                ```
+                router.replace({
+                    pathname: '/load/loadmaterial-items',
+                    params: { activeCategory: 'Marsupials' }
+                });
+                ```
+                Then in `LoadMaterialItems` we can display it:
+                ```
+                const {activeCategory} = useLocalSearchParams();
+                return <Chip icon='pencil-outline'>{activeCategory}</Chip> 
+                ```
+
+    2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
+
+       * Create a `LoadMaterialItems` component that shows a "+" button to display
+         a bottomSheet when pressed and has a local `useState` for temporarily storing 
+         Items
+
+       * Create a `LoadItem` component to be displayed in the bottomSheet
+         that returns a JSX form for loading Items and, from `LoadMaterialItems`,
+         pass `setItem` to it
+
+       * In `LoadItem`, create a `pressHandler` function responsible for calling
+         `setItem(form-data)` to store an Item from `LoadItem` to the `LoadMaterialItems`
+         components local-state when User presses "Add More" or "Done"
+
+       * The "Add More" displays a new form after submitting data, while "Done"
+         submits the Item then closes the bottomSheet revealing `LoadMaterialItems`
+         which is now populated with our loaded material Items for review
+          
+
+    3. User Confirmation: User is shown list of items for confirmation and is given the
+       option to remove Items (x) and/or add more (+) before continuing
+
+    4. User Submits by pressing "Continue": Pressing "Continue" dispatches the action
+       responsible for moving our new Custom Material object from local-state to
+       the Redux stores `category` object in `discoveryTermsSlice.ts` AND setting the
+       `activeCategory` to the name of our new custom category
+
+
+
+
+[^1]: Discovery-terms: The scrambled terms a user is tasked with finding in the word-grid.
+[^2]: Definitions: The statement describing the Discovery-term is displayed in `DefinitionCarousel`
+[^3]: Category: Used to group related Discovery-terms and is displayed in the UI `CategoryHeader`
+[^4]: Custom Material: Discovery-terms and definitions supplied by a user using multi-stage form
+[^5]: Items: A Discovery-term and Definition represented as a `{ dt: 'someTerm', def: 'someDef' }`
 
