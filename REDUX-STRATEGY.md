@@ -213,6 +213,8 @@ https://react-redux.js.org/tutorials/quick-start
 
 Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in Redux state as a property of the Category[^3] object that defines the category to which the terms belong. The structure of this data can be shown using a group of discovery-terms that fall under the category "Marsupials" that are stored in a Redux `discoveryTermsSlice`:
 
+- [ ] Create a `discoveryTermsSlice` for managing associated data
+
 ```js
 // src/features/discoveryTermsSlice.ts
 // ...
@@ -270,51 +272,53 @@ const definitions = useAppSelector(selectDefinitionsForActiveCategory);
 
 The steps a user takes when uploading Custom Material[^4] involves a [multi-step form](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=377-1420&p=f&t=2t3Czvs6J4u3axla-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=377%3A1420&show-proto-sidebar=1) with 3 steps:
 
-    1. Category Creation: User supplies the category for the Discovery-terms
+3.1. Category Creation: User supplies the category for the Discovery-terms
        
-        * Create a `LoadMaterialCategory` component that returns a JSX form
+- [ ] Create a `LoadMaterialCategory` component that returns a JSX form
 
-        * Dispatch `addCustomCategory` action on form submit with payload
+- [ ] Dispatch `addCustomCategory` action on form submit with payload
 
-        * Use Expo Router `router.replace()` to move to next form step 
+- [ ] Use Expo Router `router.replace()` to move to next form step 
 
-          Note: We can pass `activeCategory` data to the next component at
-                this point using query parameters:
-                ```
-                router.replace({
-                    pathname: '/load/loadmaterial-items',
-                    params: { activeCategory: 'Marsupials' }
-                });
-                ```
-                Then in `LoadMaterialItems` we can display it:
-                ```
-                const {activeCategory} = useLocalSearchParams();
-                return <Chip icon='pencil-outline'>{activeCategory}</Chip> 
-                ```
+> [!NOTE]
+> We can pass `activeCategory` data to the next component at
+> this point using query parameters:
+> ```
+> router.replace({
+>     pathname: '/load/loadmaterial-items',
+>     params: { activeCategory: 'Marsupials' }
+> });
+> ```
+> Then in `LoadMaterialItems` we can display it:
+> ```
+> const {activeCategory} = useLocalSearchParams();
+> return <Chip icon='pencil-outline'>{activeCategory}</Chip> 
+> ```
 
-    2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
+3.2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
 
-       * Create a `LoadMaterialItems` component that shows a "+" button to display
+- [ ] Create a `LoadMaterialItems` component that shows a "+" button to display
          a bottomSheet when pressed and has a local `useState` for temporarily storing 
          Items
 
-       * Create a `LoadItem` component to be displayed in the bottomSheet
+- [ ] Create a `LoadItem` component to be displayed in the bottomSheet
          that returns a JSX form for loading Items and, from `LoadMaterialItems`,
          pass `setItem` to it
 
-       * In `LoadItem`, create a `pressHandler` function responsible for calling
+- [ ] In `LoadItem`, create a `pressHandler` function responsible for calling
          `setItem(form-data)` to store an Item from `LoadItem` to the `LoadMaterialItems`
          components local-state when User presses "Add More" or "Done"
 
-       * The "Add More" displays a new form after submitting data, while "Done"
+- [ ] The "Add More" displays a new form after submitting data, while "Done"
          submits the Item then closes the bottomSheet revealing `LoadMaterialItems`
          which is now populated with our loaded material Items for review
           
 
-    3. User Confirmation: User is shown list of items for confirmation and is given the
+3.3. User Confirmation: User is shown list of items for confirmation and is given the
        option to remove Items (x) and/or add more (+) before continuing
 
-    4. User Submits by pressing "Continue": Pressing "Continue" dispatches the action
+
+3.4. User Submits by pressing "Continue": Pressing "Continue" dispatches the action
        responsible for moving our new Custom Material object from local-state to
        the Redux stores `category` object in `discoveryTermsSlice.ts` AND setting the
        `activeCategory` to the name of our new custom category
