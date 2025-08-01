@@ -5,11 +5,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from "react-native-paper";
 import { useAppDispatch, useAppSelector } from "@hooks/useAppHooks";
 import { startTimer, stopTimer, resetTimer } from "@features/timer/timerSlice";
+import { selectTargetTime, selectTimerIsRunning } from "./timerSelectors";
 
 const Timer = () => {
   const dispatch = useAppDispatch();
-  const isRunning = useAppSelector((state) => state.timer.isRunning);
-  const targetTime = useAppSelector((state) => state.timer.targetTime);
+  const isRunning = useAppSelector(selectTimerIsRunning);
+  const targetTime = useAppSelector(selectTargetTime);
   // Display time remaining
   const [ timeRemaining, setTimeRemaining ] = useState(0);
   // Local ref for interval ID
