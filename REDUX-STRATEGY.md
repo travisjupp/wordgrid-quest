@@ -24,12 +24,15 @@
 
 
 ### Move Timer component to `features/`
+
 - [x] Move Timer component to feature specific `src/features/timer/Timer.tsx`
 - [x] Create `@features` path-alias in `tsconfig.json`
 - [x] Relink any broken imports
 
 ### Create Redux State Slice
+
 - [x] [Create a Redux State Slice](https://react-redux.js.org/tutorials/quick-start#create-a-redux-state-slice)
+
 ```js
 // features/timer/timerSlice.ts
 import { createSlice } from '@reduxjs/toolkit'
@@ -59,6 +62,7 @@ export default timerSlice.reducer
 ```
 
 ### Use a Root Reducer (`combineReducers`):
+
 - [x] Combine reducers for modular approach
 ```ts
 // src/store/rootReducer.ts
@@ -75,6 +79,7 @@ export default rootReducer;
 ```
 
 ### Create Store (Add root reducer to store):
+
 - [x] [Create a Redux Store](https://react-redux.js.org/tutorials/quick-start#create-a-redux-store)
 ```ts
 // src/store/index.ts
@@ -93,6 +98,7 @@ export type AppDispatch = typeof store.dispatch
 ```
 
 ### Typed Hooks
+
 - [x] [Define Typed Hooks](https://react-redux.js.org/tutorials/typescript-quick-start#define-typed-hooks)
 ```ts
 // src/hooks/useAppHooks.ts
@@ -118,7 +124,7 @@ import { store } from '../src/store'; // Import your Redux store from src/store/
 
 export default function RootLayout() {
     <Provider store={store}> {/* Wrap app with the Redux Provider */}
-        <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
+      <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
         <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack screenOptions={{ //... }}>
@@ -211,14 +217,15 @@ https://react-redux.js.org/tutorials/quick-start
 
 #### 1. Storing Discovery-terms with Definitions (Items[^5]) in Redux
 
-Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in Redux state as a property of the Category[^3] object that defines the category to which the terms belong. The structure of this data can be shown using a group of discovery-terms that fall under the category "Marsupials" that are stored in a Redux `discoveryTermsSlice`:
+Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in Redux state as a property of the Category[^3] object that defines the category to which the terms belong. The structure of this data can be shown using a group of discovery-terms that fall under the category "Marsupials" that are stored in a Redux `materialSlice.ts`:
 
-- [ ] Create a `discoveryTermsSlice` for managing associated data
+- [ ] Create a `materialSlice` for managing associated data
 
 ```js
-// src/features/discoveryTermsSlice.ts
+// src/features/materialSlice.ts
 // ...
-{ // initialState:
+name: 'material',
+initialState: {
     category: {
         marsupials: [
             { dt: 'Koala', def: 'Tree-dwelling marsupial native to Australia' },
@@ -248,19 +255,21 @@ Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in
 We have a `TopicFrame` (#71) component that wraps the components responsible for displaying the current topic (`CategoryHeader` (#72)) with one or more definitions (`DefinitionCarousel` (#73)). Using a Redux Selector, `TopicFrame` checks `activeCategory` then passes the category and definitions to its sub-components to be displayed in the UI.
 
 Redux Selectors are defined in a `<featureName>Selectors.ts` file adjacent to the Redux Slice file `<featureName>Slice.ts` in the approprate folder:
+
 ```ts
 // src/features/discoveryTerms/discoveryTermsSelectors.ts (same folder as discoveryTermsSlice.ts)
 export const selectDefinitionsForActiveCategory = (state: RootState) => {
-    const terms = state.discoveryTerms.categories[state.discoveryTerms.activeCategory] || [];
+    const terms = state.material.categories[state.material.activeCategory] || [];
     return terms.map(term => term.definition);
 };
 ```
 
 Selector is used in the `TopicFrame` component:
+
 ```ts
 // src/components/TopicFrame.tsx
 import { useAppSelector } from '@hooks/useAppHooks';
-import { selectActiveCategory, selectDefinitionsForActiveCategory } from '@features/discoveryTerms/discoveryTermsSelectors';
+import { selectActiveCategory, selectDefinitionsForActiveCategory } from '@features/material/discoveryTermsSelectors';
 
 const category = useAppSelector(selectActiveCategory);
 const definitions = useAppSelector(selectDefinitionsForActiveCategory);
@@ -272,30 +281,37 @@ const definitions = useAppSelector(selectDefinitionsForActiveCategory);
 
 The steps a user takes when uploading Custom Material[^4] involves a [multi-step form](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=377-1420&p=f&t=2t3Czvs6J4u3axla-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=377%3A1420&show-proto-sidebar=1) with 3 steps:
 
+
 3.1. Category Creation: User supplies the category for the Discovery-terms
-       
+
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/ce6dd65e-6b34-4ccb-859c-211d028cc711" />
+
+To avoid and "incomplete" states or abandoned form-data during the multi-step
+process we hold form state using a "temporary" `tempMaterialSlice.ts` slice,
+then move the completed form-data to the "permanent" `materialSlice.ts` on User
+confirmation: 
+
+- [ ] Create a temp `tempMaterialSlice` slice for form-data
+
+```ts
+// src/features/tempMaterialSlice.ts
+// ...
+name: 'tempMaterial',
+initialState: { category: '', items: [] },
+reducers: {
+    setCategory: () => {},
+    addItem: () => {},
+    removeItem: () => {},
+    resetTempMaterial: () => ({ category: '', items: [] });
+}
+```
 
 - [ ] Create a `LoadMaterialCategory` component that returns a JSX form
 
-- [ ] Dispatch `addCustomCategory` action on form submit with payload
+- [ ] Dispatch `setCategory` action on form submit with payload
 
 - [ ] Use Expo Router `router.replace()` to move to next form step 
 
-> [!NOTE]
-> We can pass `activeCategory` data to the next component at
-> this point using query parameters:
-> ```
-> router.replace({
->     pathname: '/load/loadmaterial-items',
->     params: { activeCategory: 'Marsupials' }
-> });
-> ```
-> Then in `LoadMaterialItems` we can display it:
-> ```
-> const {activeCategory} = useLocalSearchParams();
-> return <Chip icon='pencil-outline'>{activeCategory}</Chip> 
-> ```
 
 3.2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
 
@@ -303,32 +319,43 @@ The steps a user takes when uploading Custom Material[^4] involves a [multi-step
 
 <img width="234" height="295" alt="Image" src="https://github.com/user-attachments/assets/8b81bebe-e2f6-4b98-b76e-6a9408386754" />
 
-- [ ] Create a `LoadMaterialItems` component that shows a "+" button to display
-         a bottomSheet when pressed and has a local `useState` for temporarily storing 
-         Items
+- [ ] Create a `LoadMaterialItems` component with a Chip displaying our current Category
+        and "+" button to display the bottomSheet that will hold the form
+
+- [ ] Create a `ConfirmMaterialItems` component that displays the list of Items
+        added to `tempMaterial` (currently empty)
+
+- [ ] In `LoadMaterialItems`, use `ConfirmMaterialItems` to display a list of
+        Items added to `tempMaterial` (currently empty)
 
 - [ ] Create a `LoadItem` component to be displayed in the bottomSheet
-         that returns a JSX form for loading Items and, from `LoadMaterialItems`,
-         pass `setItem` to it
+        that returns the two-field JSX form for loading Items 
 
-- [ ] In `LoadItem`, create a `handleSubmit` function responsible for calling
-         `setItem(form-data)` to store an Item from `LoadItem` to the `LoadMaterialItems`
-         components local-state when User presses "Add More" or "Done"
+- [ ] In `LoadItem`, create a `handleAddItem` function responsible for
+        dispatching `addItem` containing the form-data
 
-- [ ] The "Add More" displays a new form after submitting data, while "Done"
-         submits the Item then closes the bottomSheet revealing `LoadMaterialItems`
-         which is now populated with our loaded material Items for review
-          
+- [ ] The "Add More" displays a new form after submitting an Item, while "Done"
+        submits the Item then closes the bottomSheet revealing `LoadMaterialItems`
+        which is now populated with our temporary loaded material Items for review
+
 
 3.3. User Confirmation: User is shown list of items for confirmation and is given the
-       option to remove Items (x) and/or add more (+) before continuing
+        option to remove Items (x) and/or add more (+) before continuing
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/19cbd4f4-e43f-470b-973f-f10e2d861543" />
 
-3.4. User Submits by pressing "Continue": Pressing "Continue" dispatches the action
-       responsible for moving our new Custom Material Array from local-state to
-       the Redux stores `category` object in `discoveryTermsSlice.ts` AND setting the
-       `activeCategory` to the name of our new custom category
+- [ ] In `ConfirmMaterialItems`, create a `handleRemoveItem` (filter) function
+        responsible for dispatching `removeItem` with the unwanted Item as a payload
+
+3.4. User Submits by pressing "Continue": Pressing "Continue" dispatches the
+        action responsible for moving our new Custom Material Array from our
+        "temporary" slice, to the Redux stores `category` object in `materialSlice.ts`
+        AND setting the `activeCategory` to the name of our new custom category
+
+- [ ] Create a `handleConfirm` function responsible for dispatching
+        `addCustomCategory` that uses our temp data payload to move our data from the
+        "temporary" to "permanent" slice, and `resetTempMaterial` to clear the temp
+        state
 
 
 
