@@ -58,6 +58,19 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const customProperties =
   StyleSheet.create({
 
+    // START MajorHUD Styles
+    majorHUDContainer: {
+      flexDirection: 'row',
+      gap: 20,
+    },
+    // END MajorHUD Styles
+
+    // START TopicFrame Styles
+    topicFrameContainer: {
+      // marginInlineStart: 0, 
+    },
+    // END TopicFrame Styles
+
     // START Carousel Styles
     carouselContainer: {
       width: 'auto', 
@@ -195,6 +208,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
+    majorHUD: {
+      container: customProperties.majorHUDContainer,
+    },
+    topicFrame: {
+      container: customProperties.topicFrameContainer,
+    },
     carousel: {
       container: customProperties.carouselContainer,
       page: customProperties.carouselPage,

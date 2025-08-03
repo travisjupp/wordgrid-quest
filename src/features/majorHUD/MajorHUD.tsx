@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useAppDispatch, useAppSelector } from "@hooks/useAppHooks";
+import { useAppTheme } from '@theme/themeConfig';
 import Timer from "@features/timer/Timer";
 import TopicFrame from "@components/TopicFrame"
 
@@ -13,9 +13,14 @@ const definitionsArray = [
 const category = 'Asynchronous JS';
 
 const MajorHUD = () => {
-  const dispatch = useAppDispatch();
+
+  // Retrieve Custom Theme-properties
+  const {
+    majorHUD
+  } = useAppTheme();
+
   return (
-    <View>
+    <View style={ majorHUD.container }>
       <Timer />
       <TopicFrame 
         category={category}

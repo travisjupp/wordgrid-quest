@@ -1,6 +1,7 @@
 import { View, DimensionValue } from 'react-native';
 import CategoryHeader from "@components/CategoryHeader";
 import DefinitionCarousel from "@components/DefinitionCarousel";
+import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
   definitions?:string[];
@@ -10,11 +11,19 @@ interface Props {
 }
 
 const TopicFrame = ({ definitions, category, topicframeWidth, topicframeHeight }: Props) => {
+
+  // Retrieve Custom Theme-properties
+  const {
+    topicFrame
+  } = useAppTheme();
+
   return (
-    <View style={{ 
-      height:topicframeHeight, 
-      width:topicframeWidth
-    }} testID='TopicFrame'>
+    <View style={[
+        topicFrame.container,
+      { 
+        height:topicframeHeight, 
+        width:topicframeWidth
+      }]} testID='TopicFrame'>
       <CategoryHeader headerText={category} />
       <DefinitionCarousel definitions={definitions}
         width={topicframeWidth} 

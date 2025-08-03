@@ -1,5 +1,13 @@
 import { ViewStyle, TextStyle } from 'react-native';
 
+export interface MajorHUDStyles {
+  container: ViewStyle;
+}
+
+export interface TopicFrameStyles {
+  container: ViewStyle;
+}
+
 export interface CarouselStyles {
   container: ViewStyle;
   dot?: ViewStyle;
@@ -11,6 +19,8 @@ export interface CarouselStyles {
 
 export interface AppTheme {
   animation: object;
+  majorHUD: MajorHUDStyles;
+  topicFrame: TopicFrameStyles;
   carousel: CarouselStyles;
 
   colors: {
