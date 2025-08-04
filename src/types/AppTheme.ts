@@ -1,5 +1,14 @@
 import { ViewStyle, TextStyle } from 'react-native';
 
+export interface DiscoveryTermObject {
+  dt: string;
+  def: string;
+};
+
+export interface CustomMaterialArray {
+ [key:string]: DiscoveryTermObject[]; 
+};
+
 export interface MajorHUDStyles {
   container: ViewStyle;
 }

@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface DiscoveryTermObject {
-  dt: string;
-  def: string;
-};
-
-interface CustomMaterialArray {
- [key:string]: DiscoveryTermObject[]; 
-};
+import { DiscoveryTermObject, CustomMaterialArray } from "@custom-types/AppTheme";
 
 interface InitialState {
   category: CustomMaterialArray;
