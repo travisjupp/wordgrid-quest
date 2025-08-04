@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface TimerState {
+export interface InitialState {
   isRunning: boolean;
   targetTime: number;
 }
 
-const initialState: TimerState = {
+const initialState: InitialState = {
   isRunning: false,
   targetTime: 0,
 }

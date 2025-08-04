@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface MajorHUDState {
+export interface InitialState {
   someBooleanProperty: boolean;
   someNumericProperty: number;
 }
 
-const initialState: MajorHUDState = {
+const initialState: InitialState = {
   someBooleanProperty: false,
   someNumericProperty: 0,
 }
