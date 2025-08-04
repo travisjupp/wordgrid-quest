@@ -5,6 +5,12 @@
     ├── assets/               # Static assets
     └── src/
         ├── features/         # Feature-specific Redux logic and components
+        │   ├── material/     # Store Material data
+        │   │   ├── materialSlice.ts
+        │   │   └── materialSelectors.ts
+        │   ├── tempMaterial/   # Store temp multi-step Custom Material form-data
+        │   │   ├── tempMaterialSlice.ts
+        │   │   └── tempMaterialSelectors.ts
         │   └── timer/
         │       ├── Timer.tsx
         │       ├── timerSlice.ts
@@ -222,7 +228,7 @@ Discovery-terms[^1] with their accompanying Definitions[^2] are always stored in
 - [ ] Create a `materialSlice` for managing associated data
 
 ```js
-// src/features/materialSlice.ts
+// src/features/material/materialSlice.ts
 // ...
 name: 'material',
 initialState: {
@@ -257,7 +263,7 @@ We have a `TopicFrame` (#71) component that wraps the components responsible for
 Redux Selectors are defined in a `<featureName>Selectors.ts` file adjacent to the Redux Slice file `<featureName>Slice.ts` in the approprate folder:
 
 ```ts
-// src/features/discoveryTerms/discoveryTermsSelectors.ts (same folder as discoveryTermsSlice.ts)
+// src/features/material/materialSelectors.ts (same folder as materialSlice.ts)
 export const selectDefinitionsForActiveCategory = (state: RootState) => {
     const terms = state.material.categories[state.material.activeCategory] || [];
     return terms.map(term => term.definition);
@@ -269,7 +275,7 @@ Selector is used in the `TopicFrame` component:
 ```ts
 // src/components/TopicFrame.tsx
 import { useAppSelector } from '@hooks/useAppHooks';
-import { selectActiveCategory, selectDefinitionsForActiveCategory } from '@features/material/discoveryTermsSelectors';
+import { selectActiveCategory, selectDefinitionsForActiveCategory } from '@features/material/materialSelectors';
 
 const category = useAppSelector(selectActiveCategory);
 const definitions = useAppSelector(selectDefinitionsForActiveCategory);
@@ -294,7 +300,7 @@ confirmation:
 - [ ] Create a temp `tempMaterialSlice` slice for form-data
 
 ```ts
-// src/features/tempMaterialSlice.ts
+// src/features/tempMaterial/tempMaterialSlice.ts
 // ...
 name: 'tempMaterial',
 initialState: { category: '', items: [] },
@@ -312,7 +318,6 @@ reducers: {
 
 - [ ] Use Expo Router `router.replace()` to move to next form step 
 
-
 3.2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/5b2490fe-0458-4b55-8934-5aef706c696b" />
@@ -329,7 +334,7 @@ reducers: {
         Items added to `tempMaterial` (currently empty)
 
 - [ ] Create a `LoadItem` component to be displayed in the bottomSheet
-        that returns the two-field JSX form for loading Items 
+        that returns the two-field JSX form for loading Items
 
 - [ ] In `LoadItem`, create a `handleAddItem` function responsible for
         dispatching `addItem` containing the form-data
