@@ -5,6 +5,11 @@ export interface InitialMaterialSliceState {
   activeCategory: string;
 };
 
+export interface InitialTempMaterialSliceState {
+  category: string;
+  discoveryTerms: DiscoveryTermObject[];
+};
+
 export interface DiscoveryTermObject {
   dt: string;
   def: string;
