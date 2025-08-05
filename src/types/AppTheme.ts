@@ -1,5 +1,10 @@
 import { ViewStyle, TextStyle } from 'react-native';
 
+export interface InitialMaterialSliceState {
+  category: CustomMaterialArray;
+  activeCategory: string;
+};
+
 export interface DiscoveryTermObject {
   dt: string;
   def: string;

@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DiscoveryTermObject, CustomMaterialArray } from "@custom-types/AppTheme";
+import { DiscoveryTermObject, CustomMaterialArray, InitialMaterialSliceState } from "@custom-types/AppTheme";
 
-interface InitialState {
-  category: CustomMaterialArray;
-  activeCategory: string;
-};
-
-const initialState: InitialState = {
+const initialState: InitialMaterialSliceState = {
   category: {
     Marsupials: [
       { dt: 'Koala', def: 'A tree-dwelling marsupial native to Australia.' },
