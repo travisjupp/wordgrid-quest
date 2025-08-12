@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DiscoveryTermObject, InitialTempMaterialSliceState } from "@custom-types/AppTheme";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DiscoveryTermObject, InitialTempMaterialSliceState } from '@custom-types/AppTheme';
 
 const initialState: InitialTempMaterialSliceState = { 
   category: '',

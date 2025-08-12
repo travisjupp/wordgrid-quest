@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, 
+  // PayloadAction
+} from '@reduxjs/toolkit';
 
 export interface InitialState {
   someBooleanProperty: boolean;
@@ -17,6 +19,6 @@ const majorHUDSlice = createSlice({
   }
 });
 
-export const {} = majorHUDSlice.actions;
+// export const {} = majorHUDSlice.actions;
 export default majorHUDSlice.reducer;
 

@@ -1,4 +1,4 @@
-import type { RootState } from '../../store';
+import type { RootState } from '@store/index';
 
 export const selectDiscoveryTermsForActiveCategory = (state: RootState) => {
   const customMaterialArray = state.material.category[state.material.activeCategory] || [];

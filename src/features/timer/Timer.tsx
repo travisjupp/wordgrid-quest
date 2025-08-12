@@ -1,11 +1,11 @@
-import { View } from "react-native";
+import { View } from 'react-native';
 import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
 import { useState, useRef, useEffect } from 'react';
-import { Button } from "react-native-paper";
-import { useAppDispatch, useAppSelector } from "@hooks/useAppHooks";
-import { startTimer, stopTimer, resetTimer } from "@features/timer/timerSlice";
-import { selectTargetTime, selectTimerIsRunning } from "./timerSelectors";
+import { Button } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
+import { startTimer, stopTimer, resetTimer } from '@features/timer/timerSlice';
+import { selectTargetTime, selectTimerIsRunning } from '@features/timer/timerSelectors';
 
 const Timer = () => {
   const dispatch = useAppDispatch();

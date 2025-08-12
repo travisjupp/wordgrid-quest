@@ -1,6 +1,6 @@
 import { View, DimensionValue } from 'react-native';
-import CategoryHeader from "@components/CategoryHeader";
-import DefinitionCarousel from "@components/DefinitionCarousel";
+import CategoryHeader from '@components/CategoryHeader';
+import DefinitionCarousel from '@components/DefinitionCarousel';
 import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {

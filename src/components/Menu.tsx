@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Menu as RNPMenu, Button, Divider, Icon } from "react-native-paper";
+import { Menu as RNPMenu, Button, Divider, Icon } from 'react-native-paper';
 import { router } from 'expo-router';
-import { useAppTheme } from "../theme/themeConfig";
-
+import { useAppTheme } from '@theme/themeConfig';
 
 const Menu = () => {
   // Menu state
