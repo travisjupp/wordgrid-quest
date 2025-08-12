@@ -99,6 +99,7 @@ export default function RootLayout() {
                   fontWeight: 'bold',
                 },
                 headerTitleAlign: 'center',
+                headerBackButtonDisplayMode: 'minimal',
                 headerTitle: () => (<CLogo />),
                 headerRight: () => (<Menu />)
               }}>
