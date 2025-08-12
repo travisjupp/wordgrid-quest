@@ -2,18 +2,16 @@ import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import Timer from '@features/timer/Timer';
 import TopicFrame from '@components/TopicFrame'
-
-
-const definitionsArray = [
-  "Object representing the eventual completion or failure of an asynchronous operation and its resulting value XXX XXX XXX XXXXXX XXXX XXXX XX X",
-  "AKA Stack Frame is the smallest unit of execution tracks bindings like variables and `this` context XXXXXXXX XXX XXXXX XXX XX XX",
-  "Data structure that stores variables and function names and their values. Function; Declarative; Object; Global XXXXXXXXXXX XXXXX XXXX XXXX XXX XX XXXX X"
-];
-
-const category = 'Asynchronous JS';
+import { useAppSelector } from '@hooks/useAppHooks';
+import { 
+  selectDefinitionsForActiveCategory,
+  selectActiveCategory
+} from '@features/material/materialSelectors';
 
 const MajorHUD = () => {
 
+  const category = useAppSelector(selectActiveCategory);
+  const definitions = useAppSelector(selectDefinitionsForActiveCategory);
   // Retrieve Custom Theme-properties
   const {
     majorHUD
@@ -24,7 +22,7 @@ const MajorHUD = () => {
       <Timer />
       <TopicFrame 
         category={category}
-        definitions={definitionsArray}
+        definitions={definitions}
         topicframeWidth={200}
         topicframeHeight={200}
       />

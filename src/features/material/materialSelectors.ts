@@ -1,14 +1,19 @@
 import type { RootState } from '@store/index';
+import { createSelector } from '@reduxjs/toolkit';
 
-export const selectDiscoveryTermsForActiveCategory = (state: RootState) => {
-  const customMaterialArray = state.material.category[state.material.activeCategory] || [];
-  return customMaterialArray.map(discoveryTermObject => discoveryTermObject.dt);
+const selectCustomMaterialArray = (state: RootState) => {
+  return  state.material.category[state.material.activeCategory] || [];
 };
 
-export const selectDefinitionsForActiveCategory = (state: RootState) => {
-  const customMaterialArray = state.material.category[state.material.activeCategory] || [];
-  return customMaterialArray.map(discoveryTermObject => discoveryTermObject.def);
-};
+export const selectDiscoveryTermsForActiveCategory = createSelector([selectCustomMaterialArray], (customMaterialArray) => {
+  return customMaterialArray
+    .map(discoveryTermObject => discoveryTermObject.dt);
+});
+
+export const selectDefinitionsForActiveCategory = createSelector([selectCustomMaterialArray], (customMaterialArray) => {
+  return customMaterialArray
+    .map(discoveryTermObject => discoveryTermObject.def);
+});
 
 export const selectActiveCategory = (state: RootState) => {
   return state.material.activeCategory;
