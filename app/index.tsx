@@ -7,8 +7,9 @@ import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import MajorHUD from '@features/majorHUD/MajorHUD';
+import FirebaseTest from '@features/firebase/firebaseTest';
 
-export default function HomeScreen() {
+function HomeScreen() {
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
 
   // Retrieve Custom Theme-properties
@@ -24,6 +25,7 @@ export default function HomeScreen() {
         icon="skull-outline"
         onPress={() => console.log('Pressed')}
       />
+      <FirebaseTest />
       <Text 
         variant="bodyLarge"
         style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text>
@@ -58,4 +60,4 @@ export default function HomeScreen() {
   );
 }
 
-
+export default HomeScreen;

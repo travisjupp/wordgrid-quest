@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { ConfigContext, ExpoConfig } from 'expo/config';
 import materialColors from './prototype/material-theme.json';
 
@@ -122,6 +123,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     typedRoutes: true
   },
   extra: {
+    firebaseApiKey: process.env.FIREBASE_API_KEY,
+    firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
     router: {
       origin: false
     },
