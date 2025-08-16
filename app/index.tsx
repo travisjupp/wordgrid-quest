@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import * as React from 'react';
+import { useEffect, useContext } from 'react';
 import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { Text } from '@components/Text';
@@ -8,15 +8,25 @@ import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import MajorHUD from '@features/majorHUD/MajorHUD';
 import FirebaseTest from '@features/firebase/firebaseTest';
+import { useNavigation } from 'expo-router';
 
 function HomeScreen() {
-  const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
   // Retrieve Custom Theme-properties
   const {
     container,
     text,
   } = useAppTheme();
+
+  // Screen Options
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      // Hide menu
+      headerRight: null
+    });
+  }, []);
 
   return (
     <View style={container}>
