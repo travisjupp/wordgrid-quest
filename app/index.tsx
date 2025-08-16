@@ -9,6 +9,7 @@ import { useAppTheme } from '@theme/themeConfig';
 import MajorHUD from '@features/majorHUD/MajorHUD';
 import FirebaseTest from '@features/firebase/firebaseTest';
 import { useNavigation } from 'expo-router';
+import SignIn from '@components/SignIn';
 
 function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
@@ -36,36 +37,37 @@ function HomeScreen() {
         onPress={() => console.log('Pressed')}
       />
       <FirebaseTest />
-      <Text 
-        variant="bodyLarge"
-        style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text>
-      <Text 
-        style={{fontFamily: "Inter24pt-Black"}}
-      >NO variant, inline style fontFamily: Inter24pt-Black</Text>
-
-      <MajorHUD />
-      <Text 
-        style={{fontFamily: "InriaSerif-Regular"}}
-      >NO variant, inline style fontFamily: InriaSerif-Regular</Text>
-
-      <Text>NO variant, NO inline style</Text>
-
-      <Text style={text}>NO variant, object style</Text>
-
-      <Text variant="brand">CUSTOM variant (brand), No inline style</Text>
-
-      <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text>
-      <Text variant="category">CUSTOM variant (category), No inline style</Text>
-
-      <Text 
-        variant="bodyLarge"
-        style={{fontFamily: "Inter24pt-Black"}}
-      >YES variant (bodyLarge), inline style fontFamily: Inter24pt-Black</Text>
-
-      {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */}
-      <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button>
-      <Button mode='outlined'>TEST</Button>
-      <Button icon="camera" disabled={true} mode="contained">Disabled</Button>
+      {/* <Text  */}
+      {/*   variant="bodyLarge" */}
+      {/*   style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text> */}
+      {/* <Text  */}
+      {/*   style={{fontFamily: "Inter24pt-Black"}} */}
+      {/* >NO variant, inline style fontFamily: Inter24pt-Black</Text> */}
+      {/**/}
+      {/* <MajorHUD /> */}
+      {/* <Text  */}
+      {/*   style={{fontFamily: "InriaSerif-Regular"}} */}
+      {/* >NO variant, inline style fontFamily: InriaSerif-Regular</Text> */}
+      {/**/}
+      {/* <Text>NO variant, NO inline style</Text> */}
+      {/**/}
+      {/* <Text style={text}>NO variant, object style</Text> */}
+      {/**/}
+      <SignIn />
+      {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
+      {/**/}
+      {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}
+      {/* <Text variant="category">CUSTOM variant (category), No inline style</Text> */}
+      {/**/}
+      {/* <Text  */}
+      {/*   variant="bodyLarge" */}
+      {/*   style={{fontFamily: "Inter24pt-Black"}} */}
+      {/* >YES variant (bodyLarge), inline style fontFamily: Inter24pt-Black</Text> */}
+      {/**/}
+      {/* {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */} 
+      {/* <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button> */}
+      {/* <Button mode='outlined'>TEST</Button> */}
+      {/* <Button icon="camera" disabled={true} mode="contained">Disabled</Button> */}
     </View>
   );
 }
