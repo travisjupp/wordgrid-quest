@@ -14,7 +14,7 @@ account.
 Clone the forked repository to your local machine using Git. 
 
 ```bash
-    git clone https://github.com/travisjupp/wordgrid-quest.git
+    git clone https://github.com/<your-username>/wordgrid-quest.git
 ```
 Navigate into the newly created directory. 
 ```bash
