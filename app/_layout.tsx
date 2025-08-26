@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform} from 'react-native';
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
@@ -10,15 +10,15 @@ import { Provider } from 'react-redux';
 import { PaperProvider } from 'react-native-paper';
 import ThemeContext from '@contexts/ThemeContext';
 import { themeBuilder } from '@theme/themeConfig';
-import Spinner from '@components/Spinner';
-import CLogo from '@components/CLogo';
-import Menu from '@components/Menu';
+import { Spinner } from '@components/Spinner';
+import { CLogo } from '@components/CLogo';
+import { Menu } from '@components/Menu';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
 
 export default function RootLayout() {
-  const [browserFontsLoaded, setBrowserFontsLoaded] = React.useState(false);
+  const [browserFontsLoaded, setBrowserFontsLoaded] = useState(false);
 
   // Load Web Fonts
   const [loaded, error] = useFonts({
@@ -29,17 +29,17 @@ export default function RootLayout() {
     'Abel-Regular': require('@fonts/Abel-Regular.ttf')
   }); // For iOS/Android, assume fonts loaded
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (loaded || error) { SplashScreen.hideAsync(); }
   }, [loaded, error]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Use Font Loading API to check Web Fonts loaded (web)
     // Expo Fonts `useFonts` `loaded` is inaccurate for web
     async function checkBrowserFontsLoaded() {
       const FontFaceSetReady = await document.fonts.ready; 
       const loaded = FontFaceSetReady.status === "loaded";
-      console.log('FontFaceSetReady', FontFaceSetReady);
+      // console.log('FontFaceSetReady', FontFaceSetReady);
       return loaded
         ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
     };
@@ -50,11 +50,11 @@ export default function RootLayout() {
 
   // Check/Store Device Settings Dark/Light mode state
   const deviceThemeIsDark = useColorScheme() === 'dark';
-  const [isDarkTheme, setIsDarkTheme] = React.useState(deviceThemeIsDark);
+  const [isDarkTheme, setIsDarkTheme] = useState(deviceThemeIsDark);
   const theme = themeBuilder(isDarkTheme); 
 
   // Respond to Device Settings Dark/Light mode state
-  React.useEffect(() => {
+  useEffect(() => {
     setIsDarkTheme(deviceThemeIsDark);
   }, [setIsDarkTheme, deviceThemeIsDark]);
 
@@ -63,7 +63,7 @@ export default function RootLayout() {
   };
 
   // Set Status Bar style on theme change
-  React.useEffect(() => {
+  useEffect(() => {
     StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark', true);
     if (Platform.OS === "android") {
       StatusBar

@@ -8,7 +8,7 @@ interface Props {
   height?:number;
 }
 
-const Logo = ({width=50, height=50}: Props) => {
+export function Logo({width=50, height=50}: Props) {
   // Retrieve Custom Theme-properties
   const { logo, colors: { primary } } = useAppTheme();
 
@@ -36,6 +36,4 @@ const Logo = ({width=50, height=50}: Props) => {
     </View>
   );
 }
-
-export default Logo;
 

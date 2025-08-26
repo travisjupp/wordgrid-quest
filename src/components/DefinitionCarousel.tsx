@@ -9,7 +9,7 @@ interface Props {
   height?:DimensionValue;
 }
 
-const DefinitionCarousel = ({definitions, width, height}: Props ) => {
+export function DefinitionCarousel({definitions, width, height}: Props ) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePagination = (event:any) => {
@@ -104,6 +104,4 @@ const DefinitionCarousel = ({definitions, width, height}: Props ) => {
     </View>
   );
 }
-
-export default DefinitionCarousel;
 

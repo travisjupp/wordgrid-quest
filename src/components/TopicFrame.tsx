@@ -1,6 +1,6 @@
 import { View, DimensionValue } from 'react-native';
-import CategoryHeader from '@components/CategoryHeader';
-import DefinitionCarousel from '@components/DefinitionCarousel';
+import { CategoryHeader } from '@components/CategoryHeader';
+import { DefinitionCarousel } from '@components/DefinitionCarousel';
 import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   topicframeHeight?:DimensionValue;
 }
 
-const TopicFrame = ({ definitions, category, topicframeWidth, topicframeHeight }: Props) => {
+export function TopicFrame({ definitions, category, topicframeWidth, topicframeHeight }: Props) {
 
   // Retrieve Custom Theme-properties
   const {
@@ -32,6 +32,4 @@ const TopicFrame = ({ definitions, category, topicframeWidth, topicframeHeight }
     </View>
   );
 };
-
-export default TopicFrame;
 

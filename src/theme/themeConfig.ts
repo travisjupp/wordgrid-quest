@@ -3,7 +3,6 @@ import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 import materialColors from '@prototype/material-theme.json';
 
-
 const fontConfig = {
   brand: {
     fontSize: 30,
@@ -243,7 +242,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         // Custom color properties
         ...materialColors.schemes.light,
         // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-
       },
   }
 };

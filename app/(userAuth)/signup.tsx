@@ -1,13 +1,8 @@
-import SignUp from "@components/SignUp";
+import { SignUp } from "@components/SignUp";
 import { Text } from "@components/Text";
-import { useAppTheme } from "@theme/themeConfig";
 import { router } from "expo-router";
-import { View } from "react-native";
-
 
 export default function SignupScreen() {
-  // Retrieve Custom Properties
-  const { container } = useAppTheme();
   return (
     <>
       <SignUp />
@@ -17,5 +12,4 @@ export default function SignupScreen() {
     </>
   );
 }
-
 

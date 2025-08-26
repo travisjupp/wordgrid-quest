@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { startTimer, stopTimer, resetTimer } from '@features/timer/timerSlice';
 import { selectTargetTime, selectTimerIsRunning } from '@features/timer/timerSelectors';
 
-const Timer = () => {
+export function Timer() {
   const dispatch = useAppDispatch();
   const isRunning = useAppSelector(selectTimerIsRunning);
   const targetTime = useAppSelector(selectTargetTime);
@@ -83,4 +83,3 @@ const Timer = () => {
   );
 };
 
-export default Timer;

@@ -1,11 +1,9 @@
-import Logo from '@components/Logo';
-import { Stack, Slot, router, usePathname } from 'expo-router';
-import * as React from 'react';
+import { Logo } from '@components/Logo';
+import { Slot, usePathname } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from '@theme/themeConfig';
-import PageHeading from '@components/PageHeading';
-import GuidanceText from '@components/GuidanceText';
-
+import { PageHeading } from '@components/PageHeading';
+import { GuidanceText } from '@components/GuidanceText';
 
 export default function AuthLayout() { 
   const pathname = usePathname();

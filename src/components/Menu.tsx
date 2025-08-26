@@ -3,7 +3,7 @@ import { Menu as RNPMenu, Button, Divider, Icon } from 'react-native-paper';
 import { router } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
-const Menu = () => {
+export function Menu() {
   // Menu state
   const [visible, setVisible] = React.useState(false);
   const openRNPMenu = () => setVisible(true);
@@ -44,4 +44,3 @@ const Menu = () => {
   )
 };
 
-export default Menu;

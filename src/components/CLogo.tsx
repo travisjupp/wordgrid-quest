@@ -1,10 +1,10 @@
 import { Text } from '@components/Text';
-import Logo from './Logo';
+import { Logo } from './Logo';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 
 // Combination Logo
-const CLogo = () => {
+export function CLogo() {
   // Retrieve Custom Theme-properties
   const { clogo } = useAppTheme();
 
@@ -18,4 +18,3 @@ const CLogo = () => {
   )
 }
 
-export default CLogo;

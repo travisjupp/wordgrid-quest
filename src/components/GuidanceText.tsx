@@ -4,9 +4,7 @@ interface Props {
   text?:string;
 }
 
-const GuidanceText = ({text}: Props) => {
+export function GuidanceText({text}: Props) {
   return <Text variant='bodyLarge'>{text}</Text>
 }
-
-export default GuidanceText;
 

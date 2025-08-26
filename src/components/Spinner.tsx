@@ -1,6 +1,7 @@
 import { ActivityIndicator, View } from 'react-native';
 
-const Spinner = ({theme}: any) => (
+export function Spinner({theme}: any) {
+  return (
   <View style={{
     flex: 1, 
     justifyContent: "center", 
@@ -16,6 +17,6 @@ const Spinner = ({theme}: any) => (
       size="large" 
       color={theme.colors.primary} />
   </View>
-);
+  );
+};
 
-export default Spinner;

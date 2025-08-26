@@ -3,20 +3,17 @@ import 'react-native-reanimated';
 import { useEffect, useContext } from 'react';
 import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
-import { Text } from '@components/Text';
 import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
-import MajorHUD from '@features/majorHUD/MajorHUD';
-import FirebaseTest from '@features/firebase/firebaseTest';
+import { FirebaseTest } from '@features/firebase/firebaseTest';
 import { router, useNavigation } from 'expo-router';
 
-function HomeScreen() {
+export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
   // Retrieve Custom Theme-properties
   const {
     container,
-    text,
   } = useAppTheme();
 
   // Screen Options
@@ -71,4 +68,3 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;

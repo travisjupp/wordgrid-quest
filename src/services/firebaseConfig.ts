@@ -3,11 +3,11 @@ import Constants from 'expo-constants';
 
 // Import the functions you need from the SDKs you need
 import { getAnalytics, isSupported } from 'firebase/analytics';
-import { getAuth, signInAnonymously } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+// import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-console.log('api key',Constants.expoConfig?.extra?.firebaseApiKey); 
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -37,14 +37,17 @@ isSupported().then(supported => {
   };
 });
 
+// Initialize Auth
 export const auth = getAuth(app);
-signInAnonymously(auth)
-  .then(() => {
-    console.log("Anonymous sign-in successful!");
-  })
-  .catch((e) => {
-    console.error("Anonymous sign-in failed!", e);
-  });
+
+// Test Firebase Auth anon sign-in
+// signInAnonymously(auth)
+//   .then(() => {
+//     console.log("Anonymous sign-in successful!");
+//   })
+//   .catch((e) => {
+//     console.error("Anonymous sign-in failed!", e);
+//   });
 
 export default app;
 

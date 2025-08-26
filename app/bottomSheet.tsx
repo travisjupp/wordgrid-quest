@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, View } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 

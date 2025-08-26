@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
-import Timer from '@features/timer/Timer';
-import TopicFrame from '@components/TopicFrame'
+import { Timer } from '@features/timer/Timer';
+import { TopicFrame } from '@components/TopicFrame'
 import { useAppSelector } from '@hooks/useAppHooks';
 import { 
   selectDefinitionsForActiveCategory,

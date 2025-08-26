@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { router } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
-const SignUp = () => {
+export function SignUp() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -16,11 +16,6 @@ const SignUp = () => {
       })
       .catch(e => console.error(e.message));
   };
-
-  // Retrieve Custom Theme-properties
-  const {
-    container,
-  } = useAppTheme();
 
   return (
     <View
@@ -91,6 +86,4 @@ const SignUp = () => {
     </View>
   );
 };
-
-export default SignUp;
 

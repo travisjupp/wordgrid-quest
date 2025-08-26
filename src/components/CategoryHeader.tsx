@@ -5,11 +5,9 @@ interface Props {
   headerText:string|undefined;
 }
 
-const CategoryHeader = ({headerText}: Props) => {
+export function CategoryHeader({headerText}: Props) {
   return (
     <Text variant="category">{headerText}</Text>
   );
 };
-
-export default CategoryHeader;
 

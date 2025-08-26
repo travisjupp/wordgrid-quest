@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { router } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
-const SignIn = () => {
+export function LogIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -77,6 +77,4 @@ const SignIn = () => {
     </View>
   );
 };
-
-export default SignIn;
 
