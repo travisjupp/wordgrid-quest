@@ -34,6 +34,9 @@ const fontConfig = {
   bodyLarge: {
     // fontFamily: 'Inter24pt-Black',
   },
+  bodyLargeEmphasized: {
+    fontWeight: 'bold',
+  },
   // If any component uses Paper's Text component, without 
   // specified variant, then *default* variant is applied
   default: {

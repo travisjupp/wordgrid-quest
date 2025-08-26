@@ -1,4 +1,5 @@
-import { customText } from 'react-native-paper'
+import { customText } from 'react-native-paper';
+
 // If you're using TypeScript you will need to create a 
 // custom Text component which accepts your custom variants
 // https://callstack.github.io/react-native-paper/docs/guides/fonts/#using-configurefonts-helper-1
@@ -11,4 +12,5 @@ export const Text = customText<
 | 'timer'
 | 'category'
 | 'carouselParagraph'
+| 'bodyLargeEmphasized'
 >()

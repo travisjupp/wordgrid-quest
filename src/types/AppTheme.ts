@@ -81,6 +81,7 @@ export interface AppTheme {
 
   fonts: {
     bodyLarge: object;
+    bodyLargeEmphasized: object;
     bodyMedium: object;
     bodySmall: object;
     brand: object; // custom

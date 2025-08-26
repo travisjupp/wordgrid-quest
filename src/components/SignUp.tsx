@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { router } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -45,7 +45,21 @@ const SignIn = () => {
         testID='EmailInput'
       />
       <TextInput
-        label='Password'
+        label='Choose Password'
+        id='PasswordInput'
+        placeholder='Password'
+        keyboardType='default'
+        mode='outlined'
+        secureTextEntry={true}
+        autoCapitalize='none'
+        value={password}
+        onChangeText={password => setPassword(password)}
+        style={{ 
+        }}
+        testID='PasswordInput'
+      />
+      <TextInput
+        label='Confirm Password'
         id='PasswordInput'
         placeholder='Password'
         keyboardType='default'
@@ -72,11 +86,11 @@ const SignIn = () => {
             display: 'flex',
             justifyContent: 'center'
           }}
-          mode='contained' onPress={handleRegister}>Sign In</Button>
+          mode='contained' onPress={handleRegister}>Sign Up</Button>
       </View>
     </View>
   );
 };
 
-export default SignIn;
+export default SignUp;
 
