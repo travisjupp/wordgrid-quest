@@ -8,8 +8,7 @@ import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import MajorHUD from '@features/majorHUD/MajorHUD';
 import FirebaseTest from '@features/firebase/firebaseTest';
-import { useNavigation } from 'expo-router';
-import SignIn from '@components/SignIn';
+import { router, useNavigation } from 'expo-router';
 
 function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
@@ -53,7 +52,7 @@ function HomeScreen() {
       {/**/}
       {/* <Text style={text}>NO variant, object style</Text> */}
       {/**/}
-      <SignIn />
+      <Button onPress={() => {router.navigate('/login')}}>Login</Button>
       {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
       {/**/}
       {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}
