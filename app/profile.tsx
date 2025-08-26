@@ -5,14 +5,11 @@ import { useAppTheme } from '@theme/themeConfig';
 
 export default function ProfileScreen() {
   // Retrieve Custom Properties
-  const {
-    container,
-  } = useAppTheme();
+  const { container } = useAppTheme();
 
   return (
     <View style={container}>
-      <Text variant="bodyLarge">Profile `app/profile.tsx`</Text>
+      <Text variant='bodyLarge'>Profile `app/profile.tsx`</Text>
     </View>
   );
 }
-

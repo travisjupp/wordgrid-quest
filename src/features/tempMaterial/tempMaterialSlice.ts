@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DiscoveryTermObject, InitialTempMaterialSliceState } from '@custom-types/AppTheme';
+import {
+  DiscoveryTermObject,
+  InitialTempMaterialSliceState,
+} from '@custom-types/AppTheme';
 
-const initialState: InitialTempMaterialSliceState = { 
+const initialState: InitialTempMaterialSliceState = {
   category: '',
   discoveryTerms: [],
-}
+};
 
 const tempMaterialSlice = createSlice({
   name: 'tempMaterial',
@@ -23,9 +26,9 @@ const tempMaterialSlice = createSlice({
       state.discoveryTerms = CMAwithRemovedDTO;
     },
     resetTempMaterial: () => ({ category: '', discoveryTerms: [] }),
-  }
+  },
 });
 
-export const { setCategory, addItem, removeItem, resetTempMaterial } = tempMaterialSlice.actions;
+export const { setCategory, addItem, removeItem, resetTempMaterial } =
+  tempMaterialSlice.actions;
 export default tempMaterialSlice.reducer;
-

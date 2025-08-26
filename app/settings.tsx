@@ -5,14 +5,11 @@ import { useAppTheme } from '@theme/themeConfig';
 
 export default function SettingsScreen() {
   // Retrieve Custom Properties
-  const {
-    container,
-  } = useAppTheme();
+  const { container } = useAppTheme();
 
   return (
     <View style={container}>
-      <Text variant="bodyLarge">Settings `app/settings.tsx`</Text>
+      <Text variant='bodyLarge'>Settings `app/settings.tsx`</Text>
     </View>
   );
 }
-

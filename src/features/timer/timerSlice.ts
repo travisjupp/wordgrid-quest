@@ -8,25 +8,24 @@ export interface InitialState {
 const initialState: InitialState = {
   isRunning: false,
   targetTime: 0,
-}
+};
 
 const timerSlice = createSlice({
   name: 'timer',
   initialState,
-  reducers: { 
+  reducers: {
     startTimer: (state, action: PayloadAction<number>) => {
       state.isRunning = true;
       state.targetTime = action.payload;
     },
-    stopTimer: (state) => {
+    stopTimer: state => {
       state.isRunning = false;
     },
-    resetTimer: (state) => {
+    resetTimer: state => {
       state.isRunning = false;
     },
-  }
+  },
 });
 
 export const { startTimer, stopTimer, resetTimer } = timerSlice.actions;
 export default timerSlice.reducer;
-

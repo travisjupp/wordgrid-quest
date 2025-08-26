@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme, Platform} from 'react-native';
+import { useColorScheme, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
 import * as StatusBar from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -26,23 +26,26 @@ export default function RootLayout() {
     'InriaSerif-Regular': require('@fonts/InriaSerif-Regular.ttf'),
     'InriaSerif-BoldItalic': require('@fonts/InriaSerif-BoldItalic.ttf'),
     'material-community': require('@fonts/material-community.ttf'),
-    'Abel-Regular': require('@fonts/Abel-Regular.ttf')
+    'Abel-Regular': require('@fonts/Abel-Regular.ttf'),
   }); // For iOS/Android, assume fonts loaded
 
   useEffect(() => {
-    if (loaded || error) { SplashScreen.hideAsync(); }
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
   }, [loaded, error]);
 
   useEffect(() => {
     // Use Font Loading API to check Web Fonts loaded (web)
     // Expo Fonts `useFonts` `loaded` is inaccurate for web
     async function checkBrowserFontsLoaded() {
-      const FontFaceSetReady = await document.fonts.ready; 
-      const loaded = FontFaceSetReady.status === "loaded";
+      const FontFaceSetReady = await document.fonts.ready;
+      const loaded = FontFaceSetReady.status === 'loaded';
       // console.log('FontFaceSetReady', FontFaceSetReady);
-      return loaded
-        ? setBrowserFontsLoaded(true) : console.log('FONTS NOT YET LOADED');
-    };
+      return loaded ?
+          setBrowserFontsLoaded(true)
+        : console.log('FONTS NOT YET LOADED');
+    }
     if (Platform.OS === 'web') {
       checkBrowserFontsLoaded();
     }
@@ -51,7 +54,7 @@ export default function RootLayout() {
   // Check/Store Device Settings Dark/Light mode state
   const deviceThemeIsDark = useColorScheme() === 'dark';
   const [isDarkTheme, setIsDarkTheme] = useState(deviceThemeIsDark);
-  const theme = themeBuilder(isDarkTheme); 
+  const theme = themeBuilder(isDarkTheme);
 
   // Respond to Device Settings Dark/Light mode state
   useEffect(() => {
@@ -65,10 +68,12 @@ export default function RootLayout() {
   // Set Status Bar style on theme change
   useEffect(() => {
     StatusBar.setStatusBarStyle(isDarkTheme ? 'light' : 'dark', true);
-    if (Platform.OS === "android") {
-      StatusBar
-        .setStatusBarBackgroundColor(theme.colors.surfaceContainer, true);
-    };
+    if (Platform.OS === 'android') {
+      StatusBar.setStatusBarBackgroundColor(
+        theme.colors.surfaceContainer,
+        true,
+      );
+    }
     return () => {
       StatusBar.setStatusBarStyle('auto');
     };
@@ -76,16 +81,16 @@ export default function RootLayout() {
 
   if (!loaded && !error) {
     return null; // Keep Splash visible while fonts load (web)
-  };
+  }
 
   // Show Spinner until Web Fonts/Icons loaded (web)
   if (!browserFontsLoaded && Platform.OS === 'web') {
-    return <Spinner theme={theme} />
+    return <Spinner theme={theme} />;
   }
 
   return (
     <Provider store={store}>
-      <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
+      <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
         <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack
@@ -94,20 +99,19 @@ export default function RootLayout() {
                   backgroundColor: theme.colors.surfaceContainer,
                 },
                 headerTintColor: theme.colors.onSurface,
-                headerShown: true, 
+                headerShown: true,
                 headerTitleStyle: {
                   fontWeight: 'bold',
                 },
                 headerTitleAlign: 'center',
                 headerBackButtonDisplayMode: 'minimal',
-                headerTitle: () => (<CLogo />),
-                headerRight: () => (<Menu />)
-              }}>
-            </Stack>
+                headerTitle: () => <CLogo />,
+                headerRight: () => <Menu />,
+              }}
+            ></Stack>
           </GestureHandlerRootView>
         </PaperProvider>
       </ThemeContext.Provider>
     </Provider>
   );
 }
-

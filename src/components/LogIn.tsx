@@ -3,7 +3,6 @@ import { Button, TextInput } from 'react-native-paper';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { View } from 'react-native';
 import { router } from 'expo-router';
-import { useAppTheme } from '@theme/themeConfig';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
@@ -17,17 +16,12 @@ export function LogIn() {
       .catch(e => console.error(e.message));
   };
 
-  // Retrieve Custom Theme-properties
-  const {
-    container,
-  } = useAppTheme();
-
   return (
     <View
       style={{
         width: '100%',
         gap: 8,
-        display: 'flex'
+        display: 'flex',
       }}
       testID='InputWrapper'
     >
@@ -40,8 +34,7 @@ export function LogIn() {
         autoCapitalize='none'
         value={email}
         onChangeText={email => setEmail(email)}
-        style={{ 
-        }}
+        style={{}}
         testID='EmailInput'
       />
       <TextInput
@@ -54,27 +47,32 @@ export function LogIn() {
         autoCapitalize='none'
         value={password}
         onChangeText={password => setPassword(password)}
-        style={{ 
-        }}
+        style={{}}
         testID='PasswordInput'
       />
-      <View style={{ 
-        paddingTop: 6,
-        width: '100%',
-        height: 56,
-        display: 'flex',
-        justifyContent: 'flex-end'
-      }} >
-        <Button theme={{ roundness: .8}} 
+      <View
+        style={{
+          paddingTop: 6,
+          width: '100%',
+          height: 56,
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Button
+          theme={{ roundness: 0.8 }}
           style={{
             height: '100%',
             alignSelf: 'stretch',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
-          mode='contained' onPress={handleRegister}>Sign In</Button>
+          mode='contained'
+          onPress={handleRegister}
+        >
+          Sign In
+        </Button>
       </View>
     </View>
   );
-};
-
+}

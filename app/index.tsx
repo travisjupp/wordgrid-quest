@@ -7,31 +7,27 @@ import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import { FirebaseTest } from '@features/firebase/firebaseTest';
 import { router, useNavigation } from 'expo-router';
+// import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
   // Retrieve Custom Theme-properties
-  const {
-    container,
-  } = useAppTheme();
+  const { container } = useAppTheme();
 
   // Screen Options
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
       // Hide menu
-      headerRight: null
+      headerRight: null,
     });
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
-      <FAB
-        icon="skull-outline"
-        onPress={() => console.log('Pressed')}
-      />
+      <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
       <FirebaseTest />
       {/* <Text  */}
       {/*   variant="bodyLarge" */}
@@ -49,7 +45,13 @@ export default function HomeScreen() {
       {/**/}
       {/* <Text style={text}>NO variant, object style</Text> */}
       {/**/}
-      <Button onPress={() => {router.navigate('/login')}}>Login</Button>
+      <Button
+        onPress={() => {
+          router.navigate('/login');
+        }}
+      >
+        Login
+      </Button>
       {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
       {/**/}
       {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}
@@ -60,11 +62,10 @@ export default function HomeScreen() {
       {/*   style={{fontFamily: "Inter24pt-Black"}} */}
       {/* >YES variant (bodyLarge), inline style fontFamily: Inter24pt-Black</Text> */}
       {/**/}
-      {/* {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */} 
+      {/* {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */}
       {/* <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button> */}
       {/* <Button mode='outlined'>TEST</Button> */}
       {/* <Button icon="camera" disabled={true} mode="contained">Disabled</Button> */}
     </View>
   );
 }
-

@@ -5,18 +5,19 @@ import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 
-export default function AuthLayout() { 
+export default function AuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/signin';
 
   const { container } = useAppTheme();
-  return ( 
+  return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>
       <PageHeading text='Welcome' />
       <Logo width={174.9} height={174.9} />
-      <GuidanceText text={isLoginPage ? 'Sign-in to continue' : 'Create an account'} />
+      <GuidanceText
+        text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
+      />
       <Slot />
     </SafeAreaView>
   );
-};
-
+}

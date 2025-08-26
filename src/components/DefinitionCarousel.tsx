@@ -4,15 +4,15 @@ import { useRef, useState, useEffect } from 'react';
 import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
-  definitions?:string[];
-  width?:DimensionValue;
-  height?:DimensionValue;
+  definitions?: string[];
+  width?: DimensionValue;
+  height?: DimensionValue;
 }
 
-export function DefinitionCarousel({definitions, width, height}: Props ) {
+export function DefinitionCarousel({ definitions, width, height }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handlePagination = (event:any) => {
+  const handlePagination = (event: any) => {
     // Calculate the current page based on the scroll position
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     if (typeof width === 'number') {
@@ -26,11 +26,9 @@ export function DefinitionCarousel({definitions, width, height}: Props ) {
   };
 
   // Retrieve Custom Theme-properties
-  const {
-    carousel,
-  } = useAppTheme();
+  const { carousel } = useAppTheme();
 
-  const scrollViewRef = useRef<ScrollView|null>(null);
+  const scrollViewRef = useRef<ScrollView | null>(null);
 
   useEffect(() => {
     if (scrollViewRef.current && definitions && width) {
@@ -43,26 +41,31 @@ export function DefinitionCarousel({definitions, width, height}: Props ) {
       const timeouts: number[] = [];
       // Scroll carousel items with a delay
       for (let i = 0; i < numFrames; i++) {
-        const tid = setTimeout(() => scrollViewRef
-          .current?.scrollTo({ x: frameWidth * i, animated: true }), initialDelay + i * delay);
+        const tid = setTimeout(
+          () =>
+            scrollViewRef.current?.scrollTo({
+              x: frameWidth * i,
+              animated: true,
+            }),
+          initialDelay + i * delay,
+        );
         timeouts.push(tid);
-      };
+      }
       // Scroll back to the first frame
-      const resetTid = setTimeout(() => scrollViewRef
-        .current?.scrollTo({x: 0, animated: true }), initialDelay + numFrames * delay );
+      const resetTid = setTimeout(
+        () => scrollViewRef.current?.scrollTo({ x: 0, animated: true }),
+        initialDelay + numFrames * delay,
+      );
       timeouts.push(resetTid);
       // Cleanup
       return () => timeouts.forEach(clearTimeout);
     }
-  }, [definitions, width]); 
+  }, [definitions, width]);
 
   return (
-    <View 
-      style={carousel.container}
-      testID="ScrollViewWrapper"
-    >
+    <View style={carousel.container} testID='ScrollViewWrapper'>
       <ScrollView
-        testID="ScrollView"
+        testID='ScrollView'
         ref={scrollViewRef}
         horizontal={true}
         pagingEnabled={true}
@@ -70,22 +73,23 @@ export function DefinitionCarousel({definitions, width, height}: Props ) {
         onScroll={handlePagination}
         alwaysBounceHorizontal={true}
         bounces={true}
-        contentContainerStyle={{ 
-          // borderWidth: 1, 
-          // borderColor: 'slateblue'
-        }}
+        contentContainerStyle={
+          {
+            // borderWidth: 1,
+            // borderColor: 'slateblue'
+          }
+        }
         style={{ overflow: 'scroll' }} // Web: can scroll overflowing paragraphs
       >
         {definitions?.map((paragraph, index) => (
-          <View key={index} 
-            style={carousel.page}
-            testID={"ScrollView"+index}
-          >
+          <View key={index} style={carousel.page} testID={'ScrollView' + index}>
             <ScrollView>
-              <Text 
-                style={[carousel.paragraph, {width, height}]}
+              <Text
+                style={[carousel.paragraph, { width, height }]}
                 variant='carouselParagraph'
-              >{paragraph}</Text>
+              >
+                {paragraph}
+              </Text>
             </ScrollView>
           </View>
         ))}
@@ -104,4 +108,3 @@ export function DefinitionCarousel({definitions, width, height}: Props ) {
     </View>
   );
 }
-

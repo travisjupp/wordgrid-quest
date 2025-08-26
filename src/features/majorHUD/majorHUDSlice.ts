@@ -1,4 +1,5 @@
-import { createSlice, 
+import {
+  createSlice,
   // PayloadAction
 } from '@reduxjs/toolkit';
 
@@ -10,15 +11,13 @@ export interface InitialState {
 const initialState: InitialState = {
   someBooleanProperty: false,
   someNumericProperty: 0,
-}
+};
 
 const majorHUDSlice = createSlice({
   name: 'majorHUD',
   initialState,
-  reducers: { 
-  }
+  reducers: {},
 });
 
 // export const {} = majorHUDSlice.actions;
 export default majorHUDSlice.reducer;
-

@@ -1,4 +1,9 @@
-import { MD3LightTheme as DefaultTheme, MD3DarkTheme, configureFonts, useTheme } from 'react-native-paper';
+import {
+  MD3LightTheme as DefaultTheme,
+  MD3DarkTheme,
+  configureFonts,
+  useTheme,
+} from 'react-native-paper';
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 import materialColors from '@prototype/material-theme.json';
@@ -36,7 +41,7 @@ const fontConfig = {
   bodyLargeEmphasized: {
     fontWeight: 'bold',
   },
-  // If any component uses Paper's Text component, without 
+  // If any component uses Paper's Text component, without
   // specified variant, then *default* variant is applied
   default: {
     fontSize: 12,
@@ -57,9 +62,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
-  const customProperties =
-  StyleSheet.create({
-
+  const customProperties = StyleSheet.create({
     // START MajorHUD Styles
     majorHUDContainer: {
       flexDirection: 'row',
@@ -69,13 +72,13 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
     // START TopicFrame Styles
     topicFrameContainer: {
-      // marginInlineStart: 0, 
+      // marginInlineStart: 0,
     },
     // END TopicFrame Styles
 
     // START Carousel Styles
     carouselContainer: {
-      width: 'auto', 
+      width: 'auto',
       flex: 1,
       marginTop: 20,
       // borderWidth: 1,
@@ -111,7 +114,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 1,
       borderColor: themeVariant.colors.primary,
     },
-    // END Carousel Styles 
+    // END Carousel Styles
 
     container: {
       flex: 1,
@@ -128,7 +131,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     link: {
       color: themeVariant.colors.onSurface,
       fontWeight: 'bold',
-      fontSize: 26
+      fontSize: 26,
     },
 
     logo: {
@@ -231,21 +234,23 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     clogo: customProperties.clogo,
     menu: customProperties.menu,
     timer: customProperties.timer,
-    fonts: configureFonts({config: fontConfig}),
-    colors: isDarkTheme ? {
-      ...themeVariant.colors,
-      // Custom color properties
-      ...materialColors.schemes.dark,
-      // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-    } : {
-        ...themeVariant.colors,
-        // Custom color properties
-        ...materialColors.schemes.light,
-        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-      },
-  }
+    fonts: configureFonts({ config: fontConfig }),
+    colors:
+      isDarkTheme ?
+        {
+          ...themeVariant.colors,
+          // Custom color properties
+          ...materialColors.schemes.dark,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        }
+      : {
+          ...themeVariant.colors,
+          // Custom color properties
+          ...materialColors.schemes.light,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        },
+  };
 };
 
 // Sub-components can access Custom Theme-properties
 export const useAppTheme = () => useTheme<AppTheme>();
-

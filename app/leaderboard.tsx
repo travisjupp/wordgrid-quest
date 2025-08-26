@@ -5,14 +5,11 @@ import { useAppTheme } from '@theme/themeConfig';
 
 export default function LeaderboardScreen() {
   // Retrieve Custom Properties
-  const {
-    container,
-  } = useAppTheme();
+  const { container } = useAppTheme();
 
   return (
     <View style={container}>
-      <Text variant="bodyLarge">Leaderboard `app/leaderboard.tsx`</Text>
+      <Text variant='bodyLarge'>Leaderboard `app/leaderboard.tsx`</Text>
     </View>
   );
 }
-

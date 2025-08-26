@@ -9,9 +9,7 @@ export function Menu() {
   const openRNPMenu = () => setVisible(true);
   const closeRNPMenu = () => setVisible(false);
   // Retrieve Custom Theme-properties
-  const {
-    menu,
-  } = useAppTheme();
+  const { menu } = useAppTheme();
 
   return (
     <RNPMenu
@@ -20,27 +18,46 @@ export function Menu() {
       onDismiss={closeRNPMenu}
       anchor={
         <Button onPress={openRNPMenu}>
-          <Icon size={25} source="dots-vertical" />
+          <Icon size={25} source='dots-vertical' />
         </Button>
       }
     >
-      <RNPMenu.Item onPress={() => {
-        router.navigate('/profile'); closeRNPMenu()
-      }} title="Profile" leadingIcon="account-circle" />
+      <RNPMenu.Item
+        onPress={() => {
+          router.navigate('/profile');
+          closeRNPMenu();
+        }}
+        title='Profile'
+        leadingIcon='account-circle'
+      />
 
-      <RNPMenu.Item onPress={() => {
-        router.navigate('/settings'); closeRNPMenu()
-      }} title="Settings" leadingIcon="cog-outline" />
+      <RNPMenu.Item
+        onPress={() => {
+          router.navigate('/settings');
+          closeRNPMenu();
+        }}
+        title='Settings'
+        leadingIcon='cog-outline'
+      />
 
-      <RNPMenu.Item onPress={() => {
-        router.navigate('/leaderboard'); closeRNPMenu()
-      }} title="Leaderboard" leadingIcon="star-circle-outline" />
+      <RNPMenu.Item
+        onPress={() => {
+          router.navigate('/leaderboard');
+          closeRNPMenu();
+        }}
+        title='Leaderboard'
+        leadingIcon='star-circle-outline'
+      />
 
-      <RNPMenu.Item onPress={() => {
-        router.navigate('/upload'); closeRNPMenu()
-      }} title="Load Material" leadingIcon="upload" />
+      <RNPMenu.Item
+        onPress={() => {
+          router.navigate('/upload');
+          closeRNPMenu();
+        }}
+        title='Load Material'
+        leadingIcon='upload'
+      />
       <Divider />
     </RNPMenu>
-  )
-};
-
+  );
+}

@@ -3,21 +3,21 @@ import { ViewStyle, TextStyle } from 'react-native';
 export interface InitialMaterialSliceState {
   category: CustomMaterialArray;
   activeCategory: string;
-};
+}
 
 export interface InitialTempMaterialSliceState {
   category: string;
   discoveryTerms: DiscoveryTermObject[];
-};
+}
 
 export interface DiscoveryTermObject {
   dt: string;
   def: string;
-};
+}
 
 export interface CustomMaterialArray {
- [key:string]: DiscoveryTermObject[]; 
-};
+  [key: string]: DiscoveryTermObject[];
+}
 
 export interface MajorHUDStyles {
   container: ViewStyle;
@@ -113,4 +113,3 @@ export interface AppTheme {
   version: number;
   menu: object;
 }
-

@@ -5,14 +5,11 @@ import { useAppTheme } from '@theme/themeConfig';
 
 export default function LoadmaterialScreen() {
   // Retrieve Custom Properties
-  const {
-    container,
-  } = useAppTheme();
+  const { container } = useAppTheme();
 
   return (
     <View style={container}>
-      <Text variant="bodyLarge">Load Material `app/upload.tsx`</Text>
+      <Text variant='bodyLarge'>Load Material `app/upload.tsx`</Text>
     </View>
   );
 }
-

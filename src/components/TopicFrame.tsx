@@ -4,32 +4,38 @@ import { DefinitionCarousel } from '@components/DefinitionCarousel';
 import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
-  definitions?:string[];
-  category?:string;
-  topicframeWidth?:DimensionValue;
-  topicframeHeight?:DimensionValue;
+  definitions?: string[];
+  category?: string;
+  topicframeWidth?: DimensionValue;
+  topicframeHeight?: DimensionValue;
 }
 
-export function TopicFrame({ definitions, category, topicframeWidth, topicframeHeight }: Props) {
-
+export function TopicFrame({
+  definitions,
+  category,
+  topicframeWidth,
+  topicframeHeight,
+}: Props) {
   // Retrieve Custom Theme-properties
-  const {
-    topicFrame
-  } = useAppTheme();
+  const { topicFrame } = useAppTheme();
 
   return (
-    <View style={[
+    <View
+      style={[
         topicFrame.container,
-      { 
-        height:topicframeHeight, 
-        width:topicframeWidth
-      }]} testID='TopicFrame'>
+        {
+          height: topicframeHeight,
+          width: topicframeWidth,
+        },
+      ]}
+      testID='TopicFrame'
+    >
       <CategoryHeader headerText={category} />
-      <DefinitionCarousel definitions={definitions}
-        width={topicframeWidth} 
+      <DefinitionCarousel
+        definitions={definitions}
+        width={topicframeWidth}
         height={topicframeHeight}
       />
     </View>
   );
-};
-
+}

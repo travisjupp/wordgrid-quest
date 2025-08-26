@@ -13,11 +13,11 @@ import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
   authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
-  projectId: "wordgrid-quest-dev",
-  storageBucket: "wordgrid-quest-dev.firebasestorage.app",
-  messagingSenderId: "186043510812",
-  appId: "1:186043510812:web:d9705ae724fdb25a222fd9",
-  measurementId: "G-631FYFBHPF"
+  projectId: 'wordgrid-quest-dev',
+  storageBucket: 'wordgrid-quest-dev.firebasestorage.app',
+  messagingSenderId: '186043510812',
+  appId: '1:186043510812:web:d9705ae724fdb25a222fd9',
+  measurementId: 'G-631FYFBHPF',
 };
 
 // Initialize Firebase
@@ -27,27 +27,16 @@ const app = initializeApp(firebaseConfig);
 // Initialize Analytics if supported in environment
 isSupported().then(supported => {
   if (supported) {
-    // Firebase Analytics only works for Web when using 
-    // Firebase JS SDK, for iOS/Android support use React Native Firebase: 
+    // Firebase Analytics only works for Web when using
+    // Firebase JS SDK, for iOS/Android support use React Native Firebase:
     // https://docs.expo.dev/guides/using-firebase/#using-react-native-firebase
     console.log('Firebase Analytics supported, initializing..');
-    const analytics = getAnalytics(app); 
+    getAnalytics(app);
   } else {
     console.log('Firebase Analytics not supported in this environment');
-  };
+  }
 });
 
 // Initialize Auth
 export const auth = getAuth(app);
-
-// Test Firebase Auth anon sign-in
-// signInAnonymously(auth)
-//   .then(() => {
-//     console.log("Anonymous sign-in successful!");
-//   })
-//   .catch((e) => {
-//     console.error("Anonymous sign-in failed!", e);
-//   });
-
 export default app;
-
