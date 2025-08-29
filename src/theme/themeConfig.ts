@@ -139,8 +139,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'green',
       borderStyle: 'solid',
       position: 'relative',
-      top: 2,
-      left: 4,
     },
 
     clogo: {

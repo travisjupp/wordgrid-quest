@@ -2,13 +2,16 @@ import * as React from 'react';
 import Svg, { Rect, Path, G } from 'react-native-svg';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
+import Animated, { useAnimatedProps, useSharedValue, withTiming, interpolateColor } from 'react-native-reanimated';
 
 interface Props {
   width?: number;
   height?: number;
+  gradient?: boolean;
+  styles?: object;
 }
 
-export function Logo({ width = 50, height = 50 }: Props) {
+export function Logo({ width = 50, height = 50, gradient = false, styles }: Props) {
   // Retrieve Custom Theme-properties
   const {
     logo,
@@ -16,7 +19,7 @@ export function Logo({ width = 50, height = 50 }: Props) {
   } = useAppTheme();
 
   return (
-    <View style={logo}>
+    <View style={[logo, {...styles}]} testID='Logo View'>
       <Svg width={width} height={height} viewBox='0 0 1046 849' fill='none'>
         <G id='wgq-logo-plain'>
           <Rect
