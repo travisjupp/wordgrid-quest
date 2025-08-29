@@ -7,7 +7,7 @@ import { GuidanceText } from '@components/GuidanceText';
 
 export default function AuthLayout() {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/signin';
+  const isLoginPage = pathname === '/login';
 
   const { container } = useAppTheme();
   return (
