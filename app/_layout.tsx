@@ -7,7 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { store } from '@store/index';
 import { Provider } from 'react-redux';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider, MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 import ThemeContext from '@contexts/ThemeContext';
 import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
@@ -18,6 +18,11 @@ SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
 
 export default function RootLayout() {
+  // Check/Store Device Settings Dark/Light mode state
+  const deviceThemeIsDark = useColorScheme() === 'dark';
+  const [isDarkTheme, setIsDarkTheme] = useState(deviceThemeIsDark);
+  const theme = themeBuilder(isDarkTheme);
+
   const [browserFontsLoaded, setBrowserFontsLoaded] = useState(false);
 
   // Load Web Fonts
@@ -50,11 +55,6 @@ export default function RootLayout() {
       checkBrowserFontsLoaded();
     }
   }, []);
-
-  // Check/Store Device Settings Dark/Light mode state
-  const deviceThemeIsDark = useColorScheme() === 'dark';
-  const [isDarkTheme, setIsDarkTheme] = useState(deviceThemeIsDark);
-  const theme = themeBuilder(isDarkTheme);
 
   // Respond to Device Settings Dark/Light mode state
   useEffect(() => {
