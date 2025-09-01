@@ -1,19 +1,26 @@
 import { useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { View } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Platform, View } from 'react-native';
 import { router } from 'expo-router';
+import { auth } from 'src/services/firebaseConfig';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
-  const handleRegister = () => {
-    signInWithEmailAndPassword(getAuth(), email, password)
-      .then(user => {
-        if (user) router.replace('/profile');
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, newPassword)
+      .then(userCredential => {
+        const user = userCredential.user;
+        if (user) router.replace('/login');
       })
-      .catch(e => console.error(e.message));
+      .catch(e => {
+        const errorCode = e.code;
+        const errorMessage = e.message;
+        console.error(errorCode, errorMessage);
+      });
   };
 
   return (
@@ -32,36 +39,38 @@ export function SignUp() {
         keyboardType='email-address'
         mode='outlined'
         autoCapitalize='none'
+        autoCorrect={false}
+        autoComplete={ Platform.OS === 'ios' ? 'off' : 'email' }
+        textContentType='emailAddress' // iOS only (dont use with autoComplete)
         value={email}
         onChangeText={email => setEmail(email)}
         style={{}}
         testID='EmailInput'
+        returnKeyType='next'
       />
       <TextInput
         label='Choose Password'
-        id='PasswordInput'
+        id='newPasswordInput'
         placeholder='Password'
         keyboardType='default'
         mode='outlined'
-        secureTextEntry={true}
+        secureTextEntry={secureTextEntry}
         autoCapitalize='none'
-        value={password}
-        onChangeText={password => setPassword(password)}
+        autoCorrect={false}
+        autoComplete={ Platform.OS === 'ios' ? 'off' : 'new-password' }
+        textContentType='newPassword'// iOS only (dont use with autoComplete)
+        passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
+        value={newPassword}
+        onChangeText={newPassword => setNewPassword(newPassword)}
         style={{}}
-        testID='PasswordInput'
-      />
-      <TextInput
-        label='Confirm Password'
-        id='PasswordInput'
-        placeholder='Password'
-        keyboardType='default'
-        mode='outlined'
-        secureTextEntry={true}
-        autoCapitalize='none'
-        value={password}
-        onChangeText={password => setPassword(password)}
-        style={{}}
-        testID='PasswordInput'
+        testID='newPasswordInput'
+        returnKeyType='done'
+        right={
+          <TextInput.Icon
+            icon={secureTextEntry ? 'eye-off' : 'eye'}
+            onPress={() => setSecureTextEntry(!secureTextEntry)}
+          />
+        }
       />
       <View
         style={{
@@ -81,7 +90,7 @@ export function SignUp() {
             justifyContent: 'center',
           }}
           mode='contained'
-          onPress={handleRegister}
+          onPress={handleSignUp}
         >
           Sign Up
         </Button>
