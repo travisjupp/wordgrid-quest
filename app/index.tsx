@@ -47,6 +47,13 @@ export default function HomeScreen() {
       {/**/}
       <Button
         onPress={() => {
+          router.navigate('/profile');
+        }}
+      >
+        Profile
+      </Button>
+      <Button
+        onPress={() => {
           router.navigate('/login');
         }}
       >
