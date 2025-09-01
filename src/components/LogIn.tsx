@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const handleRegister = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
@@ -38,17 +39,23 @@ export function LogIn() {
         testID='EmailInput'
       />
       <TextInput
-        label='Choose Password'
+        label='Password'
         id='PasswordInput'
         placeholder='Password'
         keyboardType='default'
         mode='outlined'
-        secureTextEntry={true}
+        secureTextEntry={secureTextEntry}
         autoCapitalize='none'
         value={password}
         onChangeText={password => setPassword(password)}
         style={{}}
         testID='PasswordInput'
+        right={
+          <TextInput.Icon
+            icon={secureTextEntry ? 'eye-off' : 'eye'}
+            onPress={() => setSecureTextEntry(!secureTextEntry)}
+          />
+        }
       />
       <View
         style={{
