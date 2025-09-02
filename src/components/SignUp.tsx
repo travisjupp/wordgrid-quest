@@ -10,7 +10,8 @@ export function SignUp() {
   const [email, setEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [focused, setFocused] = useState<boolean>(false);
+  const [focusedEmailField, setFocusedEmailField] = useState<boolean>(false);
+  const [focusedPasswordField, setFocusedPasswordField] = useState<boolean>(false);
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, newPassword)
@@ -49,12 +50,11 @@ export function SignUp() {
         style={{}}
         testID='EmailInput'
         returnKeyType='next'
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        onFocus={() => setFocusedEmailField(true)}
+        onBlur={() => setFocusedEmailField(false)}
         right={
           <TextInput.Icon
             icon={'pencil-outline'}
-            onPress={() => setSecureTextEntry(!secureTextEntry)}
           />
         }
       />
@@ -75,20 +75,24 @@ export function SignUp() {
         style={{}}
         testID='newPasswordInput'
         returnKeyType='done'
-        right={
-          focused ?
-          <TextInput.Icon
-            icon={secureTextEntry ? 'eye-off' : 'eye'}
-            onPress={() => setSecureTextEntry(!secureTextEntry)}
-          />
-          :
-          <TextInput.Icon
-            icon={'pencil-outline'}
-            onPress={() => setSecureTextEntry(!secureTextEntry)}
-          />
+        onFocus={() => setFocusedPasswordField(true)}
+        onBlur={() => {
+          setFocusedPasswordField(false);
+          setSecureTextEntry(true);
         }
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        }
+        right={
+          focusedPasswordField ?
+            <TextInput.Icon
+              icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
+              onPress={() => setSecureTextEntry(!secureTextEntry)}
+            />
+            :
+            <TextInput.Icon
+              icon={'pencil-outline'}
+              onPress={() => setSecureTextEntry(!secureTextEntry)}
+            />
+        }
       />
       <View
         style={{
@@ -99,7 +103,6 @@ export function SignUp() {
           justifyContent: 'flex-end',
         }}
       >
-     {focused && <Text>focused</Text>}
         <Button
           theme={{ roundness: 0.8 }}
           style={{
