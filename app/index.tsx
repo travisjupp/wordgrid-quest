@@ -28,7 +28,7 @@ export default function HomeScreen() {
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
-      <FirebaseTest />
+      {/* <FirebaseTest /> */}
       {/* <Text  */}
       {/*   variant="bodyLarge" */}
       {/*   style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text> */}
