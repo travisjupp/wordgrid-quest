@@ -4,13 +4,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Platform, View } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
-import { Text } from './Text';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [focusedEmailField, setFocusedEmailField] = useState<boolean>(false);
   const [focusedPasswordField, setFocusedPasswordField] = useState<boolean>(false);
 
   const handleSignUp = () => {
@@ -50,8 +48,6 @@ export function SignUp() {
         style={{}}
         testID='EmailInput'
         returnKeyType='next'
-        onFocus={() => setFocusedEmailField(true)}
-        onBlur={() => setFocusedEmailField(false)}
         right={
           <TextInput.Icon
             icon={'pencil-outline'}
