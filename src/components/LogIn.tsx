@@ -50,9 +50,10 @@ export function LogIn() {
         onChangeText={password => setPassword(password)}
         style={{}}
         testID='PasswordInput'
+        onBlur={() => setSecureTextEntry(true)}
         right={
           <TextInput.Icon
-            icon={secureTextEntry ? 'eye-off' : 'eye'}
+            icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
             onPress={() => setSecureTextEntry(!secureTextEntry)}
           />
         }
