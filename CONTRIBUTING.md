@@ -1,6 +1,9 @@
 # Contributing
 
-Check the [Project Board](https://github.com/users/travisjupp/projects/2/views/2) Todos and Roadmap to see what needs to be done and follow the instructions below.
+Check the [Project Board](https://github.com/users/travisjupp/projects/2/views/2) **Todos** and **Roadmap** to get familiar with the project, then leave a comment on the **Issue** you're interested in working on and I'll find you. 
+
+If you're new and looking for a good first issue, checkout: [Create sub-issues from list-items
+#125][good first issue]
 
 
 ## Contribute Code
@@ -72,3 +75,4 @@ Contributors will be given credit in the project README and added as a contibuto
 
 🤙 Thanks for considering making a contribution!
 
+[good first issue]: https://github.com/users/travisjupp/projects/2/views/3?pane=issue&itemId=127081539&issue=travisjupp%7Cwordgrid-quest%7C125
