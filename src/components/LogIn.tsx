@@ -62,11 +62,20 @@ export function LogIn() {
         style={{}}
         aria-label='Your password'
         testID='PasswordInput'
-        onBlur={() => setSecureTextEntry(true)}
+        returnKeyType='done'
+        onBlur={() => {
+          // Mask P/W when field deselected
+          // Breaks show/hide P/W toggle on web, non-web only
+          if (Platform.OS !== 'web') setSecureTextEntry(true);
+        }}
         right={
           <TextInput.Icon
             icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
             onPress={() => setSecureTextEntry(!secureTextEntry)}
+            onPointerLeave={() => {
+              // Mask P/W on mouseOut (Web)
+              setSecureTextEntry(true);
+            }}
           />
         }
       />

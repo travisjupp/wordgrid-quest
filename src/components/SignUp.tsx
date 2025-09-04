@@ -55,6 +55,7 @@ export function SignUp() {
             icon={'pencil-outline'}
           />
         }
+        right={<TextInput.Icon icon={'pencil-outline'} />}
       />
       <TextInput
         label='Choose Password'
@@ -78,20 +79,25 @@ export function SignUp() {
         onFocus={() => setFocusedPasswordField(true)}
         onBlur={() => {
           setFocusedPasswordField(false);
-          setSecureTextEntry(true);
-        }
-        }
+          // Mask P/W when field deselected
+          // Breaks show/hide P/W toggle on web, non-web only
+          if (Platform.OS !== 'web') setSecureTextEntry(true);
+          // handleScaleLogo();
+        }}
         right={
-          focusedPasswordField ?
-            <TextInput.Icon
-              icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
-              onPress={() => setSecureTextEntry(!secureTextEntry)}
-            />
-            :
-            <TextInput.Icon
-              icon={'pencil-outline'}
-              onPress={() => setSecureTextEntry(!secureTextEntry)}
-            />
+          <TextInput.Icon
+            icon={
+              focusedPasswordField ?
+                secureTextEntry ?
+                  'eye-off-outline' : 'eye-outline'
+                : 'pencil-outline'
+            }
+            onPress={() => setSecureTextEntry(!secureTextEntry)}
+            onPointerLeave={() => {
+              // Mask P/W on mouseOut (Web)
+              setSecureTextEntry(true);
+            }}
+          />
         }
       />
       <View
