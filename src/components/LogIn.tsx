@@ -9,7 +9,7 @@ export function LogIn() {
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
-  const handleRegister = () => {
+  const handleSignIn = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then(user => {
         if (user) router.replace('/profile');
@@ -76,7 +76,7 @@ export function LogIn() {
             justifyContent: 'center',
           }}
           mode='contained'
-          onPress={handleRegister}
+          onPress={handleSignIn}
         >
           Sign In
         </Button>
