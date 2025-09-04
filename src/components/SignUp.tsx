@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Platform, View } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
+import LogoContext from '@contexts/LogoContext';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [focusedPasswordField, setFocusedPasswordField] = useState<boolean>(false);
-
+  const { scaleLogo } = useContext(LogoContext);
+  const handleScaleLogo = (size?: number | undefined) => {
+    scaleLogo(size);
+  };
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, newPassword)
       .then(userCredential => {
@@ -50,11 +54,12 @@ export function SignUp() {
         aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
-        right={
-          <TextInput.Icon
-            icon={'pencil-outline'}
-          />
-        }
+        onFocus={() => {
+          // handleScaleLogo(152);
+        }}
+        onBlur={() => {
+          // handleScaleLogo();
+        }}
         right={<TextInput.Icon icon={'pencil-outline'} />}
       />
       <TextInput
@@ -76,7 +81,10 @@ export function SignUp() {
         aria-label='Your password'
         testID='newPasswordInput'
         returnKeyType='done'
-        onFocus={() => setFocusedPasswordField(true)}
+        onFocus={() => {
+          setFocusedPasswordField(true);
+          // handleScaleLogo(75);
+        }}
         onBlur={() => {
           setFocusedPasswordField(false);
           // Mask P/W when field deselected
