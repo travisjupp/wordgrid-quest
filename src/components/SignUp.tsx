@@ -41,10 +41,11 @@ export function SignUp() {
         mode='outlined'
         autoCapitalize='none'
         autoCorrect={false}
-        autoComplete={ Platform.OS === 'ios' ? 'off' : 'email' }
+        autoComplete={Platform.OS === 'ios' ? 'off' : 'email'}
         textContentType='emailAddress' // iOS only (dont use with autoComplete)
         value={email}
         onChangeText={email => setEmail(email)}
+        spellCheck={false}
         style={{}}
         aria-label='Your email address'
         testID='EmailInput'
@@ -69,6 +70,7 @@ export function SignUp() {
         passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
         value={newPassword}
         onChangeText={newPassword => setNewPassword(newPassword)}
+        spellCheck={false}
         style={{}}
         aria-label='Your password'
         testID='newPasswordInput'

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
 
 export function LogIn() {
@@ -33,11 +33,16 @@ export function LogIn() {
         keyboardType='email-address'
         mode='outlined'
         autoCapitalize='none'
+        autoCorrect={false}
+        autoComplete={Platform.OS === 'ios' ? 'off' : 'email'}
+        textContentType='emailAddress' // iOS only (dont use with autoComplete)
         value={email}
         onChangeText={email => setEmail(email)}
+        spellCheck={false}
         style={{}}
         aria-label='Your email address'
         testID='EmailInput'
+        returnKeyType='next'
       />
       <TextInput
         label='Password'
@@ -47,8 +52,13 @@ export function LogIn() {
         mode='outlined'
         secureTextEntry={secureTextEntry}
         autoCapitalize='none'
+        autoCorrect={false}
+        autoComplete={ Platform.OS === 'ios' ? 'off' : 'current-password' }
+        textContentType='newPassword'// iOS only (dont use with autoComplete)
+        passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
         value={password}
         onChangeText={password => setPassword(password)}
+        spellCheck={false}
         style={{}}
         aria-label='Your password'
         testID='PasswordInput'
