@@ -46,6 +46,7 @@ export function SignUp() {
         value={email}
         onChangeText={email => setEmail(email)}
         style={{}}
+        aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
         right={
@@ -69,6 +70,7 @@ export function SignUp() {
         value={newPassword}
         onChangeText={newPassword => setNewPassword(newPassword)}
         style={{}}
+        aria-label='Your password'
         testID='newPasswordInput'
         returnKeyType='done'
         onFocus={() => setFocusedPasswordField(true)}

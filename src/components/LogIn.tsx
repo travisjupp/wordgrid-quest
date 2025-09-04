@@ -36,6 +36,7 @@ export function LogIn() {
         value={email}
         onChangeText={email => setEmail(email)}
         style={{}}
+        aria-label='Your email address'
         testID='EmailInput'
       />
       <TextInput
@@ -49,6 +50,7 @@ export function LogIn() {
         value={password}
         onChangeText={password => setPassword(password)}
         style={{}}
+        aria-label='Your password'
         testID='PasswordInput'
         onBlur={() => setSecureTextEntry(true)}
         right={
