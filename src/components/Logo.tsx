@@ -11,7 +11,12 @@ import Svg, {
 } from 'react-native-svg';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
-import Animated, { useAnimatedProps, useSharedValue, withTiming, interpolateColor } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedProps,
+  useSharedValue,
+  withTiming,
+  interpolateColor,
+} from 'react-native-reanimated';
 
 interface Props {
   width?: number;

@@ -12,12 +12,12 @@ export default function AuthLayout() {
   const isLoginPage = pathname === '/login';
   const defaultLogoSize = 174.9;
   const [logoVisible, setLogoVisible] = useState<boolean>(true);
-  const [logoSize, setLogoSize] = useState<number|undefined>(defaultLogoSize);
+  const [logoSize, setLogoSize] = useState<number | undefined>(defaultLogoSize);
 
   const toggleLogo = () => setLogoVisible(!logoVisible);
-  const scaleLogo = (size?: number|undefined) => {
+  const scaleLogo = (size?: number | undefined) => {
     setLogoSize(size ?? defaultLogoSize);
-  }
+  };
 
   const { container } = useAppTheme();
   return (

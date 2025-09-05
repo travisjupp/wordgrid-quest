@@ -10,7 +10,8 @@ export function SignUp() {
   const [email, setEmail] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [focusedPasswordField, setFocusedPasswordField] = useState<boolean>(false);
+  const [focusedPasswordField, setFocusedPasswordField] =
+    useState<boolean>(false);
   const { scaleLogo } = useContext(LogoContext);
   const handleScaleLogo = (size?: number | undefined) => {
     scaleLogo(size);
@@ -71,8 +72,8 @@ export function SignUp() {
         secureTextEntry={secureTextEntry}
         autoCapitalize='none'
         autoCorrect={false}
-        autoComplete={ Platform.OS === 'ios' ? 'off' : 'new-password' }
-        textContentType='newPassword'// iOS only (dont use with autoComplete)
+        autoComplete={Platform.OS === 'ios' ? 'off' : 'new-password'}
+        textContentType='newPassword' // iOS only (dont use with autoComplete)
         passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
         value={newPassword}
         onChangeText={newPassword => setNewPassword(newPassword)}
@@ -97,8 +98,9 @@ export function SignUp() {
             icon={
               focusedPasswordField ?
                 secureTextEntry ?
-                  'eye-off-outline' : 'eye-outline'
-                : 'pencil-outline'
+                  'eye-off-outline'
+                : 'eye-outline'
+              : 'pencil-outline'
             }
             onPress={() => setSecureTextEntry(!secureTextEntry)}
             onPointerLeave={() => {

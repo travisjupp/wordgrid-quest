@@ -11,7 +11,7 @@ export function CLogo() {
   return (
     <View style={clogo} testID='CLogo View'>
       <Text variant='brand'>Wordgrid Quest</Text>
-      <Logo width={25.9} height={25.9} styles={{top: 2, left: 4}} />
+      <Logo width={25.9} height={25.9} styles={{ top: 2, left: 4 }} />
     </View>
   );
 }
