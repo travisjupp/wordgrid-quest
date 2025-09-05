@@ -110,29 +110,15 @@ export function SignUp() {
           />
         }
       />
-      <View
-        style={{
-          paddingTop: 6,
-          width: '100%',
-          height: 56,
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
+      <Button
+        theme={{ roundness: 0.8 }}
+        contentStyle={{ height: 50 }}
+        style={{ marginTop: 6 }}
+        mode='contained'
+        onPress={handleSignUp}
       >
-        <Button
-          theme={{ roundness: 0.8 }}
-          style={{
-            height: '100%',
-            alignSelf: 'stretch',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-          mode='contained'
-          onPress={handleSignUp}
-        >
-          Sign Up
-        </Button>
-      </View>
+        Sign Up
+      </Button>
     </View>
   );
 }

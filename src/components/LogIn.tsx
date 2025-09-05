@@ -56,7 +56,7 @@ export function LogIn() {
         autoCorrect={false}
         autoComplete={Platform.OS === 'ios' ? 'off' : 'current-password'}
         textContentType='password' // iOS only (dont use with autoComplete)
- //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
+        //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
         value={password}
         onChangeText={password => setPassword(password)}
         spellCheck={false}
@@ -80,29 +80,15 @@ export function LogIn() {
           />
         }
       />
-      <View
-        style={{
-          paddingTop: 6,
-          width: '100%',
-          height: 56,
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
+      <Button
+        theme={{ roundness: 0.8 }}
+        contentStyle={{ height: 50 }}
+        style={{ marginTop: 6 }}
+        mode='contained'
+        onPress={handleSignIn}
       >
-        <Button
-          theme={{ roundness: 0.8 }}
-          style={{
-            height: '100%',
-            alignSelf: 'stretch',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-          mode='contained'
-          onPress={handleSignIn}
-        >
-          Sign In
-        </Button>
-      </View>
+        Sign In
+      </Button>
     </View>
   );
 }
