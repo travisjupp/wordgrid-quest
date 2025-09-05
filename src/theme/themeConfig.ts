@@ -60,6 +60,7 @@ const fontConfig = {
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
   const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
+  const materialColorScheme = isDarkTheme ? materialColors.schemes.dark : materialColors.schemes.light;
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
@@ -115,6 +116,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: themeVariant.colors.primary,
     },
     // END Carousel Styles
+
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
 
     container: {
       flex: 1,
@@ -185,6 +192,16 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderStyle: 'solid',
     },
 
+    modal: {
+      padding: 25,
+      gap: 8,
+      width: 380,
+      height: 'auto',
+      backgroundColor: materialColorScheme.surfaceContainerHigh,
+      justifyContent: 'center',
+      borderRadius: 28,
+    },
+
     timer: {
       ...Platform.select({
         ios: {
@@ -225,28 +242,33 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       dot: customProperties.carouselDot,
       activeDot: customProperties.carouselActiveDot,
     },
+    centeredView: customProperties.centeredView,
     container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,
     logo: customProperties.logo,
     clogo: customProperties.clogo,
     menu: customProperties.menu,
+    modal: customProperties.modal,
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
+    roundness: 4,
     colors:
       isDarkTheme ?
-        {
-          ...themeVariant.colors,
-          // Custom color properties
-          ...materialColors.schemes.dark,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        }
+      {
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.dark,
+        ...materialColorScheme
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      }
       : {
-          ...themeVariant.colors,
-          // Custom color properties
-          ...materialColors.schemes.light,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        },
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.light,
+        ...materialColorScheme
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      },
   };
 };
 

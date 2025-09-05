@@ -38,9 +38,41 @@ export interface CarouselStyles {
 
 export interface AppTheme {
   animation: object;
-  majorHUD: MajorHUDStyles;
-  topicFrame: TopicFrameStyles;
-  carousel: CarouselStyles;
+  majorHUD: MajorHUDStyles; // custom
+  topicFrame: TopicFrameStyles; // custom
+  carousel: CarouselStyles; // custom
+
+  centeredView: object; // custom
+  container: object; // custom
+  text: object; // custom
+  link: object; // custom
+  logo: object; // custom
+  clogo: object; // custom
+  menu: object; // custom
+  modal: object; // custom
+  timer: object; // custom
+
+  fonts: {
+    bodyLarge: object;
+    bodyLargeEmphasized: object;
+    bodyMedium: object;
+    bodySmall: object;
+    brand: object; // custom
+    default: object;
+    displayLarge: object;
+    displayMedium: object;
+    displaySmall: object;
+    headlineLarge: object;
+    headlineMedium: object;
+    headlineSmall: object;
+    labelLarge: object;
+    labelMedium: object;
+    labelSmall: object;
+    letterTile: object; // custom
+    titleLarge: object;
+    titleMedium: object;
+    titleSmall: object;
+  };
 
   colors: {
     backdrop: string;
@@ -76,40 +108,12 @@ export interface AppTheme {
     tertiary: string;
     tertiaryContainer: string;
   };
-  container: object;
+
   dark: boolean;
 
-  fonts: {
-    bodyLarge: object;
-    bodyLargeEmphasized: object;
-    bodyMedium: object;
-    bodySmall: object;
-    brand: object; // custom
-    default: object;
-    displayLarge: object;
-    displayMedium: object;
-    displaySmall: object;
-    headlineLarge: object;
-    headlineMedium: object;
-    headlineSmall: object;
-    labelLarge: object;
-    labelMedium: object;
-    labelSmall: object;
-    letterTile: object; // custom
-    titleLarge: object;
-    titleMedium: object;
-    titleSmall: object;
-  };
-
   isV3: boolean;
-  link: object;
-  logo: object; // custom
-  clogo: object; // custom
   newProp: object;
   mode: string;
   roundness: number;
-  text: object;
-  timer: object; // custom
   version: number;
-  menu: object;
 }
