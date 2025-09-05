@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
+import { auth } from 'src/services/firebaseConfig';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
@@ -10,7 +11,7 @@ export function LogIn() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const handleSignIn = () => {
-    signInWithEmailAndPassword(getAuth(), email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(user => {
         if (user) router.replace('/profile');
       })
@@ -53,9 +54,9 @@ export function LogIn() {
         secureTextEntry={secureTextEntry}
         autoCapitalize='none'
         autoCorrect={false}
-        autoComplete={ Platform.OS === 'ios' ? 'off' : 'current-password' }
-        textContentType='newPassword'// iOS only (dont use with autoComplete)
-        passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
+        autoComplete={Platform.OS === 'ios' ? 'off' : 'current-password'}
+        textContentType='password' // iOS only (dont use with autoComplete)
+ //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
         value={password}
         onChangeText={password => setPassword(password)}
         spellCheck={false}
