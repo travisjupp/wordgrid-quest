@@ -25,7 +25,6 @@ export function Modal({ children, modalVisible, setModalVisible }: Props) {
         style={[centeredView, {
           backgroundColor:'rgba(0, 0, 0, .5)'
         }]}
-        onPointerDown={() => setModalVisible(!modalVisible)}
       >
         <View
           style={[modal,{
