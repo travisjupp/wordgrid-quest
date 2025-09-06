@@ -7,7 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { store } from '@store/index';
 import { Provider } from 'react-redux';
-import { PaperProvider, MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import ThemeContext from '@contexts/ThemeContext';
 import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
@@ -95,9 +95,20 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack
               screenOptions={{
-                headerStyle: {
-                  backgroundColor: theme.colors.surfaceContainer,
-                },
+                headerStyle: Platform.select({
+                  web: {
+                    borderBottomColor: theme.colors.outlineVariant,
+                    backgroundColor: theme.colors.surfaceContainer,
+                  },
+                  ios: {
+                    backgroundColor: theme.colors.surfaceContainer,
+                  },
+                  android: {
+                    backgroundColor: theme.colors.surfaceContainer,
+                  },
+                  default: {
+                    backgroundColor: theme.colors.surfaceContainer,
+                  }}),
                 headerTintColor: theme.colors.onSurface,
                 headerShown: true,
                 headerTitleStyle: {
