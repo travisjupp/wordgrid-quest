@@ -3,9 +3,12 @@ import { ResetPass } from '@components/ResetPass';
 import { Text } from '@components/Text';
 import { router } from 'expo-router';
 import { useState } from 'react';
+import { Snackbar } from 'react-native-paper';
 
 export default function SignupScreen() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [snackBarVisible, setSnackBarVisible] = useState<boolean>(false);
+  const onDismissSnackBar = () => setSnackBarVisible(false);
   return (
     <>
       <LogIn />
@@ -29,7 +32,20 @@ export default function SignupScreen() {
       >
         Forgot password?
       </Text>
-      {modalVisible && <ResetPass modalVisible setModalVisible={setModalVisible} />}
+      {modalVisible && (
+        <ResetPass
+          setModalVisible={setModalVisible}
+          setSnackBarVisible={setSnackBarVisible}
+        />
+      )}
+      <Snackbar
+        visible={snackBarVisible}
+        onDismiss={onDismissSnackBar}
+        wrapperStyle={{ width: 380 }}
+        icon={'information-outline'}
+      >
+        Check email for password reset link
+      </Snackbar>
     </>
   );
 }
