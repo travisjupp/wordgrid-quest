@@ -95,7 +95,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 1,
       // borderColor: 'magenta',
       // backgroundColor: 'darkmagenta',
-      // color: themeVariant.colors.onSurface,
       color: materialColorScheme.onSurface,
     },
     carouselDotsContainer: {
@@ -108,15 +107,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       height: 8,
       width: 8,
       borderRadius: 4,
-      // backgroundColor: themeVariant.colors.secondaryContainer,
       backgroundColor: materialColorScheme.secondaryContainer,
       marginHorizontal: 5,
     },
     carouselActiveDot: {
-      // backgroundColor: themeVariant.colors.secondaryContainer,
       backgroundColor: materialColorScheme.secondaryContainer,
       borderWidth: 1,
-      // borderColor: themeVariant.colors.primary,
       borderColor: materialColorScheme.primary,
     },
     // END Carousel Styles
@@ -131,18 +127,15 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      // backgroundColor: themeVariant.colors.surface,
       backgroundColor: materialColorScheme.surface,
     },
 
     text: {
-      // color: themeVariant.colors.onSurface,
       color: materialColorScheme.onSurface,
       fontFamily: 'Inter24pt-Black',
     },
 
     link: {
-      // color: themeVariant.colors.onSurface,
       color: materialColorScheme.onSurface,
       fontWeight: 'bold',
       fontSize: 26,
@@ -226,9 +219,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       alignItems: 'center',
       borderRadius: 6,
       padding: 20,
-      // color: themeVariant.colors.onSecondaryContainer,
       color: materialColorScheme.onSecondaryContainer,
-      // backgroundColor: themeVariant.colors.secondaryContainer,
       backgroundColor: materialColorScheme.secondaryContainer,
       borderWidth: 0,
       borderStyle: 'solid',
