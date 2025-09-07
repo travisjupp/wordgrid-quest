@@ -7,15 +7,13 @@ import { auth } from 'src/services/firebaseConfig';
 
 interface Props {
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSnackBarVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export function ResetPass({ setModalVisible, setSnackBarVisible }: Props) {
+export function ResetPass({ setModalVisible }: Props) {
   const [email, setEmail] = useState<string>('');
   const handlePasswordReset = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         // Password reset email sent!
-        setSnackBarVisible(true);
         setModalVisible(false);
         console.log('Password reset email sent');
       })

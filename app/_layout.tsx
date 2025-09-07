@@ -90,7 +90,7 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
+      <ThemeContext value={{ isDarkTheme, toggleTheme }}>
         <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack
@@ -122,7 +122,7 @@ export default function RootLayout() {
             ></Stack>
           </GestureHandlerRootView>
         </PaperProvider>
-      </ThemeContext.Provider>
+      </ThemeContext>
     </Provider>
   );
 }
