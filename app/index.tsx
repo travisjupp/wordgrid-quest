@@ -1,11 +1,10 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
-import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
-import { FirebaseTest } from '@features/firebase/firebaseTest';
+// import { FirebaseTest } from '@features/firebase/firebaseTest';
 import { router, useNavigation } from 'expo-router';
 import { useTheme } from '@hooks/useTheme';
 // import { MajorHUD } from '@features/majorHUD/MajorHUD';
