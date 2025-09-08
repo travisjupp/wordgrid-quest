@@ -1,10 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Platform, View } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
-import LogoContext from '@contexts/LogoContext';
+import { useLogo } from '@hooks/useLogo';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
@@ -12,10 +12,13 @@ export function SignUp() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [focusedPasswordField, setFocusedPasswordField] =
     useState<boolean>(false);
-  const { scaleLogo } = useContext(LogoContext);
+
+  const { scaleLogo } = useLogo();
+
   const handleScaleLogo = (size?: number | undefined) => {
     scaleLogo(size);
   };
+
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, newPassword)
       .then(userCredential => {
@@ -56,10 +59,10 @@ export function SignUp() {
         testID='EmailInput'
         returnKeyType='next'
         onFocus={() => {
-          // handleScaleLogo(152);
+          handleScaleLogo(152);
         }}
         onBlur={() => {
-          // handleScaleLogo();
+          handleScaleLogo();
         }}
         right={<TextInput.Icon icon={'pencil-outline'} />}
       />
