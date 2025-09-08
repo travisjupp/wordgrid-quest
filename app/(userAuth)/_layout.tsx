@@ -22,14 +22,14 @@ export default function AuthLayout() {
   const { container } = useAppTheme();
   return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>
-      <LogoContext.Provider value={{ toggleLogo, scaleLogo }}>
+      <LogoContext value={{ toggleLogo, scaleLogo }}>
         <PageHeading text='Welcome' />
         <Logo width={logoSize} height={logoSize} gradient={true} />
         <GuidanceText
           text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
         />
         <Slot />
-      </LogoContext.Provider>
+      </LogoContext>
     </SafeAreaView>
   );
 }

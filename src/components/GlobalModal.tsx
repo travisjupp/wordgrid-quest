@@ -26,7 +26,7 @@ export function ModalProvider({ children }: Props) {
   };
 
   return (
-    <ModalContext.Provider value={{ showModal, hideModal }}>
+    <ModalContext value={{ showModal, hideModal }}>
       {children}
       <Portal>
         <RNModal
@@ -61,7 +61,7 @@ export function ModalProvider({ children }: Props) {
           </View>
         </RNModal>
       </Portal>
-    </ModalContext.Provider>
+    </ModalContext>
   );
 }
 
