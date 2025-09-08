@@ -110,7 +110,8 @@ export default function RootLayout() {
                     },
                     default: {
                       backgroundColor: theme.colors.surfaceContainer,
-                    }}),
+                    },
+                  }),
                   headerTintColor: theme.colors.onSurface,
                   headerShown: true,
                   headerTitleStyle: {

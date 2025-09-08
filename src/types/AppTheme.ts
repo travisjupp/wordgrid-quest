@@ -122,4 +122,3 @@ export interface MajorHUDStyles {
 export interface TopicFrameStyles {
   container: ViewStyle;
 }
-
