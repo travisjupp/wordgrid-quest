@@ -1,13 +1,12 @@
-import { ModalContent } from '@custom-types/AppTheme';
 import React, { createContext } from 'react';
 
-const ModalContext = createContext({
-  showModal: (content: React.ReactNode) => {
-    console.log('ModalContext not provided');
-  },
-  hideModal: () => {
-    console.log('ModalContext not provided');
-  },
-});
+type ShowModalType = (content: React.ReactNode) => void;
+type HideModalType = () => void;
 
+interface ModalContextType {
+  showModal: ShowModalType;
+  hideModal: HideModalType;
+}
+
+const ModalContext = createContext<ModalContextType | null>(null);
 export default ModalContext;

@@ -3,7 +3,6 @@ import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import React, { useContext, useState } from 'react';
 import { Portal } from 'react-native-paper';
-import { ModalContent } from '@custom-types/AppTheme';
 
 interface Props {
   children: React.ReactNode;
@@ -21,7 +20,6 @@ export function ModalProvider({ children }: Props) {
   };
 
   const hideModal = () => {
-    console.log('hideModal ran');
     setModalVisible(false);
   };
 
@@ -64,11 +62,3 @@ export function ModalProvider({ children }: Props) {
     </ModalContext>
   );
 }
-
-export const useModal = () => {
-  const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error('useModal must be used within a ModalProvider');
-  }
-  return context;
-};
