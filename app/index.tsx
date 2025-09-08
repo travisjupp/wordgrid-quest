@@ -7,10 +7,11 @@ import ThemeContext from '@contexts/ThemeContext';
 import { useAppTheme } from '@theme/themeConfig';
 import { FirebaseTest } from '@features/firebase/firebaseTest';
 import { router, useNavigation } from 'expo-router';
+import { useTheme } from '@hooks/useTheme';
 // import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
-  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+  const { isDarkTheme, toggleTheme } = useTheme();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();

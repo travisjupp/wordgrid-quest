@@ -1,10 +1,12 @@
 import { createContext } from 'react';
 
-const ThemeContext = createContext({
-  isDarkTheme: false,
-  toggleTheme: () => {
-    console.log('ThemeContext not provided');
-  },
-});
+type IsDarkThemeType = boolean;
+type ToggleThemeType = () => void;
 
+interface ThemeContextType {
+  isDarkTheme: IsDarkThemeType;
+  toggleTheme: ToggleThemeType;
+}
+
+const ThemeContext = createContext<ThemeContextType | null>(null);
 export default ThemeContext;
