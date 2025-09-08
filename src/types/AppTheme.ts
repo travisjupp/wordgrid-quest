@@ -1,40 +1,5 @@
 import { ViewStyle, TextStyle } from 'react-native';
-
-export interface InitialMaterialSliceState {
-  category: CustomMaterialArray;
-  activeCategory: string;
-}
-
-export interface InitialTempMaterialSliceState {
-  category: string;
-  discoveryTerms: DiscoveryTermObject[];
-}
-
-export interface DiscoveryTermObject {
-  dt: string;
-  def: string;
-}
-
-export interface CustomMaterialArray {
-  [key: string]: DiscoveryTermObject[];
-}
-
-export interface MajorHUDStyles {
-  container: ViewStyle;
-}
-
-export interface TopicFrameStyles {
-  container: ViewStyle;
-}
-
-export interface CarouselStyles {
-  container: ViewStyle;
-  dot?: ViewStyle;
-  activeDot?: ViewStyle;
-  dotsContainer?: ViewStyle;
-  page?: ViewStyle;
-  paragraph?: TextStyle;
-}
+import React from 'react';
 
 export interface AppTheme {
   animation: object;
@@ -117,3 +82,44 @@ export interface AppTheme {
   roundness: number;
   version: number;
 }
+
+export interface CarouselStyles {
+  container: ViewStyle;
+  dot?: ViewStyle;
+  activeDot?: ViewStyle;
+  dotsContainer?: ViewStyle;
+  page?: ViewStyle;
+  paragraph?: TextStyle;
+}
+
+export interface CustomMaterialArray {
+  [key: string]: DiscoveryTermObject[];
+}
+
+export interface DiscoveryTermObject {
+  dt: string;
+  def: string;
+}
+
+export interface InitialMaterialSliceState {
+  category: CustomMaterialArray;
+  activeCategory: string;
+}
+
+export interface InitialTempMaterialSliceState {
+  category: string;
+  discoveryTerms: DiscoveryTermObject[];
+}
+
+export interface ModalContent {
+  content: React.ReactNode;
+}
+
+export interface MajorHUDStyles {
+  container: ViewStyle;
+}
+
+export interface TopicFrameStyles {
+  container: ViewStyle;
+}
+

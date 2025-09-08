@@ -13,6 +13,7 @@ import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
 import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
+import { ModalProvider } from '@components/GlobalModal';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -93,33 +94,35 @@ export default function RootLayout() {
       <ThemeContext value={{ isDarkTheme, toggleTheme }}>
         <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <Stack
-              screenOptions={{
-                headerStyle: Platform.select({
-                  web: {
-                    borderBottomColor: theme.colors.outlineVariant,
-                    backgroundColor: theme.colors.surfaceContainer,
+            <ModalProvider>
+              <Stack
+                screenOptions={{
+                  headerStyle: Platform.select({
+                    web: {
+                      borderBottomColor: theme.colors.outlineVariant,
+                      backgroundColor: theme.colors.surfaceContainer,
+                    },
+                    ios: {
+                      backgroundColor: theme.colors.surfaceContainer,
+                    },
+                    android: {
+                      backgroundColor: theme.colors.surfaceContainer,
+                    },
+                    default: {
+                      backgroundColor: theme.colors.surfaceContainer,
+                    }}),
+                  headerTintColor: theme.colors.onSurface,
+                  headerShown: true,
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
                   },
-                  ios: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                  android: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                  default: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  }}),
-                headerTintColor: theme.colors.onSurface,
-                headerShown: true,
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center',
-                headerBackButtonDisplayMode: 'minimal',
-                headerTitle: () => <CLogo />,
-                headerRight: () => <Menu />,
-              }}
-            ></Stack>
+                  headerTitleAlign: 'center',
+                  headerBackButtonDisplayMode: 'minimal',
+                  headerTitle: () => <CLogo />,
+                  headerRight: () => <Menu />,
+                }}
+              ></Stack>
+            </ModalProvider>
           </GestureHandlerRootView>
         </PaperProvider>
       </ThemeContext>

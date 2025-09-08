@@ -2,19 +2,19 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
-import { Modal } from '@components/Modal';
 import { auth } from 'src/services/firebaseConfig';
 
 interface Props {
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  hideModal: () => void;
 }
-export function ResetPass({ setModalVisible }: Props) {
+
+export function ResetPass({ hideModal }: Props) {
   const [email, setEmail] = useState<string>('');
+
   const handlePasswordReset = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        setModalVisible(false);
+        hideModal();
         console.log('Password reset email sent');
       })
       .catch(e => {
@@ -24,7 +24,7 @@ export function ResetPass({ setModalVisible }: Props) {
       });
   };
   return (
-    <Modal modalVisible setModalVisible={setModalVisible}>
+    <>
       <TextInput
         label='Reset Email'
         id='ResetEmailInput'
@@ -58,12 +58,10 @@ export function ResetPass({ setModalVisible }: Props) {
         contentStyle={{ height: 50 }}
         style={{ marginTop: 6 }}
         mode='contained'
-        onPress={() => {
-          setModalVisible(false);
-        }}
+        onPress={hideModal}
       >
         Cancel
       </Button>
-    </Modal>
+    </>
   );
 }

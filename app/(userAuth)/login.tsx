@@ -2,10 +2,10 @@ import { LogIn } from '@components/LogIn';
 import { ResetPass } from '@components/ResetPass';
 import { Text } from '@components/Text';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useModal } from '@components/GlobalModal';
 
-export default function SignupScreen() {
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+export default function LoginScreen() {
+  const { showModal, hideModal } = useModal();
   return (
     <>
       <LogIn />
@@ -24,16 +24,11 @@ export default function SignupScreen() {
       <Text
         variant='bodyLargeEmphasized'
         onPress={() => {
-          setModalVisible(!modalVisible);
+          showModal(<ResetPass hideModal={hideModal} />)
         }}
       >
         Forgot password?
       </Text>
-      {modalVisible && (
-        <ResetPass
-          setModalVisible={setModalVisible}
-        />
-      )}
     </>
   );
 }
