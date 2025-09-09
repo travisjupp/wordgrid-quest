@@ -1,7 +1,7 @@
 import { Modal as RNModal, View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Portal } from 'react-native-paper';
 
 interface Props {

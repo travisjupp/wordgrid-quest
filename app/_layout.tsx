@@ -13,7 +13,7 @@ import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
 import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
-import { ModalProvider } from '@components/GlobalModal';
+import { ModalProvider } from '@providers/ModalProvider';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });

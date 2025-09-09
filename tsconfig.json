@@ -16,7 +16,8 @@
       "@prototype/*": ["prototype/*"],
       "@features/*": ["src/features/*"],
       "@store/*": ["src/store/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@providers/*": ["src/providers/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true
