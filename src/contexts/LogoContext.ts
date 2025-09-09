@@ -9,5 +9,4 @@ interface LogoContextType {
 }
 
 const LogoContext = createContext<LogoContextType | null>(null);
-
 export default LogoContext;

@@ -1,5 +1,6 @@
 import { ViewStyle, TextStyle } from 'react-native';
 import React from 'react';
+import { MD3Typescale } from 'react-native-paper/lib/typescript/types';
 
 export interface AppTheme {
   animation: object;
@@ -17,27 +18,29 @@ export interface AppTheme {
   modal: object; // custom
   timer: object; // custom
 
-  fonts: {
-    bodyLarge: object;
-    bodyLargeEmphasized: object;
-    bodyMedium: object;
-    bodySmall: object;
-    brand: object; // custom
-    default: object;
-    displayLarge: object;
-    displayMedium: object;
-    displaySmall: object;
-    headlineLarge: object;
-    headlineMedium: object;
-    headlineSmall: object;
-    labelLarge: object;
-    labelMedium: object;
-    labelSmall: object;
-    letterTile: object; // custom
-    titleLarge: object;
-    titleMedium: object;
-    titleSmall: object;
-  };
+  fonts: MD3Typescale;
+
+  // fonts: {
+  //   bodyLarge: object;
+  //   bodyLargeEmphasized: object;
+  //   bodyMedium: object;
+  //   bodySmall: object;
+  //   brand: object; // custom
+  //   default: object;
+  //   displayLarge: object;
+  //   displayMedium: object;
+  //   displaySmall: object;
+  //   headlineLarge: object;
+  //   headlineMedium: object;
+  //   headlineSmall: object;
+  //   labelLarge: object;
+  //   labelMedium: object;
+  //   labelSmall: object;
+  //   letterTile: object; // custom
+  //   titleLarge: object;
+  //   titleMedium: object;
+  //   titleSmall: object;
+  // };
 
   colors: {
     backdrop: string;
@@ -77,8 +80,8 @@ export interface AppTheme {
   dark: boolean;
 
   isV3: boolean;
-  newProp: object;
-  mode: string;
+  newProp?: object;
+  mode?: string | undefined;
   roundness: number;
   version: number;
 }
