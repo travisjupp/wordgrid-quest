@@ -1,4 +1,3 @@
-import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -8,11 +7,10 @@ import { store } from '@store/index';
 import { Provider } from 'react-redux';
 import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
-import { CLogo } from '@components/CLogo';
-import { Menu } from '@components/Menu';
 import { ModalProvider } from '@providers/ModalProvider';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { SnackbarProvider } from '@providers/SnackbarProvider';
+import { ThemeAwareStack } from '@components/ThemeAwareStack';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -46,7 +44,7 @@ export default function RootLayout() {
       const loaded = FontFaceSetReady.status === 'loaded';
       // console.log('FontFaceSetReady', FontFaceSetReady);
       return loaded ?
-          setBrowserFontsLoaded(true)
+        setBrowserFontsLoaded(true)
         : console.log('FONTS NOT YET LOADED');
     }
     if (Platform.OS === 'web') {
@@ -69,7 +67,7 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <SnackbarProvider>
             <ModalProvider>
-              <Stack />
+              <ThemeAwareStack/>
             </ModalProvider>
           </SnackbarProvider>
         </GestureHandlerRootView>
