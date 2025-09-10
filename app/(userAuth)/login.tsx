@@ -3,6 +3,7 @@ import { ResetPass } from '@components/ResetPass';
 import { Text } from '@components/Text';
 import { router } from 'expo-router';
 import { useModal } from '@hooks/useModal';
+import { ModalProvider } from '@providers/ModalProvider';
 
 export default function LoginScreen() {
   const { showModal, hideModal } = useModal();
@@ -24,7 +25,11 @@ export default function LoginScreen() {
       <Text
         variant='bodyLargeEmphasized'
         onPress={() => {
-          showModal(<ResetPass hideModal={hideModal} />);
+          showModal(
+            <ModalProvider>
+              <ResetPass hideModal={hideModal} />
+            </ModalProvider>,
+          );
         }}
       >
         Forgot password?

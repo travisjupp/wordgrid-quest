@@ -4,8 +4,10 @@ import { Platform } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { auth } from 'src/services/firebaseConfig';
 
+type HideModal = () => void;
+
 interface Props {
-  hideModal: () => void;
+  hideModal: HideModal;
 }
 
 export function ResetPass({ hideModal }: Props) {

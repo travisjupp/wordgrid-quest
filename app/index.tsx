@@ -1,33 +1,76 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { useAppTheme } from '@theme/themeConfig';
 // import { FirebaseTest } from '@features/firebase/firebaseTest';
-import { router, useNavigation } from 'expo-router';
+import { router, Stack, useNavigation } from 'expo-router';
 import { useTheme } from '@hooks/useTheme';
+import { useModal } from '@hooks/useModal';
+import { Text } from '@components/Text';
+import { useSnackbar } from '@hooks/useSnackbar';
 // import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useTheme();
+  const { showModal, hideModal } = useModal();
+  const { showSnackbar } = useSnackbar();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
 
+  const { theme } = useTheme();
   // Screen Options
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
-      // Hide menu
-      headerRight: null,
+      headerStyle: Platform.select({
+        web: {
+          borderBottomColor: theme?.colors.outlineVariant,
+          backgroundColor: theme?.colors.surfaceContainer,
+        },
+        ios: {
+          backgroundColor: theme?.colors.surfaceContainer,
+        },
+        android: {
+          backgroundColor: theme?.colors.surfaceContainer,
+        },
+        default: {
+          backgroundColor: theme?.colors.surfaceContainer,
+        },
+      }),
+      headerTintColor: theme?.colors.onSurface,
+      headerShown: true,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerTitleAlign: 'center',
+      headerBackButtonDisplayMode: 'minimal',
+      // headerTitle: () => <CLogo />,
+      headerRight: () => null,
     });
-  }, [navigation]);
+  }, [navigation, theme]);
 
   return (
     <View style={container}>
       <Switch value={isDarkTheme} onValueChange={toggleTheme} />
       <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
+      <Text
+        onPress={() =>
+          showModal(
+            <>
+              <Button onPress={() => showSnackbar('SNACKBAR ABOVE MODAL?')}>
+                SHOW SNACKBAR FROM MODAL
+              </Button>
+              <Button onPress={hideModal}>x</Button>
+            </>,
+          )
+        }
+      >
+        SHOW MODAL
+      </Text>
+      <Text onPress={() => showSnackbar('TEST')}>SHOW SNACKBAR</Text>
       {/* <FirebaseTest /> */}
       {/* <Text  */}
       {/*   variant="bodyLarge" */}

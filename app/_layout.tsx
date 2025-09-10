@@ -12,6 +12,7 @@ import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
 import { ModalProvider } from '@providers/ModalProvider';
 import { ThemeProvider } from '@providers/ThemeProvider';
+import { SnackbarProvider } from '@providers/SnackbarProvider';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -66,36 +67,11 @@ export default function RootLayout() {
     <Provider store={store}>
       <ThemeProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <ModalProvider>
-            <Stack
-              screenOptions={{
-                headerStyle: Platform.select({
-                  web: {
-                    borderBottomColor: theme.colors.outlineVariant,
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                  ios: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                  android: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                  default: {
-                    backgroundColor: theme.colors.surfaceContainer,
-                  },
-                }),
-                headerTintColor: theme.colors.onSurface,
-                headerShown: true,
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center',
-                headerBackButtonDisplayMode: 'minimal',
-                headerTitle: () => <CLogo />,
-                headerRight: () => <Menu />,
-              }}
-            ></Stack>
-          </ModalProvider>
+          <SnackbarProvider>
+            <ModalProvider>
+              <Stack />
+            </ModalProvider>
+          </SnackbarProvider>
         </GestureHandlerRootView>
       </ThemeProvider>
     </Provider>
