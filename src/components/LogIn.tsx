@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
+import { ThemeAwareScreenOptions } from './ThemeAwareScreenOptions';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');

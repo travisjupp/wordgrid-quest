@@ -6,6 +6,7 @@ import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import LogoContext from '@contexts/LogoContext';
 import { useState } from 'react';
+import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 
 export default function AuthLayout() {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export default function AuthLayout() {
   const { container } = useAppTheme();
   return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>
+    <ThemeAwareScreenOptions header menu />
       <LogoContext value={{ toggleLogo, scaleLogo }}>
         <PageHeading text='Welcome' />
         <Logo width={logoSize} height={logoSize} gradient={true} />

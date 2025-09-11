@@ -1,21 +1,23 @@
-// REPLACED WITH THEME AWARE SCREEN OPTIONS
-// https://github.com/travisjupp/wordgrid-quest/issues/133
 import { Stack } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
 import { useTheme } from '@hooks/useTheme';
+import { Logo } from './Logo';
 
 interface Props {
-  children?: React.ReactNode;
+  header?: boolean | undefined;
+  menu?: boolean | undefined;
+  back?: boolean | undefined;
 }
-export function ThemeAwareStack({ children }: Props) {
+
+export function ThemeAwareScreenOptions({header, menu, back}: Props) {
   const { theme } = useTheme();
 
   return (
-    <Stack
-      screenOptions={{
+    <Stack.Screen
+      options={{
         headerStyle: Platform.select({
           web: {
             borderBottomColor: theme?.colors.outlineVariant,
@@ -26,18 +28,17 @@ export function ThemeAwareStack({ children }: Props) {
           },
         }),
         headerTintColor: theme?.colors.onSurface,
-        // headerRight: () => null,
-        headerShown: true,
+        headerShown: header ? true : false,
         headerTitleStyle: {
           fontWeight: 'bold',
         },
         headerTitleAlign: 'center',
+        headerBackVisible: back ? true : false,
+        headerLeft: back ? undefined : () => <View></View>,
         headerBackButtonDisplayMode: 'minimal',
         headerTitle: () => <CLogo />,
-        headerRight: () => <Menu />,
+        headerRight: () => menu ? <Menu /> : null,
       }}
-    >
-      {children}
-    </Stack>
+    />
   );
 }
