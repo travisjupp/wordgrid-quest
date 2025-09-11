@@ -12,7 +12,7 @@ export function ModalProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [content, setContent] = useState<React.ReactNode>(null);
   // Retrieve Custom Theme-properties
-  const { centeredView, modal } = useAppTheme();
+  const { centeredView, modal, colors: { backdrop } } = useAppTheme();
 
   const showModal = (content: React.ReactNode) => {
     setContent(content);
@@ -41,7 +41,8 @@ export function ModalProvider({ children }: Props) {
             style={[
               centeredView,
               {
-                backgroundColor: 'rgba(0, 0, 0, .5)',
+                // backgroundColor: 'rgba(0, 0, 0, .5)',
+                backgroundColor: backdrop,
               },
             ]}
           >
