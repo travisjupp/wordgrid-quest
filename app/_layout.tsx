@@ -11,6 +11,7 @@ import { ModalProvider } from '@providers/ModalProvider';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { SnackbarProvider } from '@providers/SnackbarProvider';
 import { Stack } from 'expo-router';
+import { OverlayProvider } from '@providers/OverlayProvider';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -65,11 +66,9 @@ export default function RootLayout() {
     <Provider store={store}>
       <ThemeProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <SnackbarProvider>
-            <ModalProvider>
-              <Stack />
-            </ModalProvider>
-          </SnackbarProvider>
+          <OverlayProvider>
+            <Stack />
+          </OverlayProvider>
         </GestureHandlerRootView>
       </ThemeProvider>
     </Provider>

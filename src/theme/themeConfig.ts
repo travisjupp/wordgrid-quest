@@ -194,12 +194,11 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     },
 
     modal: {
+      // display: 'flex',
       padding: 25,
-      gap: 8,
-      width: 380,
+      // width: 380,
       height: 'auto',
-      backgroundColor: materialColorScheme.surfaceContainerHigh,
-      justifyContent: 'center',
+      // backgroundColor: materialColorScheme.surfaceContainerHigh,
       borderRadius: 28,
     },
 

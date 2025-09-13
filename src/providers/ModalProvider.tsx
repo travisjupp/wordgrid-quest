@@ -1,8 +1,8 @@
-import { Modal as RNModal, View } from 'react-native';
+import { Modal as RNModal } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import React, { useState } from 'react';
-import { Portal } from 'react-native-paper';
+import { Portal, Surface } from 'react-native-paper';
 
 interface Props {
   children: React.ReactNode;
@@ -12,7 +12,11 @@ export function ModalProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [content, setContent] = useState<React.ReactNode>(null);
   // Retrieve Custom Theme-properties
-  const { centeredView, modal, colors: { backdrop } } = useAppTheme();
+  const {
+    centeredView,
+    modal,
+    colors: { backdrop },
+  } = useAppTheme();
 
   const showModal = (content: React.ReactNode) => {
     setContent(content);
@@ -27,38 +31,45 @@ export function ModalProvider({ children }: Props) {
     <ModalContext value={{ showModal, hideModal }}>
       {children}
       <Portal>
-        <RNModal
-          animationType='slide'
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-          testID='Modal'
-        >
-          <View
-            testID='Modal Overlay'
+        {modalVisible && (
+          <Surface
             style={[
-              centeredView,
               {
-                // backgroundColor: 'rgba(0, 0, 0, .5)',
                 backgroundColor: backdrop,
+                height: '100%',
+                width: '100%',
+                borderWidth: 5,
+                borderColor: 'slateblue',
               },
             ]}
+            testID='Modal Backdrop'
           >
-            <View
-              style={[
-                modal,
-                {
-                  paddingTop: 15, // Adjust for form-field label
-                },
-              ]}
-              testID='InputWrapper'
+            <RNModal
+              animationType='slide'
+              transparent={true}
+              visible={modalVisible}
+              onDismiss={() => {
+                setModalVisible(false);
+              }}
+              testID='Modal'
             >
-              {content}
-            </View>
-          </View>
-        </RNModal>
+              <Surface
+                elevation={0}
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  borderWidth: 2,
+                  borderColor: 'red',
+                  top: -45, // Avoid Snackbar Occlusion
+                }}
+                testID='Modal Content Wrapper'
+              >
+                {content}
+              </Surface>
+            </RNModal>
+          </Surface>
+        )}
       </Portal>
     </ModalContext>
   );

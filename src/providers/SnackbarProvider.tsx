@@ -1,6 +1,7 @@
 import SnackbarContext from '@contexts/SnackbarContext';
 import React, { useState } from 'react';
-import { Portal, Snackbar } from 'react-native-paper';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Portal, Snackbar, Surface } from 'react-native-paper';
 
 interface Props {
   children: React.ReactNode;
@@ -21,13 +22,30 @@ export function SnackbarProvider({ children }: Props) {
     <SnackbarContext value={{ showSnackbar }}>
       {children}
       <Portal>
-        <Snackbar
-          visible={visible}
-          onDismiss={onDismissSnackbar}
-          testID='Snackbar'
-        >
-          {message}
-        </Snackbar>
+        {Platform.OS === 'web' ?
+          <Snackbar
+            visible={visible}
+            onDismiss={onDismissSnackbar}
+            testID='Snackbar'
+          >
+            {message}
+          </Snackbar>
+        : <KeyboardAvoidingView behavior='padding'>
+            <View
+              style={{
+                height: '100%',
+              }}
+            >
+              <Snackbar
+                visible={visible}
+                onDismiss={onDismissSnackbar}
+                testID='Snackbar'
+              >
+                {message}
+              </Snackbar>
+            </View>
+          </KeyboardAvoidingView>
+        }
       </Portal>
     </SnackbarContext>
   );
