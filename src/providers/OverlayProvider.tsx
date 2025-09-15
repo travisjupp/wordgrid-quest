@@ -8,18 +8,23 @@ import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import React, { useState } from 'react';
-import { overlay, Portal, Snackbar } from 'react-native-paper';
+import { Portal, Snackbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+type IconPressCallback = () => void;
 interface Props {
   children: React.ReactNode;
 }
 
 export function OverlayProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
-  const [snackbarMessage, setSnackbarMessage] = useState<string>('');
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+  const [snackbarState, setSnackbarState] = useState<{
+    message: string;
+    visible: boolean;
+    onIconPressCallback: IconPressCallback;
+  }>({ message: '', visible: false, onIconPressCallback: () => {} });
+
   // Retrieve Custom Theme-properties
   const {
     colors: { backdrop },
@@ -34,128 +39,139 @@ export function OverlayProvider({ children }: Props) {
     setModalVisible(false);
   };
 
-  const showSnackbar = (message: string) => {
-    setSnackbarMessage(message);
-    setSnackbarVisible(true);
+  const showSnackbar = (
+    message: string,
+    onIconPressCallback?: IconPressCallback,
+  ) => {
+    const callback = onIconPressCallback ?? hideSnackbar;
+    setSnackbarState({
+      message,
+      visible: true,
+      onIconPressCallback: callback,
+    });
   };
 
-  const onDismissSnackbar = () => setSnackbarVisible(false);
+  const hideSnackbar = () => {
+    setSnackbarState(prev => ({
+      ...prev,
+      visible: false,
+    }));
+  };
+
+  const onDismissSnackbar = () =>
+    snackbarState.onIconPressCallback() ?? hideSnackbar();
 
   const insets = useSafeAreaInsets();
   return (
     <ModalContext value={{ showModal, hideModal }}>
-      <SnackbarContext value={{ showSnackbar }}>
+      <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         {children}
         {modalVisible && (
+          /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
+           * (SNACKBARS OVERLAY MODALS) */
           <Portal>
-            <KeyboardAvoidingView behavior='height'
-              style={{
-                flex: 1,
-                borderColor: 'blue',
-                borderWidth: 4,
-                justifyContent: 'center',
-                backgroundColor: modalVisible ? backdrop : undefined,
+            <RNModal
+              animationType='slide'
+              transparent={true}
+              visible={modalVisible}
+              onDismiss={() => {
+                setModalVisible(false);
               }}
-              testID='Main Wrapper'
+              testID='Modal'
             >
-              <RNModal
-                animationType='slide'
-                transparent={true}
-                visible={modalVisible}
-                onDismiss={() => {
-                  setModalVisible(false);
+              <KeyboardAvoidingView
+                behavior='height'
+                style={{
+                  justifyContent: 'center',
+                  flex: 1,
+                  borderWidth: 3,
+                  borderColor: 'red',
+                  backgroundColor: backdrop,
+                  marginTop: insets.top,
                 }}
-                testID='Modal'
+                testID='Modal Content Wrapper'
               >
-                <KeyboardAvoidingView behavior='height'
-                  style={{
-                    justifyContent: 'center',
-                    paddingBottom: 0,
-                    alignItems: 'center',
-                    flex: 1,
-                    borderWidth: 3,
-                    borderColor: 'red',
-                    marginTop: insets.top,
-                  }}
-                  testID='Modal Content Wrapper'
-                >
-                  <View
-                    style={
-                      Platform.OS === 'web' ?
-                        {
-                          borderWidth: 6,
-                          borderColor: 'purple',
-                        }
-                      : {
-                          borderWidth: 6,
-                          borderColor: 'orange',
-                          position: 'absolute'
-                        }
-                    }
-                    testID='Modal Content and Snackbar Container'
-                  >
-                    {modalContent}
-                    <Snackbar // display beneath modal
-                      visible={snackbarVisible}
-                      onDismiss={onDismissSnackbar}
-                      testID='Snackbar'
-                      wrapperStyle={{
-                        flex: 1,
+                <View
+                  style={
+                    Platform.OS === 'web' ?
+                      {
                         borderWidth: 6,
-                        borderColor: 'orangered',
-                        borderStyle: 'dashed',
+                        borderColor: 'purple',
                         alignSelf: 'center',
-                        justifyContent: 'center',
-                        paddingBottom: 0, // place at abs bottom
-                        paddingLeft: '5%',
-                        paddingRight: '5%',
-                        height: '100%',
-                        backgroundColor: backdrop,
-                      }}
-                      style={{
-                        borderWidth: 3,
-                        margin: 0,
-                        borderColor: 'slateblue',
-                        borderStyle: 'dashed',
-                      }}
-                     // action={{
-                     //   label: 'Close',
-                     //   onPress: () => {
-                     //     setSnackbarVisible(false);
-                     //   }}}
-                      onIconPress={
-                          () => {setSnackbarVisible(false)}
                       }
-                    >
-                      {snackbarMessage}
-                    </Snackbar>
-                  </View>
-                </KeyboardAvoidingView>
-              </RNModal>
-            </KeyboardAvoidingView>
+                    : {
+                        borderWidth: 6,
+                        borderColor: 'orange',
+                        position: 'absolute' /* <- Fit inside modal */,
+                        alignSelf: 'center',
+                      }
+                  }
+                  testID='Modal Content and Snackbar Container'
+                >
+                  {modalContent}
+                  <Snackbar /* Display within and over Modal */
+                    visible={snackbarState.visible}
+                    onDismiss={onDismissSnackbar}
+                    testID='Snackbar'
+                    wrapperStyle={{
+                      flex: 1,
+                      borderWidth: 6,
+                      borderColor: 'orangered',
+                      borderStyle: 'dashed',
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                      paddingBottom: 0 /* Place at abs bottom */,
+                      paddingLeft: '5%',
+                      paddingRight: '5%',
+                      height: '100%',
+                      backgroundColor: backdrop,
+                    }}
+                    style={{
+                      borderWidth: 3,
+                      margin: 0,
+                      borderColor: 'slateblue',
+                      borderStyle: 'dashed',
+                    }}
+                    action={{
+                      label: 'Close',
+                      onPress: () => {
+                        console.log('Pressed Action Label');
+                      },
+                    }}
+                    onIconPress={() => {
+                      snackbarState.onIconPressCallback();
+                    }}
+                  >
+                    {snackbarState.message}
+                  </Snackbar>
+                </View>
+              </KeyboardAvoidingView>
+            </RNModal>
           </Portal>
         )}
-        {!modalVisible && snackbarVisible && (
+        {!modalVisible && snackbarState.visible && (
+          /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
+           * (SNACKBARS DEFAULT) */
           <>
             {Platform.OS === 'web' ?
               <Snackbar
-                visible={snackbarVisible}
+                visible={snackbarState.visible}
                 onDismiss={onDismissSnackbar}
                 testID='Snackbar'
-               // action={{
-               //   label: 'Close',
-               //   onPress: () => {
-               //     setSnackbarVisible(false);
-               //   }}}
-                onIconPress={
-                  () => {setSnackbarVisible(false)}
-                }
+                // action={{
+                //   label: 'Close',
+                //   onPress: () => {
+                //     setSnackbarVisible(false);
+                //   }}}
+                onIconPress={() => {
+                  snackbarState.onIconPressCallback();
+                }}
               >
-                {snackbarMessage}
+                {snackbarState.message}
               </Snackbar>
-              : <KeyboardAvoidingView behavior='padding'>
+            : <KeyboardAvoidingView behavior='padding'>
                 <Snackbar
-                  visible={snackbarVisible}
+                  visible={snackbarState.visible}
                   onDismiss={onDismissSnackbar}
                   testID='Snackbar'
                   style={{
@@ -163,16 +179,16 @@ export function OverlayProvider({ children }: Props) {
                     borderColor: 'magenta',
                     borderStyle: 'dotted',
                   }}
-                 // action={{
-                 //   label: 'Close',
-                 //   onPress: () => {
-                 //     setSnackbarVisible(false);
-                 //   }}}
-                  onIconPress={
-                    () => {setSnackbarVisible(false)}
-                  }
+                  // action={{
+                  //   label: 'Close',
+                  //   onPress: () => {
+                  //     setSnackbarVisible(false);
+                  //   }}}
+                  onIconPress={() => {
+                    snackbarState.onIconPressCallback();
+                  }}
                 >
-                  {snackbarMessage}
+                  {snackbarState.message}
                 </Snackbar>
               </KeyboardAvoidingView>
             }

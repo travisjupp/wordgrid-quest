@@ -7,9 +7,7 @@ import { store } from '@store/index';
 import { Provider } from 'react-redux';
 import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
-import { ModalProvider } from '@providers/ModalProvider';
 import { ThemeProvider } from '@providers/ThemeProvider';
-import { SnackbarProvider } from '@providers/SnackbarProvider';
 import { Stack } from 'expo-router';
 import { OverlayProvider } from '@providers/OverlayProvider';
 

@@ -1,9 +1,12 @@
 import { createContext } from 'react';
 
-type ShowSnackbar = (message: string) => void;
+type IconPressCallback = (() => void) | undefined;
+type ShowSnackbar = (message: string, onIconPressCallback?: IconPressCallback) => void;
+type HideSnackbar = () => void;
 
 interface SnackbarContextType {
   showSnackbar: ShowSnackbar;
+  hideSnackbar: HideSnackbar;
 }
 
 const SnackbarContext = createContext<SnackbarContextType | null>(null);

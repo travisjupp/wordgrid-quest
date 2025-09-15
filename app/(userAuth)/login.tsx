@@ -3,9 +3,6 @@ import { ResetPass } from '@components/ResetPass';
 import { Text } from '@components/Text';
 import { router } from 'expo-router';
 import { useModal } from '@hooks/useModal';
-import { ModalProvider } from '@providers/ModalProvider';
-import { SnackbarProvider } from '@providers/SnackbarProvider';
-import { OverlayProvider } from '@providers/OverlayProvider';
 import { useSnackbar } from '@hooks/useSnackbar';
 
 export default function LoginScreen() {
@@ -30,9 +27,7 @@ export default function LoginScreen() {
         variant='bodyLargeEmphasized'
         onPress={() => {
           showModal(
-            <OverlayProvider>
-                <ResetPass hideModal={hideModal} showSnackbar={showSnackbar} />
-            </OverlayProvider>
+              <ResetPass hideModal={hideModal} showSnackbar={showSnackbar} />
           );
         }}
       >
