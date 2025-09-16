@@ -10,38 +10,21 @@ import SnackbarContext from '@contexts/SnackbarContext';
 import React, { useState } from 'react';
 import { Portal, Snackbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as SnackbarTypes from '@custom-types/SnackbarTypes';
 
 interface Props {
   children: React.ReactNode;
-}
-
-type Message = string;
-type Icon = string | undefined;
-type IconPressCallback = (() => void) | undefined;
-type Action = ActionObject | undefined;
-type ActionLabel = string;
-
-interface ActionObject {
-  label: ActionLabel;
-  onPress: IconPressCallback;
-}
-
-interface SnackbarConfig {
-  message: Message;
-  icon?: Icon;
-  iconPressCb?: IconPressCallback;
-  action?: Action;
 }
 
 export function OverlayProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [snackbarState, setSnackbarState] = useState<{
-    message: Message;
-    icon: Icon;
-    visible: boolean;
-    iconPressCb: IconPressCallback;
-    action: Action;
+    message: SnackbarTypes.Message;
+    icon: SnackbarTypes.Icon;
+    visible: SnackbarTypes.Visible;
+    iconPressCb: SnackbarTypes.IconPressCallback;
+    action: SnackbarTypes.Action;
   }>({
     message: '',
     icon: undefined,
@@ -64,7 +47,7 @@ export function OverlayProvider({ children }: Props) {
     setModalVisible(false);
   };
 
-  const showSnackbar = (snackbarConfig: SnackbarConfig) => {
+  const showSnackbar = (snackbarConfig: SnackbarTypes.SnackbarConfig) => {
     const icon = snackbarConfig.icon;
     const iconPressCallback = snackbarConfig.iconPressCb;
 

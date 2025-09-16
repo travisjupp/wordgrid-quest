@@ -3,41 +3,15 @@ import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { TextInput, Button, Surface } from 'react-native-paper';
 import { auth } from 'src/services/firebaseConfig';
-
-type HideModal = () => void;
-
-type Message = string;
-type Icon = string | undefined;
-type IconPressCallback = (() => void) | undefined;
-type Action = ActionObject | undefined;
-// type ActionPressCallback = () => void;
-type ActionLabel = string;
-
-interface ActionObject {
-  label: ActionLabel;
-  onPress: IconPressCallback;
-}
-
-interface SnackbarConfig {
-  message: Message;
-  icon?: Icon;
-  iconPressCb?: IconPressCallback;
-  action?: Action;
-  // actionLabel?: ActionLabel;
-  // actionPressCb?: ActionPressCallback;
-}
-
-type ShowSnackbar = (snackbarConfig: SnackbarConfig) => void;
+import { ShowSnackbar } from '@custom-types/SnackbarTypes';
+import { HideModal } from '@custom-types/ModalTypes';
 
 interface Props {
   hideModal: HideModal;
   showSnackbar: ShowSnackbar;
 }
 
-export function ResetPass({ 
-  hideModal, 
-  showSnackbar
-}: Props) {
+export function ResetPass({ hideModal, showSnackbar }: Props) {
   const [email, setEmail] = useState<string>('');
   // pass this from login screen
   // const { showSnackbar } = useSnackbar();
@@ -48,7 +22,7 @@ export function ResetPass({
         showSnackbar({
           message: 'Password reset email sent',
           iconPressCb: hideModal,
-          icon: 'mail'
+          icon: 'mail',
         });
         console.log('Password reset email sent');
       })
@@ -59,11 +33,11 @@ export function ResetPass({
           message: errorMessage,
           icon: 'mail',
           iconPressCb: undefined,
-          // action: { label: 'LABEL', onPress: () => console.log('TEST ACTION')}
         });
         console.error(errorCode, errorMessage);
       });
   };
+
   return (
     <Surface
       elevation={0}
