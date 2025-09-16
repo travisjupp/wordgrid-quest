@@ -19,19 +19,14 @@ interface Props {
 export function OverlayProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
-  const [snackbarState, setSnackbarState] = useState<{
-    message: SnackbarTypes.Message;
-    icon: SnackbarTypes.Icon;
-    visible: SnackbarTypes.Visible;
-    iconPressCb: SnackbarTypes.IconPressCallback;
-    action: SnackbarTypes.Action;
-  }>({
-    message: '',
-    icon: undefined,
-    visible: false,
-    iconPressCb: undefined,
-    action: undefined,
-  });
+  const [snackbarState, setSnackbarState] =
+    useState<SnackbarTypes.SnackbarState>({
+      message: '',
+      icon: undefined,
+      visible: false,
+      iconPressCb: undefined,
+      action: undefined,
+    });
 
   // Retrieve Custom Theme-properties
   const { modal } = useAppTheme();

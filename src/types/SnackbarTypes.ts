@@ -11,6 +11,14 @@ export interface ActionObject {
   onPress: IconPressCallback;
 }
 
+export interface SnackbarState {
+  message: Message;
+  icon: Icon;
+  visible: Visible;
+  iconPressCb: IconPressCallback;
+  action: Action;
+}
+
 export interface SnackbarConfig {
   /** The message text displayed in the snackbar. */
   message: Message;
