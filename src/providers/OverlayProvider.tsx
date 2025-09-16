@@ -11,19 +11,44 @@ import React, { useState } from 'react';
 import { Portal, Snackbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type IconPressCallback = () => void;
 interface Props {
   children: React.ReactNode;
+}
+
+type Message = string;
+type Icon = string | undefined;
+type IconPressCallback = (() => void) | undefined;
+type Action = ActionObject | undefined;
+type ActionLabel = string;
+
+interface ActionObject {
+  label: ActionLabel;
+  onPress: IconPressCallback;
+}
+
+interface SnackbarConfig {
+  message: Message;
+  icon?: Icon;
+  iconPressCb?: IconPressCallback;
+  action?: Action;
 }
 
 export function OverlayProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
   const [snackbarState, setSnackbarState] = useState<{
-    message: string;
+    message: Message;
+    icon: Icon;
     visible: boolean;
-    onIconPressCallback: IconPressCallback;
-  }>({ message: '', visible: false, onIconPressCallback: () => {} });
+    iconPressCb: IconPressCallback;
+    action: Action;
+  }>({
+    message: '',
+    icon: undefined,
+    visible: false,
+    iconPressCb: undefined,
+    action: undefined,
+  });
 
   // Retrieve Custom Theme-properties
   const {
@@ -39,15 +64,16 @@ export function OverlayProvider({ children }: Props) {
     setModalVisible(false);
   };
 
-  const showSnackbar = (
-    message: string,
-    onIconPressCallback?: IconPressCallback,
-  ) => {
-    const callback = onIconPressCallback ?? hideSnackbar;
+  const showSnackbar = (snackbarConfig: SnackbarConfig) => {
+    const icon = snackbarConfig.icon;
+    const iconPressCallback = snackbarConfig.iconPressCb;
+
     setSnackbarState({
-      message,
+      message: snackbarConfig.message,
+      icon: icon,
       visible: true,
-      onIconPressCallback: callback,
+      iconPressCb: iconPressCallback,
+      action: snackbarConfig.action,
     });
   };
 
@@ -58,8 +84,11 @@ export function OverlayProvider({ children }: Props) {
     }));
   };
 
-  const onDismissSnackbar = () =>
-    snackbarState.onIconPressCallback() ?? hideSnackbar();
+  const dismissFunction = snackbarState.iconPressCb ?? hideSnackbar;
+  const onDismissSnackbar = () => {
+    dismissFunction();
+    hideSnackbar(); // Ensure orphaned Snackbars hide
+  };
 
   const insets = useSafeAreaInsets();
   return (
@@ -132,15 +161,9 @@ export function OverlayProvider({ children }: Props) {
                       borderColor: 'slateblue',
                       borderStyle: 'dashed',
                     }}
-                    action={{
-                      label: 'Close',
-                      onPress: () => {
-                        console.log('Pressed Action Label');
-                      },
-                    }}
-                    onIconPress={() => {
-                      snackbarState.onIconPressCallback();
-                    }}
+                    action={snackbarState.action}
+                    icon={snackbarState.icon}
+                    onIconPress={snackbarState.iconPressCb}
                   >
                     {snackbarState.message}
                   </Snackbar>
@@ -158,14 +181,8 @@ export function OverlayProvider({ children }: Props) {
                 visible={snackbarState.visible}
                 onDismiss={onDismissSnackbar}
                 testID='Snackbar'
-                // action={{
-                //   label: 'Close',
-                //   onPress: () => {
-                //     setSnackbarVisible(false);
-                //   }}}
-                onIconPress={() => {
-                  snackbarState.onIconPressCallback();
-                }}
+                action={snackbarState.action}
+                onIconPress={snackbarState.iconPressCb}
               >
                 {snackbarState.message}
               </Snackbar>
@@ -179,14 +196,8 @@ export function OverlayProvider({ children }: Props) {
                     borderColor: 'magenta',
                     borderStyle: 'dotted',
                   }}
-                  // action={{
-                  //   label: 'Close',
-                  //   onPress: () => {
-                  //     setSnackbarVisible(false);
-                  //   }}}
-                  onIconPress={() => {
-                    snackbarState.onIconPressCallback();
-                  }}
+                  action={snackbarState.action}
+                  onIconPress={snackbarState.iconPressCb}
                 >
                   {snackbarState.message}
                 </Snackbar>

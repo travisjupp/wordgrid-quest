@@ -1,11 +1,10 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import { useEffect } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { useAppTheme } from '@theme/themeConfig';
 // import { FirebaseTest } from '@features/firebase/firebaseTest';
-import { router, Stack, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import { useTheme } from '@hooks/useTheme';
 import { useModal } from '@hooks/useModal';
 import { Text } from '@components/Text';
@@ -31,7 +30,11 @@ export default function HomeScreen() {
           onPress={() =>
             showModal(
               <>
-                <Button onPress={() => showSnackbar('SNACKBAR ABOVE MODAL?')}>
+                <Button
+                  onPress={() =>
+                    showSnackbar({ message: 'SNACKBAR ABOVE MODAL?' })
+                  }
+                >
                   SHOW SNACKBAR FROM MODAL
                 </Button>
                 <Button onPress={hideModal}>x</Button>
@@ -41,7 +44,9 @@ export default function HomeScreen() {
         >
           SHOW MODAL
         </Text>
-        <Text onPress={() => showSnackbar('TEST')}>SHOW SNACKBAR</Text>
+        <Text onPress={() => showSnackbar({ message: 'TEST' })}>
+          SHOW SNACKBAR
+        </Text>
         {/* <FirebaseTest /> */}
         {/* <Text  */}
         {/*   variant="bodyLarge" */}
