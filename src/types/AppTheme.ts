@@ -2,6 +2,14 @@ import { ViewStyle, TextStyle } from 'react-native';
 import React from 'react';
 import { MD3Typescale } from 'react-native-paper/lib/typescript/types';
 
+export interface ModalStyles {
+  contentWrapper: object;
+  contentAndSnackbarContainer: object;
+  overModalSnackbar: object;
+  overModalSnackbarWrapper: object;
+  defaultMobileSnackbar: object;
+  defaultWebSnackbar: object;
+}
 export interface AppTheme {
   animation: object;
   majorHUD: MajorHUDStyles; // custom
@@ -15,7 +23,7 @@ export interface AppTheme {
   logo: object; // custom
   clogo: object; // custom
   menu: object; // custom
-  modal: object; // custom
+  modal: ModalStyles; // custom
   timer: object; // custom
 
   fonts: MD3Typescale;

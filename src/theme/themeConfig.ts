@@ -7,6 +7,7 @@ import {
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 import materialColors from '@prototype/material-theme.json';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const fontConfig = {
   brand: {
@@ -59,6 +60,7 @@ const fontConfig = {
 
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
+  const insets = useSafeAreaInsets();
   const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
   const materialColorScheme =
     isDarkTheme ? materialColors.schemes.dark : materialColors.schemes.light;
@@ -193,14 +195,57 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderStyle: 'solid',
     },
 
-    modal: {
-      // display: 'flex',
-      padding: 25,
-      // width: 380,
-      height: 'auto',
-      // backgroundColor: materialColorScheme.surfaceContainerHigh,
-      borderRadius: 28,
+    // START Modal Styles
+    contentWrapper: {
+      justifyContent: 'center',
+      flex: 1,
+      borderWidth: 3,
+      borderColor: 'red',
+      backgroundColor: themeVariant.colors.backdrop,
+      marginTop: insets.top,
     },
+    contentAndSnackbarContainer: {
+      ...Platform.OS === 'web' ?
+        {
+          borderWidth: 6,
+          borderColor: 'purple',
+          alignSelf: 'center',
+        }
+        : {
+          borderWidth: 6,
+          borderColor: 'orange',
+          position: 'absolute' /* <- Fit inside modal */,
+          alignSelf: 'center',
+        }
+    },
+    overModalSnackbar: {
+      borderWidth: 3,
+      margin: 0,
+      borderColor: 'slateblue',
+      borderStyle: 'dashed',
+    },
+    overModalSnackbarWrapper: {
+      flex: 1,
+      borderWidth: 6,
+      borderColor: 'orangered',
+      borderStyle: 'dashed',
+      alignSelf: 'center',
+      justifyContent: 'center',
+      paddingBottom: 0 /* Place at abs bottom */,
+      paddingLeft: '5%',
+      paddingRight: '5%',
+      height: '100%',
+      backgroundColor: themeVariant.colors.backdrop,
+    },
+    defaultMobileSnackbar: {
+      borderWidth: 3,
+      borderColor: 'magenta',
+      borderStyle: 'dotted',
+    },
+    defaultWebSnackbar: {
+
+    },
+    // END Modal Styles
 
     timer: {
       ...Platform.select({
@@ -249,26 +294,33 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     logo: customProperties.logo,
     clogo: customProperties.clogo,
     menu: customProperties.menu,
-    modal: customProperties.modal,
+    modal: {
+      contentWrapper: customProperties.contentWrapper,
+      contentAndSnackbarContainer: customProperties.contentAndSnackbarContainer,
+      overModalSnackbar: customProperties.overModalSnackbar,
+      overModalSnackbarWrapper: customProperties.overModalSnackbarWrapper,
+      defaultWebSnackbar: customProperties.defaultWebSnackbar,
+      defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
+    },
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
     roundness: 4,
     colors:
-      isDarkTheme ?
-        {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.dark,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        }
+    isDarkTheme ?
+      {
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.dark,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      }
       : {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.light,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        },
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.light,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      },
   };
 };
 

@@ -34,9 +34,7 @@ export function OverlayProvider({ children }: Props) {
   });
 
   // Retrieve Custom Theme-properties
-  const {
-    colors: { backdrop },
-  } = useAppTheme();
+  const { modal } = useAppTheme();
 
   const showModal = (content: React.ReactNode) => {
     setModalContent(content);
@@ -93,60 +91,23 @@ export function OverlayProvider({ children }: Props) {
             >
               <KeyboardAvoidingView
                 behavior='height'
-                style={{
-                  justifyContent: 'center',
-                  flex: 1,
-                  borderWidth: 3,
-                  borderColor: 'red',
-                  backgroundColor: backdrop,
-                  marginTop: insets.top,
-                }}
+                style={modal.contentWrapper}
                 testID='Modal Content Wrapper'
               >
                 <View
-                  style={
-                    Platform.OS === 'web' ?
-                      {
-                        borderWidth: 6,
-                        borderColor: 'purple',
-                        alignSelf: 'center',
-                      }
-                    : {
-                        borderWidth: 6,
-                        borderColor: 'orange',
-                        position: 'absolute' /* <- Fit inside modal */,
-                        alignSelf: 'center',
-                      }
-                  }
+                  style={modal.contentAndSnackbarContainer}
                   testID='Modal Content and Snackbar Container'
                 >
                   {modalContent}
                   <Snackbar /* Display within and over Modal */
                     visible={snackbarState.visible}
                     onDismiss={onDismissSnackbar}
-                    testID='Snackbar'
-                    wrapperStyle={{
-                      flex: 1,
-                      borderWidth: 6,
-                      borderColor: 'orangered',
-                      borderStyle: 'dashed',
-                      alignSelf: 'center',
-                      justifyContent: 'center',
-                      paddingBottom: 0 /* Place at abs bottom */,
-                      paddingLeft: '5%',
-                      paddingRight: '5%',
-                      height: '100%',
-                      backgroundColor: backdrop,
-                    }}
-                    style={{
-                      borderWidth: 3,
-                      margin: 0,
-                      borderColor: 'slateblue',
-                      borderStyle: 'dashed',
-                    }}
+                    wrapperStyle={modal.overModalSnackbarWrapper}
+                    style={modal.overModalSnackbar}
                     action={snackbarState.action}
                     icon={snackbarState.icon}
                     onIconPress={snackbarState.iconPressCb}
+                    testID='Over Modal Snackbar'
                   >
                     {snackbarState.message}
                   </Snackbar>
@@ -163,9 +124,10 @@ export function OverlayProvider({ children }: Props) {
               <Snackbar
                 visible={snackbarState.visible}
                 onDismiss={onDismissSnackbar}
-                testID='Snackbar'
                 action={snackbarState.action}
                 onIconPress={snackbarState.iconPressCb}
+                style={modal.defaultWebSnackbar}
+                testID='Default Web Snackbar'
               >
                 {snackbarState.message}
               </Snackbar>
@@ -173,14 +135,10 @@ export function OverlayProvider({ children }: Props) {
                 <Snackbar
                   visible={snackbarState.visible}
                   onDismiss={onDismissSnackbar}
-                  testID='Snackbar'
-                  style={{
-                    borderWidth: 3,
-                    borderColor: 'magenta',
-                    borderStyle: 'dotted',
-                  }}
+                  style={modal.defaultMobileSnackbar}
                   action={snackbarState.action}
                   onIconPress={snackbarState.iconPressCb}
+                  testID='Default Mobile Snackbar'
                 >
                   {snackbarState.message}
                 </Snackbar>
