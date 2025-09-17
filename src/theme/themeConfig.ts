@@ -242,7 +242,13 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'magenta',
       borderStyle: 'dotted',
     },
+    defaultMobileSnackbarWrapper: {
+
+    },
     defaultWebSnackbar: {
+
+    },
+    defaultWebSnackbarWrapper: {
 
     },
     // END Modal Styles
@@ -300,7 +306,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       overModalSnackbar: customProperties.overModalSnackbar,
       overModalSnackbarWrapper: customProperties.overModalSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
+      defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
+      defaultMobileSnackbarWrapper: customProperties.defaultMobileSnackbarWrapper,
     },
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),

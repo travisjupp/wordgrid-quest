@@ -5,6 +5,7 @@ export type Visible = boolean;
 export type IconPressCallback = (() => void) | undefined;
 export type Action = ActionObject | undefined;
 export type ActionLabel = string;
+export type CalledFromModal = boolean | undefined;
 
 export interface ActionObject {
   label: ActionLabel;
@@ -17,6 +18,7 @@ export interface SnackbarState {
   visible: Visible;
   iconPressCb: IconPressCallback;
   action: Action;
+  calledFromModal: CalledFromModal;
 }
 
 export interface SnackbarConfig {
@@ -28,6 +30,8 @@ export interface SnackbarConfig {
   iconPressCb?: IconPressCallback;
   /** The action button configuration. */
   action?: Action;
+  /** Whether or not snackbar was called from a modal. */
+  calledFromModal?: CalledFromModal;
 }
 
 export type ShowSnackbar = (snackbarConfig: SnackbarConfig) => void;

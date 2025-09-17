@@ -7,9 +7,8 @@ import {
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import SnackbarContext from '@contexts/SnackbarContext';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Portal, Snackbar } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as SnackbarTypes from '@custom-types/SnackbarTypes';
 
 interface Props {
@@ -26,6 +25,7 @@ export function OverlayProvider({ children }: Props) {
       visible: false,
       iconPressCb: undefined,
       action: undefined,
+      calledFromModal: undefined,
     });
 
   // Retrieve Custom Theme-properties
@@ -41,8 +41,8 @@ export function OverlayProvider({ children }: Props) {
   };
 
   const showSnackbar = (snackbarConfig: SnackbarTypes.SnackbarConfig) => {
-    const icon = snackbarConfig.icon;
-    const iconPressCallback = snackbarConfig.iconPressCb;
+    const icon = snackbarConfig.icon ?? 'close';
+    const iconPressCallback = snackbarConfig.iconPressCb ?? hideSnackbar;
 
     setSnackbarState({
       message: snackbarConfig.message,
@@ -50,6 +50,7 @@ export function OverlayProvider({ children }: Props) {
       visible: true,
       iconPressCb: iconPressCallback,
       action: snackbarConfig.action,
+      calledFromModal: snackbarConfig.calledFromModal,
     });
   };
 
@@ -60,13 +61,12 @@ export function OverlayProvider({ children }: Props) {
     }));
   };
 
-  const dismissFunction = snackbarState.iconPressCb ?? hideSnackbar;
+  const dismissSnackbarFunction = snackbarState.iconPressCb ?? hideSnackbar;
   const onDismissSnackbar = () => {
-    dismissFunction();
+    dismissSnackbarFunction();
     hideSnackbar(); // Ensure orphaned Snackbars hide
   };
 
-  const insets = useSafeAreaInsets();
   return (
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
@@ -97,11 +97,11 @@ export function OverlayProvider({ children }: Props) {
                   <Snackbar /* Display within and over Modal */
                     visible={snackbarState.visible}
                     onDismiss={onDismissSnackbar}
-                    wrapperStyle={modal.overModalSnackbarWrapper}
-                    style={modal.overModalSnackbar}
                     action={snackbarState.action}
                     icon={snackbarState.icon}
                     onIconPress={snackbarState.iconPressCb}
+                    wrapperStyle={modal.overModalSnackbarWrapper}
+                    style={modal.overModalSnackbar}
                     testID='Over Modal Snackbar'
                   >
                     {snackbarState.message}
@@ -120,7 +120,15 @@ export function OverlayProvider({ children }: Props) {
                 visible={snackbarState.visible}
                 onDismiss={onDismissSnackbar}
                 action={snackbarState.action}
-                onIconPress={snackbarState.iconPressCb}
+                icon={
+                  snackbarState.calledFromModal ? 'close' : snackbarState.icon
+                }
+                onIconPress={
+                  snackbarState.calledFromModal ? hideSnackbar : (
+                    snackbarState.iconPressCb
+                  )
+                }
+                wrapperStyle={modal.defaultWebSnackbarWrapper}
                 style={modal.defaultWebSnackbar}
                 testID='Default Web Snackbar'
               >
@@ -130,9 +138,17 @@ export function OverlayProvider({ children }: Props) {
                 <Snackbar
                   visible={snackbarState.visible}
                   onDismiss={onDismissSnackbar}
-                  style={modal.defaultMobileSnackbar}
                   action={snackbarState.action}
-                  onIconPress={snackbarState.iconPressCb}
+                  icon={
+                    snackbarState.calledFromModal ? 'close' : snackbarState.icon
+                  }
+                  onIconPress={
+                    snackbarState.calledFromModal ? hideSnackbar : (
+                      snackbarState.iconPressCb
+                    )
+                  }
+                  wrapperStyle={modal.defaultMobileSnackbarWrapper}
+                  style={modal.defaultMobileSnackbar}
                   testID='Default Mobile Snackbar'
                 >
                   {snackbarState.message}

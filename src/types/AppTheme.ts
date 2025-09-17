@@ -8,7 +8,9 @@ export interface ModalStyles {
   overModalSnackbar: object;
   overModalSnackbarWrapper: object;
   defaultMobileSnackbar: object;
+  defaultMobileSnackbarWrapper: object;
   defaultWebSnackbar: object;
+  defaultWebSnackbarWrapper: object;
 }
 export interface AppTheme {
   animation: object;

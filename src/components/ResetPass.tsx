@@ -22,7 +22,8 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
         showSnackbar({
           message: 'Password reset email sent',
           iconPressCb: hideModal,
-          icon: 'mail',
+          icon: 'check',
+          calledFromModal: true,
         });
         console.log('Password reset email sent');
       })
@@ -31,8 +32,9 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
         const errorMessage = e.message;
         showSnackbar({
           message: errorMessage,
-          icon: 'mail',
-          iconPressCb: undefined,
+          icon: 'alert',
+          calledFromModal: true,
+          // iconPressCb: () => {console.log('ICON PRESS CALLBACK FIRED')}
         });
         console.error(errorCode, errorMessage);
       });
