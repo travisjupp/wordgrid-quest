@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
-import Animated, { SlideInRight } from 'react-native-reanimated'; // Use SlideInRight or other entering animations
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
+import { Button } from 'react-native-paper';
 
 export default function ProfileScreen() {
   // Retrieve Custom Properties
   const { container } = useAppTheme();
 
   return (
-    <Animated.View
-      entering={SlideInRight}
-      style={container}
-      testID='Animated.View'
-    >
-    <ThemeAwareScreenOptions header menu back />
+    <SafeAreaView style={[container, { justifyContent: 'start' }]}>
+      <ThemeAwareScreenOptions header menu back />
       <Text variant='bodyLarge'>Profile `app/profile.tsx`</Text>
-    </Animated.View>
+      <Button
+        onPress={() => {
+          router.navigate('/upload');
+        }}
+      >
+        Upload
+      </Button>
+    </SafeAreaView>
   );
 }

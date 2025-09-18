@@ -1,10 +1,10 @@
-import { Stack } from 'expo-router';
+import { withLayoutContext } from 'expo-router';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
 import { useTheme } from '@hooks/useTheme';
-import { Logo } from './Logo';
+import { createStackNavigator } from '@react-navigation/stack';
 
 interface Props {
   header?: boolean | undefined;
@@ -12,11 +12,12 @@ interface Props {
   back?: boolean | undefined;
 }
 
-export function ThemeAwareScreenOptions({header, menu, back}: Props) {
+export function ThemeAwareScreenOptions({ header, menu, back }: Props) {
   const { theme } = useTheme();
 
+  const AnimatedStack = withLayoutContext(createStackNavigator().Navigator);
   return (
-    <Stack.Screen
+    <AnimatedStack.Screen
       options={{
         headerStyle: Platform.select({
           web: {
@@ -37,7 +38,7 @@ export function ThemeAwareScreenOptions({header, menu, back}: Props) {
         headerLeft: back ? undefined : () => <View></View>,
         headerBackButtonDisplayMode: 'minimal',
         headerTitle: () => <CLogo />,
-        headerRight: () => menu ? <Menu /> : null,
+        headerRight: () => (menu ? <Menu /> : null),
       }}
     />
   );

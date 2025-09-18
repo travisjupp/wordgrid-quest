@@ -23,7 +23,7 @@ export default function AuthLayout() {
   const { container } = useAppTheme();
   return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>
-    <ThemeAwareScreenOptions header menu />
+      <ThemeAwareScreenOptions header menu back />
       <LogoContext value={{ toggleLogo, scaleLogo }}>
         <PageHeading text='Welcome' />
         <Logo width={logoSize} height={logoSize} gradient={true} />

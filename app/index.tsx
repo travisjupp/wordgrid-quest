@@ -78,6 +78,13 @@ export default function HomeScreen() {
         >
           Login
         </Button>
+        <Button
+          onPress={() => {
+            router.navigate('/upload');
+          }}
+        >
+          Upload
+        </Button>
         {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
         {/**/}
         {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}

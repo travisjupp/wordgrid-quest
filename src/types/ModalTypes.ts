@@ -8,8 +8,7 @@ export interface ModalContextType {
    */
   showModal: (content: React.ReactNode) => void;
   /**
-   * Hides the currently visible modal. 
+   * Hides the currently visible modal.
    */
   hideModal: () => void;
 }
-

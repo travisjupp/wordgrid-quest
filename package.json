@@ -18,7 +18,7 @@
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^5.1.4",
     "@react-navigation/bottom-tabs": "^7.2.0",
-    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.4.8",
     "@reduxjs/toolkit": "^2.8.2",
     "dotenv": "^17.2.1",
     "expo": "53.0.20",

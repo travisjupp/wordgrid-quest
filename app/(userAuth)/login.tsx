@@ -27,7 +27,7 @@ export default function LoginScreen() {
         variant='bodyLargeEmphasized'
         onPress={() => {
           showModal(
-              <ResetPass hideModal={hideModal} showSnackbar={showSnackbar} />
+            <ResetPass hideModal={hideModal} showSnackbar={showSnackbar} />,
           );
         }}
       >

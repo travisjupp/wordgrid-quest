@@ -9,9 +9,9 @@ export default function LeaderboardScreen() {
   const { container } = useAppTheme();
 
   return (
-      <View style={container}>
+    <View style={container}>
       <ThemeAwareScreenOptions header menu back />
-        <Text variant='bodyLarge'>Leaderboard `app/leaderboard.tsx`</Text>
-      </View>
+      <Text variant='bodyLarge'>Leaderboard `app/leaderboard.tsx`</Text>
+    </View>
   );
 }

@@ -1,4 +1,3 @@
-
 export type Message = string;
 export type Icon = string | undefined;
 export type Visible = boolean;
