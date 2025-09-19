@@ -13,22 +13,22 @@ export interface ModalStyles {
   defaultWebSnackbarWrapper: object;
 }
 export interface AppTheme {
-  animation: object;
-  majorHUD: MajorHUDStyles; // custom
-  topicFrame: TopicFrameStyles; // custom
-  carousel: CarouselStyles; // custom
 
+  animation: object;
+  authSubtext: object;
+  carousel: CarouselStyles; // custom
   centeredView: object; // custom
+  clogo: object; // custom
   container: object; // custom
-  text: object; // custom
+  fonts: MD3Typescale;
   link: object; // custom
   logo: object; // custom
-  clogo: object; // custom
+  majorHUD: MajorHUDStyles; // custom
   menu: object; // custom
   modal: ModalStyles; // custom
+  text: object; // custom
   timer: object; // custom
-
-  fonts: MD3Typescale;
+  topicFrame: TopicFrameStyles; // custom
 
   // fonts: {
   //   bodyLarge: object;

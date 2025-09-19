@@ -65,6 +65,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
+    authSubtext: {
+      marginTop: 30,
+      alignItems: 'center',
+    },
     // START MajorHUD Styles
     majorHUDContainer: {
       flexDirection: 'row',
@@ -270,6 +274,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
+    authSubtext: customProperties.authSubtext,
     majorHUD: {
       container: customProperties.majorHUDContainer,
     },

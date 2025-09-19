@@ -1,6 +1,5 @@
+import AuthSubtext from '@components/AuthSubtext';
 import { SignUp } from '@components/SignUp';
-import { Text } from '@components/Text';
-import { router } from 'expo-router';
 import Animated, { FlipInYRight } from 'react-native-reanimated';
 
 export default function SignupScreen() {
@@ -15,18 +14,7 @@ export default function SignupScreen() {
       }}
     >
       <SignUp />
-      <Text variant='bodyLarge'>
-        Have an account?
-        <Text
-          variant='bodyLargeEmphasized'
-          onPress={() => {
-            router.navigate('/login');
-          }}
-        >
-          {' '}
-          Sign In
-        </Text>
-      </Text>
+      <AuthSubtext />
     </Animated.View>
   );
 }
