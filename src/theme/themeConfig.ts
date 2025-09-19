@@ -7,7 +7,6 @@ import {
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 import materialColors from '@prototype/material-theme.json';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const fontConfig = {
   brand: {
@@ -60,7 +59,6 @@ const fontConfig = {
 
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
-  const insets = useSafeAreaInsets();
   const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
   const materialColorScheme =
     isDarkTheme ? materialColors.schemes.dark : materialColors.schemes.light;
@@ -202,21 +200,20 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 3,
       borderColor: 'red',
       backgroundColor: themeVariant.colors.backdrop,
-      marginTop: insets.top,
     },
     contentAndSnackbarContainer: {
-      ...Platform.OS === 'web' ?
+      ...(Platform.OS === 'web' ?
         {
           borderWidth: 6,
           borderColor: 'purple',
           alignSelf: 'center',
         }
-        : {
+      : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit inside modal */,
           alignSelf: 'center',
-        }
+        }),
     },
     overModalSnackbar: {
       borderWidth: 3,
@@ -242,15 +239,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'magenta',
       borderStyle: 'dotted',
     },
-    defaultMobileSnackbarWrapper: {
-
-    },
-    defaultWebSnackbar: {
-
-    },
-    defaultWebSnackbarWrapper: {
-
-    },
+    defaultMobileSnackbarWrapper: {},
+    defaultWebSnackbar: {},
+    defaultWebSnackbarWrapper: {},
     // END Modal Styles
 
     timer: {
@@ -308,27 +299,28 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
-      defaultMobileSnackbarWrapper: customProperties.defaultMobileSnackbarWrapper,
+      defaultMobileSnackbarWrapper:
+        customProperties.defaultMobileSnackbarWrapper,
     },
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
     roundness: 4,
     colors:
-    isDarkTheme ?
-      {
-        ...themeVariant.colors,
-        // Custom color properties
-        // ...materialColors.schemes.dark,
-        ...materialColorScheme,
-        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-      }
+      isDarkTheme ?
+        {
+          ...themeVariant.colors,
+          // Custom color properties
+          // ...materialColors.schemes.dark,
+          ...materialColorScheme,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        }
       : {
-        ...themeVariant.colors,
-        // Custom color properties
-        // ...materialColors.schemes.light,
-        ...materialColorScheme,
-        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-      },
+          ...themeVariant.colors,
+          // Custom color properties
+          // ...materialColors.schemes.light,
+          ...materialColorScheme,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        },
   };
 };
 

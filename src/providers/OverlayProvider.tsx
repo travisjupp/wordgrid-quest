@@ -7,9 +7,10 @@ import {
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import SnackbarContext from '@contexts/SnackbarContext';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Portal, Snackbar } from 'react-native-paper';
 import * as SnackbarTypes from '@custom-types/SnackbarTypes';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   children: React.ReactNode;
@@ -67,6 +68,8 @@ export function OverlayProvider({ children }: Props) {
     hideSnackbar(); // Ensure orphaned Snackbars hide
   };
 
+  const insets = useSafeAreaInsets();
+
   return (
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
@@ -86,7 +89,7 @@ export function OverlayProvider({ children }: Props) {
             >
               <KeyboardAvoidingView
                 behavior='height'
-                style={modal.contentWrapper}
+                style={[modal.contentWrapper, { marginTop: insets.top }]}
                 testID='Modal Content Wrapper'
               >
                 <View
