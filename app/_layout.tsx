@@ -14,6 +14,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
+import CustomHeader from '@components/CustomHeader';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -45,7 +46,6 @@ export default function RootLayout() {
     async function checkBrowserFontsLoaded() {
       const FontFaceSetReady = await document.fonts.ready;
       const loaded = FontFaceSetReady.status === 'loaded';
-      // console.log('FontFaceSetReady', FontFaceSetReady);
       return loaded ?
           setBrowserFontsLoaded(true)
         : console.log('FONTS NOT YET LOADED');
@@ -67,6 +67,7 @@ export default function RootLayout() {
   const AnimatedStack = withLayoutContext(createStackNavigator().Navigator);
   const screenOptions: StackNavigationOptions = {
     animation: 'slide_from_right',
+    header: props => <CustomHeader {...props} />,
     headerMode: 'float',
   };
 

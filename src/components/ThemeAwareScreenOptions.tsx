@@ -35,10 +35,13 @@ export function ThemeAwareScreenOptions({ header, menu, back }: Props) {
         },
         headerTitleAlign: 'center',
         headerBackVisible: back ? true : false,
-        headerLeft: back ? undefined : () => <View></View>,
+        headerLeft: back ? undefined : () => <View />,
         headerBackButtonDisplayMode: 'minimal',
-        headerTitle: () => <CLogo />,
-        headerRight: () => (menu ? <Menu /> : null),
+        headerTitle: (props: any) => {
+          props.back = back ?? false; /* Pass 'back' as prop */
+          return <CLogo {...props} />;
+        },
+        headerRight: (props: any) => (menu ? <Menu {...props} /> : null),
       }}
     />
   );

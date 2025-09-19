@@ -1,12 +1,12 @@
 import { Logo } from '@components/Logo';
 import { Slot, usePathname } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import LogoContext from '@contexts/LogoContext';
 import { useState } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
+import { Surface } from 'react-native-paper';
 
 export default function AuthLayout() {
   const pathname = usePathname();
@@ -22,16 +22,29 @@ export default function AuthLayout() {
 
   const { container } = useAppTheme();
   return (
-    <SafeAreaView style={[container, { justifyContent: 'start' }]}>
+    <>
       <ThemeAwareScreenOptions header menu back />
-      <LogoContext value={{ toggleLogo, scaleLogo }}>
-        <PageHeading text='Welcome' />
-        <Logo width={logoSize} height={logoSize} gradient={true} />
-        <GuidanceText
-          text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
-        />
-        <Slot />
-      </LogoContext>
-    </SafeAreaView>
+      <Surface
+        elevation={0}
+        style={[
+          container,
+          {
+            // borderWidth: 1,
+            // borderColor: 'orange',
+            paddingTop: 60,
+            gap: 20,
+          },
+        ]}
+      >
+        <LogoContext value={{ toggleLogo, scaleLogo }}>
+          <PageHeading text='Welcome' />
+          <Logo width={logoSize} height={logoSize} gradient={true} />
+          <GuidanceText
+            text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
+          />
+          <Slot />
+        </LogoContext>
+      </Surface>
+    </>
   );
 }
