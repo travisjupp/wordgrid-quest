@@ -1,11 +1,13 @@
 import AuthSubtext from '@components/AuthSubtext';
 import { SignUp } from '@components/SignUp';
-import Animated, { FlipInYRight } from 'react-native-reanimated';
+import { memo } from 'react';
+import Animated, { FadeOut, FlipInYRight } from 'react-native-reanimated';
 
 export default function SignupScreen() {
   return (
     <Animated.View
       entering={FlipInYRight}
+      exiting={FadeOut}
       testID='Animated View'
       style={{
         alignItems: 'center',
@@ -13,8 +15,11 @@ export default function SignupScreen() {
         flex: 1,
       }}
     >
-      <SignUp />
-      <AuthSubtext />
+      <MemoizedSignUp />
+      <MemoizedAuthSubtext />
     </Animated.View>
   );
 }
+
+const MemoizedSignUp = memo(SignUp);
+const MemoizedAuthSubtext = memo(AuthSubtext);
