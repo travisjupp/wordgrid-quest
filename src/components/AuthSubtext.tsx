@@ -4,7 +4,6 @@ import { ResetPass } from '@components/ResetPass';
 import { useModal } from '@hooks/useModal';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useAppTheme } from '@theme/themeConfig';
-import { Surface } from 'react-native-paper';
 import { View } from 'react-native';
 
 export default function AuthSubtext() {
@@ -14,7 +13,7 @@ export default function AuthSubtext() {
   const { showSnackbar } = useSnackbar();
   const { authSubtext } = useAppTheme();
   return (
-    <View style={ authSubtext }>
+    <View style={authSubtext}>
       {isLoginPage ?
         <>
           <Text variant='bodyLarge'>
@@ -40,7 +39,7 @@ export default function AuthSubtext() {
             Forgot password?
           </Text>
         </>
-        : <Text variant='bodyLarge'>
+      : <Text variant='bodyLarge'>
           Have an account?
           <Text
             variant='bodyLargeEmphasized'

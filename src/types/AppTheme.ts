@@ -3,17 +3,16 @@ import React from 'react';
 import { MD3Typescale } from 'react-native-paper/lib/typescript/types';
 
 export interface ModalStyles {
-  contentWrapper: object;
   contentAndSnackbarContainer: object;
-  overModalSnackbar: object;
-  overModalSnackbarWrapper: object;
+  contentWrapper: object;
   defaultMobileSnackbar: object;
   defaultMobileSnackbarWrapper: object;
   defaultWebSnackbar: object;
   defaultWebSnackbarWrapper: object;
+  overModalSnackbar: object;
+  overModalSnackbarWrapper: object;
 }
 export interface AppTheme {
-
   animation: object;
   authSubtext: object;
   carousel: CarouselStyles; // custom
@@ -97,9 +96,9 @@ export interface AppTheme {
 }
 
 export interface CarouselStyles {
+  activeDot?: ViewStyle;
   container: ViewStyle;
   dot?: ViewStyle;
-  activeDot?: ViewStyle;
   dotsContainer?: ViewStyle;
   page?: ViewStyle;
   paragraph?: TextStyle;
@@ -115,8 +114,8 @@ export interface DiscoveryTermObject {
 }
 
 export interface InitialMaterialSliceState {
-  category: CustomMaterialArray;
   activeCategory: string;
+  category: CustomMaterialArray;
 }
 
 export interface InitialTempMaterialSliceState {

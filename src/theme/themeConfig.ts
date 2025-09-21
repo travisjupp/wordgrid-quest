@@ -83,12 +83,30 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     // END TopicFrame Styles
 
     // START Carousel Styles
+    carouselActiveDot: {
+      backgroundColor: materialColorScheme.secondaryContainer,
+      borderWidth: 1,
+      borderColor: materialColorScheme.primary,
+    },
     carouselContainer: {
       width: 'auto',
       flex: 1,
       marginTop: 20,
       // borderWidth: 1,
       // borderColor: '#00ff00'
+    },
+    carouselDot: {
+      height: 8,
+      width: 8,
+      borderRadius: 4,
+      backgroundColor: materialColorScheme.secondaryContainer,
+      marginHorizontal: 5,
+    },
+    carouselDotsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 10,
     },
     carouselPage: {
       justifyContent: 'center',
@@ -101,24 +119,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderColor: 'magenta',
       // backgroundColor: 'darkmagenta',
       color: materialColorScheme.onSurface,
-    },
-    carouselDotsContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 10,
-    },
-    carouselDot: {
-      height: 8,
-      width: 8,
-      borderRadius: 4,
-      backgroundColor: materialColorScheme.secondaryContainer,
-      marginHorizontal: 5,
-    },
-    carouselActiveDot: {
-      backgroundColor: materialColorScheme.secondaryContainer,
-      borderWidth: 1,
-      borderColor: materialColorScheme.primary,
     },
     // END Carousel Styles
 
@@ -282,12 +282,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       container: customProperties.topicFrameContainer,
     },
     carousel: {
+      activeDot: customProperties.carouselActiveDot,
       container: customProperties.carouselContainer,
+      dot: customProperties.carouselDot,
+      dotsContainer: customProperties.carouselDotsContainer,
       page: customProperties.carouselPage,
       paragraph: customProperties.carouselParagraph,
-      dotsContainer: customProperties.carouselDotsContainer,
-      dot: customProperties.carouselDot,
-      activeDot: customProperties.carouselActiveDot,
     },
     centeredView: customProperties.centeredView,
     container: customProperties.container,
@@ -297,15 +297,15 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     clogo: customProperties.clogo,
     menu: customProperties.menu,
     modal: {
-      contentWrapper: customProperties.contentWrapper,
       contentAndSnackbarContainer: customProperties.contentAndSnackbarContainer,
-      overModalSnackbar: customProperties.overModalSnackbar,
-      overModalSnackbarWrapper: customProperties.overModalSnackbarWrapper,
-      defaultWebSnackbar: customProperties.defaultWebSnackbar,
-      defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
+      contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
         customProperties.defaultMobileSnackbarWrapper,
+      defaultWebSnackbar: customProperties.defaultWebSnackbar,
+      defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
+      overModalSnackbar: customProperties.overModalSnackbar,
+      overModalSnackbarWrapper: customProperties.overModalSnackbarWrapper,
     },
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),

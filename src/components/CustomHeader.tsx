@@ -6,11 +6,10 @@ import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@hooks/useTheme';
 
-
 export default function CustomHeader(props: any) {
-const { theme } = useTheme();
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  console.log('CustomHeader props', props);
+
   return (
     <Surface
       mode='flat'
