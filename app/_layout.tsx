@@ -8,13 +8,10 @@ import { Provider } from 'react-redux';
 import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
 import { ThemeProvider } from '@providers/ThemeProvider';
-import { withLayoutContext } from 'expo-router';
 import { OverlayProvider } from '@providers/OverlayProvider';
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
 import CustomHeader from '@components/CustomHeader';
+import { StackNavigationOptions, StackHeaderProps } from '@react-navigation/stack';
+import { JsStack } from 'layouts/js-stack';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -64,7 +61,6 @@ export default function RootLayout() {
     return <Spinner theme={theme} />;
   }
 
-  const AnimatedStack = withLayoutContext(createStackNavigator().Navigator);
   const screenOptions: StackNavigationOptions = {
     animation: 'slide_from_right',
     header: props => <CustomHeader {...props} />,
@@ -76,7 +72,7 @@ export default function RootLayout() {
       <ThemeProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <OverlayProvider>
-            <AnimatedStack screenOptions={screenOptions} />
+            <JsStack screenOptions={screenOptions} />
           </OverlayProvider>
         </GestureHandlerRootView>
       </ThemeProvider>
