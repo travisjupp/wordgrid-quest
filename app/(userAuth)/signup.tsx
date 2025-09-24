@@ -7,7 +7,6 @@ export default function SignupScreen() {
   return (
     <Animated.View
       entering={FlipInYRight}
-      exiting={FadeOut}
       testID='Animated View'
       style={{
         alignItems: 'center',

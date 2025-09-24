@@ -7,7 +7,6 @@ export default function LoginScreen() {
   return (
     <Animated.View
       entering={FlipInYLeft}
-      exiting={FadeOut}
       testID='Animated View'
       style={{
         alignItems: 'center',
