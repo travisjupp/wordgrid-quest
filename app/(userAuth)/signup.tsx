@@ -1,7 +1,7 @@
-import AuthSubtext from '@components/AuthSubtext';
-import { SignUp } from '@components/SignUp';
+import { SignUp } from '@components/userAuth/SignUp';
+import { AuthSubtext } from '@components/userAuth/AuthSubtext';
 import { memo } from 'react';
-import Animated, { FadeOut, FlipInYRight } from 'react-native-reanimated';
+import Animated, { FlipInYRight } from 'react-native-reanimated';
 
 export default function SignupScreen() {
   return (

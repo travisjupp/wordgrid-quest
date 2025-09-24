@@ -1,12 +1,12 @@
 import { Text } from '@components/Text';
 import { router, usePathname } from 'expo-router';
-import { ResetPass } from '@components/ResetPass';
+import { ResetPass } from '@components/userAuth/ResetPass';
 import { useModal } from '@hooks/useModal';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useAppTheme } from '@theme/themeConfig';
 import { View } from 'react-native';
 
-export default function AuthSubtext() {
+export function AuthSubtext() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
   const { showModal, hideModal } = useModal();

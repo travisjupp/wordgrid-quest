@@ -1,6 +1,6 @@
-import { LogIn } from '@components/LogIn';
-import Animated, { FadeOut, FlipInYLeft } from 'react-native-reanimated';
-import AuthSubtext from '@components/AuthSubtext';
+import { LogIn } from '@components/userAuth/LogIn';
+import { AuthSubtext } from '@components/userAuth/AuthSubtext';
+import Animated, { FlipInYLeft } from 'react-native-reanimated';
 import { memo } from 'react';
 
 export default function LoginScreen() {
