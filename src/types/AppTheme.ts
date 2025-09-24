@@ -14,7 +14,7 @@ export interface ModalStyles {
 }
 export interface AppTheme {
   animation: object;
-  authSubtext: object;
+  authSubtext: AuthSubtextStyles;
   carousel: CarouselStyles; // custom
   centeredView: object; // custom
   clogo: object; // custom
@@ -93,6 +93,11 @@ export interface AppTheme {
   mode?: string | undefined;
   roundness: number;
   version: number;
+}
+
+export interface AuthSubtextStyles {
+  container: ViewStyle;
+  wrapper: ViewStyle;
 }
 
 export interface CarouselStyles {

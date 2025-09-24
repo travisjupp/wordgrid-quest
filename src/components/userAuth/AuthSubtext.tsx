@@ -13,9 +13,11 @@ export function AuthSubtext() {
   const { showSnackbar } = useSnackbar();
   const { authSubtext } = useAppTheme();
   return (
-    <View style={authSubtext}>
+    <View style={authSubtext.wrapper}>
       {isLoginPage ?
-        <>
+        <View
+          style={authSubtext.container}
+        >
           <Text variant='bodyLarge'>
             Need an account?
             <Text
@@ -38,8 +40,12 @@ export function AuthSubtext() {
           >
             Forgot password?
           </Text>
-        </>
-      : <Text variant='bodyLarge'>
+        </View>
+      : 
+        <View
+          style={authSubtext.container}
+        >
+        <Text variant='bodyLarge'>
           Have an account?
           <Text
             variant='bodyLargeEmphasized'
@@ -51,6 +57,7 @@ export function AuthSubtext() {
             Sign In
           </Text>
         </Text>
+        </View>
       }
     </View>
   );

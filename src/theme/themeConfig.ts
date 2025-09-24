@@ -65,10 +65,26 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
-    authSubtext: {
-      marginTop: 30,
+    // START AuthSubtext Styles
+    authSubtextContainer: {
+      // marginTop: 30,
+      gap: 10,
       alignItems: 'center',
+      borderColor: 'purple',
+      borderWidth: 1,
     },
+    authSubtextWrapper: {
+      margin: 15,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      minHeight: 40,
+      width: '100%',
+      height: '100%', 
+      borderColor: 'orange',
+      borderWidth: 3,
+    },
+    // END AuthSubtext Styles
     // START MajorHUD Styles
     majorHUDContainer: {
       flexDirection: 'row',
@@ -274,7 +290,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
-    authSubtext: customProperties.authSubtext,
+    authSubtext: {
+      wrapper: customProperties.authSubtextWrapper,
+      container: customProperties.authSubtextContainer,
+    },
     majorHUD: {
       container: customProperties.majorHUDContainer,
     },
