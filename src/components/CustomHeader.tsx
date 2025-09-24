@@ -10,7 +10,7 @@ import { StackHeaderProps } from '@react-navigation/stack';
 export default function CustomHeader(props: StackHeaderProps) {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  console.log('StackHeaderProps', props);
+  // console.log('StackHeaderProps', props);
 
   return (
     <Surface

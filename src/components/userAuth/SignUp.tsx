@@ -59,7 +59,7 @@ export function SignUp() {
         testID='EmailInput'
         returnKeyType='next'
         onFocus={() => {
-          handleScaleLogo(152);
+          handleScaleLogo(12);
         }}
         onBlur={() => {
           handleScaleLogo();

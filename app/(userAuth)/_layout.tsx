@@ -7,35 +7,53 @@ import LogoContext from '@contexts/LogoContext';
 import { useState } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { KeyboardAvoidingView, View } from 'react-native';
+import { useTheme } from '@hooks/useTheme';
 
 export default function AuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
-  const defaultLogoSize = 174.9;
+  const DEFAULT_LOG0_SIZE = 174.9;
   const [logoVisible, setLogoVisible] = useState<boolean>(true);
-  const [logoSize, setLogoSize] = useState<number | undefined>(defaultLogoSize);
+  const [logoSize, setLogoSize] = useState<number | undefined>(DEFAULT_LOG0_SIZE);
 
   const toggleLogo = () => setLogoVisible(!logoVisible);
   const scaleLogo = (size?: number | undefined) => {
-    setLogoSize(size ?? defaultLogoSize);
+    setLogoSize(size ?? DEFAULT_LOG0_SIZE);
   };
 
   const { container } = useAppTheme();
+  const insets = useSafeAreaInsets();
+  const { theme } = useTheme();
   return (
-    <>
-      <ThemeAwareScreenOptions header menu back />
-      <Surface
-        elevation={0}
-        style={[
-          container,
-          {
-            // borderWidth: 1,
-            // borderColor: 'orange',
-            paddingTop: 60,
-            gap: 20,
-          },
-        ]}
+    <Surface
+      mode='flat'
+      style={{
+        backgroundColor: theme?.colors.background,
+        flex: 1,
+      }}
+    >
+      <ThemeAwareScreenOptions header={false} />
+      <KeyboardAvoidingView
+        behavior='height'
+        style={[container, { 
+          marginTop: insets.top,
+          borderColor: 'orange',
+          borderWidth: 1,
+        }]}
+        testID='Modal Content Wrapper'
       >
+      <View
+        style={{
+          alignItems: 'center',
+          borderColor: 'green',
+          borderStyle: 'dashed',
+          borderWidth: 4,
+          height: 350,
+          // minHeight: 'auto',
+          }}
+        >
         <LogoContext value={{ toggleLogo, scaleLogo }}>
           <PageHeading text='Welcome' />
           <Logo width={logoSize} height={logoSize} gradient={true} />
@@ -44,7 +62,8 @@ export default function AuthLayout() {
           />
           <Slot />
         </LogoContext>
-      </Surface>
-    </>
+        </View>
+      </KeyboardAvoidingView>
+    </Surface>
   );
 }

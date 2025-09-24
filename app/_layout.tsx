@@ -63,8 +63,9 @@ export default function RootLayout() {
 
   const screenOptions: StackNavigationOptions = {
     animation: 'slide_from_right',
-    header: props => <CustomHeader {...props} />,
+    // header: props => <CustomHeader {...props} />,
     headerMode: 'float',
+    headerShown: false,
   };
 
   return (

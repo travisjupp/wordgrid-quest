@@ -13,7 +13,7 @@ interface Props {
   title?: string | undefined;
 }
 
-export function ThemeAwareScreenOptions({ header = true, menu = false, back, title }: Props) {
+export function ThemeAwareScreenOptions({ header, menu, back, title }: Props) {
   const navigation = useNavigation(); /* Access current screens navigator */
   const { theme } = useTheme();
 
