@@ -14,13 +14,13 @@ import { useTheme } from '@hooks/useTheme';
 export default function AuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
-  const DEFAULT_LOG0_SIZE = 174.9;
+  const DEFAULT_LOGO_SIZE = 174.9;
   const [logoVisible, setLogoVisible] = useState<boolean>(true);
-  const [logoSize, setLogoSize] = useState<number | undefined>(DEFAULT_LOG0_SIZE);
+  const [logoSize, setLogoSize] = useState<number | undefined>(DEFAULT_LOGO_SIZE);
 
   const toggleLogo = () => setLogoVisible(!logoVisible);
   const scaleLogo = (size?: number | undefined) => {
-    setLogoSize(size ?? DEFAULT_LOG0_SIZE);
+    setLogoSize(size ?? DEFAULT_LOGO_SIZE);
   };
 
   const { container } = useAppTheme();
