@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Svg, {
   Rect,
   Path,
@@ -9,14 +8,16 @@ import Svg, {
   Stop,
   ClipPath,
 } from 'react-native-svg';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import Animated, {
   useAnimatedProps,
   useSharedValue,
-  withTiming,
-  interpolateColor,
+  withSpring,
 } from 'react-native-reanimated';
+
+const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 interface Props {
   width?: number;
@@ -25,21 +26,31 @@ interface Props {
   styles?: object;
 }
 
-export function Logo({
-  width = 50,
-  height = 50,
-  gradient = false,
-  styles,
-}: Props) {
+export function Logo({ width = 50, height = 50, gradient = false, styles, }: Props) {
   // Retrieve Custom Theme-properties
   const {
     logo,
     colors: { primary },
   } = useAppTheme();
 
+  const animatedWidth = useSharedValue(width);
+  const animatedHeight = useSharedValue(height);
+
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      width: animatedWidth.value,
+      height: animatedHeight.value,
+    };
+  });
+  // Update shared values on prop change
+  useEffect(() => {
+    animatedWidth.value = withSpring(width);
+    animatedHeight.value = withSpring(height);
+  }, [width, height]);
+
   return gradient ?
       <View style={[logo, { ...styles }]} testID='Color Logo View'>
-        <Svg width={width} height={height} viewBox='0 0 849 849' fill='none'>
+        <AnimatedSvg animatedProps={animatedProps} width={width} height={height} viewBox='0 0 849 849' fill='none'>
           <G clip-path='url(#clip0_669_3687)'>
             <Mask
               id='mask06693687'
@@ -107,7 +118,7 @@ export function Logo({
               <Rect width='848.528' height='848.528' fill='white' />
             </ClipPath>
           </Defs>
-        </Svg>
+        </AnimatedSvg>
       </View>
     : <View style={[logo, { ...styles }]} testID='Logo View'>
         <Svg width={width} height={height} viewBox='0 0 1046 849' fill='none'>
