@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
 
-export default function AuthLayout() {
+export default function UserAuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
   const DEFAULT_LOGO_SIZE = 174.9;
@@ -42,7 +42,7 @@ export default function AuthLayout() {
           borderColor: 'orange',
           borderWidth: 1,
         }]}
-        testID='Modal Content Wrapper'
+        testID='User Auth Content Wrapper'
       >
       <View
         style={{
@@ -51,8 +51,8 @@ export default function AuthLayout() {
           borderStyle: 'dashed',
           borderWidth: 4,
           height: 350,
-          // minHeight: 'auto',
           }}
+          testID='User Auth Content Container'
         >
         <LogoContext value={{ toggleLogo, scaleLogo }}>
           <PageHeading text='Welcome' />
