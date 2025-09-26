@@ -59,10 +59,10 @@ export function SignUp() {
         testID='EmailInput'
         returnKeyType='next'
         onFocus={() => {
-          handleScaleLogo(12);
+          // handleScaleLogo(12);
         }}
         onBlur={() => {
-          handleScaleLogo();
+          // handleScaleLogo();
         }}
         right={<TextInput.Icon icon={'pencil-outline'} />}
       />
