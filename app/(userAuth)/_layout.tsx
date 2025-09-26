@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { KeyboardAvoidingView, Keyboard, View } from 'react-native';
+import { KeyboardAvoidingView, Keyboard, View, ScrollView } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
 import { useLogo } from '@hooks/useLogo';
 
@@ -37,8 +37,8 @@ export default function UserAuthLayout() {
   useEffect(() => {
     const keyboardDidShowListener = 
     Keyboard.addListener('keyboardDidShow', () => { 
-    setIsKeyboardVisible(true);
-    handleScaleLogo(KEYBOARD_VISIBLE_LOGO_SIZE);
+      setIsKeyboardVisible(true);
+      handleScaleLogo(KEYBOARD_VISIBLE_LOGO_SIZE);
     });
     const keyboardDidHideListenter =
     Keyboard.addListener('keyboardDidHide', () => {
@@ -69,25 +69,29 @@ export default function UserAuthLayout() {
         }]}
         testID='User Auth Content Wrapper'
       >
-      <View
-        style={{
-          alignItems: 'center',
-          borderColor: 'green',
-          borderStyle: 'dashed',
-          borderWidth: 4,
-          height: 350,
-          }}
-          testID='User Auth Content Container'
-        >
-        <LogoContext value={{ toggleLogo, scaleLogo }}>
-          <PageHeading text='Welcome' />
-          <Logo width={logoSize} height={logoSize} gradient={true} />
-          <GuidanceText
-            text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
-          />
-          <Slot />
-        </LogoContext>
-        </View>
+        <ScrollView contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+        }}>
+          <View
+            style={{
+              alignItems: 'center',
+              borderColor: 'green',
+              borderStyle: 'dashed',
+              borderWidth: 4,
+            }}
+            testID='User Auth Content Container'
+          >
+            <LogoContext value={{ toggleLogo, scaleLogo }}>
+              <PageHeading text='Welcome' />
+              <Logo width={logoSize} height={logoSize} gradient={true} />
+              <GuidanceText
+                text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
+              />
+              <Slot />
+            </LogoContext>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </Surface>
   );
