@@ -4,19 +4,22 @@ import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import LogoContext from '@contexts/LogoContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { KeyboardAvoidingView, View } from 'react-native';
+import { KeyboardAvoidingView, Keyboard, View } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
+import { useLogo } from '@hooks/useLogo';
 
 export default function UserAuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
   const DEFAULT_LOGO_SIZE = 174.9;
+  const KEYBOARD_VISIBLE_LOGO_SIZE = 50;
   const [logoVisible, setLogoVisible] = useState<boolean>(true);
   const [logoSize, setLogoSize] = useState<number | undefined>(DEFAULT_LOGO_SIZE);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState<boolean>(false);
 
   const toggleLogo = () => setLogoVisible(!logoVisible);
   const scaleLogo = (size?: number | undefined) => {
@@ -26,6 +29,28 @@ export default function UserAuthLayout() {
   const { container } = useAppTheme();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
+
+  const handleScaleLogo = (size?: number | undefined) => {
+    scaleLogo(size);
+  };
+
+  useEffect(() => {
+    const keyboardDidShowListener = 
+    Keyboard.addListener('keyboardDidShow', () => { 
+    setIsKeyboardVisible(true);
+    handleScaleLogo(KEYBOARD_VISIBLE_LOGO_SIZE);
+    });
+    const keyboardDidHideListenter =
+    Keyboard.addListener('keyboardDidHide', () => {
+      setIsKeyboardVisible(false);
+      handleScaleLogo();
+    });
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListenter.remove();
+    };
+  }, []);
+
   return (
     <Surface
       mode='flat'

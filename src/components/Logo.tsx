@@ -1,13 +1,4 @@
-import Svg, {
-  Rect,
-  Path,
-  G,
-  Mask,
-  Defs,
-  LinearGradient,
-  Stop,
-  ClipPath,
-} from 'react-native-svg';
+import Svg, { Rect, Path, G, Mask, Defs, LinearGradient, Stop, ClipPath, } from 'react-native-svg';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';

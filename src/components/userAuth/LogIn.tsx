@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
-import { useLogo } from '@hooks/useLogo';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
@@ -17,11 +16,6 @@ export function LogIn() {
         if (user) router.replace('/profile');
       })
       .catch(e => console.error(e.message));
-  };
-
-  const { scaleLogo } = useLogo();
-  const handleScaleLogo = (size?: number | undefined) => {
-    scaleLogo(size);
   };
 
   return (
@@ -53,10 +47,10 @@ export function LogIn() {
         testID='EmailInput'
         returnKeyType='next'
         onFocus={() => {
-          handleScaleLogo(50);
+          // handleScaleLogo(50);
         }}
         onBlur={() => {
-          handleScaleLogo();
+          // handleScaleLogo();
         }}
       />
       <TextInput
