@@ -65,6 +65,20 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
+    // START SignupScreen Styles
+    signupScreenAnimatedView: {
+        width: 330,
+        borderColor: 'red',
+        borderWidth: 1,
+      },
+    // END SignupScreen Styles
+    // START LoginScreen Styles
+    loginScreenAnimatedView: {
+        width: 330,
+        borderColor: 'red',
+        borderWidth: 1,
+      },
+    // END LoginScreen Styles
     // START AuthSubtext Styles
     authSubtextContainer: {
       // marginTop: 30,
@@ -75,12 +89,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     },
     authSubtextWrapper: {
       margin: 15,
+      minHeight: 40,
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-start',
-      minHeight: 40,
-      width: '100%',
-      height: '100%', 
       borderColor: 'orange',
       borderWidth: 3,
     },
@@ -290,6 +302,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
+    authScreens: {
+      signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
+      loginScreenAnimatedView: customProperties.loginScreenAnimatedView,
+    },
     authSubtext: {
       wrapper: customProperties.authSubtextWrapper,
       container: customProperties.authSubtextContainer,

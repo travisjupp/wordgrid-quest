@@ -14,6 +14,7 @@ export interface ModalStyles {
 }
 export interface AppTheme {
   animation: object;
+  authScreens: AuthScreenStyles;
   authSubtext: AuthSubtextStyles;
   carousel: CarouselStyles; // custom
   centeredView: object; // custom
@@ -93,6 +94,11 @@ export interface AppTheme {
   mode?: string | undefined;
   roundness: number;
   version: number;
+}
+
+export interface AuthScreenStyles {
+  signupScreenAnimatedView: ViewStyle;
+  loginScreenAnimatedView: ViewStyle;
 }
 
 export interface AuthSubtextStyles {
