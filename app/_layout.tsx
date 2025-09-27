@@ -9,9 +9,12 @@ import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { OverlayProvider } from '@providers/OverlayProvider';
-import CustomHeader from '@components/CustomHeader';
-import { StackNavigationOptions, StackHeaderProps } from '@react-navigation/stack';
+import {
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 import { JsStack } from 'layouts/js-stack';
+import { LogoProvider } from '@providers/LogoProvider';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -73,7 +76,11 @@ export default function RootLayout() {
       <ThemeProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <OverlayProvider>
-            <JsStack screenOptions={screenOptions} />
+            <LogoProvider>
+              <KeyboardProvider>
+                <JsStack screenOptions={screenOptions} />
+              </KeyboardProvider>
+            </LogoProvider>
           </OverlayProvider>
         </GestureHandlerRootView>
       </ThemeProvider>

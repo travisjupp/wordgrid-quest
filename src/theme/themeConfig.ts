@@ -69,14 +69,14 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     signupScreenAnimatedView: {
         width: 330,
         borderColor: 'red',
-        borderWidth: 1,
+        // borderWidth: 1,
       },
     // END SignupScreen Styles
     // START LoginScreen Styles
     loginScreenAnimatedView: {
         width: 330,
         borderColor: 'red',
-        borderWidth: 1,
+        // borderWidth: 1,
       },
     // END LoginScreen Styles
     // START AuthSubtext Styles
@@ -85,7 +85,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       gap: 10,
       alignItems: 'center',
       borderColor: 'purple',
-      borderWidth: 1,
+      // borderWidth: 1,
     },
     authSubtextWrapper: {
       margin: 15,
@@ -94,7 +94,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       alignItems: 'center',
       justifyContent: 'flex-start',
       borderColor: 'orange',
-      borderWidth: 3,
+      // borderWidth: 3,
     },
     // END AuthSubtext Styles
     // START MajorHUD Styles

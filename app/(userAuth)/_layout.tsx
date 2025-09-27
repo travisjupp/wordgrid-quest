@@ -3,53 +3,21 @@ import { Slot, usePathname } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
-import LogoContext from '@contexts/LogoContext';
 import { useState, useEffect } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { KeyboardAvoidingView, Keyboard, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
-import { useLogo } from '@hooks/useLogo';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function UserAuthLayout() {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
-  const DEFAULT_LOGO_SIZE = 174.9;
-  const KEYBOARD_VISIBLE_LOGO_SIZE = 50;
-  const [logoVisible, setLogoVisible] = useState<boolean>(true);
-  const [logoSize, setLogoSize] = useState<number | undefined>(DEFAULT_LOGO_SIZE);
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState<boolean>(false);
-
-  const toggleLogo = () => setLogoVisible(!logoVisible);
-  const scaleLogo = (size?: number | undefined) => {
-    setLogoSize(size ?? DEFAULT_LOGO_SIZE);
-  };
 
   const { container } = useAppTheme();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
-
-  const handleScaleLogo = (size?: number | undefined) => {
-    scaleLogo(size);
-  };
-
-  useEffect(() => {
-    const keyboardDidShowListener = 
-    Keyboard.addListener('keyboardDidShow', () => { 
-      setIsKeyboardVisible(true);
-      handleScaleLogo(KEYBOARD_VISIBLE_LOGO_SIZE);
-    });
-    const keyboardDidHideListenter =
-    Keyboard.addListener('keyboardDidHide', () => {
-      setIsKeyboardVisible(false);
-      handleScaleLogo();
-    });
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListenter.remove();
-    };
-  }, []);
 
   return (
     <Surface
@@ -69,7 +37,9 @@ export default function UserAuthLayout() {
         }]}
         testID='User Auth Content Wrapper'
       >
-        <ScrollView contentContainerStyle={{
+        <ScrollView 
+          keyboardShouldPersistTaps="always"
+          contentContainerStyle={{
           flexGrow: 1,
           justifyContent: 'center',
         }}>
@@ -82,14 +52,12 @@ export default function UserAuthLayout() {
             }}
             testID='User Auth Content Container'
           >
-            <LogoContext value={{ toggleLogo, scaleLogo }}>
               <PageHeading text='Welcome' />
-              <Logo width={logoSize} height={logoSize} gradient={true} />
+              <Logo gradient={true} />
               <GuidanceText
                 text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
               />
               <Slot />
-            </LogoContext>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

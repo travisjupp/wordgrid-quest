@@ -13,12 +13,6 @@ export function SignUp() {
   const [focusedPasswordField, setFocusedPasswordField] =
     useState<boolean>(false);
 
-  const { scaleLogo } = useLogo();
-
-  const handleScaleLogo = (size?: number | undefined) => {
-    scaleLogo(size);
-  };
-
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, newPassword)
       .then(userCredential => {

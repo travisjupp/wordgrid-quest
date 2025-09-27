@@ -4,9 +4,11 @@ import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import Animated, {
   useAnimatedProps,
+  useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { useLogo } from '@hooks/useLogo';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
@@ -24,24 +26,18 @@ export function Logo({ width = 50, height = 50, gradient = false, styles, }: Pro
     colors: { primary },
   } = useAppTheme();
 
-  const animatedWidth = useSharedValue(width);
-  const animatedHeight = useSharedValue(height);
+  const { logoSize } = useLogo();
 
-  const animatedProps = useAnimatedProps(() => {
+  const animatedProps = useAnimatedStyle(() => {
     return {
-      width: animatedWidth.value,
-      height: animatedHeight.value,
+      width: logoSize.value,
+      height: logoSize.value,
     };
   });
-  // Update shared values on prop change
-  useEffect(() => {
-    animatedWidth.value = withSpring(width);
-    animatedHeight.value = withSpring(height);
-  }, [width, height]);
 
   return gradient ?
       <View style={[logo, { ...styles }]} testID='Color Logo View'>
-        <AnimatedSvg animatedProps={animatedProps} width={width} height={height} viewBox='0 0 849 849' fill='none'>
+        <AnimatedSvg style={animatedProps} width={width} height={height} viewBox='0 0 849 849' fill='none'>
           <G clip-path='url(#clip0_669_3687)'>
             <Mask
               id='mask06693687'
