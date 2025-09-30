@@ -17,8 +17,16 @@ interface Props {
 }
 
 export function OverlayProvider({ children }: Props) {
+  const insets = useSafeAreaInsets();
+
+  // Retrieve Custom Theme-properties
+  const { modal } = useAppTheme();
+
+  // Modal State
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+
+  // Snackbar State
   const [snackbarState, setSnackbarState] =
     useState<SnackbarTypes.SnackbarState>({
       message: '',
@@ -29,9 +37,7 @@ export function OverlayProvider({ children }: Props) {
       calledFromModal: undefined,
     });
 
-  // Retrieve Custom Theme-properties
-  const { modal } = useAppTheme();
-
+  // Modal Logic
   const showModal = (content: React.ReactNode) => {
     setModalContent(content);
     setModalVisible(true);
@@ -41,6 +47,7 @@ export function OverlayProvider({ children }: Props) {
     setModalVisible(false);
   };
 
+  // Snackbar Logic
   const showSnackbar = (snackbarConfig: SnackbarTypes.SnackbarConfig) => {
     const icon = snackbarConfig.icon ?? 'close';
     const iconPressCallback = snackbarConfig.iconPressCb ?? hideSnackbar;
@@ -67,8 +74,6 @@ export function OverlayProvider({ children }: Props) {
     dismissSnackbarFunction();
     hideSnackbar(); // Ensure orphaned Snackbars hide
   };
-
-  const insets = useSafeAreaInsets();
 
   return (
     <ModalContext value={{ showModal, hideModal }}>
