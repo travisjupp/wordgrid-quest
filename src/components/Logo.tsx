@@ -1,13 +1,16 @@
-import Svg, { Rect, Path, G, Mask, Defs, LinearGradient, Stop, ClipPath, } from 'react-native-svg';
-import { useEffect } from 'react';
+import Svg, {
+  Rect,
+  Path,
+  G,
+  Mask,
+  Defs,
+  LinearGradient,
+  Stop,
+  ClipPath,
+} from 'react-native-svg';
 import { View } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
-import Animated, {
-  useAnimatedProps,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useLogo } from '@hooks/useLogo';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
@@ -19,7 +22,12 @@ interface Props {
   styles?: object;
 }
 
-export function Logo({ width = 50, height = 50, gradient = false, styles, }: Props) {
+export function Logo({
+  width = 174.9,
+  height = 174.9,
+  gradient = false,
+  styles,
+}: Props) {
   // Retrieve Custom Theme-properties
   const {
     logo,
@@ -28,7 +36,7 @@ export function Logo({ width = 50, height = 50, gradient = false, styles, }: Pro
 
   const { logoSize } = useLogo();
 
-  const animatedProps = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     return {
       width: logoSize.value,
       height: logoSize.value,
@@ -37,7 +45,13 @@ export function Logo({ width = 50, height = 50, gradient = false, styles, }: Pro
 
   return gradient ?
       <View style={[logo, { ...styles }]} testID='Color Logo View'>
-        <AnimatedSvg style={animatedProps} width={width} height={height} viewBox='0 0 849 849' fill='none'>
+        <AnimatedSvg
+          style={animatedStyle}
+          width={width}
+          height={height}
+          viewBox='0 0 849 849'
+          fill='none'
+        >
           <G clip-path='url(#clip0_669_3687)'>
             <Mask
               id='mask06693687'
