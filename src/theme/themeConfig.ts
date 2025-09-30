@@ -67,18 +67,20 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const customProperties = StyleSheet.create({
     // START SignupScreen Styles
     signupScreenAnimatedView: {
-        width: 330,
-        borderColor: 'red',
-        // borderWidth: 1,
-      },
+      width: 330,
+      borderColor: 'red',
+      // borderWidth: 1,
+    },
     // END SignupScreen Styles
+
     // START LoginScreen Styles
     loginScreenAnimatedView: {
-        width: 330,
-        borderColor: 'red',
-        // borderWidth: 1,
-      },
+      width: 330,
+      borderColor: 'red',
+      // borderWidth: 1,
+    },
     // END LoginScreen Styles
+
     // START AuthSubtext Styles
     authSubtextContainer: {
       // marginTop: 30,
@@ -97,6 +99,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 3,
     },
     // END AuthSubtext Styles
+
     // START MajorHUD Styles
     majorHUDContainer: {
       flexDirection: 'row',
