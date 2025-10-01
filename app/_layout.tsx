@@ -73,17 +73,17 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <OverlayProvider>
-            <KeyboardProvider>
+      <KeyboardProvider>
+        <ThemeProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <OverlayProvider>
               <LogoProvider>
                 <JsStack screenOptions={screenOptions} />
               </LogoProvider>
-            </KeyboardProvider>
-          </OverlayProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
+            </OverlayProvider>
+          </GestureHandlerRootView>
+        </ThemeProvider>
+      </KeyboardProvider>
     </Provider>
   );
 }

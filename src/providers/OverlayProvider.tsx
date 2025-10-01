@@ -2,7 +2,6 @@ import {
   View,
   Modal as RNModal,
   Platform,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
@@ -11,6 +10,7 @@ import React, { useState } from 'react';
 import { Portal, Snackbar } from 'react-native-paper';
 import * as SnackbarTypes from '@custom-types/SnackbarTypes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 interface Props {
   children: React.ReactNode;

@@ -246,7 +246,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       : {
           borderWidth: 6,
           borderColor: 'orange',
-          position: 'absolute' /* <- Fit inside modal */,
+          position: 'absolute' /* <- Fit Snackbar inside Modal */,
           alignSelf: 'center',
         }),
     },

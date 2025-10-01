@@ -33,7 +33,8 @@ export default function UserAuthLayout() {
         style={[container, { 
           marginTop: insets.top,
           borderColor: 'orange',
-          borderWidth: 1,
+          borderStyle: 'dashed',
+          borderWidth: 2,
         }]}
         testID='User Auth Content Wrapper'
       >

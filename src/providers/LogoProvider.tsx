@@ -27,7 +27,7 @@ export function LogoProvider({ children }: Props) {
      * return withSpring(currentSize);
      * }, [progress]); */
 
-    console.log('height.value', height.value);
+    // console.log('height.value', height.value);
     if (height.value !== 0) {
       return withSpring(KEYBOARD_VISIBLE_LOGO_SIZE);
     } else {
