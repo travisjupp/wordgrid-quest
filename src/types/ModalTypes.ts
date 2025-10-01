@@ -6,9 +6,9 @@ export interface ModalContextType {
    * Displays a modal containing a component
    * @param content The content for the modal.
    */
-  showModal: (content: React.ReactNode) => void;
+  showModal: ShowModal;
   /**
    * Hides the currently visible modal.
    */
-  hideModal: () => void;
+  hideModal: HideModal;
 }
