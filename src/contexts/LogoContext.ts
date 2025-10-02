@@ -1,14 +1,5 @@
 import { createContext } from 'react';
-
-type ToggleLogoType = () => void;
-type ScaleLogoType = (size?: number | undefined) => void;
-type LogoSizeType = any;
-
-interface LogoContextType {
-  // toggleLogo: ToggleLogoType;
-  // scaleLogo: ScaleLogoType;
-  logoSize?: LogoSizeType;
-}
+import { LogoContextType } from '@custom-types/LogoTypes';
 
 const LogoContext = createContext<LogoContextType | null>(null);
 export default LogoContext;

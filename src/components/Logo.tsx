@@ -38,8 +38,8 @@ export function Logo({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      width: logoSize.value,
-      height: logoSize.value,
+      width: logoSize?.value,
+      height: logoSize?.value,
     };
   });
 
