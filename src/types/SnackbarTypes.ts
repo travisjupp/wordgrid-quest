@@ -1,5 +1,7 @@
+import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
+
 export type Message = string;
-export type Icon = string | undefined;
+export type Icon = IconSource | undefined;
 export type Visible = boolean;
 export type IconPressCallback = (() => void) | undefined;
 export type Action = ActionObject | undefined;
