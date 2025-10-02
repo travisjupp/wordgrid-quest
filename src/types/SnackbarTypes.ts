@@ -39,7 +39,7 @@ export type HideSnackbar = () => void;
 export interface SnackbarContextType {
   /**
    * Displays a Snackbar with a message and optional action.
-   * @param snackbarConfig The configuration object for the snackbar.
+   * @param snackbarConfig The configuration object for the Snackbar.
    */
   showSnackbar: ShowSnackbar;
   /**
