@@ -3,12 +3,12 @@ export type HideModal = () => void;
 
 export interface ModalContextType {
   /**
-   * Displays a modal containing a component
-   * @param content The content for the modal.
+   * Displays a Modal containing a component
+   * @param content The content for the Modal.
    */
   showModal: ShowModal;
   /**
-   * Hides the currently visible modal.
+   * Hides the currently visible Modal.
    */
   hideModal: HideModal;
 }

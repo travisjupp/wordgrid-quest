@@ -21,15 +21,15 @@ export interface SnackbarState {
 }
 
 export interface SnackbarConfig {
-  /** The message text displayed in the snackbar. */
+  /** The message text displayed in the Snackbar. */
   message: Message;
-  /** The name of the icon to display. */
+  /** The name of the icon to display in the Snackbar. */
   icon?: Icon;
-  /** A callback function to execute when the icon is pressed. */
+  /** A callback function to execute when the Snackbar icon is pressed. */
   iconPressCb?: IconPressCallback;
-  /** The action button configuration. */
+  /** The action button configuration for the Snackbar. */
   action?: Action;
-  /** Whether or not snackbar was called from a modal. */
+  /** Whether or not Snackbar was called from a Modal. */
   calledFromModal?: CalledFromModal;
 }
 
@@ -38,11 +38,11 @@ export type HideSnackbar = () => void;
 
 export interface SnackbarContextType {
   /**
-   * Displays a snackbar with a message and optional action.
+   * Displays a Snackbar with a message and optional action.
    * @param snackbarConfig The configuration object for the snackbar.
    */
   showSnackbar: ShowSnackbar;
   /**
-   * Hides the currently visible snackbar. */
+   * Hides the currently visible Snackbar. */
   hideSnackbar: HideSnackbar;
 }
