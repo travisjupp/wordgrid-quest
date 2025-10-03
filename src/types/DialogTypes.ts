@@ -27,6 +27,8 @@ export interface DialogConfig {
   title: Title;
   /** The component to show content in the Dialog */
   content: Content;
+  /** The callback to call when Dialog dismissed */
+  onDismissPressCb?: OnDismissPressCallback;
   /** The component to show list of actions in Dialog. */
   actions: Actions;
   /** The name of the icon to display in Dialog. */
@@ -38,7 +40,7 @@ export interface DialogConfig {
 export type ShowDialog = (dialogConfig: DialogConfig) => void;
 export type HideDialog = () => void;
 
-export interface SnackbarContextType {
+export interface DialogContextType {
   /**
    * Displays a Dialog with a content, title, and actions components.
    * @param dialogConfig The configuration object for the Dialog.

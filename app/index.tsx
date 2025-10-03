@@ -7,6 +7,7 @@ import { useAppTheme } from '@theme/themeConfig';
 import { router } from 'expo-router';
 import { useTheme } from '@hooks/useTheme';
 import { useModal } from '@hooks/useModal';
+import { useDialog } from '@hooks/useDialog';
 import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
@@ -16,6 +17,7 @@ export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useTheme();
   const { showModal, hideModal } = useModal();
   const { showSnackbar } = useSnackbar();
+  const { showDialog, hideDialog } = useDialog();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
@@ -46,6 +48,13 @@ export default function HomeScreen() {
         </Text>
         <Text onPress={() => showSnackbar({ message: 'TEST' })}>
           SHOW SNACKBAR
+        </Text>
+        <Text onPress={() => showDialog({ 
+          title: 'DIALOG TEST TITLE',
+          content: <Text variant='bodyMedium'>This is the Dialog content</Text>,
+          actions: <Button onPress={hideDialog}>HIDE DIALOG</Button>
+        })}>
+          SHOW DIALOG
         </Text>
         {/* <FirebaseTest /> */}
         {/* <Text  */}
