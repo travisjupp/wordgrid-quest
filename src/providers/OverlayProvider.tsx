@@ -1,14 +1,16 @@
-import {
-  View,
-  Modal as RNModal,
-  Platform,
-} from 'react-native';
+import { View, Modal as RNModal, Platform } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import DialogContext from '@contexts/DialogContext';
 import React, { useState } from 'react';
-import { Button, Dialog as RNPDialog, Portal, Snackbar } from 'react-native-paper';
+import {
+  Dialog as RNPDialog,
+  DialogProps as RNPDialogProps,
+  SnackbarProps as RNPSnackbarProps,
+  Portal,
+  Snackbar as RNPSnackbar,
+} from 'react-native-paper';
 import * as SnackbarTypes from '@custom-types/SnackbarTypes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
@@ -31,32 +33,23 @@ export function OverlayProvider({ children }: Props) {
 
   // Snackbar State
   const [snackbarState, setSnackbarState] =
-  useState<SnackbarTypes.SnackbarState>({
-    message: '',
-    icon: undefined,
-    visible: false,
-    iconPressCb: undefined,
-    action: undefined,
-    calledFromModal: undefined,
-  });
+    useState<SnackbarTypes.SnackbarState>({
+      message: '',
+      icon: undefined,
+      visible: false,
+      iconPressCb: undefined,
+      action: undefined,
+      calledFromModal: undefined,
+    });
 
   // Dialog State
-  const [dialogState, setDialogState] =
-  useState<DialogTypes.DialogState>({
-    title: '',
-    content: <Text>Sample Dialog Text</Text>,
+  const [dialogState, setDialogState] = useState<DialogTypes.DialogState>({
+    title: undefined,
+    content: undefined,
     icon: undefined,
     visible: false,
     onDismissPressCb: undefined,
-    actions: <Button onPress={() => 
-    {
-        setDialogState(prev => ({
-          ...prev,
-          visible: false,
-        }));
-      }
-    }
-    >Done</Button>,
+    actions: undefined,
     calledFromModal: undefined,
   });
 
@@ -100,14 +93,16 @@ export function OverlayProvider({ children }: Props) {
 
   // Dialog Logic
   const showDialog = (dialogConfig: DialogTypes.DialogConfig) => {
-    const icon = dialogConfig.icon ?? 'close';
     const onDismissPressCb = dialogConfig.onDismissPressCb ?? hideDialog;
 
     setDialogState({
       title: dialogConfig.title,
-      content: dialogConfig.content,
+      content:
+        dialogConfig.content ?
+          <Text variant='bodyMedium'>{dialogConfig.content}</Text>
+        : undefined,
       actions: dialogConfig.actions,
-      icon: icon,
+      icon: dialogConfig.icon,
       visible: true,
       onDismissPressCb: onDismissPressCb,
       calledFromModal: dialogConfig.calledFromModal,
@@ -127,19 +122,50 @@ export function OverlayProvider({ children }: Props) {
     hideDialog();
   };
 
+  const RNPDialogProps: RNPDialogProps = {
+    visible: dialogState.visible,
+    onDismiss: onDismissDialog,
+    style: {
+      width: 300,
+      alignSelf: 'center',
+    },
+    children: [
+      dialogState.icon ?
+        <RNPDialog.Icon icon={dialogState.icon} key='RNPD-icon' />
+      : undefined,
+      dialogState.title ?
+        <RNPDialog.Title children={dialogState.title} key='RNPD-title' />
+      : undefined,
+      dialogState.content ?
+        <RNPDialog.Content children={dialogState.content} key='RNPD-content' />
+      : undefined,
+      dialogState.actions ?
+        <RNPDialog.Actions children={dialogState.actions} key='RNPD-actions' />
+      : undefined,
+    ],
+    testID: 'RNPDialog',
+  };
+
+  const RNPSnackbarProps: RNPSnackbarProps = {
+    visible: snackbarState.visible,
+    onDismiss: onDismissSnackbar,
+    action: snackbarState.action,
+    icon: snackbarState.icon,
+    onIconPress: snackbarState.iconPressCb,
+    wrapperStyle: modal.overModalSnackbarWrapper,
+    style: modal.overModalSnackbar,
+    testID: 'RNPSnackbar',
+    children: snackbarState.message,
+  };
+
   return (
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
           {children}
-              <RNPDialog
-                visible={dialogState.visible}
-                onDismiss={dialogState.onDismissPressCb}
-              >
-                <RNPDialog.Title>{dialogState.title}</RNPDialog.Title>
-                <RNPDialog.Content>{dialogState.content}</RNPDialog.Content>
-                <RNPDialog.Actions>{dialogState.actions}</RNPDialog.Actions>
-              </RNPDialog>
+          {dialogState.visible && !modalVisible && (
+            <RNPDialog {...RNPDialogProps} />
+          )}
           {modalVisible && (
             /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
              * (SNACKBARS OVERLAY MODALS) */
@@ -163,18 +189,12 @@ export function OverlayProvider({ children }: Props) {
                     testID='Modal Content and Snackbar Container'
                   >
                     {modalContent}
-                    <Snackbar /* Display within and over Modal */
-                      visible={snackbarState.visible}
-                      onDismiss={onDismissSnackbar}
-                      action={snackbarState.action}
-                      icon={snackbarState.icon}
-                      onIconPress={snackbarState.iconPressCb}
-                      wrapperStyle={modal.overModalSnackbarWrapper}
-                      style={modal.overModalSnackbar}
-                      testID='Over Modal Snackbar'
-                    >
-                      {snackbarState.message}
-                    </Snackbar>
+                    <RNPSnackbar /* Display within and over Modal */
+                      {...RNPSnackbarProps}
+                    />
+                    <RNPDialog /* Display within and over Modal */
+                      {...RNPDialogProps}
+                    />
                   </View>
                 </KeyboardAvoidingView>
               </RNModal>
@@ -185,10 +205,8 @@ export function OverlayProvider({ children }: Props) {
              * (SNACKBARS DEFAULT) */
             <>
               {Platform.OS === 'web' ?
-                <Snackbar
-                  visible={snackbarState.visible}
-                  onDismiss={onDismissSnackbar}
-                  action={snackbarState.action}
+                <RNPSnackbar /* WEB */
+                  {...RNPSnackbarProps}
                   icon={
                     snackbarState.calledFromModal ? 'close' : snackbarState.icon
                   }
@@ -202,14 +220,14 @@ export function OverlayProvider({ children }: Props) {
                   testID='Default Web Snackbar'
                 >
                   {snackbarState.message}
-                </Snackbar>
-                : <KeyboardAvoidingView behavior='padding'>
-                  <Snackbar
-                    visible={snackbarState.visible}
-                    onDismiss={onDismissSnackbar}
-                    action={snackbarState.action}
+                </RNPSnackbar>
+              : <KeyboardAvoidingView behavior='padding'>
+                  <RNPSnackbar /* MOBILE */
+                    {...RNPSnackbarProps}
                     icon={
-                      snackbarState.calledFromModal ? 'close' : snackbarState.icon
+                      snackbarState.calledFromModal ? 'close' : (
+                        snackbarState.icon
+                      )
                     }
                     onIconPress={
                       snackbarState.calledFromModal ? hideSnackbar : (
@@ -221,7 +239,7 @@ export function OverlayProvider({ children }: Props) {
                     testID='Default Mobile Snackbar'
                   >
                     {snackbarState.message}
-                  </Snackbar>
+                  </RNPSnackbar>
                 </KeyboardAvoidingView>
               }
             </>

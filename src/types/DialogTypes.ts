@@ -1,10 +1,10 @@
 import React from "react";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
-export type Title = string;
-export type Icon = IconSource | undefined;
+export type Title = string | undefined;
+export type Icon = IconSource | string | undefined;
 export type Visible = boolean;
-export type Content = React.ReactNode;
+export type Content = React.ReactNode | string | undefined;
 export type Dismissable = boolean;
 export type DismissableBackButton = boolean;
 export type OnDismissPressCallback = (() => void) | undefined;
@@ -24,13 +24,13 @@ export interface DialogState {
 
 export interface DialogConfig {
   /** The title text displayed in the Dialog. */
-  title: Title;
+  title?: Title;
   /** The component to show content in the Dialog */
-  content: Content;
+  content?: Content;
   /** The callback to call when Dialog dismissed */
   onDismissPressCb?: OnDismissPressCallback;
   /** The component to show list of actions in Dialog. */
-  actions: Actions;
+  actions?: Actions;
   /** The name of the icon to display in Dialog. */
   icon?: Icon;
   /** Whether or not Dialog was called from a Modal. */

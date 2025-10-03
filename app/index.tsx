@@ -31,7 +31,11 @@ export default function HomeScreen() {
         <Text
           onPress={() =>
             showModal(
-              <>
+              <View 
+              style={{
+                  width: 400,
+                }}
+              >
                 <Button
                   onPress={() =>
                     showSnackbar({ message: 'SNACKBAR ABOVE MODAL?' })
@@ -39,8 +43,15 @@ export default function HomeScreen() {
                 >
                   SHOW SNACKBAR FROM MODAL
                 </Button>
+                <Button
+                  onPress={() =>
+                    showDialog({ title: 'DIALOG ABOVE MODAL?', icon: 'cat', content: 'Content' })
+                  }
+                >
+                  SHOW DIALOG FROM MODAL
+                </Button>
                 <Button onPress={hideModal}>x</Button>
-              </>,
+              </View>,
             )
           }
         >
@@ -49,10 +60,12 @@ export default function HomeScreen() {
         <Text onPress={() => showSnackbar({ message: 'TEST' })}>
           SHOW SNACKBAR
         </Text>
-        <Text onPress={() => showDialog({ 
+        <Text onPress={() => showDialog({
           title: 'DIALOG TEST TITLE',
-          content: <Text variant='bodyMedium'>This is the Dialog content</Text>,
-          actions: <Button onPress={hideDialog}>HIDE DIALOG</Button>
+          // content: 'This is the Dialog content',
+          content: <Text variant='timer'>This is the Dialog content</Text>,
+          actions: <><Button onPress={hideDialog}>HIDE DIALOG</Button><Button onPress={hideDialog}>HIDE DIALOG</Button></>,
+          icon: 'eye',
         })}>
           SHOW DIALOG
         </Text>
