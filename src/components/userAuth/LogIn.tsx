@@ -4,16 +4,34 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
+import { useDialog } from '@hooks/useDialog';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+  const { showDialog, hideDialog } = useDialog();
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(user => {
-        if (user) router.replace('/profile');
+        showDialog({
+          title: 'Load Material?',
+          actions: (
+            <>
+              <Button
+                onPress={() => {
+                  router.navigate('/upload');
+                  hideDialog();
+                }}
+                children='Load material'
+              />
+              <Button onPress={() => router.navigate('/')} children='Skip' />
+            </>
+          ),
+          content:
+            'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material.   You can always load material from the Load Material menu later!',
+        });
       })
       .catch(e => console.error(e.message));
   };
