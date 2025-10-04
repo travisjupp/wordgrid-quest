@@ -3,17 +3,18 @@ import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { Button } from 'react-native-paper';
 
 export default function ProfileScreen() {
   // Retrieve Custom Properties
   const { container } = useAppTheme();
+  const {itemId} = useLocalSearchParams();
 
   return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>
       <ThemeAwareScreenOptions header menu back />
-      <Text variant='bodyLarge'>Profile `app/profile.tsx`</Text>
+      <Text variant='bodyLarge'>Profile `app/profile.tsx` {itemId}</Text>
       <Button
         onPress={() => {
           router.navigate('/upload');

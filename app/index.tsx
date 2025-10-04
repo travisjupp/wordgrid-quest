@@ -88,7 +88,7 @@ export default function HomeScreen() {
         {/**/}
         <Button
           onPress={() => {
-            router.navigate('/profile');
+            router.navigate({pathname: '/profile', params: { itemId: '123' }});
           }}
         >
           Profile
