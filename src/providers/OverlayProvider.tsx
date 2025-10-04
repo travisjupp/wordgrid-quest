@@ -174,9 +174,7 @@ export function OverlayProvider({ children }: Props) {
                 animationType='slide'
                 transparent={true}
                 visible={modalVisible}
-                onDismiss={() => {
-                  setModalVisible(false);
-                }}
+                onDismiss={hideModal}
                 testID='Modal'
               >
                 <KeyboardAvoidingView
