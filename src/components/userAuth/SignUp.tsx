@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Platform, View } from 'react-native';
+import { Platform, View, TextInput as RNTextInput } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
-import { useLogo } from '@hooks/useLogo';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
@@ -25,6 +24,8 @@ export function SignUp() {
         console.error(errorCode, errorMessage);
       });
   };
+
+  const passwordFieldRef = useRef<RNTextInput | null>(null);
 
   return (
     <View
@@ -52,6 +53,7 @@ export function SignUp() {
         aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
+        onSubmitEditing={() => passwordFieldRef.current?.focus()}
         onFocus={() => {
           // handleScaleLogo(12);
         }}
@@ -61,6 +63,7 @@ export function SignUp() {
         right={<TextInput.Icon icon={'pencil-outline'} />}
       />
       <TextInput
+        ref={passwordFieldRef}
         label='Choose Password'
         id='newPasswordInput'
         placeholder='Password'

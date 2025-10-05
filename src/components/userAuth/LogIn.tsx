@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
+import { TextInput as RNTextInput } from 'react-native';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
@@ -30,11 +31,13 @@ export function LogIn() {
             </>
           ),
           content:
-            'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material.   You can always load material from the Load Material menu later!',
+            'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material. You can always load material from the Load Material menu later!',
         });
       })
       .catch(e => console.error(e.message));
   };
+
+  const passwordFieldRef = useRef<RNTextInput | null>(null);
 
   return (
     <View
@@ -64,6 +67,7 @@ export function LogIn() {
         aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
+        onSubmitEditing={() => passwordFieldRef.current?.focus()}
         onFocus={() => {
           // handleScaleLogo(50);
         }}
@@ -72,6 +76,7 @@ export function LogIn() {
         }}
       />
       <TextInput
+        ref={passwordFieldRef}
         label='Password'
         id='PasswordInput'
         placeholder='Password'
@@ -82,8 +87,7 @@ export function LogIn() {
         autoCorrect={false}
         autoComplete={Platform.OS === 'ios' ? 'off' : 'current-password'}
         textContentType='password' // iOS only (dont use with autoComplete)
-        //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only
-        value={password}
+        //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only value={password}
         onChangeText={password => setPassword(password)}
         spellCheck={false}
         style={{}}
