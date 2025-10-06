@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { useAppTheme } from '@theme/themeConfig';
 
 export default function SignupScreen() {
-  const { authScreens } = useAppTheme(); 
+  const { authScreens } = useAppTheme();
   return (
     <Animated.View
       entering={FlipInYRight}

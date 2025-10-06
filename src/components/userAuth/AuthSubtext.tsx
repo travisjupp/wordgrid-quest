@@ -15,9 +15,7 @@ export function AuthSubtext() {
   return (
     <View style={authSubtext.wrapper}>
       {isLoginPage ?
-        <View
-          style={authSubtext.container}
-        >
+        <View style={authSubtext.container}>
           <Text variant='bodyLarge'>
             Need an account?
             <Text
@@ -41,22 +39,19 @@ export function AuthSubtext() {
             Forgot password?
           </Text>
         </View>
-      : 
-        <View
-          style={authSubtext.container}
-        >
-        <Text variant='bodyLarge'>
-          Have an account?
-          <Text
-            variant='bodyLargeEmphasized'
-            onPress={() => {
-              router.navigate('/login');
-            }}
-          >
-            {' '}
-            Sign In
+      : <View style={authSubtext.container}>
+          <Text variant='bodyLarge'>
+            Have an account?
+            <Text
+              variant='bodyLargeEmphasized'
+              onPress={() => {
+                router.navigate('/login');
+              }}
+            >
+              {' '}
+              Sign In
+            </Text>
           </Text>
-        </Text>
         </View>
       }
     </View>

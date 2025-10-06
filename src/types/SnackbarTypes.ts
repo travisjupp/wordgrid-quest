@@ -1,4 +1,4 @@
-import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 export type Message = string;
 export type Icon = IconSource | undefined;

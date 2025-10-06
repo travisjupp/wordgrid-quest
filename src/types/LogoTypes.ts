@@ -1,4 +1,4 @@
-import { DerivedValue } from "react-native-reanimated";
+import { DerivedValue } from 'react-native-reanimated';
 
 export type DefaultLogoSize = number;
 export type KeyboardVisibleLogoSize = number;

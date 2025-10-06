@@ -9,9 +9,7 @@ import { themeBuilder } from '@theme/themeConfig';
 import { Spinner } from '@components/Spinner';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { OverlayProvider } from '@providers/OverlayProvider';
-import {
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import { StackNavigationOptions } from '@react-navigation/stack';
 import { JsStack } from 'layouts/js-stack';
 import { LogoProvider } from '@providers/LogoProvider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';

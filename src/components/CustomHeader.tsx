@@ -2,7 +2,7 @@ import { Button, Icon, Surface } from 'react-native-paper';
 import { CLogo } from '@components/CLogo';
 import { Menu } from '@components/Menu';
 import { View } from 'react-native';
-import Animated, { SlideInLeft } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@hooks/useTheme';
 import { StackHeaderProps } from '@react-navigation/stack';

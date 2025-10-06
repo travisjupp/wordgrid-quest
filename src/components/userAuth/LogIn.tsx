@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { View, Platform } from 'react-native';
+import { View, Platform, TextInput as RNTextInput } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
-import { TextInput as RNTextInput } from 'react-native';
 
 export function LogIn() {
   const [email, setEmail] = useState<string>('');
@@ -25,9 +24,10 @@ export function LogIn() {
                   router.navigate('/upload');
                   hideDialog();
                 }}
-                children='Load material'
-              />
-              <Button onPress={() => router.navigate('/')} children='Skip' />
+              >
+                Load Material
+              </Button>
+              <Button onPress={() => router.navigate('/')}>Skip</Button>
             </>
           ),
           content:

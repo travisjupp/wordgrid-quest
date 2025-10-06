@@ -1,5 +1,5 @@
-import React from "react";
-import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
+import React from 'react';
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 export type Title = string | undefined;
 export type Icon = IconSource | string | undefined;

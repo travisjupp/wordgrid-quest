@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper';
 export default function ProfileScreen() {
   // Retrieve Custom Properties
   const { container } = useAppTheme();
-  const {itemId} = useLocalSearchParams();
+  const { itemId } = useLocalSearchParams();
 
   return (
     <SafeAreaView style={[container, { justifyContent: 'start' }]}>

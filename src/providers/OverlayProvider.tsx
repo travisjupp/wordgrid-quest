@@ -134,13 +134,19 @@ export function OverlayProvider({ children }: Props) {
         <RNPDialog.Icon icon={dialogState.icon} key='RNPD-icon' />
       : undefined,
       dialogState.title ?
-        <RNPDialog.Title children={dialogState.title} key='RNPD-title' />
+        <RNPDialog.Title key='RNPD-title'>
+          {dialogState.title}
+        </RNPDialog.Title>
       : undefined,
       dialogState.content ?
-        <RNPDialog.Content children={dialogState.content} key='RNPD-content' />
+        <RNPDialog.Content key='RNPD-content'>
+          {dialogState.content}
+        </RNPDialog.Content>
       : undefined,
       dialogState.actions ?
-        <RNPDialog.Actions children={dialogState.actions} key='RNPD-actions' />
+        <RNPDialog.Actions key='RNPD-actions'>
+          {dialogState.actions}
+        </RNPDialog.Actions>
       : undefined,
     ],
     testID: 'RNPDialog',

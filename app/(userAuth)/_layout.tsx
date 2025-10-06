@@ -3,7 +3,6 @@ import { Slot, usePathname } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
-import { useState, useEffect } from 'react';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -30,20 +29,24 @@ export default function UserAuthLayout() {
       <ThemeAwareScreenOptions header={false} />
       <KeyboardAvoidingView
         behavior='height'
-        style={[container, { 
-          marginTop: insets.top,
-          borderColor: 'orange',
-          borderStyle: 'dashed',
-          borderWidth: 2,
-        }]}
+        style={[
+          container,
+          {
+            marginTop: insets.top,
+            borderColor: 'orange',
+            borderStyle: 'dashed',
+            borderWidth: 2,
+          },
+        ]}
         testID='User Auth Content Wrapper'
       >
-        <ScrollView 
-          keyboardShouldPersistTaps="always"
+        <ScrollView
+          keyboardShouldPersistTaps='always'
           contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-        }}>
+            flexGrow: 1,
+            justifyContent: 'center',
+          }}
+        >
           <View
             style={{
               alignItems: 'center',
@@ -53,12 +56,12 @@ export default function UserAuthLayout() {
             }}
             testID='User Auth Content Container'
           >
-              <PageHeading text='Welcome' />
-              <Logo gradient={true} />
-              <GuidanceText
-                text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
-              />
-              <Slot />
+            <PageHeading text='Welcome' />
+            <Logo gradient={true} />
+            <GuidanceText
+              text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
+            />
+            <Slot />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

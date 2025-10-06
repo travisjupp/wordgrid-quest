@@ -4,7 +4,6 @@ import { Menu } from '@components/Menu';
 import { useTheme } from '@hooks/useTheme';
 import { useNavigation } from 'expo-router';
 import { useLayoutEffect } from 'react';
-import CustomHeader from './CustomHeader';
 
 interface Props {
   header?: boolean | undefined;

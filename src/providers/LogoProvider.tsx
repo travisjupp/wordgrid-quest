@@ -1,7 +1,14 @@
 import LogoContext from '@contexts/LogoContext';
-import { DefaultLogoSize, KeyboardVisibleLogoSize } from '@custom-types/LogoTypes';
+import {
+  DefaultLogoSize,
+  KeyboardVisibleLogoSize,
+} from '@custom-types/LogoTypes';
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller';
-import { DerivedValue, useDerivedValue, withSpring } from 'react-native-reanimated';
+import {
+  DerivedValue,
+  useDerivedValue,
+  withSpring,
+} from 'react-native-reanimated';
 
 interface Props {
   children?: React.ReactNode;
@@ -15,7 +22,9 @@ export function LogoProvider({ children }: Props) {
   const { height } = useReanimatedKeyboardAnimation();
 
   // Derived value for smooth animation based on K/B height
-  const derivedLogoSize: DerivedValue<DefaultLogoSize | KeyboardVisibleLogoSize> = useDerivedValue(() => {
+  const derivedLogoSize: DerivedValue<
+    DefaultLogoSize | KeyboardVisibleLogoSize
+  > = useDerivedValue(() => {
     /* Interpolate (LERP method) the logo size from the initial size to
      * the smaller size based on keyboard progress.
      *

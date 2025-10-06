@@ -31,8 +31,8 @@ export default function HomeScreen() {
         <Text
           onPress={() =>
             showModal(
-              <View 
-              style={{
+              <View
+                style={{
                   width: 400,
                 }}
               >
@@ -45,7 +45,11 @@ export default function HomeScreen() {
                 </Button>
                 <Button
                   onPress={() =>
-                    showDialog({ title: 'DIALOG ABOVE MODAL?', icon: 'cat', content: 'Content' })
+                    showDialog({
+                      title: 'DIALOG ABOVE MODAL?',
+                      icon: 'cat',
+                      content: 'Content',
+                    })
                   }
                 >
                   SHOW DIALOG FROM MODAL
@@ -60,13 +64,22 @@ export default function HomeScreen() {
         <Text onPress={() => showSnackbar({ message: 'TEST' })}>
           SHOW SNACKBAR
         </Text>
-        <Text onPress={() => showDialog({
-          title: 'DIALOG TEST TITLE',
-          // content: 'This is the Dialog content',
-          content: <Text variant='timer'>This is the Dialog content</Text>,
-          actions: <><Button onPress={hideDialog}>HIDE DIALOG</Button><Button onPress={hideDialog}>HIDE DIALOG</Button></>,
-          icon: 'eye',
-        })}>
+        <Text
+          onPress={() =>
+            showDialog({
+              title: 'DIALOG TEST TITLE',
+              // content: 'This is the Dialog content',
+              content: <Text variant='timer'>This is the Dialog content</Text>,
+              actions: (
+                <>
+                  <Button onPress={hideDialog}>HIDE DIALOG</Button>
+                  <Button onPress={hideDialog}>HIDE DIALOG</Button>
+                </>
+              ),
+              icon: 'eye',
+            })
+          }
+        >
           SHOW DIALOG
         </Text>
         {/* <FirebaseTest /> */}
@@ -88,7 +101,10 @@ export default function HomeScreen() {
         {/**/}
         <Button
           onPress={() => {
-            router.navigate({pathname: '/profile', params: { itemId: '123' }});
+            router.navigate({
+              pathname: '/profile',
+              params: { itemId: '123' },
+            });
           }}
         >
           Profile
