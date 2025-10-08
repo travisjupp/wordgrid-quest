@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { ConfigContext, ExpoConfig } from 'expo/config';
-import materialColors from '@theme/material-theme.json';
+import materialColors from './src/theme/material-theme.json';
 
 const IS_DEV = process.env.APP_VARIANT === 'development';
 const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
