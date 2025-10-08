@@ -15,7 +15,7 @@ export function AuthSubtext() {
   return (
     <View style={preGameConfig.authScreens.authSubtext.wrapper}>
       {isLoginPage ?
-        <View style={preGameConfig.authScreens.authSubtext.wrapper}>
+        <View style={preGameConfig.authScreens.authSubtext.container}>
           <Text variant='bodyLarge'>
             Need an account?
             <Text
