@@ -6,7 +6,7 @@ import {
 } from 'react-native-paper';
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
-import materialColors from '@prototype/material-theme.json';
+import materialColors from '@theme/material-theme.json';
 
 const fontConfig = {
   brand: {
