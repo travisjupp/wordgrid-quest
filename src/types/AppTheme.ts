@@ -14,8 +14,6 @@ export interface ModalStyles {
 }
 export interface AppTheme {
   animation: object;
-  authScreens: AuthScreenStyles;
-  authSubtext: AuthSubtextStyles;
   carousel: CarouselStyles; // custom
   centeredView: object; // custom
   clogo: object; // custom
@@ -26,31 +24,10 @@ export interface AppTheme {
   majorHUD: MajorHUDStyles; // custom
   menu: object; // custom
   modal: ModalStyles; // custom
+  preGameConfig: PreGameConfigStyles;
   text: object; // custom
   timer: object; // custom
   topicFrame: TopicFrameStyles; // custom
-
-  // fonts: {
-  //   bodyLarge: object;
-  //   bodyLargeEmphasized: object;
-  //   bodyMedium: object;
-  //   bodySmall: object;
-  //   brand: object; // custom
-  //   default: object;
-  //   displayLarge: object;
-  //   displayMedium: object;
-  //   displaySmall: object;
-  //   headlineLarge: object;
-  //   headlineMedium: object;
-  //   headlineSmall: object;
-  //   labelLarge: object;
-  //   labelMedium: object;
-  //   labelSmall: object;
-  //   letterTile: object; // custom
-  //   titleLarge: object;
-  //   titleMedium: object;
-  //   titleSmall: object;
-  // };
 
   colors: {
     backdrop: string;
@@ -96,9 +73,19 @@ export interface AppTheme {
   version: number;
 }
 
+export interface PreGameConfigStyles {
+  authScreens: AuthScreenStyles;
+  customMaterialScreens: CustomMaterialStyles;
+}
+
 export interface AuthScreenStyles {
   signupScreenAnimatedView: ViewStyle;
   loginScreenAnimatedView: ViewStyle;
+  authSubtext: AuthSubtextStyles;
+}
+
+export interface CustomMaterialStyles {
+  loadcatScreenAnimatedView: ViewStyle;
 }
 
 export interface AuthSubtextStyles {

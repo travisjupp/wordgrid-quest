@@ -65,23 +65,27 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
-    // START SignupScreen Styles
+
+
+    // START PreGameConfig Styles
     signupScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
       // borderWidth: 1,
     },
-    // END SignupScreen Styles
 
-    // START LoginScreen Styles
+    loadcatScreenAnimatedView: {
+      width: 330,
+      borderColor: 'red',
+      // borderWidth: 1,
+    },
+
     loginScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
       // borderWidth: 1,
     },
-    // END LoginScreen Styles
 
-    // START AuthSubtext Styles
     authSubtextContainer: {
       // marginTop: 30,
       gap: 10,
@@ -89,6 +93,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'purple',
       // borderWidth: 1,
     },
+
     authSubtextWrapper: {
       margin: 15,
       minHeight: 40,
@@ -98,7 +103,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'orange',
       // borderWidth: 3,
     },
-    // END AuthSubtext Styles
+    // END PreGameConfig Styles
+
 
     // START MajorHUD Styles
     majorHUDContainer: {
@@ -243,7 +249,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-      : {
+        : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -305,13 +311,18 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
-    authScreens: {
-      signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
-      loginScreenAnimatedView: customProperties.loginScreenAnimatedView,
-    },
-    authSubtext: {
-      wrapper: customProperties.authSubtextWrapper,
-      container: customProperties.authSubtextContainer,
+    preGameConfig: {
+      authScreens: {
+        signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
+        loginScreenAnimatedView: customProperties.loginScreenAnimatedView,
+        authSubtext: {
+          wrapper: customProperties.authSubtextWrapper,
+          container: customProperties.authSubtextContainer,
+        },
+      },
+      customMaterialScreens: {
+        loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
+      },
     },
     majorHUD: {
       container: customProperties.majorHUDContainer,
@@ -339,7 +350,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
-        customProperties.defaultMobileSnackbarWrapper,
+      customProperties.defaultMobileSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       overModalSnackbar: customProperties.overModalSnackbar,
@@ -349,21 +360,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     fonts: configureFonts({ config: fontConfig }),
     roundness: 4,
     colors:
-      isDarkTheme ?
-        {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.dark,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        }
+    isDarkTheme ?
+      {
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.dark,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      }
       : {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.light,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        },
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.light,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      },
   };
 };
 
