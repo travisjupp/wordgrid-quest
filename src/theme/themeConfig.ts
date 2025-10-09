@@ -65,8 +65,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
-
-
     // START PreGameConfig Styles
     signupScreenAnimatedView: {
       width: 330,
@@ -104,7 +102,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 3,
     },
     // END PreGameConfig Styles
-
 
     // START MajorHUD Styles
     majorHUDContainer: {
@@ -249,7 +246,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-        : {
+      : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -350,7 +347,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
-      customProperties.defaultMobileSnackbarWrapper,
+        customProperties.defaultMobileSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       overModalSnackbar: customProperties.overModalSnackbar,
@@ -360,21 +357,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     fonts: configureFonts({ config: fontConfig }),
     roundness: 4,
     colors:
-    isDarkTheme ?
-      {
-        ...themeVariant.colors,
-        // Custom color properties
-        // ...materialColors.schemes.dark,
-        ...materialColorScheme,
-        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-      }
+      isDarkTheme ?
+        {
+          ...themeVariant.colors,
+          // Custom color properties
+          // ...materialColors.schemes.dark,
+          ...materialColorScheme,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        }
       : {
-        ...themeVariant.colors,
-        // Custom color properties
-        // ...materialColors.schemes.light,
-        ...materialColorScheme,
-        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-      },
+          ...themeVariant.colors,
+          // Custom color properties
+          // ...materialColors.schemes.light,
+          ...materialColorScheme,
+          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+        },
   };
 };
 

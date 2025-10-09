@@ -11,11 +11,15 @@ export function AuthSubtext() {
   const isLoginPage = pathname === '/login';
   const { showModal, hideModal } = useModal();
   const { showSnackbar } = useSnackbar();
-  const { preGameConfig } = useAppTheme();
+  const {
+    preGameConfig: {
+      authScreens: { authSubtext },
+    },
+  } = useAppTheme();
   return (
-    <View style={preGameConfig.authScreens.authSubtext.wrapper}>
+    <View style={authSubtext.wrapper}>
       {isLoginPage ?
-        <View style={preGameConfig.authScreens.authSubtext.container}>
+        <View style={authSubtext.container}>
           <Text variant='bodyLarge'>
             Need an account?
             <Text
@@ -39,7 +43,7 @@ export function AuthSubtext() {
             Forgot password?
           </Text>
         </View>
-      : <View style={preGameConfig.authScreens.authSubtext.container}>
+      : <View style={authSubtext.container}>
           <Text variant='bodyLarge'>
             Have an account?
             <Text

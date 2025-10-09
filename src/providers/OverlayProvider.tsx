@@ -134,9 +134,7 @@ export function OverlayProvider({ children }: Props) {
         <RNPDialog.Icon icon={dialogState.icon} key='RNPD-icon' />
       : undefined,
       dialogState.title ?
-        <RNPDialog.Title key='RNPD-title'>
-          {dialogState.title}
-        </RNPDialog.Title>
+        <RNPDialog.Title key='RNPD-title'>{dialogState.title}</RNPDialog.Title>
       : undefined,
       dialogState.content ?
         <RNPDialog.Content key='RNPD-content'>

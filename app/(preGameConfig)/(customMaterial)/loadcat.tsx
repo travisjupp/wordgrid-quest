@@ -4,10 +4,13 @@ import { memo } from 'react';
 import Animated from 'react-native-reanimated';
 
 export default function LoadCategoryScreen() {
-  const { preGameConfig } = useAppTheme();
+  const {
+    preGameConfig: { customMaterialScreens },
+  } = useAppTheme();
   return (
     <Animated.View
-      style={preGameConfig.customMaterialScreens.loadcatScreenAnimatedView}
+      style={customMaterialScreens.loadcatScreenAnimatedView}
+      testID='Animated View'
     >
       <MemoizedLoadMaterialCategory />
     </Animated.View>

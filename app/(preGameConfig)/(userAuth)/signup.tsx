@@ -5,12 +5,14 @@ import { memo } from 'react';
 import { useAppTheme } from '@theme/themeConfig';
 
 export default function SignupScreen() {
-  const { preGameConfig } = useAppTheme();
+  const {
+    preGameConfig: { authScreens },
+  } = useAppTheme();
   return (
     <Animated.View
       entering={FlipInYRight}
       testID='Animated View'
-      style={preGameConfig.authScreens.signupScreenAnimatedView}
+      style={authScreens.signupScreenAnimatedView}
     >
       <MemoizedSignUp />
       <MemoizedAuthSubtext />
