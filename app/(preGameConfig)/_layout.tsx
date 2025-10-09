@@ -12,7 +12,18 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function PreGameConfigLayout() {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/login';
+  const guidanceTextSelector = () => {
+    switch (pathname) {
+      case '/login':
+        return 'Sign-in to continue';
+      case '/signup':
+        return 'Create an account';
+      case '/loadcat':
+        return 'Create a category for this material';
+      default:
+        return 'Path not found';
+    }
+  };
 
   const { container } = useAppTheme();
   const insets = useSafeAreaInsets();
@@ -56,11 +67,9 @@ export default function PreGameConfigLayout() {
             }}
             testID='User Auth Content Container'
           >
-            <PageHeading text='Welcome' />
+            <PageHeading text='Load Material' />
             <Logo gradient={true} />
-            <GuidanceText
-              text={isLoginPage ? 'Sign-in to continue' : 'Create an account'}
-            />
+            <GuidanceText text={guidanceTextSelector()} />
             <Slot />
           </View>
         </ScrollView>
