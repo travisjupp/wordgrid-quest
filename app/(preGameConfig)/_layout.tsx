@@ -25,6 +25,19 @@ export default function PreGameConfigLayout() {
     }
   };
 
+  const pageHeadingTextSelector = () => {
+    switch (pathname) {
+      case '/login':
+        return 'Welcome';
+      case '/signup':
+        return 'Welcome';
+      case '/loadcat':
+        return 'Load Material';
+      default:
+        return 'Path not found';
+    }
+  }
+
   const { container } = useAppTheme();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
@@ -67,7 +80,7 @@ export default function PreGameConfigLayout() {
             }}
             testID='User Auth Content Container'
           >
-            <PageHeading text='Load Material' />
+            <PageHeading text={pageHeadingTextSelector()} />
             <Logo gradient={true} />
             <GuidanceText text={guidanceTextSelector()} />
             <Slot />
