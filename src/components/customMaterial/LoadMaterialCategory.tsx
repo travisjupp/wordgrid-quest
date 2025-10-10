@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
+import { useEffect, useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { setCategory as setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
+import { selectTempCustomCategory, selectTempCustomMaterialArray } from '@features/tempMaterial/tempMaterialSelectors';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');
-  const handleCategory = () => {};
+  const dispatch = useAppDispatch();
+  const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
+  const tempCategory = useAppSelector(selectTempCustomCategory);
+  const handleSetCategory = () => {
+    dispatch(setTempCategory(category));
+    console.log('tempCategory (test selector)', tempCategory);
+    console.log('tempMaterial (test selector)', tempMaterial);
+  };
   return (
     <>
       <View
@@ -47,7 +57,7 @@ export function LoadMaterialCategory() {
           contentStyle={{ height: 50 }}
           style={{ marginTop: 6 }}
           mode='contained'
-          onPress={handleCategory}
+          onPress={handleSetCategory}
         >
           Continue
         </Button>
@@ -56,7 +66,7 @@ export function LoadMaterialCategory() {
           contentStyle={{ height: 50 }}
           style={{ marginTop: 6 }}
           mode='contained'
-          onPress={handleCategory}
+          // onPress={}
         >
           Cancel
         </Button>

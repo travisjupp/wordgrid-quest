@@ -21,7 +21,7 @@ export function LogIn() {
             <>
               <Button
                 onPress={() => {
-                  router.navigate('/upload');
+                  router.navigate('/loadcat');
                   hideDialog();
                 }}
               >
