@@ -1,9 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { setCategory as setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
-import { selectTempCustomCategory, selectTempCustomMaterialArray } from '@features/tempMaterial/tempMaterialSelectors';
+import {
+  selectTempCustomCategory,
+  selectTempCustomMaterialArray,
+} from '@features/tempMaterial/tempMaterialSelectors';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');

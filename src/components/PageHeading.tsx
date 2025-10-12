@@ -1,9 +1,25 @@
 import { Text } from '@components/Text';
+import { usePathname } from 'expo-router';
 
 interface Props {
   text?: string | undefined;
 }
 
 export function PageHeading({ text }: Props) {
-  return <Text variant='headlineSmall'>{text}</Text>;
+  const pathname = usePathname();
+
+  const pageHeadingTextSelector = () => {
+    switch (pathname) {
+      case '/login':
+        return 'Welcome';
+      case '/signup':
+        return 'Welcome';
+      case '/loadcat':
+        return 'Load Material';
+      default:
+        return 'Path not found';
+    }
+  };
+
+  return <Text variant='headlineSmall'>{pageHeadingTextSelector()}</Text>;
 }

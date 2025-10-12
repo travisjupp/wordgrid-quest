@@ -1,5 +1,5 @@
 import { Logo } from '@components/Logo';
-import { Slot, usePathname } from 'expo-router';
+import { Slot } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
@@ -11,33 +11,6 @@ import { useTheme } from '@hooks/useTheme';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function PreGameConfigLayout() {
-  const pathname = usePathname();
-  const guidanceTextSelector = () => {
-    switch (pathname) {
-      case '/login':
-        return 'Sign-in to continue';
-      case '/signup':
-        return 'Create an account';
-      case '/loadcat':
-        return 'Create a category for this material';
-      default:
-        return 'Path not found';
-    }
-  };
-
-  const pageHeadingTextSelector = () => {
-    switch (pathname) {
-      case '/login':
-        return 'Welcome';
-      case '/signup':
-        return 'Welcome';
-      case '/loadcat':
-        return 'Load Material';
-      default:
-        return 'Path not found';
-    }
-  }
-
   const { container } = useAppTheme();
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
@@ -80,9 +53,9 @@ export default function PreGameConfigLayout() {
             }}
             testID='User Auth Content Container'
           >
-            <PageHeading text={pageHeadingTextSelector()} />
+            <PageHeading />
             <Logo gradient={true} />
-            <GuidanceText text={guidanceTextSelector()} />
+            <GuidanceText />
             <Slot />
           </View>
         </ScrollView>
