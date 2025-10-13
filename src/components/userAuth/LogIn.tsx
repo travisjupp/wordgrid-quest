@@ -2,11 +2,14 @@ import { useRef, useState } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform, TextInput as RNTextInput } from 'react-native';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
+import { Menu } from '@components/Menu';
 
 export function LogIn() {
+  const navigator = useNavigation();
+  const parentNavigator = navigator.getParent();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
@@ -14,7 +17,7 @@ export function LogIn() {
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then(user => {
+      .then(userCredential => {
         showDialog({
           title: 'Load Material?',
           actions: (
@@ -32,6 +35,10 @@ export function LogIn() {
           ),
           content:
             'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material. You can always load material from the Load Material menu later!',
+        });
+        parentNavigator?.setOptions({
+          headerShown: true,
+          headerRight: () => <Menu />,
         });
       })
       .catch(e => console.error(e.message));
