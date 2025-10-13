@@ -50,6 +50,7 @@ export default function PreGameConfigLayout() {
               borderColor: 'green',
               borderStyle: 'dashed',
               borderWidth: 4,
+              gap: 20,
             }}
             testID='User Auth Content Container'
           >
