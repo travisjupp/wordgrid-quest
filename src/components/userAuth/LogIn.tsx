@@ -5,6 +5,7 @@ import { View, Platform, TextInput as RNTextInput } from 'react-native';
 import { router, useNavigation } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
+import { useSnackbar } from '@hooks/useSnackbar';
 import { Menu } from '@components/Menu';
 
 export function LogIn() {
@@ -14,6 +15,7 @@ export function LogIn() {
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const { showDialog, hideDialog } = useDialog();
+  const { showSnackbar } = useSnackbar();
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -39,6 +41,9 @@ export function LogIn() {
         parentNavigator?.setOptions({
           headerShown: true,
           headerRight: () => <Menu />,
+        });
+        showSnackbar({
+          message: `${userCredential.user.email} signed in! 🎉 `,
         });
       })
       .catch(e => console.error(e.message));
