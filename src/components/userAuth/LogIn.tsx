@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, Surface, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform, TextInput as RNTextInput } from 'react-native';
 import { router, useNavigation } from 'expo-router';
@@ -20,10 +20,13 @@ export function LogIn() {
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
+        showSnackbar({
+          message: `${userCredential.user.email} signed in! 🎉 `,
+        });
         showDialog({
           title: 'Load Material?',
           actions: (
-            <>
+            <View style={{ flexDirection: 'row' }}>
               <Button
                 onPress={() => {
                   router.navigate('/loadcat');
@@ -33,18 +36,15 @@ export function LogIn() {
                 Load Material
               </Button>
               <Button onPress={() => router.navigate('/')}>Skip</Button>
-            </>
+            </View>
           ),
           content:
             'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material. You can always load material from the Load Material menu later!',
         });
-        parentNavigator?.setOptions({
-          headerShown: true,
-          headerRight: () => <Menu />,
-        });
-        showSnackbar({
-          message: `${userCredential.user.email} signed in! 🎉 `,
-        });
+        // parentNavigator?.setOptions({
+        //   headerShown: true,
+        //   headerRight: () => <Menu />,
+        // });
       })
       .catch(e => console.error(e.message));
   };

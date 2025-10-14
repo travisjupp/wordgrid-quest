@@ -7,14 +7,17 @@ import {
   selectTempCustomCategory,
   selectTempCustomMaterialArray,
 } from '@features/tempMaterial/tempMaterialSelectors';
+import { useSnackbar } from '@hooks/useSnackbar';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');
   const dispatch = useAppDispatch();
   const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
   const tempCategory = useAppSelector(selectTempCustomCategory);
+  const { showSnackbar } = useSnackbar();
   const handleSetCategory = () => {
     dispatch(setTempCategory(category));
+    showSnackbar({message: `${tempCategory} category created`});
     console.log('tempCategory (test selector)', tempCategory);
     console.log('tempMaterial (test selector)', tempMaterial);
   };

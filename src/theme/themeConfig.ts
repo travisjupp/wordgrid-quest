@@ -231,7 +231,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderStyle: 'solid',
     },
 
-    // START Modal Styles
+    // START Modal and Snackbar Styles
     contentWrapper: {
       justifyContent: 'center',
       flex: 1,
@@ -277,10 +277,18 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'magenta',
       borderStyle: 'dotted',
     },
-    defaultMobileSnackbarWrapper: {},
-    defaultWebSnackbar: {},
-    defaultWebSnackbarWrapper: {},
-    // END Modal Styles
+    defaultMobileSnackbarWrapper: {
+      maxWidth: 400,
+      alignSelf: 'center',
+    },
+    defaultWebSnackbar: {
+      alignSelf: 'center',
+    },
+    defaultWebSnackbarWrapper: {
+      maxWidth: 400,
+      alignSelf: 'center',
+    },
+    // END Modal and Snackbar Styles
 
     timer: {
       ...Platform.select({
@@ -347,7 +355,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
-        customProperties.defaultMobileSnackbarWrapper,
+      customProperties.defaultMobileSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       overModalSnackbar: customProperties.overModalSnackbar,
@@ -357,21 +365,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     fonts: configureFonts({ config: fontConfig }),
     roundness: 4,
     colors:
-      isDarkTheme ?
-        {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.dark,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        }
+    isDarkTheme ?
+      {
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.dark,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      }
       : {
-          ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.light,
-          ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
-        },
+        ...themeVariant.colors,
+        // Custom color properties
+        // ...materialColors.schemes.light,
+        ...materialColorScheme,
+        // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+      },
   };
 };
 
