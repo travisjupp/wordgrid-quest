@@ -1,26 +1,37 @@
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { setCategory as setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
 import {
   selectTempCustomCategory,
-  selectTempCustomMaterialArray,
+  // selectTempCustomMaterialArray,
 } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');
   const dispatch = useAppDispatch();
-  const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
+  // const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
   const tempCategory = useAppSelector(selectTempCustomCategory);
   const { showSnackbar } = useSnackbar();
+  useEffect(() => {
+    if (tempCategory) {
+      showSnackbar({ message: `${tempCategory} category created` });
+    }
+    /* Configure React Compiler then re-enable the showSnackbar
+     * dependency to verify RC injected useCallback to memoize 
+     * the function in OverlayProvider 
+     *
+     * Confirm with React DevTools; should display a "Memo" badge
+     * next to optimized components. Remove linter ignore comment */
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tempCategory /*, showSnackbar */]);
   const handleSetCategory = () => {
     dispatch(setTempCategory(category));
-    showSnackbar({message: `${tempCategory} category created`});
-    console.log('tempCategory (test selector)', tempCategory);
-    console.log('tempMaterial (test selector)', tempMaterial);
   };
+
   return (
     <>
       <View

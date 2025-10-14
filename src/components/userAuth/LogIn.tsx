@@ -1,16 +1,15 @@
 import { useRef, useState } from 'react';
-import { Button, Surface, TextInput } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform, TextInput as RNTextInput } from 'react-native';
-import { router, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
 import { useSnackbar } from '@hooks/useSnackbar';
-import { Menu } from '@components/Menu';
 
 export function LogIn() {
-  const navigator = useNavigation();
-  const parentNavigator = navigator.getParent();
+  // const navigator = useNavigation();
+  // const parentNavigator = navigator.getParent();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
