@@ -20,8 +20,8 @@ export function LoadMaterialCategory() {
       showSnackbar({ message: `${tempCategory} category created` });
     }
     /* Configure React Compiler then re-enable the showSnackbar
-     * dependency to verify RC injected useCallback to memoize 
-     * the function in OverlayProvider 
+     * dependency to verify RC injected useCallback to memoize
+     * the function in OverlayProvider
      *
      * Confirm with React DevTools; should display a "Memo" badge
      * next to optimized components. Remove linter ignore comment */

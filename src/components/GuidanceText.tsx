@@ -1,12 +1,9 @@
 import { Text } from '@components/Text';
 import { usePathname } from 'expo-router';
 
-interface Props {
-  text?: string;
-}
-
-export function GuidanceText({ text }: Props) {
+export function GuidanceText() {
   const pathname = usePathname();
+
   const guidanceTextSelector = () => {
     switch (pathname) {
       case '/login':
@@ -19,5 +16,6 @@ export function GuidanceText({ text }: Props) {
         return 'Path not found';
     }
   };
+
   return <Text variant='bodyLarge'>{guidanceTextSelector()}</Text>;
 }

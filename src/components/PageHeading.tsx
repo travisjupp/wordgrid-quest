@@ -1,11 +1,7 @@
 import { Text } from '@components/Text';
 import { usePathname } from 'expo-router';
 
-interface Props {
-  text?: string | undefined;
-}
-
-export function PageHeading({ text }: Props) {
+export function PageHeading() {
   const pathname = usePathname();
 
   const pageHeadingTextSelector = () => {
