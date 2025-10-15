@@ -11,7 +11,6 @@ export function PageHeading({ text }: Props) {
   const pageHeadingTextSelector = () => {
     switch (pathname) {
       case '/login':
-        return 'Welcome';
       case '/signup':
         return 'Welcome';
       case '/loadcat':
