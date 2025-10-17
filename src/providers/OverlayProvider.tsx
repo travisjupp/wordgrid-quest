@@ -167,10 +167,10 @@ export function OverlayProvider({ children }: Props) {
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
           {children}
-          {dialogState.visible && !modalVisible ? (
+          {dialogState.visible && !modalVisible ?
             <RNPDialog {...RNPDialogProps} />
-          ) : null}
-          {modalVisible ? (
+          : null}
+          {modalVisible ?
             /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
              * (SNACKBARS OVERLAY MODALS) */
             <Portal>
@@ -201,8 +201,8 @@ export function OverlayProvider({ children }: Props) {
                 </KeyboardAvoidingView>
               </RNModal>
             </Portal>
-          ) : null}
-          {!modalVisible && snackbarState.visible ? (
+          : null}
+          {!modalVisible && snackbarState.visible ?
             /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
              * (SNACKBARS DEFAULT) */
             <>
@@ -245,7 +245,7 @@ export function OverlayProvider({ children }: Props) {
                 </KeyboardAvoidingView>
               }
             </>
-          ) : null}
+          : null}
         </DialogContext>
       </SnackbarContext>
     </ModalContext>
