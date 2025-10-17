@@ -8,16 +8,19 @@ import {
   // selectTempCustomMaterialArray,
 } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
+import { useRouter } from 'expo-router';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');
   const dispatch = useAppDispatch();
   // const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
+  const router = useRouter();
   const tempCategory = useAppSelector(selectTempCustomCategory);
   const { showSnackbar } = useSnackbar();
   useEffect(() => {
     if (tempCategory) {
       showSnackbar({ message: `${tempCategory} category created` });
+      router.navigate('/loaditems');
     }
     /* Configure React Compiler then re-enable the showSnackbar
      * dependency to verify RC injected useCallback to memoize
@@ -75,6 +78,7 @@ export function LoadMaterialCategory() {
           style={{ marginTop: 6 }}
           mode='contained'
           onPress={handleSetCategory}
+          disabled={!category}
         >
           Continue
         </Button>

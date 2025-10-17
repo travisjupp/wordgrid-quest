@@ -102,6 +102,26 @@ export default function HomeScreen() {
         <Button
           onPress={() => {
             router.navigate({
+              pathname: '/loaditems',
+              params: { itemId: '123' },
+            });
+          }}
+        >
+          Loaditems
+        </Button>
+        <Button
+          onPress={() => {
+            router.navigate({
+              pathname: '/loadcat',
+              params: { itemId: '123' },
+            });
+          }}
+        >
+          Loadcat
+        </Button>
+        <Button
+          onPress={() => {
+            router.navigate({
               pathname: '/profile',
               params: { itemId: '123' },
             });

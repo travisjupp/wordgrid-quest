@@ -78,6 +78,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 1,
     },
 
+    loaditemsScreenAnimatedView: {
+      width: 330,
+      borderColor: 'red',
+      // borderWidth: 1,
+    },
+
     loginScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
@@ -327,6 +333,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       },
       customMaterialScreens: {
         loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
+        loaditemsScreenAnimatedView:
+          customProperties.loaditemsScreenAnimatedView,
       },
     },
     majorHUD: {

@@ -86,6 +86,7 @@ export interface AuthScreenStyles {
 
 export interface CustomMaterialStyles {
   loadcatScreenAnimatedView: ViewStyle;
+  loaditemsScreenAnimatedView: ViewStyle;
 }
 
 export interface AuthSubtextStyles {

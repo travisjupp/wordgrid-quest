@@ -12,6 +12,8 @@ export function GuidanceText() {
         return 'Create an account';
       case '/loadcat':
         return 'Create a category for this material';
+      case '/loaditems':
+        return 'Add items to:';
       default:
         return 'Path not found';
     }

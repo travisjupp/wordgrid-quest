@@ -10,6 +10,7 @@ export function PageHeading() {
       case '/signup':
         return 'Welcome';
       case '/loadcat':
+      case '/loaditems':
         return 'Load Material';
       default:
         return 'Path not found';
