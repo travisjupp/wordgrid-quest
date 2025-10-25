@@ -3,7 +3,7 @@ import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import DialogContext from '@contexts/DialogContext';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Dialog as RNPDialog,
   DialogProps as RNPDialogProps,
@@ -16,6 +16,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import * as DialogTypes from '@custom-types/DialogTypes';
 import { Text } from '@components/Text';
+import BottomSheet, {
+  BottomSheetTextInput,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
+import { useTheme } from '@hooks/useTheme';
 
 interface Props {
   children: React.ReactNode;
@@ -33,14 +38,14 @@ export function OverlayProvider({ children }: Props) {
 
   // Snackbar State
   const [snackbarState, setSnackbarState] =
-    useState<SnackbarTypes.SnackbarState>({
-      message: '',
-      icon: undefined,
-      visible: false,
-      iconPressCb: undefined,
-      action: undefined,
-      calledFromModal: undefined,
-    });
+  useState<SnackbarTypes.SnackbarState>({
+    message: '',
+    icon: undefined,
+    visible: false,
+    iconPressCb: undefined,
+    action: undefined,
+    calledFromModal: undefined,
+  });
 
   // Dialog State
   const [dialogState, setDialogState] = useState<DialogTypes.DialogState>({
@@ -98,8 +103,8 @@ export function OverlayProvider({ children }: Props) {
     setDialogState({
       title: dialogConfig.title,
       content:
-        dialogConfig.content ?
-          <Text variant='bodyMedium'>{dialogConfig.content}</Text>
+      dialogConfig.content ?
+        <Text variant='bodyMedium'>{dialogConfig.content}</Text>
         : undefined,
       actions: dialogConfig.actions,
       icon: dialogConfig.icon,
@@ -132,20 +137,20 @@ export function OverlayProvider({ children }: Props) {
     children: [
       dialogState.icon ?
         <RNPDialog.Icon icon={dialogState.icon} key='RNPD-icon' />
-      : undefined,
+        : undefined,
       dialogState.title ?
         <RNPDialog.Title key='RNPD-title'>{dialogState.title}</RNPDialog.Title>
-      : undefined,
+        : undefined,
       dialogState.content ?
         <RNPDialog.Content key='RNPD-content'>
           {dialogState.content}
         </RNPDialog.Content>
-      : undefined,
+        : undefined,
       dialogState.actions ?
         <RNPDialog.Actions key='RNPD-actions'>
           {dialogState.actions}
         </RNPDialog.Actions>
-      : undefined,
+        : undefined,
     ],
     testID: 'RNPDialog',
   };
@@ -162,14 +167,59 @@ export function OverlayProvider({ children }: Props) {
     children: snackbarState.message,
   };
 
+  const snapPoints = useMemo(() => ['24'], []);
+  const { theme } = useTheme();
+
   return (
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
           {children}
+          <BottomSheet
+            backgroundStyle={{
+              backgroundColor: theme?.colors.surfaceContainer,
+            }}
+            handleIndicatorStyle={{
+              backgroundColor: theme?.colors.outline,
+            }}
+            snapPoints={snapPoints}
+            enableDynamicSizing={false}
+            keyboardBlurBehavior='restore'
+            containerStyle={{
+            }}
+            style={{ 
+              marginInline: 15,
+              flex: 1,
+              borderWidth: 1,
+              borderColor: 'red'
+            }}
+          >
+            <BottomSheetView
+              focusable={true}
+              style={{
+                borderColor: 'green',
+                borderWidth: 1,
+              }}
+            >
+              <BottomSheetTextInput
+                value='Input Text'
+                style={{
+                  alignSelf: 'stretch',
+                  padding: 8,
+                  marginInline: 10,
+                  borderRadius: 4,
+                  color: theme?.colors.onSecondaryContainer,
+                  borderWidth: .5,
+                  borderColor: theme?.colors.onSecondaryContainer,
+                  textAlign: 'center',
+                  backgroundColor: theme?.colors.secondaryContainer,
+                }}
+              />
+            </BottomSheetView>
+          </BottomSheet>
           {dialogState.visible && !modalVisible ?
             <RNPDialog {...RNPDialogProps} />
-          : null}
+            : null}
           {modalVisible ?
             /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
              * (SNACKBARS OVERLAY MODALS) */
@@ -201,7 +251,7 @@ export function OverlayProvider({ children }: Props) {
                 </KeyboardAvoidingView>
               </RNModal>
             </Portal>
-          : null}
+            : null}
           {!modalVisible && snackbarState.visible ?
             /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
              * (SNACKBARS DEFAULT) */
@@ -223,7 +273,7 @@ export function OverlayProvider({ children }: Props) {
                 >
                   {snackbarState.message}
                 </RNPSnackbar>
-              : <KeyboardAvoidingView behavior='padding'>
+                : <KeyboardAvoidingView behavior='padding'>
                   <RNPSnackbar /* MOBILE */
                     {...RNPSnackbarProps}
                     icon={
@@ -245,7 +295,7 @@ export function OverlayProvider({ children }: Props) {
                 </KeyboardAvoidingView>
               }
             </>
-          : null}
+            : null}
         </DialogContext>
       </SnackbarContext>
     </ModalContext>
