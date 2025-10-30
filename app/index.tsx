@@ -11,6 +11,7 @@ import { useDialog } from '@hooks/useDialog';
 import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
+import { useBottomsheet } from '@hooks/useBottomsheet';
 // import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
@@ -18,6 +19,7 @@ export default function HomeScreen() {
   const { showModal, hideModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const { showDialog, hideDialog } = useDialog();
+  const { showBottomsheet, hideBottomsheet } = useBottomsheet();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
@@ -81,6 +83,18 @@ export default function HomeScreen() {
           }
         >
           SHOW DIALOG
+        </Text>
+        <Text
+          onPress={() =>
+            showBottomsheet(
+              <View>
+                <Text variant='timer'>This is the Bottomsheet content</Text>
+                <Button onPress={hideBottomsheet}>HIDE BOTTOMSHEET</Button>
+              </View>,
+            )
+          }
+        >
+          SHOW BOTTOMSHEET
         </Text>
         {/* <FirebaseTest /> */}
         {/* <Text  */}
