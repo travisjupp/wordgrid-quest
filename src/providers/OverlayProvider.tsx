@@ -4,7 +4,7 @@ import ModalContext from '@contexts/ModalContext';
 import BottomsheetContext from '@contexts/BottomsheetContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import DialogContext from '@contexts/DialogContext';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   Dialog as RNPDialog,
   DialogProps as RNPDialogProps,
@@ -18,7 +18,6 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import * as DialogTypes from '@custom-types/DialogTypes';
 import { Text } from '@components/Text';
 import BottomSheet, {
-  BottomSheetTextInput,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { useTheme } from '@hooks/useTheme';
@@ -29,6 +28,7 @@ interface Props {
 
 export function OverlayProvider({ children }: Props) {
   const insets = useSafeAreaInsets();
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   // Retrieve Custom Theme-properties
   const { modal } = useAppTheme();
@@ -77,11 +77,13 @@ export function OverlayProvider({ children }: Props) {
   // Bottomsheet Logic
   const showBottomsheet = (content: React.ReactNode) => {
     setBottomsheetContent(content);
-    setBottomsheetVisible(true);
+    bottomSheetRef.current?.expand();
+    // setBottomsheetVisible(true);
   };
 
   const hideBottomsheet = () => {
-    setBottomsheetVisible(false);
+    bottomSheetRef.current?.close();
+    // setBottomsheetVisible(false);
   };
 
   // Snackbar Logic
@@ -192,14 +194,16 @@ export function OverlayProvider({ children }: Props) {
         <DialogContext value={{ showDialog, hideDialog }}>
           <BottomsheetContext value={{ showBottomsheet, hideBottomsheet }}>
             {children}
-            {bottomsheetVisible && (
+            {(
               <BottomSheet
+                ref={bottomSheetRef}
                 backgroundStyle={{
                   backgroundColor: theme?.colors.surfaceContainer,
                 }}
                 handleIndicatorStyle={{
                   backgroundColor: theme?.colors.outline,
                 }}
+                index={-1} /* Hide initial load */
                 snapPoints={snapPoints}
                 enableDynamicSizing={false}
                 keyboardBlurBehavior='restore'

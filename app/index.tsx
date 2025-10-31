@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
-import { View } from 'react-native';
+import { View, Button as RNButton } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { useAppTheme } from '@theme/themeConfig';
 // import { FirebaseTest } from '@features/firebase/firebaseTest';
@@ -12,6 +12,15 @@ import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { useBottomsheet } from '@hooks/useBottomsheet';
+import {
+  useBottomSheet,
+  useBottomSheetSpringConfigs,
+} from '@gorhom/bottom-sheet';
+import {
+  Easing,
+  WithSpringConfig,
+  WithTimingConfig,
+} from 'react-native-reanimated';
 // import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
@@ -23,6 +32,31 @@ export default function HomeScreen() {
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
+  const BottomSheetContent = () => {
+    const { close } = useBottomSheet(); // Using Gorhoms hook
+    const customSpringConfig: WithSpringConfig = {
+      damping: 10,
+      mass: 1,
+      stiffness: 100,
+      // Add other spring properties as needed
+    };
+    const customTimingConfig: WithTimingConfig = {
+      duration: 250,
+      easing: Easing.exp,
+    };
+    return (
+      <View>
+        <Text variant='bodySmall'>This is the Bottomsheet content</Text>
+        <Button onPress={() => close(customSpringConfig)}>
+          HIDE BOTTOMSHEET (Hook w/ custom spring config)
+        </Button>
+        <Button onPress={() => close(customTimingConfig)}>
+          HIDE BOTTOMSHEET (Hook w/ custom timing config)
+        </Button>
+        <Button onPress={hideBottomsheet}>HIDE BOTTOMSHEET (Ref Hook)</Button>
+      </View>
+    );
+  };
 
   return (
     <>
@@ -30,7 +64,8 @@ export default function HomeScreen() {
       <View style={container}>
         <Switch value={isDarkTheme} onValueChange={toggleTheme} />
         <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
-        <Text
+        <Button
+          mode='outlined'
           onPress={() =>
             showModal(
               <View
@@ -62,11 +97,15 @@ export default function HomeScreen() {
           }
         >
           SHOW MODAL
-        </Text>
-        <Text onPress={() => showSnackbar({ message: 'TEST' })}>
+        </Button>
+        <Button
+          mode='outlined'
+          onPress={() => showSnackbar({ message: 'TEST' })}
+        >
           SHOW SNACKBAR
-        </Text>
-        <Text
+        </Button>
+        <Button
+          mode='outlined'
           onPress={() =>
             showDialog({
               title: 'DIALOG TEST TITLE',
@@ -83,19 +122,13 @@ export default function HomeScreen() {
           }
         >
           SHOW DIALOG
-        </Text>
-        <Text
-          onPress={() =>
-            showBottomsheet(
-              <View>
-                <Text variant='timer'>This is the Bottomsheet content</Text>
-                <Button onPress={hideBottomsheet}>HIDE BOTTOMSHEET</Button>
-              </View>,
-            )
-          }
+        </Button>
+        <Button
+          mode='outlined'
+          onPress={() => showBottomsheet(<BottomSheetContent />)}
         >
           SHOW BOTTOMSHEET
-        </Text>
+        </Button>
         {/* <FirebaseTest /> */}
         {/* <Text  */}
         {/*   variant="bodyLarge" */}
@@ -116,22 +149,22 @@ export default function HomeScreen() {
         <Button
           onPress={() => {
             router.navigate({
-              pathname: '/loaditems',
-              params: { itemId: '123' },
-            });
-          }}
-        >
-          Loaditems
-        </Button>
-        <Button
-          onPress={() => {
-            router.navigate({
               pathname: '/loadcat',
               params: { itemId: '123' },
             });
           }}
         >
           Loadcat
+        </Button>
+        <Button
+          onPress={() => {
+            router.navigate({
+              pathname: '/loaditems',
+              params: { itemId: '123' },
+            });
+          }}
+        >
+          Loaditems
         </Button>
         <Button
           onPress={() => {
