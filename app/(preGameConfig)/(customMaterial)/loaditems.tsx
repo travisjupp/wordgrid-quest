@@ -1,7 +1,7 @@
 import { LoadMaterialItems } from '@components/customMaterial/LoadMaterialItems';
 import { useAppTheme } from '@theme/themeConfig';
 import { memo } from 'react';
-import Animated from 'react-native-reanimated';
+import Animated, { FlipInYRight } from 'react-native-reanimated';
 
 export default function LoadItemsScreen() {
   const {
@@ -11,6 +11,7 @@ export default function LoadItemsScreen() {
     <Animated.View
       style={customMaterialScreens.loaditemsScreenAnimatedView}
       testID='Animated View'
+      entering={FlipInYRight}
     >
       <MemoizedLoadMaterialItems />
     </Animated.View>
