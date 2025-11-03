@@ -61,7 +61,7 @@ export function LoadMaterialCategory() {
           onChangeText={category => setCategory(category)}
           spellCheck={false}
           style={{}}
-          aria-label='Your email address'
+          aria-label='Your material category'
           testID='EmailInput'
           returnKeyType='next'
           // onSubmitEditing={() => passwordFieldRef.current?.focus()}
