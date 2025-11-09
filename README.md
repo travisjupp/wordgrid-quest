@@ -8,9 +8,9 @@ This project uses React Native (Expo) for a multi-platform reach while maintaini
 
 [Project Roadmap (Github Projects)](https://github.com/users/travisjupp/projects/2/views/3)  
 
-[Figma Prototype (Design file view)](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=2018-17904&p=f&t=TL7i2PqEcGTMr3UP-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=290%3A5402&show-proto-sidebar=1)  
+[Figma Prototype](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=2018-17904&p=f&t=TL7i2PqEcGTMr3UP-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=290%3A5402&show-proto-sidebar=1)  
 
-[Figma Prototype (Presentation view)](https://www.figma.com/design/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=0-1&p=f&t=RBoII9sx5qFZM1Gv-0)  
+[Figma Design File](https://www.figma.com/design/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=0-1&p=f&t=RBoII9sx5qFZM1Gv-0)  
 
 ## Setup/Run Project
 
