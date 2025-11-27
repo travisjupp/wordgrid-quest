@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd /Volumes/Seagate/travisjupp_nde/Documents/Dev/_WebDev/Javascript/react/wordgrid-quest
+cd ~/Documents/projects/wordgrid-quest
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -21,7 +21,8 @@ badd +36 app.json
 badd +1 src/contexts/ThemeContext.ts
 argglobal
 %argdel
-edit app/index.tsx
+NvimTreeToggle
+edit sesh.vim
 argglobal
 balt src/contexts/ThemeContext.ts
 setlocal foldmethod=expr
@@ -59,3 +60,4 @@ nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
+
