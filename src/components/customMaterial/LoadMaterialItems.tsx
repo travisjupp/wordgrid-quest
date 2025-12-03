@@ -15,7 +15,7 @@ export function LoadMaterialItems() {
   const router = useRouter();
   const handleEditCategory = () => {
     dispatch(resetTempMaterial());
-    router.navigate('/loadcat');
+    router.navigate({pathname: '/loadcat', params: {prevRoute: '/loaditems'}});
   }
 
   return (
