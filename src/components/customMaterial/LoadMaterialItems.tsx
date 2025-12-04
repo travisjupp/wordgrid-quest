@@ -8,6 +8,7 @@ import { useAppSelector } from '@hooks/useAppHooks';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
+import { useAppTheme } from '@theme/themeConfig';
 
 export function LoadMaterialItems() {
   const dispatch = useDispatch();
@@ -15,21 +16,20 @@ export function LoadMaterialItems() {
   const router = useRouter();
   const handleEditCategory = () => {
     dispatch(resetTempMaterial());
-    router.navigate({pathname: '/loadcat', params: {prevRoute: '/loaditems'}});
-  }
+    router.navigate({
+      pathname: '/loadcat',
+      params: { prevRoute: '/loaditems' },
+    });
+  };
+
+  // Retrieve Custom Theme-properties
+  const {
+    shared: { inputWrapper: sharedInputWrapper },
+  } = useAppTheme();
 
   return (
     <>
-      <View
-        style={{
-          width: '100%',
-          gap: 8,
-          display: 'flex',
-          // borderWidth: 3,
-          // borderColor: 'red',
-        }}
-        testID='InputWrapper'
-      >
+      <View style={sharedInputWrapper} testID='InputWrapper'>
         <Chip
           mode='outlined'
           closeIcon='pencil-outline'
