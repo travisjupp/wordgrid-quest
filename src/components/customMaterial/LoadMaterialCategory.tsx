@@ -9,6 +9,7 @@ import {
 } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useRouter } from 'expo-router';
+import { useAppTheme } from '@theme/themeConfig';
 
 export function LoadMaterialCategory() {
   const [category, setCategory] = useState<string>('');
@@ -35,18 +36,14 @@ export function LoadMaterialCategory() {
     dispatch(setTempCategory(category));
   };
 
+  // Retrieve Custom Theme-properties
+  const {
+    shared: { inputWrapper: sharedInputWrapper },
+  } = useAppTheme();
+
   return (
     <>
-      <View
-        style={{
-          width: '100%',
-          gap: 8,
-          display: 'flex',
-          // borderWidth: 3,
-          // borderColor: 'red',
-        }}
-        testID='InputWrapper'
-      >
+      <View style={sharedInputWrapper} testID='InputWrapper'>
         <TextInput
           label='Category'
           id='CategoryInput'
