@@ -4,15 +4,16 @@ import { memo } from 'react';
 import Animated, { FlipInYRight } from 'react-native-reanimated';
 
 export default function LoadItemsScreen() {
-
   // Retrieve Custom Theme-properties
   const {
-    preGameConfig: { customMaterialScreens },
+    preGameConfig: {
+      customMaterialScreens: { loaditemsScreenAnimatedView },
+    },
   } = useAppTheme();
 
   return (
     <Animated.View
-      style={customMaterialScreens.loaditemsScreenAnimatedView}
+      style={loaditemsScreenAnimatedView}
       testID='Animated View'
       entering={FlipInYRight}
     >
