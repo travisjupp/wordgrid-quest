@@ -25,6 +25,7 @@ export interface AppTheme {
   menu: object; // custom
   modal: ModalStyles; // custom
   preGameConfig: PreGameConfigStyles;
+  shared: SharedStyles; // custom
   text: object; // custom
   timer: object; // custom
   topicFrame: TopicFrameStyles; // custom
@@ -71,6 +72,10 @@ export interface AppTheme {
   mode?: string | undefined;
   roundness: number;
   version: number;
+}
+
+export interface SharedStyles {
+  inputWrapper: ViewStyle;
 }
 
 export interface PreGameConfigStyles {

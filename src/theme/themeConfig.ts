@@ -65,6 +65,16 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
   const customProperties = StyleSheet.create({
+    // START Shared Styles
+    sharedInputWrapper: {
+      width: '100%',
+      gap: 8,
+      display: 'flex',
+      borderWidth: 3,
+      borderColor: 'red',
+    },
+    // END Shared Styles
+
     // START PreGameConfig Styles
     signupScreenAnimatedView: {
       width: 330,
@@ -322,6 +332,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...themeVariant,
+    shared: {
+      inputWrapper: customProperties.sharedInputWrapper,
+    },
     preGameConfig: {
       authScreens: {
         signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
