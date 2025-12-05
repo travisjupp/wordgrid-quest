@@ -11,7 +11,7 @@ import { useDialog } from '@hooks/useDialog';
 import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
-import { useBottomsheet } from '@hooks/useBottomsheet';
+import { useBottomSheetCustom } from '@hooks/useBottomsheet';
 import {
   useBottomSheet,
   useBottomSheetSpringConfigs,
@@ -28,7 +28,7 @@ export default function HomeScreen() {
   const { showModal, hideModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const { showDialog, hideDialog } = useDialog();
-  const { showBottomsheet, hideBottomsheet } = useBottomsheet();
+  const { showBottomsheet, hideBottomsheet } = useBottomSheetCustom();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
