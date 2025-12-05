@@ -1,4 +1,4 @@
-import { FAB, Button, Chip } from 'react-native-paper';
+import { Button, Chip, Icon } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import {
   selectTempCustomCategory,
@@ -10,6 +10,7 @@ import { useRouter } from 'expo-router';
 import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
 import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
+import { Text } from '@components/Text';
 
 export function LoadMaterialItems() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export function LoadMaterialItems() {
 
   // Retrieve Custom Theme-properties
   const {
+    colors: { onPrimary },
     shared: { inputWrapper: sharedInputWrapper },
   } = useAppTheme();
 
@@ -42,18 +44,36 @@ export function LoadMaterialItems() {
         >
           {tempCategory}
         </Chip>
-        <FAB
+        <Button
+          onPress={() =>
+            showBottomSheet(
+              <View>
+                <Text variant='bodySmall'>This is the Bottomsheet content</Text>
+                <Button onPress={() => hideBottomSheet()}>Close</Button>
+              </View>,
+            )
+          }
           theme={{ roundness: 0.8 }}
-          style={{ marginTop: 6, alignItems: 'center' }}
-          icon='plus-circle-outline'
-          testID='FAB-add-material'
-        />
+          contentStyle={{
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          mode='contained'
+          style={{ marginTop: 21 }}
+          testID='Button Add Material'
+        >
+          <Icon
+            source={'plus-circle-outline'}
+            color={onPrimary}
+            size={22}
+          />
+        </Button>
         <Button
           theme={{ roundness: 0.8 }}
           contentStyle={{ height: 50 }}
           style={{ marginTop: 6 }}
           mode='contained'
-          // onPress={}
         >
           Cancel
         </Button>
