@@ -11,7 +11,7 @@ import { useDialog } from '@hooks/useDialog';
 import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
-import { useBottomSheetCustom } from '@hooks/useBottomsheet';
+import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import {
   useBottomSheet,
   useBottomSheetSpringConfigs,
@@ -28,7 +28,7 @@ export default function HomeScreen() {
   const { showModal, hideModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const { showDialog, hideDialog } = useDialog();
-  const { showBottomsheet, hideBottomsheet } = useBottomSheetCustom();
+  const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
 
   // Retrieve Custom Theme-properties
   const { container } = useAppTheme();
@@ -53,7 +53,7 @@ export default function HomeScreen() {
         <Button onPress={() => close(customTimingConfig)}>
           HIDE BOTTOMSHEET (Hook w/ custom timing config)
         </Button>
-        <Button onPress={hideBottomsheet}>HIDE BOTTOMSHEET (Ref Hook)</Button>
+        <Button onPress={hideBottomSheet}>HIDE BOTTOMSHEET (Ref Hook)</Button>
       </View>
     );
   };
@@ -125,7 +125,7 @@ export default function HomeScreen() {
         </Button>
         <Button
           mode='outlined'
-          onPress={() => showBottomsheet(<BottomSheetContent />)}
+          onPress={() => showBottomSheet(<BottomSheetContent />)}
         >
           SHOW BOTTOMSHEET
         </Button>

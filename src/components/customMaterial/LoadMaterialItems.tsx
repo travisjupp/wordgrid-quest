@@ -9,11 +9,13 @@ import { View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
 import { useAppTheme } from '@theme/themeConfig';
+import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 
 export function LoadMaterialItems() {
   const dispatch = useDispatch();
   const tempCategory = useAppSelector(selectTempCustomCategory);
   const router = useRouter();
+  const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
   const handleEditCategory = () => {
     dispatch(resetTempMaterial());
     router.navigate({

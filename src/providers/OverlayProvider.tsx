@@ -1,7 +1,7 @@
 import { View, Modal as RNModal, Platform } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
-import BottomsheetContext from '@contexts/BottomsheetContext';
+import BottomSheetContext from '@contexts/BottomSheetContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import DialogContext from '@contexts/DialogContext';
 import React, { useMemo, useRef, useState } from 'react';
@@ -192,7 +192,7 @@ export function OverlayProvider({ children }: Props) {
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
-          <BottomsheetContext value={{ showBottomsheet, hideBottomsheet }}>
+          <BottomSheetContext value={{ showBottomSheet: showBottomsheet, hideBottomSheet: hideBottomsheet }}>
             {children}
             {(
               <BottomSheet
@@ -321,7 +321,7 @@ export function OverlayProvider({ children }: Props) {
                 }
               </>
             : null}
-          </BottomsheetContext>
+          </BottomSheetContext>
         </DialogContext>
       </SnackbarContext>
     </ModalContext>
