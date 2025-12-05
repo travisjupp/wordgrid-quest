@@ -389,17 +389,13 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       isDarkTheme ?
         {
           ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.dark,
           ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+          // Color Overrides
         }
       : {
           ...themeVariant.colors,
-          // Custom color properties
-          // ...materialColors.schemes.light,
           ...materialColorScheme,
-          // surfaceContainer: isDarkTheme ? 'rgba(33, 31, 38, 1)' : 'rgba(243, 237, 247, 1)',
+          // Color Overrides
         },
   };
 };
