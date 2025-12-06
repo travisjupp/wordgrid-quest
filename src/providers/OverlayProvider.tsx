@@ -37,9 +37,9 @@ export function OverlayProvider({ children }: Props) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
-  // Bottomsheet State
-  const [bottomsheetVisible, setBottomsheetVisible] = useState<boolean>(false);
-  const [bottomsheetContent, setBottomsheetContent] =
+  // BottomSheet State
+  const [bottomSheetVisible, setBottomSheetVisible] = useState<boolean>(false);
+  const [bottomSheetContent, setBottomSheetContent] =
     useState<React.ReactNode>(null);
 
   // Snackbar State
@@ -74,16 +74,16 @@ export function OverlayProvider({ children }: Props) {
     setModalVisible(false);
   };
 
-  // Bottomsheet Logic
-  const showBottomsheet = (content: React.ReactNode) => {
-    setBottomsheetContent(content);
+  // BottomSheet Logic
+  const showBottomSheet = (content: React.ReactNode) => {
+    setBottomSheetContent(content);
     bottomSheetRef.current?.expand();
-    // setBottomsheetVisible(true);
+    // setBottomSheetVisible(true);
   };
 
-  const hideBottomsheet = () => {
+  const hideBottomSheet = () => {
     bottomSheetRef.current?.close();
-    // setBottomsheetVisible(false);
+    // setBottomSheetVisible(false);
   };
 
   // Snackbar Logic
@@ -192,7 +192,7 @@ export function OverlayProvider({ children }: Props) {
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
-          <BottomSheetContext value={{ showBottomSheet: showBottomsheet, hideBottomSheet: hideBottomsheet }}>
+          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet }}>
             {children}
             {(
               <BottomSheet
@@ -222,7 +222,7 @@ export function OverlayProvider({ children }: Props) {
                     borderWidth: 1,
                   }}
                 >
-                  {bottomsheetContent}
+                  {bottomSheetContent}
                   {/* <BottomSheetTextInput */}
                   {/*   value='Input Text' */}
                   {/*   style={{ */}

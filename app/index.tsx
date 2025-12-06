@@ -46,7 +46,7 @@ export default function HomeScreen() {
     };
     return (
       <View>
-        <Text variant='bodySmall'>This is the Bottomsheet content</Text>
+        <Text variant='bodySmall'>This is the BottomSheet content</Text>
         <Button onPress={() => close(customSpringConfig)}>
           HIDE BOTTOMSHEET (Hook w/ custom spring config)
         </Button>

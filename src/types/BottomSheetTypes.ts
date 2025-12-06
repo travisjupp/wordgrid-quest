@@ -3,12 +3,12 @@ export type HideBottomSheet = () => void;
 
 export interface BottomSheetContextType {
   /**
-   * Displays a Bottomsheet containing a component
-   * @param content The content for the Bottomsheet.
+   * Displays a BottomSheet containing a component
+   * @param content The content for the BottomSheet.
    */
   showBottomSheet: ShowBottomSheet;
   /**
-   * Hides the currently visible Bottomsheet.
+   * Hides the currently visible BottomSheet.
    */
   hideBottomSheet: HideBottomSheet;
 }

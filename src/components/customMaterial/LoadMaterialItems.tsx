@@ -48,7 +48,7 @@ export function LoadMaterialItems() {
           onPress={() =>
             showBottomSheet(
               <View>
-                <Text variant='bodySmall'>This is the Bottomsheet content</Text>
+                <Text variant='bodySmall'>This is the BottomSheet content</Text>
                 <Button onPress={() => hideBottomSheet()}>Close</Button>
               </View>,
             )
