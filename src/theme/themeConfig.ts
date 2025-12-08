@@ -384,7 +384,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     },
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
-    roundness: 4,
+    roundness: 0.8,
     colors:
       isDarkTheme ?
         {
