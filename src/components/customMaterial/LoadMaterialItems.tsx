@@ -1,4 +1,4 @@
-import { Button, Chip, Icon } from 'react-native-paper';
+import { Button, Icon } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import {
   selectTempCustomCategory,
@@ -11,6 +11,7 @@ import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
 import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { LoadItem } from './LoadItem';
+import Chip from '@components/Chip';
 
 export function LoadMaterialItems() {
   const dispatch = useDispatch();
@@ -35,16 +36,7 @@ export function LoadMaterialItems() {
   return (
     <>
       <View style={sharedInputWrapper} testID='InputWrapper'>
-        <Chip
-          mode='outlined'
-          closeIcon='pencil-outline'
-          onClose={handleEditCategory}
-          style={{
-            alignSelf: 'center',
-          }}
-        >
-          {tempCategory}
-        </Chip>
+        <Chip content={tempCategory} onPress={handleEditCategory} />
         <Button
           onPress={() =>
             showBottomSheet(
