@@ -121,6 +121,13 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'orange',
       // borderWidth: 3,
     },
+
+    customChipContentContainer: {
+      paddingInlineStart: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
     // END PreGameConfig Styles
 
     // START MajorHUD Styles
@@ -352,6 +359,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
         loaditemsScreenAnimatedView:
           customProperties.loaditemsScreenAnimatedView,
+        customChipContentContainer:
+          customProperties.customChipContentContainer,
       },
     },
     majorHUD: {

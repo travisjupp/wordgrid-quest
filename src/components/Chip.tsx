@@ -12,11 +12,14 @@ export default function Chip({ onPress, content }: Props) {
   // Retrieve Custom Theme-properties
   const {
     colors: { outline },
+    preGameConfig: {
+      customMaterialScreens: { customChipContentContainer },
+    },
   } = useAppTheme();
 
   return (
     <RNPChip
-      hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       mode='outlined'
       onPress={onPress}
       theme={{ roundness: 2 }}
@@ -24,14 +27,7 @@ export default function Chip({ onPress, content }: Props) {
         alignSelf: 'center',
       }}
     >
-      <View
-        style={{
-          paddingInlineStart: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}
-      >
+      <View style={customChipContentContainer}>
         <Text variant='chip' style={{ marginInlineEnd: 6 }}>
           {content}
         </Text>
