@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
 import { useSnackbar } from '@hooks/useSnackbar';
+import { useAppTheme } from '@theme/themeConfig';
 
 export function LogIn() {
   // const navigator = useNavigation();
@@ -15,6 +16,11 @@ export function LogIn() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const { showDialog, hideDialog } = useDialog();
   const { showSnackbar } = useSnackbar();
+
+  // Retrieve Custom Theme-properties
+  const {
+    shared: { inputWrapper: sharedInputWrapper },
+  } = useAppTheme();
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -52,13 +58,7 @@ export function LogIn() {
 
   return (
     <View
-      style={{
-        width: '100%',
-        gap: 8,
-        display: 'flex',
-        // borderWidth: 3,
-        // borderColor: 'red',
-      }}
+      style={sharedInputWrapper}
       testID='InputWrapper'
     >
       <TextInput
