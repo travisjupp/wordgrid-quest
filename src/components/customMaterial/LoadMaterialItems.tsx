@@ -18,6 +18,7 @@ export function LoadMaterialItems() {
   const router = useRouter();
   const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
   const handleEditCategory = () => {
+    hideBottomSheet();
     dispatch(resetTempMaterial());
     router.navigate({
       pathname: '/loadcat',
