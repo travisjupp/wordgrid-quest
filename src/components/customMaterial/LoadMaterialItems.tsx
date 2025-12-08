@@ -53,7 +53,6 @@ export function LoadMaterialItems() {
               </View>,
             )
           }
-          theme={{ roundness: 0.8 }}
           contentStyle={{
             height: 50,
             justifyContent: 'center',
@@ -70,7 +69,6 @@ export function LoadMaterialItems() {
           />
         </Button>
         <Button
-          theme={{ roundness: 0.8 }}
           contentStyle={{ height: 50 }}
           style={{ marginTop: 6 }}
           mode='contained'

@@ -75,7 +75,6 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
         right={<TextInput.Icon icon={'mail'} />}
       />
       <Button
-        theme={{ roundness: 0.8 }}
         contentStyle={{ height: 50 }}
         style={{ marginTop: 6 }}
         mode='contained'
@@ -84,7 +83,6 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
         Reset Password
       </Button>
       <Button
-        theme={{ roundness: 0.8 }}
         contentStyle={{ height: 50 }}
         style={{ marginTop: 6 }}
         mode='contained'

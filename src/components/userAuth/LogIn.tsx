@@ -122,7 +122,6 @@ export function LogIn() {
         }
       />
       <Button
-        theme={{ roundness: 0.8 }}
         contentStyle={{ height: 50 }}
         style={{ marginTop: 6 }}
         mode='contained'
