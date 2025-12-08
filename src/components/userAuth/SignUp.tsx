@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Platform, View, TextInput as RNTextInput } from 'react-native';
 import { router } from 'expo-router';
 import { auth } from 'src/services/firebaseConfig';
+import { useAppTheme } from '@theme/themeConfig';
 
 export function SignUp() {
   const [email, setEmail] = useState<string>('');
@@ -11,6 +12,11 @@ export function SignUp() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [focusedPasswordField, setFocusedPasswordField] =
     useState<boolean>(false);
+
+  // Retrieve Custom Theme-properties
+  const {
+    shared: { inputWrapper: sharedInputWrapper },
+  } = useAppTheme();
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, newPassword)
@@ -29,11 +35,7 @@ export function SignUp() {
 
   return (
     <View
-      style={{
-        width: '100%',
-        gap: 8,
-        display: 'flex',
-      }}
+      style={sharedInputWrapper}
       testID='InputWrapper'
     >
       <TextInput
