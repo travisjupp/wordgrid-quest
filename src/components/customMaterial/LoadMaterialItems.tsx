@@ -10,7 +10,7 @@ import { useRouter } from 'expo-router';
 import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
 import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
-import { Text } from '@components/Text';
+import { LoadItem } from './LoadItem';
 
 export function LoadMaterialItems() {
   const dispatch = useDispatch();
@@ -47,10 +47,7 @@ export function LoadMaterialItems() {
         <Button
           onPress={() =>
             showBottomSheet(
-              <View>
-                <Text variant='bodySmall'>This is the BottomSheet content</Text>
-                <Button onPress={() => hideBottomSheet()}>Close</Button>
-              </View>,
+                <LoadItem />
             )
           }
           contentStyle={{
@@ -62,11 +59,7 @@ export function LoadMaterialItems() {
           style={{ marginTop: 21 }}
           testID='Button Add Material'
         >
-          <Icon
-            source={'plus-circle-outline'}
-            color={onPrimary}
-            size={22}
-          />
+          <Icon source={'plus-circle-outline'} color={onPrimary} size={22} />
         </Button>
         <Button
           contentStyle={{ height: 50 }}
