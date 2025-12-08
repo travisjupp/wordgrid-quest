@@ -13,6 +13,10 @@ const fontConfig = {
     fontSize: 30,
     fontFamily: 'InriaSerif-Regular',
   },
+  chip: {
+    fontSize: 14,
+    fontFamily: 'System',
+  },
   category: {
     fontSize: 24,
     fontFamily: 'InriaSerif-BoldItalic',
