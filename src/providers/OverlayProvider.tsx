@@ -1,4 +1,9 @@
-import { View, Modal as RNModal, Platform } from 'react-native';
+import {
+  View,
+  Modal as RNModal,
+  Platform,
+  useWindowDimensions,
+} from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import BottomSheetContext from '@contexts/BottomSheetContext';
@@ -17,9 +22,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import * as DialogTypes from '@custom-types/DialogTypes';
 import { Text } from '@components/Text';
-import BottomSheet, {
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+
+const BOTTOM_SHEET_MAX_WIDTH = 500;
+
 import { useTheme } from '@hooks/useTheme';
 
 interface Props {
@@ -38,7 +44,7 @@ export function OverlayProvider({ children }: Props) {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
   // BottomSheet State
-  const [bottomSheetVisible, setBottomSheetVisible] = useState<boolean>(false);
+  // const [bottomSheetVisible, setBottomSheetVisible] = useState<boolean>(false);
   const [bottomSheetContent, setBottomSheetContent] =
     useState<React.ReactNode>(null);
 
@@ -75,6 +81,16 @@ export function OverlayProvider({ children }: Props) {
   };
 
   // BottomSheet Logic
+  const { width: screenWidth } = useWindowDimensions();
+  /* -- Centering Equation (start_pos = (total_space - item_size)/2) --
+   * E.g., Calc a 500px wide BS from 1024px wide Screen: 
+   * (1024-500)/2 gives us 262 margin on either side,
+   * 262*2 = (524) - 1024 gives us our 500 wide bottomsheet */
+  const marginInline =
+    screenWidth > BOTTOM_SHEET_MAX_WIDTH ?
+      (screenWidth - BOTTOM_SHEET_MAX_WIDTH) / 2
+    : 15;
+
   const showBottomSheet = (content: React.ReactNode) => {
     setBottomSheetContent(content);
     bottomSheetRef.current?.expand();
@@ -185,7 +201,7 @@ export function OverlayProvider({ children }: Props) {
     children: snackbarState.message,
   };
 
-  const snapPoints = useMemo(() => ['24'], []);
+  const snapPoints = useMemo(() => ['30'], []);
   const { theme } = useTheme();
 
   return (
@@ -194,8 +210,10 @@ export function OverlayProvider({ children }: Props) {
         <DialogContext value={{ showDialog, hideDialog }}>
           <BottomSheetContext value={{ showBottomSheet, hideBottomSheet }}>
             {children}
-            {(
+            {
               <BottomSheet
+                enablePanDownToClose={false}
+                detached={true}
                 ref={bottomSheetRef}
                 backgroundStyle={{
                   backgroundColor: theme?.colors.surfaceContainer,
@@ -209,7 +227,7 @@ export function OverlayProvider({ children }: Props) {
                 keyboardBlurBehavior='restore'
                 containerStyle={{}}
                 style={{
-                  marginInline: 15,
+                  marginInline,
                   flex: 1,
                   borderWidth: 1,
                   borderColor: 'red',
@@ -239,7 +257,7 @@ export function OverlayProvider({ children }: Props) {
                   {/* /> */}
                 </BottomSheetView>
               </BottomSheet>
-            )}
+            }
             {dialogState.visible && !modalVisible ?
               <RNPDialog {...RNPDialogProps} />
             : null}
