@@ -23,7 +23,7 @@ export function LoadMaterialCategory() {
       showSnackbar({ message: `${tempCategory} category created` });
       router.navigate('/loaditems');
     }
-    /* Configure React Compiler then re-enable the showSnackbar
+    /* TODO Configure React Compiler then re-enable the showSnackbar
      * dependency to verify RC injected useCallback to memoize
      * the function in OverlayProvider
      *
