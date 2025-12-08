@@ -35,7 +35,7 @@ export default function PreGameConfigLayout() {
             borderWidth: 2,
           },
         ]}
-        testID='User Auth Content Wrapper'
+        testID='PreGame Config KBAV'
       >
         <ScrollView
           keyboardShouldPersistTaps='always'
