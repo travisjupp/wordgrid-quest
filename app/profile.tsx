@@ -12,7 +12,7 @@ export default function ProfileScreen() {
   const { itemId } = useLocalSearchParams();
 
   return (
-    <SafeAreaView style={[container, { justifyContent: 'start' }]}>
+    <SafeAreaView style={[container, { justifyContent: 'flex-start' }]}>
       <ThemeAwareScreenOptions header menu back />
       <Text variant='bodyLarge'>Profile `app/profile.tsx` {itemId}</Text>
       <Button
