@@ -38,11 +38,7 @@ export function LoadMaterialItems() {
       <View style={sharedInputWrapper} testID='InputWrapper'>
         <Chip content={tempCategory} onPress={handleEditCategory} />
         <Button
-          onPress={() =>
-            showBottomSheet(
-                <LoadItem />
-            )
-          }
+          onPress={() => showBottomSheet(<LoadItem />)}
           contentStyle={{
             height: 50,
             justifyContent: 'center',

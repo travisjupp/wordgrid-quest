@@ -2,6 +2,7 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
 import { View } from 'react-native';
+import { KeyboardController } from 'react-native-keyboard-controller';
 import { Button } from 'react-native-paper';
 
 export function LoadItem() {
@@ -53,7 +54,14 @@ export function LoadItem() {
           gap: 12,
         }}
       >
-        <Button onPress={hideBottomSheet} mode='contained' icon='check'>
+        <Button
+          onPress={() => {
+            hideBottomSheet();
+            KeyboardController.dismiss();
+          }}
+          mode='contained'
+          icon='check'
+        >
           Done
         </Button>
         <Button mode='contained' icon='chevron-right'>
