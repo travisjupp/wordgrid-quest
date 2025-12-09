@@ -8,11 +8,11 @@ import { Button } from 'react-native-paper';
 
 export default function ProfileScreen() {
   // Retrieve Custom Properties
-  const { container } = useAppTheme();
+  const { shared: { centeredContainer } } = useAppTheme();
   const { itemId } = useLocalSearchParams();
 
   return (
-    <SafeAreaView style={[container, { justifyContent: 'flex-start' }]}>
+    <SafeAreaView style={[centeredContainer, { justifyContent: 'flex-start' }]}>
       <ThemeAwareScreenOptions header menu back />
       <Text variant='bodyLarge'>Profile `app/profile.tsx` {itemId}</Text>
       <Button

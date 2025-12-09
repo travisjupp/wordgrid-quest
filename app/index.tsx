@@ -31,7 +31,7 @@ export default function HomeScreen() {
   const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
 
   // Retrieve Custom Theme-properties
-  const { container } = useAppTheme();
+  const { shared: {centeredContainer} } = useAppTheme();
   const BottomSheetContent = () => {
     const { close } = useBottomSheet(); // Using Gorhoms hook
     const customSpringConfig: WithSpringConfig = {
@@ -61,7 +61,7 @@ export default function HomeScreen() {
   return (
     <>
       <ThemeAwareScreenOptions header menu />
-      <View style={container}>
+      <View style={centeredContainer}>
         <Switch value={isDarkTheme} onValueChange={toggleTheme} />
         <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
         <Button

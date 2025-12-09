@@ -6,10 +6,12 @@ import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 
 export default function SettingsScreen() {
   // Retrieve Custom Properties
-  const { container } = useAppTheme();
+  const {
+    shared: { centeredContainer },
+  } = useAppTheme();
 
   return (
-    <View style={container}>
+    <View style={centeredContainer}>
       <ThemeAwareScreenOptions header menu back />
       <Text variant='bodyLarge'>Settings `app/settings.tsx`</Text>
     </View>

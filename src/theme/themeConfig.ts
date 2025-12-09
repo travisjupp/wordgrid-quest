@@ -189,7 +189,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       alignItems: 'center',
     },
 
-    container: {
+    centeredContainer: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
@@ -345,6 +345,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     ...themeVariant,
     shared: {
       inputWrapper: customProperties.sharedInputWrapper,
+      centeredView: customProperties.centeredView,
+      centeredContainer: customProperties.centeredContainer,
     },
     preGameConfig: {
       authScreens: {
@@ -377,8 +379,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       page: customProperties.carouselPage,
       paragraph: customProperties.carouselParagraph,
     },
-    centeredView: customProperties.centeredView,
-    container: customProperties.container,
     text: customProperties.text,
     link: customProperties.link,
     logo: customProperties.logo,

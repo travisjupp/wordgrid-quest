@@ -11,7 +11,11 @@ import { useTheme } from '@hooks/useTheme';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function PreGameConfigLayout() {
-  const { container } = useAppTheme();
+  // Retrieve Custom Properties
+  const {
+    shared: { centeredContainer },
+  } = useAppTheme();
+
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
 
@@ -27,7 +31,7 @@ export default function PreGameConfigLayout() {
       <KeyboardAvoidingView
         behavior='height'
         style={[
-          container,
+          centeredContainer,
           {
             marginTop: insets.top,
             borderColor: 'orange',

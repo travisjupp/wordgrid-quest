@@ -6,10 +6,12 @@ import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 
 export default function LeaderboardScreen() {
   // Retrieve Custom Properties
-  const { container } = useAppTheme();
+  const {
+    shared: { centeredContainer },
+  } = useAppTheme();
 
   return (
-    <View style={container}>
+    <View style={centeredContainer}>
       <ThemeAwareScreenOptions header menu back />
       <Text variant='bodyLarge'>Leaderboard `app/leaderboard.tsx`</Text>
     </View>
