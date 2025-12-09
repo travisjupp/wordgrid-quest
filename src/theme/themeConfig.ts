@@ -406,7 +406,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         ...themeVariant.colors,
         ...materialColorScheme,
         /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
-        ...CustomDarkColorScheme.colors,
+
+        // ...CustomDarkColorScheme.colors,
+
         /* Custom Color Properties
          * must exist and have same name in both DarkTheme and
          * LightTheme objects for typescript */
@@ -416,7 +418,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         ...themeVariant.colors,
         ...materialColorScheme,
         /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
-        ...CustomLightColorScheme.colors,
+
+        // ...CustomLightColorScheme.colors,
+
         /* Custom Color Properties
          * must exist and have same name in both DarkTheme and
          * LightTheme objects for typescript */
