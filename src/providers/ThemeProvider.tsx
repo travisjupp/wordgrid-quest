@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useColorScheme, Platform } from 'react-native';
 import * as StatusBar from 'expo-status-bar';
 import { PaperProvider } from 'react-native-paper';
+import { AppTheme } from '@custom-types/AppTheme';
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ export function ThemeProvider({ children }: Props) {
   useEffect(() => {
     setIsDarkTheme(deviceThemeIsDark);
   }, [setIsDarkTheme, deviceThemeIsDark]);
-  const theme = themeBuilder(isDarkTheme);
+  const theme: AppTheme = themeBuilder(isDarkTheme);
 
   // Set Status Bar style on theme change
   useEffect(() => {
