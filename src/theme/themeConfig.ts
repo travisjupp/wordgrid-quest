@@ -7,6 +7,8 @@ import {
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
 import materialColors from '@theme/material-theme.json';
+import CustomLightColorScheme from '@theme/CustomLightColors.json';
+import CustomDarkColorScheme from '@theme/CustomDarkColors.json';
 
 const fontConfig = {
   brand: {
@@ -399,17 +401,27 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     fonts: configureFonts({ config: fontConfig }),
     roundness: 0.8,
     colors:
-      isDarkTheme ?
-        {
-          ...themeVariant.colors,
-          ...materialColorScheme,
-          // Color Overrides
-        }
+    isDarkTheme ?
+      {
+        ...themeVariant.colors,
+        ...materialColorScheme,
+        /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
+        ...CustomDarkColorScheme.colors,
+        /* Custom Color Properties
+         * must exist and have same name in both DarkTheme and
+         * LightTheme objects for typescript */
+        customColorProperty: '#ff00ff',
+      }
       : {
-          ...themeVariant.colors,
-          ...materialColorScheme,
-          // Color Overrides
-        },
+        ...themeVariant.colors,
+        ...materialColorScheme,
+        /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
+        ...CustomLightColorScheme.colors,
+        /* Custom Color Properties
+         * must exist and have same name in both DarkTheme and
+         * LightTheme objects for typescript */
+        customColorProperty: '#ff00ff',
+      },
   };
 };
 
