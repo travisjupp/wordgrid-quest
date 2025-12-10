@@ -5,7 +5,7 @@ import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { Surface } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { View, ScrollView } from 'react-native';
 import { useTheme } from '@hooks/useTheme';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
@@ -20,7 +20,7 @@ export default function PreGameConfigLayout() {
   const { theme } = useTheme();
 
   return (
-    <Surface
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme?.colors.background }}>
       mode='flat'
       style={{
         backgroundColor: theme?.colors.background,
@@ -66,5 +66,6 @@ export default function PreGameConfigLayout() {
         </ScrollView>
       </KeyboardAvoidingView>
     </Surface>
+    </SafeAreaView>
   );
 }

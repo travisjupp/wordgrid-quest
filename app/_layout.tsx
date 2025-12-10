@@ -13,6 +13,7 @@ import { StackNavigationOptions } from '@react-navigation/stack';
 import { JsStack } from 'layouts/js-stack';
 import { LogoProvider } from '@providers/LogoProvider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -71,17 +72,19 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <KeyboardProvider>
-        <ThemeProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <OverlayProvider>
-              <LogoProvider>
-                <JsStack screenOptions={screenOptions} />
-              </LogoProvider>
-            </OverlayProvider>
-          </GestureHandlerRootView>
-        </ThemeProvider>
-      </KeyboardProvider>
+      <SafeAreaProvider>
+        <KeyboardProvider>
+          <ThemeProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <OverlayProvider>
+                <LogoProvider>
+                  <JsStack screenOptions={screenOptions} />
+                </LogoProvider>
+              </OverlayProvider>
+            </GestureHandlerRootView>
+          </ThemeProvider>
+        </KeyboardProvider>
+      </SafeAreaProvider>
     </Provider>
   );
 }
