@@ -1,5 +1,11 @@
+import {
+  WithSpringConfig,
+  WithTimingConfig,
+} from 'react-native-reanimated';
+
 export type ShowBottomSheet = (content: React.ReactNode) => void;
 export type HideBottomSheet = () => void;
+export type SnapBottomSheet = (position: number | string, animationConfigs?: WithSpringConfig | WithTimingConfig) => void;
 
 export interface BottomSheetContextType {
   /**
@@ -11,4 +17,8 @@ export interface BottomSheetContextType {
    * Hides the currently visible BottomSheet.
    */
   hideBottomSheet: HideBottomSheet;
+  /**
+   * Snap BottomSheet to position in pixel or percentage
+   */
+  snapBottomSheet: SnapBottomSheet;
 }

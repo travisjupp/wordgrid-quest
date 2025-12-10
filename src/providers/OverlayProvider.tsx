@@ -27,6 +27,8 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 const BOTTOM_SHEET_MAX_WIDTH = 500;
 
 import { useTheme } from '@hooks/useTheme';
+import Animated from 'react-native-reanimated';
+import { HideBottomSheet, ShowBottomSheet, SnapBottomSheet } from '@custom-types/BottomSheetTypes';
 
 interface Props {
   children: React.ReactNode;
@@ -100,6 +102,10 @@ export function OverlayProvider({ children }: Props) {
   const hideBottomSheet = () => {
     bottomSheetRef.current?.close();
     // setBottomSheetVisible(false);
+  };
+
+  const snapBottomSheet: SnapBottomSheet = (position, animationConfigs) => {
+    bottomSheetRef.current?.snapToPosition(position, animationConfigs);
   };
 
   // Snackbar Logic
@@ -208,7 +214,7 @@ export function OverlayProvider({ children }: Props) {
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
-          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet }}>
+          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet, snapBottomSheet }}>
             {children}
             {
               <BottomSheet
