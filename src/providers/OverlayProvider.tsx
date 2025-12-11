@@ -28,7 +28,7 @@ const BOTTOM_SHEET_MAX_WIDTH = 500;
 
 import { useTheme } from '@hooks/useTheme';
 import Animated from 'react-native-reanimated';
-import { HideBottomSheet, ShowBottomSheet, SnapBottomSheet } from '@custom-types/BottomSheetTypes';
+import { HideBottomSheet, ShowBottomSheet, SnapBottomSheet, ExpandedBottomSheet } from '@custom-types/BottomSheetTypes';
 
 interface Props {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ export function OverlayProvider({ children }: Props) {
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
   // BottomSheet State
-  // const [bottomSheetVisible, setBottomSheetVisible] = useState<boolean>(false);
+  const [bottomSheetVisible, setBottomSheetVisible] = useState<boolean>(false);
   const [bottomSheetContent, setBottomSheetContent] =
     useState<React.ReactNode>(null);
 
@@ -93,20 +93,22 @@ export function OverlayProvider({ children }: Props) {
       (screenWidth - BOTTOM_SHEET_MAX_WIDTH) / 2
     : 15;
 
-  const showBottomSheet = (content: React.ReactNode) => {
+  const showBottomSheet: ShowBottomSheet = (content: React.ReactNode) => {
     setBottomSheetContent(content);
     bottomSheetRef.current?.expand();
-    // setBottomSheetVisible(true);
+    setBottomSheetVisible(true);
   };
 
-  const hideBottomSheet = () => {
+  const hideBottomSheet: HideBottomSheet = () => {
     bottomSheetRef.current?.close();
-    // setBottomSheetVisible(false);
+    setBottomSheetVisible(false);
   };
 
   const snapBottomSheet: SnapBottomSheet = (position, animationConfigs) => {
     bottomSheetRef.current?.snapToPosition(position, animationConfigs);
   };
+
+  const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
 
   // Snackbar Logic
   const showSnackbar = (snackbarConfig: SnackbarTypes.SnackbarConfig) => {
@@ -207,19 +209,20 @@ export function OverlayProvider({ children }: Props) {
     children: snackbarState.message,
   };
 
-  const snapPoints = useMemo(() => ['30'], []);
+  const snapPoints = useMemo(() => [315], [10]);
   const { theme } = useTheme();
 
   return (
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
-          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet, snapBottomSheet }}>
+          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet, snapBottomSheet, expandedBottomSheet }}>
             {children}
             {
               <BottomSheet
-                enablePanDownToClose={false}
+                enablePanDownToClose={true}
                 detached={true}
+                bottomInset={insets.bottom}
                 ref={bottomSheetRef}
                 backgroundStyle={{
                   backgroundColor: theme?.colors.surfaceContainer,

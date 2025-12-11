@@ -6,6 +6,7 @@ import {
 export type ShowBottomSheet = (content: React.ReactNode) => void;
 export type HideBottomSheet = () => void;
 export type SnapBottomSheet = (position: number | string, animationConfigs?: WithSpringConfig | WithTimingConfig) => void;
+export type ExpandedBottomSheet = boolean;
 
 export interface BottomSheetContextType {
   /**
@@ -21,4 +22,8 @@ export interface BottomSheetContextType {
    * Snap BottomSheet to position in pixel or percentage
    */
   snapBottomSheet: SnapBottomSheet;
+  /**
+   * Check if BottomSheet is expanded
+   */
+  expandedBottomSheet: ExpandedBottomSheet;
 }

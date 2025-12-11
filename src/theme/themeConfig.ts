@@ -76,8 +76,9 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       width: '100%',
       gap: 8,
       display: 'flex',
-      // borderWidth: 3,
-      // borderColor: 'red',
+      borderWidth: 3,
+      borderColor: 'red',
+      borderStyle: 'dotted',
     },
     // END Shared Styles
 
