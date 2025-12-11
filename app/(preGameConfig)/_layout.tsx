@@ -22,10 +22,7 @@ export default function PreGameConfigLayout() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme?.colors.background }}>
       mode='flat'
-      style={{
-        backgroundColor: theme?.colors.background,
-        flex: 1,
-      }}
+      testID='PreGame Config SafeAreaView'
     >
       <ThemeAwareScreenOptions header={false} />
       <KeyboardAvoidingView
@@ -35,11 +32,7 @@ export default function PreGameConfigLayout() {
           {
             marginTop: insets.top,
             borderColor: 'orange',
-            borderStyle: 'dashed',
-            borderWidth: 2,
-          },
-        ]}
-        testID='PreGame Config KBAV'
+        testID='PreGame Config Surface'
       >
         <ScrollView
           keyboardShouldPersistTaps='always'
@@ -55,8 +48,9 @@ export default function PreGameConfigLayout() {
               borderStyle: 'dashed',
               borderWidth: 4,
               gap: 20,
+          testID='PreGame Config KBAV'
             }}
-            testID='User Auth Content Container'
+            testID='PreGame Config ScrollView'
           >
             <PageHeading />
             <Logo gradient={true} />
@@ -66,6 +60,7 @@ export default function PreGameConfigLayout() {
         </ScrollView>
       </KeyboardAvoidingView>
     </Surface>
+              testID='PreGame Config Content Container'
     </SafeAreaView>
   );
 }
