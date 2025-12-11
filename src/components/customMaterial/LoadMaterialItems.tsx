@@ -1,10 +1,9 @@
 import { Button, Icon } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
 import {
   selectTempCustomCategory,
   // selectTempCustomMaterialArray,
 } from '@features/tempMaterial/tempMaterialSelectors';
-import { useAppSelector } from '@hooks/useAppHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
@@ -14,7 +13,7 @@ import { LoadItem } from './LoadItem';
 import Chip from '@components/Chip';
 
 export function LoadMaterialItems() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const tempCategory = useAppSelector(selectTempCustomCategory);
   const router = useRouter();
   const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
