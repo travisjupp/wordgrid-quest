@@ -80,6 +80,19 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'red',
       borderStyle: 'dotted',
     },
+
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
+    centeredContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: materialColorScheme.surface,
+    },
     // END Shared Styles
 
     // START PreGameConfig Styles
@@ -152,6 +165,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 1,
       borderColor: materialColorScheme.primary,
     },
+
     carouselContainer: {
       width: 'auto',
       flex: 1,
@@ -159,6 +173,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 1,
       // borderColor: '#00ff00'
     },
+
     carouselDot: {
       height: 8,
       width: 8,
@@ -166,18 +181,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       backgroundColor: materialColorScheme.secondaryContainer,
       marginHorizontal: 5,
     },
+
     carouselDotsContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 10,
     },
+
     carouselPage: {
       justifyContent: 'center',
       alignItems: 'center',
       // paddingHorizontal: 20,
       height: 'auto',
     },
+
     carouselParagraph: {
       // borderWidth: 1,
       // borderColor: 'magenta',
@@ -185,19 +203,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       color: materialColorScheme.onSurface,
     },
     // END Carousel Styles
-
-    centeredView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-
-    centeredContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: materialColorScheme.surface,
-    },
 
     text: {
       color: materialColorScheme.onSurface,
