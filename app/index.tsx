@@ -21,7 +21,7 @@ import {
   WithSpringConfig,
   WithTimingConfig,
 } from 'react-native-reanimated';
-// import { MajorHUD } from '@features/majorHUD/MajorHUD';
+import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
   const { isDarkTheme, toggleTheme } = useTheme();
@@ -62,6 +62,7 @@ export default function HomeScreen() {
     <>
       <ThemeAwareScreenOptions header menu />
       <View style={centeredContainer}>
+        <MajorHUD />
         <Switch value={isDarkTheme} onValueChange={toggleTheme} />
         <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
         <Button
@@ -137,7 +138,6 @@ export default function HomeScreen() {
         {/*   style={{fontFamily: "Inter24pt-Black"}} */}
         {/* >NO variant, inline style fontFamily: Inter24pt-Black</Text> */}
         {/**/}
-        {/* <MajorHUD /> */}
         {/* <Text  */}
         {/*   style={{fontFamily: "InriaSerif-Regular"}} */}
         {/* >NO variant, inline style fontFamily: InriaSerif-Regular</Text> */}
