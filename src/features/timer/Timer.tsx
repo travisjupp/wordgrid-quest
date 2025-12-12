@@ -77,7 +77,7 @@ export function Timer() {
         {formatTime(timeRemaining)}
       </Text>
       <Button onPress={handleTimerReset} icon='redo'>
-        <Text style={{ color: onSecondaryContainer }}>Reset Timer</Text>
+        Reset Timer
       </Button>
       {/* <Button onPress={handleTimerPause} icon="pause">Pause Timer</Button> */}
       <Button onPress={handleTimerStart} icon='play'>
