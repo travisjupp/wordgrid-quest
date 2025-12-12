@@ -7,7 +7,9 @@ export default function LoadItemsScreen() {
   // Retrieve Custom Theme-properties
   const {
     preGameConfig: {
-      customMaterialScreens: { loaditemsScreenAnimatedView },
+      customMaterialScreens: {
+        loaditems: { loaditemsScreenAnimatedView },
+      },
     },
   } = useAppTheme();
 

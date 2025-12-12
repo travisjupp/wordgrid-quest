@@ -12,7 +12,9 @@ export default function LoadCategoryScreen() {
   // Retrieve Custom Theme-properties
   const {
     preGameConfig: {
-      customMaterialScreens: { loadcatScreenAnimatedView },
+      customMaterialScreens: {
+        loadcat: { loadcatScreenAnimatedView },
+      },
     },
   } = useAppTheme();
 

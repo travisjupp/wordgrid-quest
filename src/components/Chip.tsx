@@ -13,7 +13,7 @@ export default function Chip({ onPress, content }: Props) {
   const {
     colors: { outline },
     preGameConfig: {
-      customMaterialScreens: { customChipContentContainer },
+      layout: { customChipContentContainer }
     },
   } = useAppTheme();
 

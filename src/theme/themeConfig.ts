@@ -6,7 +6,7 @@ import {
 } from 'react-native-paper';
 import { Platform, PlatformIOSStatic, StyleSheet } from 'react-native';
 import { AppTheme } from '@custom-types/AppTheme';
-import materialColors from '@theme/material-theme.json';
+import figmaMaterialThemeBuilderExport from '@theme/material-theme.json';
 import CustomLightColorScheme from '@theme/CustomLightColors.json';
 import CustomDarkColorScheme from '@theme/CustomDarkColors.json';
 
@@ -61,15 +61,27 @@ const fontConfig = {
     lineHeight: 20,
   },
 };
-// console.log('MD3DarkTheme', MD3DarkTheme);
 
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
-  const themeVariant = isDarkTheme ? MD3DarkTheme : DefaultTheme;
-  const materialColorScheme =
-    isDarkTheme ? materialColors.schemes.dark : materialColors.schemes.light;
+  const RNPColors = isDarkTheme ? MD3DarkTheme : DefaultTheme;
+  const figmaColors =
+    isDarkTheme ? figmaMaterialThemeBuilderExport.schemes.dark : figmaMaterialThemeBuilderExport.schemes.light;
+  const RNPCustomColors = 
+    isDarkTheme ? CustomDarkColorScheme.colors : CustomLightColorScheme.colors;
+  const colors = {
+    /* Merge multiple MD3 color sources */
+    ...RNPColors.colors,
+    ...figmaColors,
+    /* Custom Color Scheme Overrides: 
+     * https://oss.callstack.com/react-native-paper/docs/guides/theming */
+    // ...RNPCustomColors,
+    /* Custom Color Properties */
+    customColorProperty: '#ff00ff',
+  }
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
+
   const customProperties = StyleSheet.create({
     // START Shared Styles
     sharedInputWrapper: {
@@ -80,18 +92,16 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'red',
       borderStyle: 'dotted',
     },
-
     centeredView: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-
     centeredContainer: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: materialColorScheme.surface,
+      backgroundColor: colors.surface,
     },
     // END Shared Styles
 
@@ -101,25 +111,21 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'red',
       // borderWidth: 1,
     },
-
     loadcatScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
       // borderWidth: 1,
     },
-
     loaditemsScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
       // borderWidth: 1,
     },
-
     loginScreenAnimatedView: {
       width: 330,
       borderColor: 'red',
       // borderWidth: 1,
     },
-
     authSubtextContainer: {
       // marginTop: 30,
       gap: 10,
@@ -127,7 +133,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'purple',
       // borderWidth: 1,
     },
-
     authSubtextWrapper: {
       margin: 15,
       minHeight: 40,
@@ -137,12 +142,37 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'orange',
       // borderWidth: 3,
     },
-
     customChipContentContainer: {
       paddingInlineStart: 10,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
+    },
+    discoveryTermTextInput: {
+      backgroundColor: colors.secondaryContainer,
+      color: colors.onSecondaryContainer,
+      height: 54,
+      padding: 12,
+      borderColor: colors.outline,
+      borderWidth: 1.5,
+      borderRadius: 4,
+      marginInline: 12,
+    },
+    definitionTextInput: {
+      backgroundColor: colors.secondaryContainer,
+      color: colors.onSecondaryContainer,
+      height: 64,
+      padding: 12,
+      borderColor: colors.outline,
+      borderWidth: 1.5,
+      borderRadius: 4,
+      marginInline: 12,
+    },
+    loadItemButtonsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap: 12,
     },
     // END PreGameConfig Styles
 
@@ -161,11 +191,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
     // START Carousel Styles
     carouselActiveDot: {
-      backgroundColor: materialColorScheme.secondaryContainer,
+      backgroundColor: colors.secondaryContainer,
       borderWidth: 1,
-      borderColor: materialColorScheme.primary,
+      borderColor: colors.primary,
     },
-
     carouselContainer: {
       width: 'auto',
       flex: 1,
@@ -173,55 +202,48 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       // borderWidth: 1,
       // borderColor: '#00ff00'
     },
-
     carouselDot: {
       height: 8,
       width: 8,
       borderRadius: 4,
-      backgroundColor: materialColorScheme.secondaryContainer,
+      backgroundColor: colors.secondaryContainer,
       marginHorizontal: 5,
     },
-
     carouselDotsContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 10,
     },
-
     carouselPage: {
       justifyContent: 'center',
       alignItems: 'center',
       // paddingHorizontal: 20,
       height: 'auto',
     },
-
     carouselParagraph: {
       // borderWidth: 1,
       // borderColor: 'magenta',
       // backgroundColor: 'darkmagenta',
-      color: materialColorScheme.onSurface,
+      color: colors.onSurface,
     },
     // END Carousel Styles
 
     text: {
-      color: materialColorScheme.onSurface,
+      color: colors.onSurface,
       fontFamily: 'Inter24pt-Black',
     },
-
     link: {
-      color: materialColorScheme.onSurface,
+      color: colors.onSurface,
       fontWeight: 'bold',
       fontSize: 26,
     },
-
     logo: {
       borderWidth: 0,
       borderColor: 'green',
       borderStyle: 'solid',
       position: 'relative',
     },
-
     clogo: {
       ...Platform.select({
         ios: {
@@ -246,7 +268,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderWidth: 1,
       borderStyle: 'solid',
     },
-
     menu: {
       ...Platform.select({
         ios: {
@@ -272,7 +293,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       flex: 1,
       borderWidth: 3,
       borderColor: 'red',
-      backgroundColor: themeVariant.colors.backdrop,
+      backgroundColor: colors.backdrop,
     },
     contentAndSnackbarContainer: {
       ...(Platform.OS === 'web' ?
@@ -281,7 +302,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-      : {
+        : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -305,7 +326,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       paddingLeft: '5%',
       paddingRight: '5%',
       height: '100%',
-      backgroundColor: themeVariant.colors.backdrop,
+      backgroundColor: colors.backdrop,
     },
     defaultMobileSnackbar: {
       borderWidth: 3,
@@ -325,6 +346,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     },
     // END Modal and Snackbar Styles
 
+    // START Timer Styles
     timer: {
       ...Platform.select({
         ios: {
@@ -342,21 +364,27 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       alignItems: 'center',
       borderRadius: 6,
       padding: 20,
-      color: materialColorScheme.onSecondaryContainer,
-      backgroundColor: materialColorScheme.secondaryContainer,
+      color: colors.onSecondaryContainer,
+      backgroundColor: colors.secondaryContainer,
       borderWidth: 0,
       borderStyle: 'solid',
     },
+    // END Timer Styles
+
   });
 
   return {
-    ...themeVariant,
+    ...RNPColors,
     shared: {
       inputWrapper: customProperties.sharedInputWrapper,
       centeredView: customProperties.centeredView,
       centeredContainer: customProperties.centeredContainer,
     },
     preGameConfig: {
+      layout: {
+        customChipContentContainer:
+        customProperties.customChipContentContainer,
+      },
       authScreens: {
         signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
         loginScreenAnimatedView: customProperties.loginScreenAnimatedView,
@@ -366,11 +394,20 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         },
       },
       customMaterialScreens: {
-        loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
-        loaditemsScreenAnimatedView:
+        loadcat: {
+          loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
+        },
+        loaditems: {
+          loaditemsScreenAnimatedView:
           customProperties.loaditemsScreenAnimatedView,
-        customChipContentContainer:
-          customProperties.customChipContentContainer,
+          discoveryTermTextInput: 
+          customProperties.discoveryTermTextInput,
+          definitionTextInput:
+          customProperties.definitionTextInput,
+          loadItemButtonsContainer:
+          customProperties.loadItemButtonsContainer,
+
+        },
       },
     },
     majorHUD: {
@@ -397,7 +434,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
-        customProperties.defaultMobileSnackbarWrapper,
+      customProperties.defaultMobileSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       overModalSnackbar: customProperties.overModalSnackbar,
@@ -406,32 +443,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
     roundness: 0.8,
-    colors:
-    isDarkTheme ?
-      {
-        ...themeVariant.colors,
-        ...materialColorScheme,
-        /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
-
-        // ...CustomDarkColorScheme.colors,
-
-        /* Custom Color Properties
-         * must exist and have same name in both DarkTheme and
-         * LightTheme objects for typescript */
-        customColorProperty: '#ff00ff',
-      }
-      : {
-        ...themeVariant.colors,
-        ...materialColorScheme,
-        /* Color Scheme Overrides: https://oss.callstack.com/react-native-paper/docs/guides/theming#creating-dynamic-theme-colors */
-
-        // ...CustomLightColorScheme.colors,
-
-        /* Custom Color Properties
-         * must exist and have same name in both DarkTheme and
-         * LightTheme objects for typescript */
-        customColorProperty: '#ff00ff',
-      },
+    colors: {...colors},
   };
 };
 

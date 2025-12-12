@@ -8,9 +8,17 @@ import { Button } from 'react-native-paper';
 export function LoadItem() {
   // Retrieve Custom Theme-properties
   const {
-    colors,
-    colors: { outline, onSecondaryContainer },
+    colors: { onSecondaryContainer },
     shared: { inputWrapper: sharedInputWrapper },
+    preGameConfig: {
+      customMaterialScreens: {
+        loaditems: {
+          definitionTextInput,
+          discoveryTermTextInput,
+          loadItemButtonsContainer,
+        },
+      },
+    },
   } = useAppTheme();
 
   const { hideBottomSheet } = useBottomSheetCustom();
@@ -19,40 +27,20 @@ export function LoadItem() {
     <View style={sharedInputWrapper}>
       <BottomSheetTextInput
         placeholderTextColor={onSecondaryContainer}
-        style={{
-          backgroundColor: colors.secondaryContainer,
-          color: onSecondaryContainer,
-          height: 54,
-          padding: 12,
-          borderColor: outline,
-          borderWidth: 1.5,
-          borderRadius: 4,
-          marginInline: 12,
-        }}
+        style={discoveryTermTextInput}
         placeholder='Word, e.g., Platypus'
+        testID='Discovery Term Text Input'
       />
       <BottomSheetTextInput
         multiline={true}
         placeholderTextColor={onSecondaryContainer}
-        style={{
-          backgroundColor: colors.secondaryContainer,
-          color: onSecondaryContainer,
-          height: 64,
-          padding: 12,
-          borderColor: outline,
-          borderWidth: 1.5,
-          borderRadius: 4,
-          marginInline: 12,
-        }}
+        style={definitionTextInput}
         placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.'
+        testID='Definition Text Input'
       />
       <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          gap: 12,
-        }}
+        style={loadItemButtonsContainer}
+        testID='Load Item Buttons Container'
       >
         <Button
           onPress={() => {
@@ -61,10 +49,15 @@ export function LoadItem() {
           }}
           mode='contained'
           icon='check'
+          testID='Load Item Done Button'
         >
           Done
         </Button>
-        <Button mode='contained' icon='chevron-right'>
+        <Button
+          mode='contained'
+          icon='chevron-right'
+          testID='Load Item Add More Button'
+        >
           Add More
         </Button>
       </View>
