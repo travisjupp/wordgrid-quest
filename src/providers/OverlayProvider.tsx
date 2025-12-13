@@ -23,6 +23,7 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import * as DialogTypes from '@custom-types/DialogTypes';
 import { Text } from '@components/Text';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import throttle from 'lodash.throttle';
 
 const BOTTOM_SHEET_MAX_WIDTH = 500;
 
@@ -104,9 +105,9 @@ export function OverlayProvider({ children }: Props) {
     setBottomSheetVisible(false);
   };
 
-  const snapBottomSheet: SnapBottomSheet = (position, animationConfigs) => {
+  const snapBottomSheet: SnapBottomSheet = throttle((position, animationConfigs) => {
     bottomSheetRef.current?.snapToPosition(position, animationConfigs);
-  };
+  }, 100);
 
   const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
 

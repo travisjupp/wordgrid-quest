@@ -3,7 +3,7 @@ import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
 import { View } from 'react-native';
 import { KeyboardController } from 'react-native-keyboard-controller';
-import { Button } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 
 export function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -25,19 +25,37 @@ export function LoadItem() {
 
   return (
     <View style={sharedInputWrapper}>
-      <BottomSheetTextInput
-        placeholderTextColor={onSecondaryContainer}
-        style={discoveryTermTextInput}
-        placeholder='Word, e.g., Platypus'
-        testID='Discovery Term Text Input'
+      <TextInput
+        mode='outlined'
+        style={{
+          marginInline: 12,
+        }}
+        // style={discoveryTermTextInput}
+        label='Discovery Term'
       />
-      <BottomSheetTextInput
+      {/* <BottomSheetTextInput */}
+      {/*   placeholderTextColor={onSecondaryContainer} */}
+      {/*   style={discoveryTermTextInput} */}
+      {/*   placeholder='Word, e.g., Platypus' */}
+      {/*   testID='Discovery Term Text Input' */}
+      {/* /> */}
+      <TextInput
+        mode='outlined'
         multiline={true}
-        placeholderTextColor={onSecondaryContainer}
-        style={definitionTextInput}
-        placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.'
-        testID='Definition Text Input'
+        style={{
+          marginInline: 12,
+          height: 80,
+        }}
+        // style={discoveryTermTextInput}
+        label='Definition'
       />
+      {/* <BottomSheetTextInput */}
+      {/*   multiline={true} */}
+      {/*   placeholderTextColor={onSecondaryContainer} */}
+      {/*   style={definitionTextInput} */}
+      {/*   placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.' */}
+      {/*   testID='Definition Text Input' */}
+      {/* /> */}
       <View
         style={loadItemButtonsContainer}
         testID='Load Item Buttons Container'

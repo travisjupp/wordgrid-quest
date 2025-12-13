@@ -29,17 +29,14 @@ export default function PreGameConfigLayout() {
   const { snapBottomSheet, expandedBottomSheet } = useBottomSheetCustom();
   const { height: screenHeight } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-
+  
   const handleBottomSheetLayout = (id: string, event: LayoutChangeEvent) => {
-    const bottomPadding = Platform.OS === 'android' ? insets.bottom : 0;
     if (Platform.OS !== 'web' && expandedBottomSheet) {
-      event.currentTarget.measureInWindow((x, y, width, height) => {
-        const obfuscation = 145;
-        let snapHeight = screenHeight - y - height - bottomPadding;
-        snapHeight -= insets.bottom; // BottomSheet is detached with a bottomInset?
-        snapHeight += obfuscation;
-        snapBottomSheet(snapHeight);
-      });
+      const { height, y } = event.nativeEvent.layout;
+      const obfuscation = 145;
+      let snapHeight = screenHeight - y - height - insets.bottom - insets.top;
+      snapHeight += obfuscation;
+      snapBottomSheet(snapHeight);
     }
   };
 
