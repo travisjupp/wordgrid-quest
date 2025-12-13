@@ -53,6 +53,7 @@ export function LoadMaterialCategory() {
           autoCapitalize='words'
           autoCorrect={true}
           autoComplete={Platform.OS === 'ios' ? 'off' : 'off'}
+          maxLength={25}
           textContentType='none' // iOS only (dont use with autoComplete)
           value={category}
           onChangeText={category => setCategory(category)}
