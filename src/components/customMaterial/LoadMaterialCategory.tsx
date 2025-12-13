@@ -62,7 +62,7 @@ export function LoadMaterialCategory() {
           aria-label='Your material category'
           testID='EmailInput'
           returnKeyType='next'
-          // onSubmitEditing={() => passwordFieldRef.current?.focus()}
+          onSubmitEditing={handleSetCategory}
           onFocus={() => {
             // handleScaleLogo(50);
           }}
