@@ -4,7 +4,6 @@ import { useAppTheme } from '@theme/themeConfig';
 import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
-import { Surface } from 'react-native-paper';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -45,16 +44,6 @@ export default function PreGameConfigLayout() {
       style={{ flex: 1, backgroundColor: background }}
       testID='PreGame Config SafeAreaView'
     >
-      <Surface
-        mode='flat'
-        style={{
-          backgroundColor: background,
-          flex: 1,
-          borderColor: 'red',
-          borderWidth: 1,
-        }}
-        testID='PreGame Config Surface'
-      >
         <ThemeAwareScreenOptions header={false} />
         <KeyboardAvoidingView
           behavior='height'
@@ -100,7 +89,6 @@ export default function PreGameConfigLayout() {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
-      </Surface>
     </SafeAreaView>
   );
 }
