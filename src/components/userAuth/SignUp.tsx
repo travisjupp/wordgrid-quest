@@ -34,10 +34,7 @@ export function SignUp() {
   const passwordFieldRef = useRef<RNTextInput | null>(null);
 
   return (
-    <View
-      style={sharedInputWrapper}
-      testID='InputWrapper'
-    >
+    <View style={sharedInputWrapper} testID='InputWrapper'>
       <TextInput
         label='Email'
         id='EmailInput'

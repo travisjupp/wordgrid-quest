@@ -8,7 +8,9 @@ import { Button } from 'react-native-paper';
 
 export default function ProfileScreen() {
   // Retrieve Custom Properties
-  const { shared: { centeredContainer } } = useAppTheme();
+  const {
+    shared: { centeredContainer },
+  } = useAppTheme();
   const { itemId } = useLocalSearchParams();
 
   return (

@@ -1,5 +1,9 @@
 import 'react-native-gesture-handler';
-import 'react-native-reanimated';
+import {
+  Easing,
+  WithSpringConfig,
+  WithTimingConfig,
+} from 'react-native-reanimated';
 import { View, Button as RNButton } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { useAppTheme } from '@theme/themeConfig';
@@ -16,11 +20,6 @@ import {
   useBottomSheet,
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
-import {
-  Easing,
-  WithSpringConfig,
-  WithTimingConfig,
-} from 'react-native-reanimated';
 import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
@@ -31,7 +30,9 @@ export default function HomeScreen() {
   const { showBottomSheet, hideBottomSheet } = useBottomSheetCustom();
 
   // Retrieve Custom Theme-properties
-  const { shared: {centeredContainer} } = useAppTheme();
+  const {
+    shared: { centeredContainer },
+  } = useAppTheme();
   const BottomSheetContent = () => {
     const { close } = useBottomSheet(); // Using Gorhoms hook
     const customSpringConfig: WithSpringConfig = {

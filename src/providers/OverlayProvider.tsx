@@ -25,10 +25,15 @@ import { Text } from '@components/Text';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import throttle from 'lodash.throttle';
 
-const BOTTOM_SHEET_MAX_WIDTH = 500;
-
 import { useTheme } from '@hooks/useTheme';
-import { HideBottomSheet, ShowBottomSheet, SnapBottomSheet, ExpandedBottomSheet } from '@custom-types/BottomSheetTypes';
+import {
+  HideBottomSheet,
+  ShowBottomSheet,
+  SnapBottomSheet,
+  ExpandedBottomSheet,
+} from '@custom-types/BottomSheetTypes';
+
+const BOTTOM_SHEET_MAX_WIDTH = 500;
 
 interface Props {
   children: React.ReactNode;
@@ -85,7 +90,7 @@ export function OverlayProvider({ children }: Props) {
   // BottomSheet Logic
   const { width: screenWidth } = useWindowDimensions();
   /* -- Centering Equation (start_pos = (total_space - item_size)/2) --
-   * E.g., Calc a 500px wide BS from 1024px wide Screen: 
+   * E.g., Calc a 500px wide BS from 1024px wide Screen:
    * (1024-500)/2 gives us 262 margin on either side,
    * 262*2 = (524) - 1024 gives us our 500 wide bottomsheet */
   const marginInline =
@@ -104,9 +109,12 @@ export function OverlayProvider({ children }: Props) {
     setBottomSheetVisible(false);
   };
 
-  const snapBottomSheet: SnapBottomSheet = throttle((position, animationConfigs) => {
-    bottomSheetRef.current?.snapToPosition(position, animationConfigs);
-  }, 100);
+  const snapBottomSheet: SnapBottomSheet = throttle(
+    (position, animationConfigs) => {
+      bottomSheetRef.current?.snapToPosition(position, animationConfigs);
+    },
+    100,
+  );
 
   const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
 
@@ -216,7 +224,14 @@ export function OverlayProvider({ children }: Props) {
     <ModalContext value={{ showModal, hideModal }}>
       <SnackbarContext value={{ showSnackbar, hideSnackbar }}>
         <DialogContext value={{ showDialog, hideDialog }}>
-          <BottomSheetContext value={{ showBottomSheet, hideBottomSheet, snapBottomSheet, expandedBottomSheet }}>
+          <BottomSheetContext
+            value={{
+              showBottomSheet,
+              hideBottomSheet,
+              snapBottomSheet,
+              expandedBottomSheet,
+            }}
+          >
             {children}
             {
               <BottomSheet
@@ -256,15 +271,16 @@ export function OverlayProvider({ children }: Props) {
                 keyboardBehavior='interactive' // Follow KB 'interactive'
                 keyboardBlurBehavior='restore' // Follow KB 'restore'
                 enableBlurKeyboardOnGesture={true}
-                
                 /* Callbacks */
-                onChange={(idx) => { /* Get snapPoint idx on change */
-                  console.log('BottomSheet pos chngd, i:', idx)
+                onChange={idx => {
+                  /* Get snapPoint idx on change */
+                  console.log('BottomSheet pos chngd, i:', idx);
                 }}
                 onAnimate={(fromIdx, toIdx, fromPos, toPos) => {
                   console.log(`About to animate:
                                IDX: From ${fromIdx} To ${toIdx}
-                               POS: From ${fromPos} To ${toPos}`)}}
+                               POS: From ${fromPos} To ${toPos}`);
+                }}
               >
                 <BottomSheetView
                   focusable={true}
@@ -280,7 +296,7 @@ export function OverlayProvider({ children }: Props) {
             }
             {dialogState.visible && !modalVisible ?
               <RNPDialog {...RNPDialogProps} />
-              : null}
+            : null}
             {modalVisible ?
               /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
                * (SNACKBARS OVERLAY MODALS) */
@@ -312,7 +328,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 </RNModal>
               </Portal>
-              : null}
+            : null}
             {!modalVisible && snackbarState.visible ?
               /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
                * (SNACKBARS DEFAULT) */
@@ -336,7 +352,7 @@ export function OverlayProvider({ children }: Props) {
                   >
                     {snackbarState.message}
                   </RNPSnackbar>
-                  : <KeyboardAvoidingView behavior='padding'>
+                : <KeyboardAvoidingView behavior='padding'>
                     <RNPSnackbar /* MOBILE */
                       {...RNPSnackbarProps}
                       icon={
@@ -358,7 +374,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 }
               </>
-              : null}
+            : null}
           </BottomSheetContext>
         </DialogContext>
       </SnackbarContext>

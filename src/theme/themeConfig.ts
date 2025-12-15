@@ -66,19 +66,21 @@ const fontConfig = {
 export const themeBuilder = (isDarkTheme: boolean) => {
   const RNPColors = isDarkTheme ? MD3DarkTheme : DefaultTheme;
   const figmaColors =
-    isDarkTheme ? figmaMaterialThemeBuilderExport.schemes.dark : figmaMaterialThemeBuilderExport.schemes.light;
-  const RNPCustomColors = 
+    isDarkTheme ?
+      figmaMaterialThemeBuilderExport.schemes.dark
+    : figmaMaterialThemeBuilderExport.schemes.light;
+  const RNPCustomColors =
     isDarkTheme ? CustomDarkColorScheme.colors : CustomLightColorScheme.colors;
   const colors = {
     /* Merge multiple MD3 color sources */
     ...RNPColors.colors,
     ...figmaColors,
-    /* Custom Color Scheme Overrides: 
+    /* Custom Color Scheme Overrides:
      * https://oss.callstack.com/react-native-paper/docs/guides/theming */
     // ...RNPCustomColors,
     /* Custom Color Properties */
     customColorProperty: '#ff00ff',
-  }
+  };
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
 
@@ -302,7 +304,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-        : {
+      : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -370,7 +372,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderStyle: 'solid',
     },
     // END Timer Styles
-
   });
 
   return {
@@ -382,8 +383,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     },
     preGameConfig: {
       layout: {
-        customChipContentContainer:
-        customProperties.customChipContentContainer,
+        customChipContentContainer: customProperties.customChipContentContainer,
       },
       authScreens: {
         signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
@@ -399,14 +399,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         },
         loaditems: {
           loaditemsScreenAnimatedView:
-          customProperties.loaditemsScreenAnimatedView,
-          discoveryTermTextInput: 
-          customProperties.discoveryTermTextInput,
-          definitionTextInput:
-          customProperties.definitionTextInput,
-          loadItemButtonsContainer:
-          customProperties.loadItemButtonsContainer,
-
+            customProperties.loaditemsScreenAnimatedView,
+          discoveryTermTextInput: customProperties.discoveryTermTextInput,
+          definitionTextInput: customProperties.definitionTextInput,
+          loadItemButtonsContainer: customProperties.loadItemButtonsContainer,
         },
       },
     },
@@ -434,7 +430,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       contentWrapper: customProperties.contentWrapper,
       defaultMobileSnackbar: customProperties.defaultMobileSnackbar,
       defaultMobileSnackbarWrapper:
-      customProperties.defaultMobileSnackbarWrapper,
+        customProperties.defaultMobileSnackbarWrapper,
       defaultWebSnackbar: customProperties.defaultWebSnackbar,
       defaultWebSnackbarWrapper: customProperties.defaultWebSnackbarWrapper,
       overModalSnackbar: customProperties.overModalSnackbar,
@@ -443,7 +439,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     timer: customProperties.timer,
     fonts: configureFonts({ config: fontConfig }),
     roundness: 0.8,
-    colors: {...colors},
+    colors: { ...colors },
   };
 };
 

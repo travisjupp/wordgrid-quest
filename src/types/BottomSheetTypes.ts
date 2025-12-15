@@ -1,11 +1,11 @@
-import {
-  WithSpringConfig,
-  WithTimingConfig,
-} from 'react-native-reanimated';
+import { WithSpringConfig, WithTimingConfig } from 'react-native-reanimated';
 
 export type ShowBottomSheet = (content: React.ReactNode) => void;
 export type HideBottomSheet = () => void;
-export type SnapBottomSheet = (position: number | string, animationConfigs?: WithSpringConfig | WithTimingConfig) => void;
+export type SnapBottomSheet = (
+  position: number | string,
+  animationConfigs?: WithSpringConfig | WithTimingConfig,
+) => void;
 export type ExpandedBottomSheet = boolean;
 
 export interface BottomSheetContextType {
