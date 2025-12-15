@@ -4,6 +4,7 @@ import { useAppTheme } from '@theme/themeConfig';
 import { View } from 'react-native';
 import { KeyboardController } from 'react-native-keyboard-controller';
 import { Button, TextInput } from 'react-native-paper';
+import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
 export function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -13,8 +14,6 @@ export function LoadItem() {
     preGameConfig: {
       customMaterialScreens: {
         loaditems: {
-          definitionTextInput,
-          discoveryTermTextInput,
           loadItemButtonsContainer,
         },
       },
@@ -30,15 +29,13 @@ export function LoadItem() {
         style={{
           marginInline: 12,
         }}
-        // style={discoveryTermTextInput}
+        placeholder='Word, e.g., Platypus'
+        placeholderTextColor={onSecondaryContainer}
         label='Discovery Term'
+        render={(props: RenderProps) => <BottomSheetTextInput {...props} />}
+        testID='Discovery Term Text Input'
       />
-      {/* <BottomSheetTextInput */}
-      {/*   placeholderTextColor={onSecondaryContainer} */}
-      {/*   style={discoveryTermTextInput} */}
-      {/*   placeholder='Word, e.g., Platypus' */}
-      {/*   testID='Discovery Term Text Input' */}
-      {/* /> */}
+
       <TextInput
         mode='outlined'
         multiline={true}
@@ -46,16 +43,13 @@ export function LoadItem() {
           marginInline: 12,
           height: 80,
         }}
-        // style={discoveryTermTextInput}
+        placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.'
+        placeholderTextColor={onSecondaryContainer}
         label='Definition'
+        render={(props: RenderProps) => <BottomSheetTextInput {...props} />}
+        testID='Definition Text Input'
       />
-      {/* <BottomSheetTextInput */}
-      {/*   multiline={true} */}
-      {/*   placeholderTextColor={onSecondaryContainer} */}
-      {/*   style={definitionTextInput} */}
-      {/*   placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.' */}
-      {/*   testID='Definition Text Input' */}
-      {/* /> */}
+
       <View
         style={loadItemButtonsContainer}
         testID='Load Item Buttons Container'

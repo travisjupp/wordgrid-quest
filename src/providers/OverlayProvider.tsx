@@ -28,7 +28,6 @@ import throttle from 'lodash.throttle';
 const BOTTOM_SHEET_MAX_WIDTH = 500;
 
 import { useTheme } from '@hooks/useTheme';
-import Animated from 'react-native-reanimated';
 import { HideBottomSheet, ShowBottomSheet, SnapBottomSheet, ExpandedBottomSheet } from '@custom-types/BottomSheetTypes';
 
 interface Props {
@@ -221,9 +220,8 @@ export function OverlayProvider({ children }: Props) {
             {children}
             {
               <BottomSheet
-                enablePanDownToClose={true}
+                // enablePanDownToClose={true}
                 detached={true}
-                bottomInset={insets.bottom}
                 ref={bottomSheetRef}
                 backgroundStyle={{
                   backgroundColor: theme?.colors.surfaceContainer,
@@ -232,16 +230,41 @@ export function OverlayProvider({ children }: Props) {
                   backgroundColor: theme?.colors.outline,
                 }}
                 index={-1} /* Hide initial load */
-                snapPoints={snapPoints}
-                enableDynamicSizing={false}
-                keyboardBlurBehavior='restore'
-                containerStyle={{}}
+                // snapPoints={snapPoints} // Can only remove if Dynamic Sizing enabled
+                enableDynamicSizing={true} // If false, provide snapPoints
+                // containerStyle={{}}
                 style={{
                   marginInline,
-                  flex: 1,
+                  // flex: 1,
                   borderWidth: 1,
                   borderColor: 'red',
                 }}
+                /* Layout Config */
+                // handleHeight={24} // Not a prop type
+                // containerHeight={0} // Use containerLayoutState instead
+                // containerLayoutState={undefined}
+                // contentHeight={30} // Not a prop type
+                // containerOffset={undefined} // Deprecated
+                // topInset={0}
+                bottomInset={Platform.select({
+                  ios: insets.bottom,
+                  android: 10,
+                })}
+                // maxDynamicContentSize={206}
+
+                /* Keyboard Config */
+                keyboardBehavior='interactive' // Follow KB 'interactive'
+                keyboardBlurBehavior='restore' // Follow KB 'restore'
+                enableBlurKeyboardOnGesture={true}
+                
+                /* Callbacks */
+                onChange={(idx) => { /* Get snapPoint idx on change */
+                  console.log('BottomSheet pos chngd, i:', idx)
+                }}
+                onAnimate={(fromIdx, toIdx, fromPos, toPos) => {
+                  console.log(`About to animate:
+                               IDX: From ${fromIdx} To ${toIdx}
+                               POS: From ${fromPos} To ${toPos}`)}}
               >
                 <BottomSheetView
                   focusable={true}
@@ -249,28 +272,15 @@ export function OverlayProvider({ children }: Props) {
                     borderColor: 'green',
                     borderWidth: 1,
                   }}
+                  testID='BottomSheetView'
                 >
                   {bottomSheetContent}
-                  {/* <BottomSheetTextInput */}
-                  {/*   value='Input Text' */}
-                  {/*   style={{ */}
-                  {/*     alignSelf: 'stretch', */}
-                  {/*     padding: 8, */}
-                  {/*     marginInline: 10, */}
-                  {/*     borderRadius: 4, */}
-                  {/*     color: theme?.colors.onSecondaryContainer, */}
-                  {/*     borderWidth: .5, */}
-                  {/*     borderColor: theme?.colors.onSecondaryContainer, */}
-                  {/*     textAlign: 'center', */}
-                  {/*     backgroundColor: theme?.colors.secondaryContainer, */}
-                  {/*   }} */}
-                  {/* /> */}
                 </BottomSheetView>
               </BottomSheet>
             }
             {dialogState.visible && !modalVisible ?
               <RNPDialog {...RNPDialogProps} />
-            : null}
+              : null}
             {modalVisible ?
               /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
                * (SNACKBARS OVERLAY MODALS) */
@@ -302,7 +312,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 </RNModal>
               </Portal>
-            : null}
+              : null}
             {!modalVisible && snackbarState.visible ?
               /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
                * (SNACKBARS DEFAULT) */
@@ -326,7 +336,7 @@ export function OverlayProvider({ children }: Props) {
                   >
                     {snackbarState.message}
                   </RNPSnackbar>
-                : <KeyboardAvoidingView behavior='padding'>
+                  : <KeyboardAvoidingView behavior='padding'>
                     <RNPSnackbar /* MOBILE */
                       {...RNPSnackbarProps}
                       icon={
@@ -348,7 +358,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 }
               </>
-            : null}
+              : null}
           </BottomSheetContext>
         </DialogContext>
       </SnackbarContext>

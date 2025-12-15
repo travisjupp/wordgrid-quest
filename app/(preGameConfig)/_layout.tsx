@@ -72,7 +72,7 @@ export default function PreGameConfigLayout() {
           >
             <View
               // Get the distance from UACC to top of Viewport (UACS)
-              onLayout={event => handleBottomSheetLayout('UACC', event)}
+              // onLayout={event => handleBottomSheetLayout('UACC', event)}
               style={{
                 alignItems: 'center',
                 borderColor: 'green',
