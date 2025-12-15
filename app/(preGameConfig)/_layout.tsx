@@ -28,7 +28,7 @@ export default function PreGameConfigLayout() {
   const { snapBottomSheet, expandedBottomSheet } = useBottomSheetCustom();
   const { height: screenHeight } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  
+
   const handleBottomSheetLayout = (id: string, event: LayoutChangeEvent) => {
     if (Platform.OS !== 'web' && expandedBottomSheet) {
       const { height, y } = event.nativeEvent.layout;
@@ -44,51 +44,51 @@ export default function PreGameConfigLayout() {
       style={{ flex: 1, backgroundColor: background }}
       testID='PreGame Config SafeAreaView'
     >
-        <ThemeAwareScreenOptions header={false} />
-        <KeyboardAvoidingView
-          behavior='height'
-          style={[
-            centeredContainer,
-            {
-              // marginTop: insets.top,
-              borderColor: 'orange',
-              borderStyle: 'dashed',
-              borderWidth: 2,
-            },
-          ]}
-          testID='PreGame Config KBAV'
+      <ThemeAwareScreenOptions header={false} />
+      <KeyboardAvoidingView
+        behavior='height'
+        style={[
+          centeredContainer,
+          {
+            // marginTop: insets.top,
+            borderColor: 'orange',
+            borderStyle: 'dashed',
+            borderWidth: 2,
+          },
+        ]}
+        testID='PreGame Config KBAV'
+      >
+        <ScrollView
+          // onLayout={(event) => handleLayout('UACS', event)}
+          keyboardShouldPersistTaps='always'
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'center',
+            borderColor: 'blue',
+            borderStyle: 'dotted',
+            borderWidth: 2,
+          }}
+          testID='PreGame Config ScrollView'
         >
-          <ScrollView
-            // onLayout={(event) => handleLayout('UACS', event)}
-            keyboardShouldPersistTaps='always'
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'center',
-              borderColor: 'blue',
-              borderStyle: 'dotted',
-              borderWidth: 2,
+          <View
+            // Get the distance from UACC to top of Viewport (UACS)
+            // onLayout={event => handleBottomSheetLayout('UACC', event)}
+            style={{
+              alignItems: 'center',
+              borderColor: 'green',
+              borderStyle: 'dashed',
+              borderWidth: 4,
+              gap: 20,
             }}
-            testID='PreGame Config ScrollView'
+            testID='PreGame Config Content Container'
           >
-            <View
-              // Get the distance from UACC to top of Viewport (UACS)
-              // onLayout={event => handleBottomSheetLayout('UACC', event)}
-              style={{
-                alignItems: 'center',
-                borderColor: 'green',
-                borderStyle: 'dashed',
-                borderWidth: 4,
-                gap: 20,
-              }}
-              testID='PreGame Config Content Container'
-            >
-              <PageHeading />
-              <Logo gradient={true} />
-              <GuidanceText />
-              <Slot />
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+            <PageHeading />
+            <Logo gradient={true} />
+            <GuidanceText />
+            <Slot />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
