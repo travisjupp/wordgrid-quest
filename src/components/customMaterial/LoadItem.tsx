@@ -1,7 +1,8 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
-import { View } from 'react-native';
+import { ComponentProps, useRef } from 'react';
+import { Platform, View, TextInput as RNTextInput } from 'react-native';
 import { KeyboardController } from 'react-native-keyboard-controller';
 import { Button, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
@@ -9,47 +10,54 @@ import { RenderProps } from 'react-native-paper/lib/typescript/components/TextIn
 export function LoadItem() {
   // Retrieve Custom Theme-properties
   const {
-    colors: { onSecondaryContainer },
     shared: { inputWrapper: sharedInputWrapper },
     preGameConfig: {
       customMaterialScreens: {
-        loaditems: {
-          loadItemButtonsContainer,
-        },
+        loaditems: { loadItemButtonsContainer },
       },
     },
   } = useAppTheme();
 
   const { hideBottomSheet } = useBottomSheetCustom();
 
+  type RNPTextInputProps = ComponentProps<typeof TextInput>;
+
+  const TextInputProps: RNPTextInputProps = {
+    mode: 'outlined',
+  };
+
+  function bottomSheetKBBehavior(props: RenderProps) {
+    return <BottomSheetTextInput {...props} />;
+  }
+
+  if (Platform.OS !== 'web') {
+    /* Keep Gorhoms BS Keyboard Behavior on mobile */
+    TextInputProps.render = bottomSheetKBBehavior;
+  }
+
+  const definitionTextInputRef = useRef<RNTextInput | null>(null);
+
   return (
-    <View style={sharedInputWrapper}>
+    <View style={[sharedInputWrapper, { paddingInline: 12 }]}>
       <TextInput
-        mode='outlined'
-        style={{
-          marginInline: 12,
-        }}
-        placeholder='Word, e.g., Platypus'
-        placeholderTextColor={onSecondaryContainer}
+        {...TextInputProps}
+        placeholder='Discovery Term, e.g., Platypus'
         label='Discovery Term'
-        render={(props: RenderProps) => <BottomSheetTextInput {...props} />}
+        returnKeyType='next'
+        onSubmitEditing={() => definitionTextInputRef.current?.focus()}
+        aria-label='Your Discovery Term'
         testID='Discovery Term Text Input'
       />
-
       <TextInput
-        mode='outlined'
-        multiline={true}
-        style={{
-          marginInline: 12,
-          height: 80,
-        }}
-        placeholder='Definition, e.g., Semiaquatic, egg-laying mammal endemic to eastern Australia.'
-        placeholderTextColor={onSecondaryContainer}
+        ref={definitionTextInputRef}
+        {...TextInputProps}
+        placeholder='Definition, e.g., Semiaquatic, egg-laying mammal...'
         label='Definition'
-        render={(props: RenderProps) => <BottomSheetTextInput {...props} />}
+        returnKeyType='next'
+        multiline={true}
+        aria-label='Your Definition Text'
         testID='Definition Text Input'
       />
-
       <View
         style={loadItemButtonsContainer}
         testID='Load Item Buttons Container'
