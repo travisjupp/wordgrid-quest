@@ -45,6 +45,7 @@ export function LoadItem() {
         label='Discovery Term'
         returnKeyType='next'
         onSubmitEditing={() => definitionTextInputRef.current?.focus()}
+        submitBehavior='submit'
         aria-label='Your Discovery Term'
         testID='Discovery Term Text Input'
       />
@@ -53,8 +54,9 @@ export function LoadItem() {
         {...TextInputProps}
         placeholder='Definition, e.g., Semiaquatic, egg-laying mammal...'
         label='Definition'
-        returnKeyType='next'
+        returnKeyType='default'
         multiline={true}
+        submitBehavior='newline'
         aria-label='Your Definition Text'
         testID='Definition Text Input'
       />
