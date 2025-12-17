@@ -14,9 +14,11 @@ import {
   LayoutChangeEvent,
   useWindowDimensions,
   Platform,
+  Dimensions,
 } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
+import { useState } from 'react';
 
 export default function PreGameConfigLayout() {
   // Retrieve Custom Properties
@@ -39,6 +41,11 @@ export default function PreGameConfigLayout() {
     }
   };
 
+  const [isLandscape, setIsLandscape] = useState<boolean | null>(null);
+  Dimensions.addEventListener('change', ({window}) => {
+    setIsLandscape(window.width > window.height);
+  });
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: background }}
@@ -46,6 +53,7 @@ export default function PreGameConfigLayout() {
     >
       <ThemeAwareScreenOptions header={false} />
       <KeyboardAvoidingView
+        key={isLandscape ? 'KBAV-Landscape' : 'KBAV-Portrait'}
         behavior='height'
         style={[
           centeredContainer,
