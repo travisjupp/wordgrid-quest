@@ -43,6 +43,11 @@ export function LoadMaterialItems() {
         <Chip content={tempCategory} onPress={handleEditCategory} />
         <Button
           disabled={expandedBottomSheet ? true : false}
+          onPress={() => {
+            // Show and Snap BottomSheet to bottom of Chip
+            showBottomSheet(<LoadItem />);
+            // snapBottomSheet(300); // <-- this needs same height as onLayout height (context?)
+          }}
           contentStyle={{
             height: 50,
             justifyContent: 'center',
