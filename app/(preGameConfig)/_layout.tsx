@@ -59,7 +59,18 @@ export default function PreGameConfigLayout() {
         testID='PreGame Config KBAV'
       >
         <ScrollView
-          // onLayout={(event) => handleLayout('UACS', event)}
+          // onLayout={(event) => handleBottomSheetLayout('PConf ScrollView', event)}
+
+          //'never' (Default): The keyboard dismisses on any tap outside the
+          //focused input.
+
+          // 'always': The keyboard always stays open, allowing children to
+          // handle taps without closing it.
+
+          // 'handled': The keyboard stays open if a child component handles
+          // the tap; if the tap isn't handled by a child (e.g., tapping empty
+          // space), the ScrollView will dismiss the keyboard. 
+
           keyboardShouldPersistTaps='always'
           contentContainerStyle={{
             flexGrow: 1,
