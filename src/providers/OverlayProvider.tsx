@@ -295,6 +295,7 @@ export function OverlayProvider({ children }: Props) {
                 }}
               >
                 <BottomSheetView
+                  key='BottomSheet-View'
                   focusable={true}
                   style={{
                     borderColor: 'green',
