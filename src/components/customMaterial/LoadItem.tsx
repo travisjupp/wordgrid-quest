@@ -1,7 +1,7 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
-import { ComponentProps, useRef } from 'react';
+import { ComponentProps, useEffect, useRef } from 'react';
 import { Platform, View, TextInput as RNTextInput } from 'react-native';
 import { KeyboardController } from 'react-native-keyboard-controller';
 import { Button, TextInput } from 'react-native-paper';
@@ -35,11 +35,22 @@ export function LoadItem() {
     TextInputProps.render = bottomSheetKBBehavior;
   }
 
+  const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
   const definitionTextInputRef = useRef<RNTextInput | null>(null);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (discoveryTermTextInputRef.current) {
+        discoveryTermTextInputRef.current.focus();
+      }
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   return (
     <View style={[sharedInputWrapper, { paddingInline: 12 }]}>
       <TextInput
+        ref={discoveryTermTextInputRef}
         {...TextInputProps}
         placeholder='Discovery Term, e.g., Platypus'
         label='Discovery Term'
