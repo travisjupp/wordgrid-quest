@@ -2,8 +2,7 @@ import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
 import { ComponentProps, useEffect, useRef } from 'react';
-import { Platform, View, TextInput as RNTextInput } from 'react-native';
-import { KeyboardController } from 'react-native-keyboard-controller';
+import { Platform, View, TextInput as RNTextInput, Keyboard } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
