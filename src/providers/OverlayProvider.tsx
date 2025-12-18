@@ -248,7 +248,7 @@ export function OverlayProvider({ children }: Props) {
             {
               <BottomSheet
                 // enablePanDownToClose={true}
-                detached={true}
+                detached={false}
                 ref={bottomSheetRef}
                 backgroundStyle={{
                   backgroundColor: theme?.colors.surfaceContainer,

@@ -79,6 +79,7 @@ export function LoadItem() {
           onPress={() => {
             hideBottomSheet();
             KeyboardController.dismiss();
+            Keyboard.dismiss();
           }}
           mode='contained'
           icon='check'
