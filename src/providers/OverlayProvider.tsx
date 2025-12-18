@@ -31,9 +31,11 @@ import {
   ShowBottomSheet,
   SnapBottomSheet,
   ExpandedBottomSheet,
+  SetBottomSheetSnap,
 } from '@custom-types/BottomSheetTypes';
 
 const BOTTOM_SHEET_MAX_WIDTH = 500;
+const BOTTOM_SHEET_SNAP_POINT = 300;
 
 interface Props {
   children: React.ReactNode;
@@ -115,6 +117,16 @@ export function OverlayProvider({ children }: Props) {
     },
     100,
   );
+  const [snapPoint, setSnapPoint] = useState<string | number>(
+    BOTTOM_SHEET_SNAP_POINT,
+  );
+  const snapPoints = useMemo(() => [snapPoint], [snapPoint]);
+
+  const setBottomSheetSnap: SetBottomSheetSnap = (
+    snapPoint: string | number,
+  ) => {
+    setSnapPoint(snapPoint);
+  };
 
   const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
 
@@ -217,7 +229,6 @@ export function OverlayProvider({ children }: Props) {
     children: snackbarState.message,
   };
 
-  const snapPoints = useMemo(() => [315], [10]);
   const { theme } = useTheme();
 
   return (
@@ -230,6 +241,7 @@ export function OverlayProvider({ children }: Props) {
               hideBottomSheet,
               snapBottomSheet,
               expandedBottomSheet,
+              setBottomSheetSnap,
             }}
           >
             {children}

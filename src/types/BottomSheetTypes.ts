@@ -7,6 +7,7 @@ export type SnapBottomSheet = (
   animationConfigs?: WithSpringConfig | WithTimingConfig,
 ) => void;
 export type ExpandedBottomSheet = boolean;
+export type SetBottomSheetSnap = (snapPoint: string | number) => void;
 
 export interface BottomSheetContextType {
   /**
@@ -26,4 +27,8 @@ export interface BottomSheetContextType {
    * Check if BottomSheet is expanded
    */
   expandedBottomSheet: ExpandedBottomSheet;
+  /**
+   * Set BottomSheet snap point
+   */
+  setBottomSheetSnap: SetBottomSheetSnap;
 }
