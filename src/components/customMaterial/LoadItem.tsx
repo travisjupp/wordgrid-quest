@@ -78,7 +78,6 @@ export function LoadItem() {
         <Button
           onPress={() => {
             hideBottomSheet();
-            KeyboardController.dismiss();
             Keyboard.dismiss();
           }}
           mode='contained'
