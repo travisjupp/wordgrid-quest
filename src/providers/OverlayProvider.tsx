@@ -259,7 +259,12 @@ export function OverlayProvider({ children }: Props) {
                 index={-1} /* Hide initial load */
                 // snapPoints={snapPoints} // Can only remove if Dynamic Sizing enabled
                 enableDynamicSizing={true} // If false, provide snapPoints
-                // containerStyle={{}}
+                containerStyle={{
+                  marginBlockStart: insets.top,
+                  borderWidth: 4,
+                  borderColor: 'purple',
+                  borderStyle: 'dashed',
+                }}
                 style={{
                   marginInline,
                   // flex: 1,
