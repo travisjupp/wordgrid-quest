@@ -1,10 +1,14 @@
-import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import {
+  BottomSheetScrollView,
+  BottomSheetTextInput,
+} from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
-import { ComponentProps, useEffect, useRef } from 'react';
-import { Platform, View, TextInput as RNTextInput, Keyboard } from 'react-native';
+import React, { ComponentProps, useEffect, useRef, useState } from 'react';
+import { Platform, View, Keyboard, ScrollView } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import Item from '@components/customMaterial/Item';
 
 export function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -34,42 +38,53 @@ export function LoadItem() {
     TextInputProps.render = bottomSheetKBBehavior;
   }
 
-  const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
-  const definitionTextInputRef = useRef<RNTextInput | null>(null);
+  const [itemCount, setItemCount] = useState<number>(1);
+  const [items, setItems] = useState<React.ReactNode[]>([
+    <Item key='item-0' />,
+  ]);
+
+  const scrollViewRef = useRef<ScrollView | null>(null);
+
+  const handleAddItem = () => {
+    setItemCount(prev => prev + 1);
+    setItems([...items, <Item key={'item-' + itemCount.toString()} />]);
+  };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (discoveryTermTextInputRef.current) {
-        discoveryTermTextInputRef.current.focus();
-      }
-    }, 500);
-    return () => clearTimeout(timeoutId);
-  }, []);
+    scrollViewRef.current?.scrollToEnd();
+  }, [items]);
 
+  const { setBottomSheetSnap } = useBottomSheetCustom();
   return (
-    <View style={[sharedInputWrapper, { paddingInline: 12 }]}>
-      <TextInput
-        ref={discoveryTermTextInputRef}
-        {...TextInputProps}
-        placeholder='Discovery Term, e.g., Platypus'
-        label='Discovery Term'
-        returnKeyType='next'
-        onSubmitEditing={() => definitionTextInputRef.current?.focus()}
-        submitBehavior='submit'
-        aria-label='Your Discovery Term'
-        testID='Discovery Term Text Input'
-      />
-      <TextInput
-        ref={definitionTextInputRef}
-        {...TextInputProps}
-        placeholder='Definition, e.g., Semiaquatic, egg-laying mammal...'
-        label='Definition'
-        returnKeyType='default'
-        multiline={true}
-        submitBehavior='newline'
-        aria-label='Your Definition Text'
-        testID='Definition Text Input'
-      />
+    <View
+      onLayout={event => {
+        const { height } = event.nativeEvent.layout;
+        setBottomSheetSnap(height + 40);
+      }}
+      style={[
+        sharedInputWrapper,
+        {
+          flex: 1, // Must have bounded height
+          paddingInline: 12,
+          height: 'auto',
+        },
+      ]}
+      testID='LoadItem View'
+    >
+      <BottomSheetScrollView
+        nestedScrollEnabled={false}
+        keyboardShouldPersistTaps='always'
+        keyboardDismissMode='interactive'
+        ref={scrollViewRef}
+        style={{
+          flex: 1, // Must have bounded height
+          maxHeight: 150,
+          borderWidth: 1,
+          borderColor: 'slateblue',
+        }}
+      >
+        {items.map(item => item)}
+      </BottomSheetScrollView>
       <View
         style={loadItemButtonsContainer}
         testID='Load Item Buttons Container'
@@ -89,6 +104,7 @@ export function LoadItem() {
           mode='contained'
           icon='chevron-right'
           testID='Load Item Add More Button'
+          onPress={handleAddItem}
         >
           Add More
         </Button>

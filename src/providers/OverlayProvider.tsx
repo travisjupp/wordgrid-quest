@@ -121,6 +121,7 @@ export function OverlayProvider({ children }: Props) {
     BOTTOM_SHEET_SNAP_POINT,
   );
   const snapPoints = useMemo(() => [snapPoint], [snapPoint]);
+  console.log('SNAP POINTS', snapPoints);
 
   const setBottomSheetSnap: SetBottomSheetSnap = (
     snapPoint: string | number,
@@ -257,7 +258,7 @@ export function OverlayProvider({ children }: Props) {
                   backgroundColor: theme?.colors.outline,
                 }}
                 index={-1} /* Hide initial load */
-                // snapPoints={snapPoints} // Can only remove if Dynamic Sizing enabled
+                snapPoints={snapPoints} // Can only remove if Dynamic Sizing enabled
                 enableDynamicSizing={true} // If false, provide snapPoints
                 containerStyle={{
                   marginBlockStart: insets.top,
@@ -267,9 +268,9 @@ export function OverlayProvider({ children }: Props) {
                 }}
                 style={{
                   marginInline,
-                  // flex: 1,
-                  borderWidth: 1,
-                  borderColor: 'red',
+                  borderWidth: 4,
+                  borderColor: 'yellow',
+                  borderStyle: 'dashed',
                 }}
                 /* Layout Config */
                 // handleHeight={24} // Not a prop type
@@ -279,24 +280,23 @@ export function OverlayProvider({ children }: Props) {
                 // containerOffset={undefined} // Deprecated
                 // topInset={0}
                 bottomInset={Platform.select({
-                  ios: insets.bottom,
-                  android: 10,
+                  // ios: insets.bottom,
+                  // android: 10,
                 })}
-                // maxDynamicContentSize={206}
-
+                maxDynamicContentSize={250}
                 /* Keyboard Config */
                 keyboardBehavior='interactive' // Follow KB 'interactive'
                 keyboardBlurBehavior='restore' // Follow KB 'restore'
-                enableBlurKeyboardOnGesture={true}
+                enableBlurKeyboardOnGesture={false}
                 /* Callbacks */
                 onChange={idx => {
                   /* Get snapPoint idx on change */
                   console.log('BottomSheet pos chngd, i:', idx);
                 }}
                 onAnimate={(fromIdx, toIdx, fromPos, toPos) => {
-                  console.log(`About to animate:
-                               IDX: From ${fromIdx} To ${toIdx}
-                               POS: From ${fromPos} To ${toPos}`);
+                  // console.log(`About to animate:
+                  //              IDX: From ${fromIdx} To ${toIdx}
+                  //              POS: From ${fromPos} To ${toPos}`);
                 }}
               >
                 <BottomSheetView
