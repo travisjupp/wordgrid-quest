@@ -19,7 +19,6 @@ export default function CustomHeader(props: StackHeaderProps) {
         borderBottomWidth: 1,
         // borderBottomColor: theme?.colors.outlineVariant,
         borderBottomColor: theme?.colors.primary,
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

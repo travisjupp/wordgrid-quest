@@ -89,7 +89,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     sharedInputWrapper: {
       width: '100%',
       gap: 8,
-      display: 'flex',
       borderWidth: 3,
       borderColor: 'red',
       borderStyle: 'dotted',
@@ -171,7 +170,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       marginInline: 12,
     },
     loadItemButtonsContainer: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       gap: 12,
@@ -262,7 +260,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'blue',
         },
       }),
-      display: 'flex',
       flexDirection: 'row',
       flexWrap: 'nowrap',
       alignItems: 'center',
@@ -361,7 +358,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'blue',
         },
       }),
-      display: 'flex',
       flexWrap: 'nowrap',
       alignItems: 'center',
       borderRadius: 6,
