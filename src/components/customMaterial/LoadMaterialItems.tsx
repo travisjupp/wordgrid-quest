@@ -6,7 +6,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { resetTempMaterial } from '@features/tempMaterial/tempMaterialSlice';
+import { resetTempCategory } from '@features/tempMaterial/tempMaterialSlice';
 import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { LoadItem } from './LoadItem';
@@ -24,7 +24,7 @@ export function LoadMaterialItems() {
   } = useBottomSheetCustom();
   const handleEditCategory = () => {
     hideBottomSheet();
-    dispatch(resetTempMaterial());
+    dispatch(resetTempCategory());
     router.navigate({
       pathname: '/loadcat',
       params: { prevRoute: '/loaditems' },
