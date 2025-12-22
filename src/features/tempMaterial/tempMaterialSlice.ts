@@ -26,9 +26,18 @@ const tempMaterialSlice = createSlice({
       state.discoveryTerms = CMAwithRemovedDTO;
     },
     resetTempMaterial: () => ({ category: '', discoveryTerms: [] }),
+    resetTempCategory: state => ({
+      category: '',
+      discoveryTerms: state.discoveryTerms,
+    }),
   },
 });
 
-export const { setCategory, addItem, removeItem, resetTempMaterial } =
-  tempMaterialSlice.actions;
+export const {
+  setCategory,
+  addItem,
+  removeItem,
+  resetTempMaterial,
+  resetTempCategory,
+} = tempMaterialSlice.actions;
 export default tempMaterialSlice.reducer;
