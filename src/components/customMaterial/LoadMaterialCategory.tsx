@@ -3,25 +3,24 @@ import { useEffect, useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { setCategory as setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
-import {
-  selectTempCustomCategory,
-  // selectTempCustomMaterialArray,
-} from '@features/tempMaterial/tempMaterialSelectors';
+import { selectTempCustomCategory } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
 export function LoadMaterialCategory() {
-  const [category, setCategory] = useState<string>('');
-  const dispatch = useAppDispatch();
-  // const tempMaterial = useAppSelector(selectTempCustomMaterialArray);
-  const router = useRouter();
   const tempCategory = useAppSelector(selectTempCustomCategory);
+  const [category, setCategory] = useState<string>(tempCategory);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const { showSnackbar } = useSnackbar();
+  const { currentCategory } = useLocalSearchParams();
+
   useEffect(() => {
-    if (tempCategory) {
-      showSnackbar({ message: `${tempCategory} category created` });
-      router.navigate('/loaditems');
+    if (tempCategory && tempCategory !== currentCategory) {
+      showSnackbar({
+        message: `${tempCategory} category ${currentCategory ? 'updated' : 'created'}`,
+      });
     }
     /* TODO Configure React Compiler then re-enable the showSnackbar
      * dependency to verify RC injected useCallback to memoize
@@ -34,6 +33,7 @@ export function LoadMaterialCategory() {
   }, [tempCategory /*, showSnackbar */]);
   const handleSetCategory = () => {
     dispatch(setTempCategory(category));
+    router.navigate('/loaditems');
   };
 
   // Retrieve Custom Theme-properties
