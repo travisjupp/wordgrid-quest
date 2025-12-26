@@ -4,6 +4,7 @@ import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import { style } from '../../../../Javascript/styles';
 
 
 
@@ -69,6 +70,12 @@ export default function Item({ updateItemFormData }: Props) {
         submitBehavior='submit'
         aria-label='Your Discovery Term'
         onChangeText={dt => handleDiscoveryTerm(dt)}
+        onBlur={() => {
+          console.log(
+            style.dim, style.green, style.hr.short, 'TERM BLURRED', style.hr.short, style.reset
+          );
+          updateItemFormData(DTO);
+        }}
         testID='Discovery Term Text Input'
       />
       <TextInput
@@ -81,6 +88,12 @@ export default function Item({ updateItemFormData }: Props) {
         submitBehavior='newline'
         aria-label='Your Definition Text'
         onChangeText={def => handleDefinition(def)}
+        onBlur={() => {
+          console.log(
+            style.dim, style.green, style.hr.short, 'DEFINITION BLURRED', style.hr.short, style.reset
+          );
+          updateItemFormData(DTO);
+        }}
         testID='Definition Text Input'
       />
     </View>
