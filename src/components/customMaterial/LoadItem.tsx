@@ -32,11 +32,12 @@ export function LoadItem() {
     0: { dt: '', def: '' },
   });
 
-
-  const [itemCount, setItemCount] = useState<number>(1);
-  const [items, setItems] = useState<React.ReactNode[]>([
-    <Item key='item-0' />,
-  ]);
+  const updateItemFormData = (discoveryTerm: DiscoveryTermObject) => {
+    setItemsFormData(prev => ({
+      ...prev,
+      [itemCount]: discoveryTerm,
+    }));
+  };
 
   const scrollViewRef = useRef<ScrollView | null>(null);
 
