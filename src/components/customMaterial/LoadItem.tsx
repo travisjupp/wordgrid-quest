@@ -47,7 +47,7 @@ export function LoadItem() {
 
   const handleAddItem = () => {
     setItemCount(prev => prev + 1);
-    setItems([...items, <Item key={'item-' + itemCount.toString()} />]);
+    console.log('> Add More');
   };
 
   useEffect(() => {
@@ -91,6 +91,7 @@ export function LoadItem() {
       >
         <Button
           onPress={() => {
+            console.log('󰄬Done');
             hideBottomSheet();
             Keyboard.dismiss();
           }}
