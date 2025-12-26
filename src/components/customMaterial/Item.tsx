@@ -1,6 +1,6 @@
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { ComponentProps, useEffect, useRef } from 'react';
+import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
@@ -25,6 +25,25 @@ export default function Item({ updateItemFormData }: Props) {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  const [DTO, setDTO] = useState<DiscoveryTermObject>({
+    dt: '',
+    def: '',
+  });
+
+  const handleDiscoveryTerm = (term: string) => {
+    setDTO({
+      dt: term,
+      def: DTO.def,
+    });
+  };
+
+  const handleDefinition = (definition: string) => {
+    setDTO({
+      dt: DTO.dt,
+      def: definition,
+    });
+  };
+
   const SharedTextInputProps: ComponentProps<typeof TextInput> = {
     mode: 'outlined',
     scrollEnabled: false,
@@ -33,32 +52,35 @@ export default function Item({ updateItemFormData }: Props) {
       { render: (props: RenderProps) => <BottomSheetTextInput {...props} /> }
     : null),
   };
+
   return (
-    <View 
+    <View
       style={{
         marginBlockEnd: 8,
       }}
     >
       <TextInput
         ref={discoveryTermTextInputRef}
-        {...TextInputProps}
+        {...SharedTextInputProps}
         placeholder='Discovery Term, e.g., Platypus'
         label='Discovery Term'
         returnKeyType='next'
         onSubmitEditing={() => definitionTextInputRef.current?.focus()}
         submitBehavior='submit'
         aria-label='Your Discovery Term'
+        onChangeText={dt => handleDiscoveryTerm(dt)}
         testID='Discovery Term Text Input'
       />
       <TextInput
         ref={definitionTextInputRef}
-        {...TextInputProps}
+        {...SharedTextInputProps}
         placeholder='Definition, e.g., Semiaquatic, egg-laying mammal...'
         label='Definition'
         returnKeyType='default'
         multiline={true}
         submitBehavior='newline'
         aria-label='Your Definition Text'
+        onChangeText={def => handleDefinition(def)}
         testID='Definition Text Input'
       />
     </View>
