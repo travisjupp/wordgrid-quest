@@ -1,14 +1,12 @@
-import {
-  BottomSheetScrollView,
-  BottomSheetTextInput,
-} from '@gorhom/bottom-sheet';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
-import React, { ComponentProps, useEffect, useRef, useState } from 'react';
-import { Platform, View, Keyboard, ScrollView } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
-import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Keyboard, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
+import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { logItems } from '../../../utils/logger';
 
 export function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -22,9 +20,6 @@ export function LoadItem() {
   } = useAppTheme();
 
   const { hideBottomSheet } = useBottomSheetCustom();
-
-
-
   const [itemCount, setItemCount] = useState<number>(0);
 
   type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
@@ -42,13 +37,18 @@ export function LoadItem() {
   const scrollViewRef = useRef<ScrollView | null>(null);
 
   const handleAddMore = () => {
+    const itemIdx = itemCount + 1;
     setItemCount(prev => prev + 1);
     console.log('> Add More');
+    setItemsFormData(prev => ({
+      ...prev,
+      [itemIdx]: { dt: '', def: '' },
+    }));
   };
 
   useEffect(() => {
     scrollViewRef.current?.scrollToEnd();
-  }, [items]);
+  }, [itemsFormData]);
 
   const { setBottomSheetSnap } = useBottomSheetCustom();
   return (
@@ -79,7 +79,14 @@ export function LoadItem() {
           borderColor: 'slateblue',
         }}
       >
-        {items.map(item => item)}
+        {Object.entries(itemsFormData).map(item => { 
+          logItems(item, itemsFormData);
+          return (
+            <Item
+              updateItemFormData={updateItemFormData}
+              key={`item-${item[0]}`}
+            />) }
+        )}
       </BottomSheetScrollView>
       <View
         style={loadItemButtonsContainer}

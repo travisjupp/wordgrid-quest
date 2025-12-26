@@ -1,3 +1,4 @@
+import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { ComponentProps, useEffect, useRef } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
@@ -6,12 +7,12 @@ import { RenderProps } from 'react-native-paper/lib/typescript/components/TextIn
 
 
 
-function bottomSheetKBBehavior(props: RenderProps) {
-  return <BottomSheetTextInput {...props} />;
+interface Props {
+  updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
 }
 
 
-export default function Item() {
+export default function Item({ updateItemFormData }: Props) {
   const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
   const definitionTextInputRef = useRef<RNTextInput | null>(null);
 
