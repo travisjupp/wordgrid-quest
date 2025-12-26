@@ -36,7 +36,7 @@ export function LoadItem() {
 
   const scrollViewRef = useRef<ScrollView | null>(null);
 
-  const handleAddItem = () => {
+  const handleAddMore = () => {
     setItemCount(prev => prev + 1);
     console.log('> Add More');
   };
@@ -96,7 +96,7 @@ export function LoadItem() {
           mode='contained'
           icon='chevron-right'
           testID='Load Item Add More Button'
-          onPress={handleAddItem}
+          onPress={handleAddMore}
         >
           Add More
         </Button>
