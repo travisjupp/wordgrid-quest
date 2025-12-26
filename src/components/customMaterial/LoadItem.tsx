@@ -23,20 +23,11 @@ export function LoadItem() {
 
   const { hideBottomSheet } = useBottomSheetCustom();
 
-  type RNPTextInputProps = ComponentProps<typeof TextInput>;
 
-  const TextInputProps: RNPTextInputProps = {
-    mode: 'outlined',
-  };
 
-  function bottomSheetKBBehavior(props: RenderProps) {
-    return <BottomSheetTextInput {...props} />;
-  }
+  const [itemCount, setItemCount] = useState<number>(0);
 
-  if (Platform.OS !== 'web') {
-    /* Keep Gorhoms BS Keyboard Behavior on mobile */
-    TextInputProps.render = bottomSheetKBBehavior;
-  }
+
 
   const [itemCount, setItemCount] = useState<number>(1);
   const [items, setItems] = useState<React.ReactNode[]>([

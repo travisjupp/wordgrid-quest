@@ -4,21 +4,12 @@ import { Platform, TextInput as RNTextInput, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
-type RNPTextInputProps = ComponentProps<typeof TextInput>;
 
-const TextInputProps: RNPTextInputProps = {
-  mode: 'outlined',
-  scrollEnabled: false
-};
 
 function bottomSheetKBBehavior(props: RenderProps) {
   return <BottomSheetTextInput {...props} />;
 }
 
-if (Platform.OS !== 'web') {
-  /* Keep Gorhoms BS Keyboard Behavior on mobile */
-  TextInputProps.render = bottomSheetKBBehavior;
-}
 
 export default function Item() {
   const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
@@ -33,6 +24,14 @@ export default function Item() {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  const SharedTextInputProps: ComponentProps<typeof TextInput> = {
+    mode: 'outlined',
+    scrollEnabled: false,
+    ...(Platform.OS !== 'web' ?
+      /* Keep Gorhoms BS Keyboard Behavior on mobile */
+      { render: (props: RenderProps) => <BottomSheetTextInput {...props} /> }
+    : null),
+  };
   return (
     <View 
       style={{
