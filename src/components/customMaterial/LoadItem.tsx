@@ -27,6 +27,10 @@ export function LoadItem() {
 
   const [itemCount, setItemCount] = useState<number>(0);
 
+  type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
+  const [itemsFormData, setItemsFormData] = useState<NumericKeyObjectRecord>({
+    0: { dt: '', def: '' },
+  });
 
 
   const [itemCount, setItemCount] = useState<number>(1);
