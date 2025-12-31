@@ -43,12 +43,18 @@ module.exports = {
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@providers/(.*)$': '<rootDir>/src/providers/$1',
     // Force Redux Toolkit to use the CommonJS entry point
-    // Entry 1: Handles "import ... from '@reduxjs/toolkit'"
-    '^@reduxjs/toolkit$': '<rootDir>/node_modules/@reduxjs/toolkit/dist/cjs/index.js',
-
-    // Entry 2: Handles sub-paths like "import ... from '@reduxjs/toolkit/query'"
-    '^@reduxjs/toolkit/(.*)$': '<rootDir>/node_modules/@reduxjs/toolkit/dist/cjs/$1',
-
-
+    // 1. Core RTK: Maps "@reduxjs/toolkit", handles "import ... from '@reduxjs/toolkit'"
+    '^@reduxjs/toolkit$':
+      '<rootDir>/node_modules/@reduxjs/toolkit/dist/cjs/index.js',
+    // 2. RTK Query (React): Maps "@reduxjs/toolkit/query/react"
+    // Note: The structure often places React-specific CJS inside its own react subfolder
+    '^@reduxjs/toolkit/query/react$':
+      '<rootDir>/node_modules/@reduxjs/toolkit/dist/query/react/cjs/index.js',
+    // 3. RTK Query (Core): Maps "@reduxjs/toolkit/query"
+    '^@reduxjs/toolkit/query$':
+      '<rootDir>/node_modules/@reduxjs/toolkit/dist/query/cjs/index.js',
+    // 4. Catch-all for other sub-paths (fallback)
+    '^@reduxjs/toolkit/(.*)$':
+      '<rootDir>/node_modules/@reduxjs/toolkit/dist/$1/cjs/index.js',
   },
 };
