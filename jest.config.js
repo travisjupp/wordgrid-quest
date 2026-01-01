@@ -57,4 +57,7 @@ module.exports = {
     '^@reduxjs/toolkit/(.*)$':
       '<rootDir>/node_modules/@reduxjs/toolkit/dist/$1/cjs/index.js',
   },
+  // Point to the Native Mock Registry
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  testEnvironment: 'node',
 };
