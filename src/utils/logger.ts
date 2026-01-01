@@ -1,5 +1,5 @@
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
-import { style } from '../../Javascript/styles';
+import { style } from '../../../Javascript/styles';
 type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
 
   const logItems = (externalItem: any, items: NumericKeyObjectRecord) => {

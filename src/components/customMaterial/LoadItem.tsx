@@ -6,7 +6,7 @@ import { View, Keyboard, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
-import { logItems } from '../../../utils/logger';
+import { logItems } from '@utils/logger';
 
 export function LoadItem() {
   // Retrieve Custom Theme-properties
