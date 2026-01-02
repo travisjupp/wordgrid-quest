@@ -2,8 +2,8 @@
 import 'react-native-gesture-handler/jestSetup';
 
 // Stubbing the Keyboard Controller (Native logic)
-jest.mock('react-native-keyboard-controller', () => 
-  require('react-native-keyboard-controller/jest')
+jest.mock('react-native-keyboard-controller', () =>
+  require('react-native-keyboard-controller/jest'),
 );
 
 // Stubbing Safe Area (Returns fixed state to prevent crashes)
@@ -29,18 +29,23 @@ jest.mock('@gorhom/bottom-sheet', () => ({
   ...require('@gorhom/bottom-sheet/mock'),
 }));
 
-// Mock React Native Paper's internal hooks and utilities
+// Mock React Native Paper with stubs for core hooks/utilities
 jest.mock('react-native-paper', () => {
-  const actualRNP = jest.requireActual('react-native-paper');
+  // This is a minimal stub to allow components to run
   return {
-    ...actualRNP,
+    // Return dummy components that just render their children
+    PaperProvider: ({ children }) => children,
+    Provider: ({ children }) => children,
     // Ensure configureFonts doesn't crash during theme building
     configureFonts: jest.fn(config => config),
-    // Ensure useTheme returns a valid object even if called outside a provider
-    useTheme: () => ({
-      ...actualRNP.MD3LightTheme, // or MD3DarkTheme
-      colors: actualRNP.MD3LightTheme.colors,
-    }),
+    // Stub useTheme returns a basic object (global theme stub handles specific props later)
+    useTheme: () => ({}),
+    // Add other components LoadItem uses (Button, TextInput) as stubs
+    Button: ({ children, ...props }) => <>{children}</>,
+    TextInput: () => null,
+    // Add base themes if needed by themeBuilder
+    MD3LightTheme: {},
+    MD3DarkTheme: {},
   };
 });
 
