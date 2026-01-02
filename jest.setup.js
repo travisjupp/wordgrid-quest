@@ -23,11 +23,33 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated;
 });
 
-// Specialized Mock for Bottom Sheet (Allows interaction in tests)
-jest.mock('@gorhom/bottom-sheet', () => ({
-  __esModule: true,
-  ...require('@gorhom/bottom-sheet/mock'),
-}));
+// Manually stub Bottom Sheet to avoid circular dependency crashes
+jest.mock('@gorhom/bottom-sheet', () => {
+  const React = require('react');
+  const { View } = require('react-native'); // Use require inside the factory
+  
+  return {
+    __esModule: true,
+    // Provide a default export that just renders children
+    default: ({ children }) => <View>{children}</View>,
+    // Provide named exports for all common sub-components
+    BottomSheetScrollView: ({ children }) => <View>{children}</View>,
+    BottomSheetView: ({ children }) => <View>{children}</View>,
+    BottomSheetTextInput: ({ children }) => <View>{children}</View>,
+    BottomSheetBackdrop: () => null,
+    // Mock the useBottomSheet hooks
+    useBottomSheet: () => ({
+      expand: jest.fn(),
+      collapse: jest.fn(),
+      close: jest.fn(),
+      snapToIndex: jest.fn(),
+    }),
+    useBottomSheetModal: () => ({
+      present: jest.fn(),
+      dismiss: jest.fn(),
+    }),
+  };
+});
 
 // Mock React Native Paper with stubs for core hooks/utilities
 jest.mock('react-native-paper', () => {
