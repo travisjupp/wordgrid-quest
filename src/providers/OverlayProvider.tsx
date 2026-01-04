@@ -121,7 +121,7 @@ export function OverlayProvider({ children }: Props) {
     BOTTOM_SHEET_SNAP_POINT,
   );
   const snapPoints = useMemo(() => [snapPoint], [snapPoint]);
-  console.log('SNAP POINTS', snapPoints);
+  // console.log('SNAP POINTS', snapPoints);
 
   const setBottomSheetSnap: SetBottomSheetSnap = (
     snapPoint: string | number,
@@ -291,7 +291,7 @@ export function OverlayProvider({ children }: Props) {
                 /* Callbacks */
                 onChange={idx => {
                   /* Get snapPoint idx on change */
-                  console.log('BottomSheet pos chngd, i:', idx);
+                  // console.log('BottomSheet pos chngd, i:', idx);
                 }}
                 onAnimate={(fromIdx, toIdx, fromPos, toPos) => {
                   // console.log(`About to animate:

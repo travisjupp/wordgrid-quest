@@ -5,6 +5,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { ThemeProvider } from '@providers/ThemeProvider';
 // Import real reducer/slice to test actual logic flow
 import rootReducer from '@store/rootReducer';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { OverlayProvider } from '@providers/OverlayProvider';
 
 // Create a "Fresh" store for every test to avoid state pollution
 const createMockStore = (preloadedState = {}) =>
@@ -13,15 +17,23 @@ const createMockStore = (preloadedState = {}) =>
     preloadedState,
   });
 
-// The (boilerplate abstracting) Wrapper Component 
+// The (boilerplate abstracting) Wrapper Component
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   const store = createMockStore();
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        {/* add Keyboard, SafeArea, Overlay... */}
-        {children}
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <KeyboardProvider>
+          <ThemeProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <OverlayProvider>
+                {/* add Keyboard, SafeArea, Overlay... */}
+                {children}
+              </OverlayProvider>
+            </GestureHandlerRootView>
+          </ThemeProvider>
+        </KeyboardProvider>
+      </SafeAreaProvider>
     </Provider>
   );
 };

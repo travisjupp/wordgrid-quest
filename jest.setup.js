@@ -1,10 +1,62 @@
-// jest.setup.js
-import 'react-native-gesture-handler/jestSetup';
+// Manually stub Gesture Handler to resolve circular dependency
+jest.mock('react-native-gesture-handler', () => {
+  // Use lazy require inside the factory to bypass hoisting issues
+  const React = require('react');
+  const { View } = require('react-native');
+
+  return {
+    // Component Stubs
+    GestureHandlerRootView: ({ children, style }) => (
+      <View style={style}>{children}</View>
+    ),
+    // Common Interaction Stubs
+    State: {
+      BEGAN: 'BEGAN',
+      FAILED: 'FAILED',
+      ACTIVE: 'ACTIVE',
+      END: 'END',
+      UNDETERMINED: 'UNDETERMINED',
+    },
+    // Mock interaction handlers
+    PanGestureHandler: ({ children }) => children,
+    TapGestureHandler: ({ children }) => children,
+    State: {},
+    Gesture: {
+      Pan: () => ({
+        onStart: jest.fn().mockReturnThis(),
+        onUpdate: jest.fn().mockReturnThis(),
+        onEnd: jest.fn().mockReturnThis(),
+      }),
+      Tap: () => ({
+        onStart: jest.fn().mockReturnThis(),
+      }),
+    },
+    // Required for BottomSheet/Navigation internal logic
+    NativeViewGestureHandler: ({ children }) => children,
+    BaseButton: ({ children }) => children,
+    RectButton: ({ children }) => children,
+  };
+});
+
+// Mock useWindowDimensions (Native friction)
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({
+    width: 375,
+    height: 812,
+    scale: 2,
+    fontScale: 1,
+  })),
+}));
 
 // Stubbing the Keyboard Controller (Native logic)
-jest.mock('react-native-keyboard-controller', () =>
-  require('react-native-keyboard-controller/jest'),
-);
+jest.mock('react-native-keyboard-controller', () => {
+  const React = require('react');
+  const  { View } = require('react-native');
+  return {
+    ...require('react-native-keyboard-controller/jest'),
+    KeyboardAvoidingView: ({ children }) => <View>{children}</View>,
+  };
+});
 
 // Stubbing Safe Area (Returns fixed state to prevent crashes)
 jest.mock('react-native-safe-area-context', () => {
@@ -27,7 +79,7 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('@gorhom/bottom-sheet', () => {
   const React = require('react');
   const { View } = require('react-native'); // Use require inside the factory
-  
+
   return {
     __esModule: true,
     // Provide a default export that just renders children
@@ -53,7 +105,9 @@ jest.mock('@gorhom/bottom-sheet', () => {
 
 // Mock React Native Paper with stubs for core hooks/utilities
 jest.mock('react-native-paper', () => {
-  // This is a minimal stub to allow components to run
+  const React = require('react');
+  const { Text: RNText } = require('react-native');
+
   return {
     // Return dummy components that just render their children
     PaperProvider: ({ children }) => children,
@@ -65,10 +119,33 @@ jest.mock('react-native-paper', () => {
     // Add other components LoadItem uses (Button, TextInput) as stubs
     Button: ({ children, ...props }) => <>{children}</>,
     TextInput: () => null,
-    // Add base themes if needed by themeBuilder
-    MD3LightTheme: {},
-    MD3DarkTheme: {},
-  };
+    Portal: ({children}) => children,
+    Snackbar: () => null,
+    Dialog: Object.assign(
+      ({ children }) => children,
+      {
+        Content: ({ children }) => children,
+        Actions: ({ children }) => children,
+        Title: ({ children }) => children,
+        Icon: () => null,
+      }
+    ),
+    customText: jest.fn(() => {
+      return ({ children, variant, style, ...props }) => (
+        <RNText style={style} {...props}>
+          {children}
+        </RNText>
+      );
+    }),
+    Text: ({ children, style, ...props }) => (
+      <RNText style={style} {...props}>
+        {children}
+      </RNText>
+    ),
+  // Add base themes if needed by themeBuilder
+  MD3LightTheme: {},
+  MD3DarkTheme: {},
+};
 });
 
 // Mock the entire themeConfig module
