@@ -9,6 +9,8 @@ import { AppTheme } from '@custom-types/AppTheme';
 import figmaMaterialThemeBuilderExport from '@theme/material-theme.json';
 import CustomLightColorScheme from '@theme/CustomLightColors.json';
 import CustomDarkColorScheme from '@theme/CustomDarkColors.json';
+import { useContext } from 'react';
+import ThemeContext from '@contexts/ThemeContext';
 
 const fontConfig = {
   brand: {
@@ -65,6 +67,8 @@ const fontConfig = {
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
   const RNPColors = isDarkTheme ? MD3DarkTheme : DefaultTheme;
+    console.log('DEBUG: RNPColors available?', !!RNPColors?.colors);
+
   const figmaColors =
     isDarkTheme ?
       figmaMaterialThemeBuilderExport.schemes.dark
@@ -440,4 +444,14 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 };
 
 // Sub-components can access Custom Theme-properties
-export const useAppTheme = () => useTheme<AppTheme>();
+// export const useAppTheme = () => useTheme<AppTheme>();
+
+export const useAppTheme = () => {
+  const context = useContext(ThemeContext);
+  // If the context is missing, fallback to the RNP theme 
+  // (Handles the case where Provider is not used)
+  if (!context || !context.theme) {
+     return useTheme<AppTheme>(); 
+  }
+  return context.theme;
+};
