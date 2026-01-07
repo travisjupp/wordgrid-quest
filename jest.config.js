@@ -43,19 +43,25 @@ module.exports = {
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@providers/(.*)$': '<rootDir>/src/providers/$1',
     // Force Redux Toolkit to use the CommonJS entry point
-    // 1. Core RTK: Maps "@reduxjs/toolkit", handles "import ... from '@reduxjs/toolkit'"
+    // Core RTK: Maps "@reduxjs/toolkit", handles "import ... from '@reduxjs/toolkit'"
     '^@reduxjs/toolkit$':
       '<rootDir>/node_modules/@reduxjs/toolkit/dist/cjs/index.js',
-    // 2. RTK Query (React): Maps "@reduxjs/toolkit/query/react"
+    // RTK Query (React): Maps "@reduxjs/toolkit/query/react"
     // Note: The structure often places React-specific CJS inside its own react subfolder
     '^@reduxjs/toolkit/query/react$':
       '<rootDir>/node_modules/@reduxjs/toolkit/dist/query/react/cjs/index.js',
-    // 3. RTK Query (Core): Maps "@reduxjs/toolkit/query"
+    // RTK Query (Core): Maps "@reduxjs/toolkit/query"
     '^@reduxjs/toolkit/query$':
       '<rootDir>/node_modules/@reduxjs/toolkit/dist/query/cjs/index.js',
-    // 4. Catch-all for other sub-paths (fallback)
+    // Catch-all for other sub-paths (fallback)
     '^@reduxjs/toolkit/(.*)$':
-      '<rootDir>/node_modules/@reduxjs/toolkit/dist/$1/cjs/index.js',
+    '<rootDir>/node_modules/@reduxjs/toolkit/dist/$1/cjs/index.js',
+    // Figma Material Theme-Builder Export
+    '^@theme/material-theme.json$': '<rootDir>/src/theme/material-theme.json',
+    // Custom RNP Light Theme
+    '^@theme/CustomLightColors.json$': '<rootDir>/src/theme/CustomLightColors.json',
+    // RNP Standard Light Theme
+    '^@theme/MD3LightTheme.json$': '<rootDir>/src/theme/MD3LightTheme.json',
   },
   // Point to the Native Mock Registry
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],

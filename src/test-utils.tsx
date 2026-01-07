@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { OverlayProvider } from '@providers/OverlayProvider';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 // Create a "Fresh" store for every test to avoid state pollution
 const createMockStore = (preloadedState = {}) =>
@@ -26,10 +27,12 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
         <KeyboardProvider>
           <ThemeProvider>
             <GestureHandlerRootView style={{ flex: 1 }}>
-              <OverlayProvider>
-                {/* add Keyboard, SafeArea, Overlay... */}
-                {children}
-              </OverlayProvider>
+              <BottomSheetModalProvider>
+                <OverlayProvider>
+                  {/* add Keyboard, SafeArea, Overlay... */}
+                  {children}
+                </OverlayProvider>
+              </BottomSheetModalProvider>
             </GestureHandlerRootView>
           </ThemeProvider>
         </KeyboardProvider>

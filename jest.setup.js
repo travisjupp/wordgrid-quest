@@ -1,60 +1,104 @@
-// Manually stub Gesture Handler to resolve circular dependency
-jest.mock('react-native-gesture-handler', () => {
-  // Use lazy require inside the factory to bypass hoisting issues
-  const React = require('react');
-  const { View } = require('react-native');
 
-  return {
-    // Component Stubs
-    GestureHandlerRootView: ({ children, style }) => (
-      <View style={style}>{children}</View>
-    ),
-    // Common Interaction Stubs
-    State: {
-      BEGAN: 'BEGAN',
-      FAILED: 'FAILED',
-      ACTIVE: 'ACTIVE',
-      END: 'END',
-      UNDETERMINED: 'UNDETERMINED',
-    },
-    // Mock interaction handlers
-    PanGestureHandler: ({ children }) => children,
-    TapGestureHandler: ({ children }) => children,
-    State: {},
-    Gesture: {
-      Pan: () => ({
-        onStart: jest.fn().mockReturnThis(),
-        onUpdate: jest.fn().mockReturnThis(),
-        onEnd: jest.fn().mockReturnThis(),
-      }),
-      Tap: () => ({
-        onStart: jest.fn().mockReturnThis(),
-      }),
-    },
-    // Required for BottomSheet/Navigation internal logic
-    NativeViewGestureHandler: ({ children }) => children,
-    BaseButton: ({ children }) => children,
-    RectButton: ({ children }) => children,
-  };
-});
+jest.mock('react-native-keyboard-controller', () =>
+  require('react-native-keyboard-controller/jest'),
+);
 
-// Mock useWindowDimensions (Native friction)
-jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({
+// React Native Mock (synchronous)
+const React = require('react');
+const mockRN = {
+  View: 'View',
+  Text: 'Text',
+  ScrollView: 'ScrollView',
+  TouchableOpacity: 'View',
+  useColorScheme: jest.fn(() => 'light'),
+
+  // ThemeProvider often uses this for layout/status bar
+  useWindowDimensions: jest.fn(() => ({
     width: 375,
     height: 812,
     scale: 2,
     fontScale: 1,
   })),
-}));
+  StyleSheet: {
+    create: s => s,
+    flatten: s => s,
+    hairlineWidth: 1,
+  },
+  Platform: {
+    OS: 'ios',
+    select: objs => objs.ios || objs.default,
+    isPad: false,
+  },
 
-// Stubbing the Keyboard Controller (Native logic)
-jest.mock('react-native-keyboard-controller', () => {
-  const React = require('react');
-  const  { View } = require('react-native');
+  // Inside jest.mock('react-native', () => { ... })
+  Animated: {
+    Value: jest.fn(() => ({
+      setValue: jest.fn(),
+      interpolate: jest.fn(() => ({})),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      stopAnimation: jest.fn(),
+    })),
+    ValueXY: jest.fn(() => ({
+      setValue: jest.fn(),
+      setOffset: jest.fn(),
+    })),
+    timing: jest.fn(() => ({ start: jest.fn(cb => cb?.()) })),
+    spring: jest.fn(() => ({ start: jest.fn(cb => cb?.()) })),
+    parallel: jest.fn(() => ({ start: jest.fn() })),
+    sequence: jest.fn(() => ({ start: jest.fn() })),
+    event: jest.fn(),
+  },
+
+  // ...rest of the RN stubs
+};
+
+jest.mock('react-native', () => mockRN);
+
+let mockAppTheme;
+
+// Pull in the actual theme logic AFTER the RN mock is established
+const { themeBuilder } = require('@theme/themeConfig');
+
+// Hydrate the Theme Mock
+mockAppTheme = themeBuilder(false); // isDarkTheme = false
+
+jest.mock('@theme/themeConfig', () => {
+  const actual = jest.requireActual('@theme/themeConfig');
   return {
-    ...require('react-native-keyboard-controller/jest'),
-    KeyboardAvoidingView: ({ children }) => <View>{children}</View>,
+    ...actual,
+    useAppTheme: () => mockAppTheme,
+    themeBuilder: () => mockAppTheme,
+  };
+});
+
+jest.mock('react-native-gesture-handler', () => {
+  const React = require('react');
+
+  // Instead of requiring View, we just use the string 'View'
+  // which is what React/RNTL expect for basic containers.
+  return {
+    GestureHandlerRootView: ({ children, style }) =>
+      React.createElement('View', { style }, children), // Stable string-based type
+
+    // Interaction stubs
+    PanGestureHandler: ({ children }) => children,
+    TapGestureHandler: ({ children }) => children,
+    NativeViewGestureHandler: ({ children }) => children,
+    State: {
+      BEGAN: 'BEGAN',
+      ACTIVE: 'ACTIVE',
+      END: 'END',
+      FAILED: 'FAILED',
+      UNDETERMINED: 'UNDETERMINED',
+    },
+    Gesture: {
+      Pan: () => ({
+        onStart: jest.fn().mockReturnThis(),
+        onUpdate: jest.fn().mockReturnThis(),
+      }),
+      Tap: () => ({ onStart: jest.fn().mockReturnThis() }),
+    },
   };
 });
 
@@ -78,18 +122,20 @@ jest.mock('react-native-reanimated', () => {
 // Manually stub Bottom Sheet to avoid circular dependency crashes
 jest.mock('@gorhom/bottom-sheet', () => {
   const React = require('react');
-  const { View } = require('react-native'); // Use require inside the factory
+  // Use the string 'View' to avoid initialization race conditions
+  const ViewStub = ({ children }) => React.createElement('View', {}, children);
 
   return {
     __esModule: true,
-    // Provide a default export that just renders children
-    default: ({ children }) => <View>{children}</View>,
-    // Provide named exports for all common sub-components
-    BottomSheetScrollView: ({ children }) => <View>{children}</View>,
-    BottomSheetView: ({ children }) => <View>{children}</View>,
-    BottomSheetTextInput: ({ children }) => <View>{children}</View>,
+    BottomSheetModalProvider: ViewStub,
+
+    // Standard components
+    default: ViewStub,
+    BottomSheetView: ViewStub,
+    BottomSheetScrollView: ViewStub,
     BottomSheetBackdrop: () => null,
-    // Mock the useBottomSheet hooks
+
+    // Hooks
     useBottomSheet: () => ({
       expand: jest.fn(),
       collapse: jest.fn(),
@@ -106,92 +152,89 @@ jest.mock('@gorhom/bottom-sheet', () => {
 // Mock React Native Paper with stubs for core hooks/utilities
 jest.mock('react-native-paper', () => {
   const React = require('react');
-  const { Text: RNText } = require('react-native');
+  const { Text: RNText, View } = require('react-native');
+
+  // Import Design Tokens
+  const mockMd3Base = require('@theme/MD3LightTheme.json');
+  const mockFigmaTokens = require('@theme/material-theme.json');
+  const mockCustomLight = require('@theme/CustomLightColors.json');
+  const mockCustomDark = require('@theme/CustomDarkColors.json');
+
+  // Construct the "Real" base data structures
+  const baseThemeData = {
+    ...mockMd3Base,
+    colors: {
+      ...mockMd3Base.colors,
+      ...mockFigmaTokens.schemes.light,
+      ...mockCustomLight.colors,
+    },
+    fonts: { default: { fontFamily: 'System' } },
+    animation: { scale: 1.0 },
+  };
 
   return {
-    // Return dummy components that just render their children
-    PaperProvider: ({ children }) => children,
-    Provider: ({ children }) => children,
-    // Ensure configureFonts doesn't crash during theme building
-    configureFonts: jest.fn(config => config),
-    // Stub useTheme returns a basic object (global theme stub handles specific props later)
-    useTheme: () => ({}),
-    // Add other components LoadItem uses (Button, TextInput) as stubs
-    Button: ({ children, ...props }) => <>{children}</>,
-    TextInput: () => null,
-    Portal: ({children}) => children,
+    // --- Data Properties (Hydrated from JSON) ---
+    MD3LightTheme: baseThemeData,
+    MD3DarkTheme: {
+      ...baseThemeData,
+      colors: { ...baseThemeData.colors, ...mockCustomDark.colors },
+    },
+    DefaultTheme: baseThemeData,
+
+    // --- Component Stubs (Using string-based 'View' for stability) ---
+    PaperProvider: ({ children }) => React.createElement('View', {}, children),
+    Provider: ({ children }) => React.createElement('View', {}, children),
+    Portal: ({ children }) => children,
     Snackbar: () => null,
-    Dialog: Object.assign(
-      ({ children }) => children,
-      {
-        Content: ({ children }) => children,
-        Actions: ({ children }) => children,
-        Title: ({ children }) => children,
-        Icon: () => null,
-      }
-    ),
-    customText: jest.fn(() => {
-      return ({ children, variant, style, ...props }) => (
-        <RNText style={style} {...props}>
-          {children}
-        </RNText>
-      );
+    TextInput: () => null,
+    Button: ({ children, ...props }) =>
+      React.createElement('View', props, children),
+
+    Dialog: Object.assign(({ children }) => children, {
+      Content: ({ children }) => children,
+      Actions: ({ children }) => children,
+      Title: ({ children }) => children,
+      Icon: () => null,
     }),
-    Text: ({ children, style, ...props }) => (
-      <RNText style={style} {...props}>
-        {children}
-      </RNText>
-    ),
-  // Add base themes if needed by themeBuilder
-  MD3LightTheme: {},
-  MD3DarkTheme: {},
-};
-});
 
-// Mock the entire themeConfig module
-jest.mock('@theme/themeConfig', () => {
-  const actualRNP = require('react-native-paper');
+    // --- Typography & Logic Stubs ---
+    configureFonts: jest.fn(config => config),
+    useTheme: () => baseThemeData,
 
-  // Generalized Theme Stub
-  const mockAppTheme = {
-    ...actualRNP.MD3LightTheme, // Start with base RNP properties
-    shared: {
-      inputWrapper: { padding: 10, backgroundColor: 'white' },
-      centeredView: {},
-      centeredContainer: {},
-    },
-    preGameConfig: {
-      customMaterialScreens: {
-        loaditems: { loadItemButtonsContainer: {} },
-      },
-    },
-    // Additional custom properties...
-  };
+    customText: jest.fn(() => {
+      return ({ children, variant, style, ...props }) =>
+        React.createElement(RNText, { style, ...props }, children);
+    }),
 
-  return {
-    // Mock the hook to return the stubbed object
-    useAppTheme: () => mockAppTheme,
-    // Mock the builder if other providers use it
-    themeBuilder: jest.fn(() => mockAppTheme),
+    Text: ({ children, style, ...props }) =>
+      React.createElement(RNText, { style, ...props }, children),
   };
 });
 
-// Address StyleSheet and PlatformIOSStatic
-jest.mock('react-native/Libraries/StyleSheet/StyleSheet', () => ({
-  create: jest.fn(style => style),
-  flatten: jest.fn(style => style),
-  hairlineWidth: 1,
-}));
-
-// Ensure PlatformIOSStatic is addressed via the Platform mock
-jest.mock('react-native/Libraries/Utilities/Platform', () => {
-  const Platform = jest.requireActual(
-    'react-native/Libraries/Utilities/Platform',
-  );
-  Platform.OS = 'ios';
-  Platform.select = objs => objs.ios || objs.default;
-  // This satisfies the PlatformIOSStatic requirement
-  Platform.isPad = false;
-  Platform.isTV = false;
-  return Platform;
-});
+// // Mock the entire themeConfig module (Global Theme Stub)
+// jest.mock('@theme/themeConfig', () => {
+//   const actualRNP = require('react-native-paper');
+//
+//   // Generalized Theme Stub
+//   const mockAppTheme = {
+//     ...actualRNP.MD3LightTheme, // Start with base RNP properties
+//     shared: {
+//       inputWrapper: { padding: 10, backgroundColor: 'white' },
+//       centeredView: {},
+//       centeredContainer: {},
+//     },
+//     preGameConfig: {
+//       customMaterialScreens: {
+//         loaditems: { loadItemButtonsContainer: {} },
+//       },
+//     },
+//     // Additional custom properties...
+//   };
+//
+//   return {
+//     // Mock the hook to return the stubbed object
+//     useAppTheme: () => mockAppTheme,
+//     // Mock the builder if other providers use it
+//     themeBuilder: jest.fn(() => mockAppTheme),
+//   };
+// });
