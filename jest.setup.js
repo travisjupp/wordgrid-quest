@@ -122,6 +122,7 @@ jest.mock('react-native-reanimated', () => {
 // Manually stub Bottom Sheet to avoid circular dependency crashes
 jest.mock('@gorhom/bottom-sheet', () => {
   const React = require('react');
+  const { View, TextInput } = require('react-native');
   // Use the string 'View' to avoid initialization race conditions
   const ViewStub = ({ children }) => React.createElement('View', {}, children);
 
@@ -132,7 +133,14 @@ jest.mock('@gorhom/bottom-sheet', () => {
     // Standard components
     default: ViewStub,
     BottomSheetView: ViewStub,
-    BottomSheetScrollView: ViewStub,
+    // Functional mock to allow children rendering
+    BottomSheetScrollView: React.forwardRef(({ children, ...props }, ref) => (
+      <View {...props} ref={ref}>{children}</View>
+    )),
+    // Map the custom input to a standard RN TextInput for fireEvent compatibility
+    BottomSheetTextInput: React.forwardRef((props, ref) => (
+      <TextInput {...props} ref={ref} />
+    )),
     BottomSheetBackdrop: () => null,
 
     // Hooks
@@ -186,7 +194,11 @@ jest.mock('react-native-paper', () => {
     Provider: ({ children }) => React.createElement('View', {}, children),
     Portal: ({ children }) => children,
     Snackbar: () => null,
-    TextInput: () => null,
+    TextInput: React.forwardRef(({ children, ...props }, ref) => {
+      const { View } = require('react-native');
+      // Using View here for stability, or 'TextInput' if you need fireEvent.changeText
+      return React.createElement('TextInput', { ...props, ref }, children);
+    }),
     Button: ({ children, ...props }) =>
       React.createElement('View', props, children),
 
@@ -208,6 +220,13 @@ jest.mock('react-native-paper', () => {
 
     Text: ({ children, style, ...props }) =>
       React.createElement(RNText, { style, ...props }, children),
+  };
+});
+
+// Stubbing Expo Status Bar
+jest.mock('expo-status-bar', () => {
+  return {
+    setStatusBarStyle: () => jest.fn(),
   };
 });
 
