@@ -13,18 +13,16 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +71 app/_layout.tsx
-badd +25 app/index.tsx
-badd +40 package.json
-badd +35 app.config.ts
-badd +36 app.json
-badd +1 src/contexts/ThemeContext.ts
+badd +3 src/components/customMaterial/__tests__/LoadItem.integration.test.tsx
+badd +2 src/test-utils.tsx
+badd +1 jest.config.js
+badd +21 jest.setup.js
 argglobal
 %argdel
-NvimTreeToggle
-edit sesh.vim
+$argadd .
+edit src/components/customMaterial/__tests__/LoadItem.integration.test.tsx
 argglobal
-balt src/contexts/ThemeContext.ts
+balt jest.setup.js
 setlocal foldmethod=expr
 setlocal foldexpr=nvim_treesitter#foldexpr()
 setlocal foldmarker={{{,}}}
@@ -33,16 +31,13 @@ setlocal foldlevel=99
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-9
-sil! normal! zo
-15
-sil! normal! zo
-let s:l = 18 - ((17 * winheight(0) + 21) / 43)
+let s:l = 3 - ((2 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 18
+keepjumps 3
 normal! 0
+lcd ~/Documents/projects/wordgrid-quest
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -60,4 +55,3 @@ nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
-
