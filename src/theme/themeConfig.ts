@@ -67,8 +67,6 @@ const fontConfig = {
 // Build theme-variant-based theme object
 export const themeBuilder = (isDarkTheme: boolean) => {
   const RNPColors = isDarkTheme ? MD3DarkTheme : DefaultTheme;
-    console.log('DEBUG: RNPColors available?', !!RNPColors?.colors);
-
   const figmaColors =
     isDarkTheme ?
       figmaMaterialThemeBuilderExport.schemes.dark

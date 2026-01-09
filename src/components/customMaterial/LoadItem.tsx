@@ -27,10 +27,13 @@ export function LoadItem() {
     0: { dt: '', def: '' },
   });
 
-  const updateItemFormData = (discoveryTerm: DiscoveryTermObject) => {
+  const updateItemFormData = (
+    index: number,
+    discoveryTerm: DiscoveryTermObject,
+  ) => {
     setItemsFormData(prev => ({
       ...prev,
-      [itemCount]: discoveryTerm,
+      [index]: discoveryTerm,
     }));
   };
 
@@ -39,7 +42,6 @@ export function LoadItem() {
   const handleAddMore = () => {
     const itemIdx = itemCount + 1;
     setItemCount(prev => prev + 1);
-    console.log('> Add More');
     setItemsFormData(prev => ({
       ...prev,
       [itemIdx]: { dt: '', def: '' },
@@ -79,14 +81,15 @@ export function LoadItem() {
           borderColor: 'slateblue',
         }}
       >
-        {Object.entries(itemsFormData).map(item => { 
-          logItems(item, itemsFormData);
+        {Object.entries(itemsFormData).map(([key, val]) => {
+          logItems(Number(key), val, itemsFormData);
           return (
             <Item
-              updateItemFormData={updateItemFormData}
-              key={`item-${item[0]}`}
-            />) }
-        )}
+              key={`item-${key}`}
+              updateItemFormData={DTO => updateItemFormData(Number(key), DTO)}
+            />
+          );
+        })}
       </BottomSheetScrollView>
       <View
         style={loadItemButtonsContainer}
@@ -94,7 +97,7 @@ export function LoadItem() {
       >
         <Button
           onPress={() => {
-            console.log('󰄬Done');
+            console.log('✓  Done');
             hideBottomSheet();
             Keyboard.dismiss();
           }}
