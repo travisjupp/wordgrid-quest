@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
-import { LoadItem } from './LoadItem';
+import LoadItem from './LoadItem';
 import Chip from '@components/Chip';
 
 export function LoadMaterialItems() {

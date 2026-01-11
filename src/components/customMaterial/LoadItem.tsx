@@ -8,7 +8,7 @@ import Item from '@components/customMaterial/Item';
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 
-export function LoadItem() {
+export default function LoadItem() {
   // Retrieve Custom Theme-properties
   const {
     shared: { inputWrapper: sharedInputWrapper },

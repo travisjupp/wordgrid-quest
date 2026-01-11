@@ -3,7 +3,7 @@ import { style } from '../../../../../Javascript/styles';
 const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { render, screen, fireEvent, act } from '../../../test-utils';
-import { LoadItem } from '../LoadItem';
+import LoadItem from '../LoadItem';
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 
 jest.useFakeTimers();
