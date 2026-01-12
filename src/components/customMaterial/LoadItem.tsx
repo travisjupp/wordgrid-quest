@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Keyboard, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { DiscoveryTermObject, NumericKeyObjectRecord } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 
 export default function LoadItem() {
@@ -22,7 +22,6 @@ export default function LoadItem() {
   const { hideBottomSheet } = useBottomSheetCustom();
   const [itemCount, setItemCount] = useState<number>(0);
 
-  type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
   const [itemsFormData, setItemsFormData] = useState<NumericKeyObjectRecord>({
     0: { dt: '', def: '' },
   });

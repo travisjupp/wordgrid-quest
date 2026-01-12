@@ -20,6 +20,8 @@ export interface InitialMaterialSliceState {
   category: CustomMaterialArray;
 }
 
+export type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
+
 export interface InitialTempMaterialSliceState {
   category: string;
   discoveryTerms: DiscoveryTermObject[];
