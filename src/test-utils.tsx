@@ -10,6 +10,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { OverlayProvider } from '@providers/OverlayProvider';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { RootState } from './store';
 
 // Create a "Fresh" store for every test to avoid state pollution
 const createMockStore = (preloadedState = {}) =>
@@ -18,10 +19,22 @@ const createMockStore = (preloadedState = {}) =>
     preloadedState,
   });
 
+interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  preloadedState?: Partial<RootState>;
+}
+
+// Override the standard render method
+const customRender = (
+  ui: ReactElement,
+  {
+    preloadedState = {},
+    ...options
+  }: CustomRenderOptions = {}
+) => {
+
+const store = createMockStore();
 // The (boilerplate abstracting) Wrapper Component
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  const store = createMockStore();
-  return (
+const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <SafeAreaProvider>
         <KeyboardProvider>
@@ -39,13 +52,9 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
       </SafeAreaProvider>
     </Provider>
   );
-};
 
-// Override the standard render method
-const customRender = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>,
-) => render(ui, { wrapper: AllTheProviders, ...options });
+  return render(ui, { wrapper: AllTheProviders, ...options });
+};
 
 // Re-export everything from RNTL + custom render
 export * from '@testing-library/react-native';
