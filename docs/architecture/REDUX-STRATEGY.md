@@ -331,5 +331,5 @@ Upon pressing "Continue," the `handleConfirm` logic performs the following:
 [^4]: Custom Material: Discovery-terms and definitions supplied by a user using multi-stage form
 [^5]: Items: A Discovery-term and Definition represented as a `{ dt: 'someTerm', def: 'someDef' }`
 [^6]: CMA: Custom Material Array; property of the `category` object (contains Custom Material Objects)
-[^7]: DTO: Discovery Term Object; a CMA element contains at least a Discovery-term and Definition
+[^7]: DTO: Discovery Term Object (Data-Transfer Object); a CMA element contains at least a Discovery-term and Definition
 
