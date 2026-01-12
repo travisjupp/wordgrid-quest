@@ -290,8 +290,6 @@ The steps a user takes when uploading Custom Material[^4] involves a [multi-step
 
 ##### 3.1. State Strategy: Transient vs. Persistent
 
-<img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/ce6dd65e-6b34-4ccb-859c-211d028cc711" />
-
 To prevent "Incomplete" or "Abandoned" data states from polluting the primary store, all form data is held in `tempMaterialSlice.ts`.
 
 - **The "Live-Sync" Bridge**: `LoadItem` utilizes a dual-state strategy. Local `useState` handles real-time character entry (Performance), while Redux `tempMaterialSlice` is hydrated on `onBlur` (Resilience).
@@ -303,13 +301,17 @@ To prevent "Incomplete" or "Abandoned" data states from polluting the primary st
 
 1. **Category Selection**: Establishes the thematic anchor for the Material Array.
 
-2. **Item Factory (The "Add More" Loop)**: An iterative DTO[^5] factory utilizing a `NumericKeyObjectRecord` to ensure index-stability during rapid entry.
+<img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/ce6dd65e-6b34-4ccb-859c-211d028cc711" />
 
-3. **Review & Reconciliation**: A final audit step where users prune the transient buffer via `handleRemoveItem` before final persistence.
+2. **Item Factory (The "Add More" Loop)**: An iterative DTO[^5] factory utilizing a `NumericKeyObjectRecord` to ensure index-stability during rapid entry.
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/5b2490fe-0458-4b55-8934-5aef706c696b" />
 
 <img width="234" height="295" alt="Image" src="https://github.com/user-attachments/assets/8b81bebe-e2f6-4b98-b76e-6a9408386754" />
+
+3. **Review & Reconciliation**: A final audit step where users prune the transient buffer via `handleRemoveItem` before final persistence.
+
+<img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/19cbd4f4-e43f-470b-973f-f10e2d861543" />
 
 
 ##### 3.3. Data Transformation (Persistence)
@@ -321,8 +323,6 @@ Upon pressing "Continue," the `handleConfirm` logic performs the following:
 - Updates the `activeCategory` pointer to the newly created set.
 
 - Triggers `resetTempMaterial` to purge the transient buffer.
-
-<img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/19cbd4f4-e43f-470b-973f-f10e2d861543" />
 
 
 [^1]: Discovery-terms: The scrambled terms a user is tasked with finding in the word-grid.
