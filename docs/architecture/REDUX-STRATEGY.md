@@ -288,81 +288,41 @@ const definitions = useAppSelector(selectDefinitionsForActiveCategory);
 The steps a user takes when uploading Custom Material[^4] involves a [multi-step form](https://www.figma.com/proto/IiHd2g9zMPmTjf26rPoZbq/WordGrid-Quest?node-id=377-1420&p=f&t=2t3Czvs6J4u3axla-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=377%3A1420&show-proto-sidebar=1) with 3 steps:
 
 
-3.1. Category Creation: User supplies the category for the Discovery-terms
+##### 3.1. State Strategy: Transient vs. Persistent
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/ce6dd65e-6b34-4ccb-859c-211d028cc711" />
 
-To avoid and "incomplete" states or abandoned form-data during the multi-step
-process we hold form state using a "temporary" `tempMaterialSlice.ts` slice,
-then move the completed form-data to the "permanent" `materialSlice.ts` on User
-confirmation: 
+To prevent "Incomplete" or "Abandoned" data states from polluting the primary store, all form data is held in `tempMaterialSlice.ts`.
 
-- [ ] Create a temp `tempMaterialSlice` slice for form-data
+- **The "Live-Sync" Bridge**: `LoadItem` utilizes a dual-state strategy. Local `useState` handles real-time character entry (Performance), while Redux `tempMaterialSlice` is hydrated on `onBlur` (Resilience).
 
-```ts
-// src/features/tempMaterial/tempMaterialSlice.ts
-// ...
-name: 'tempMaterial',
-initialState: { category: '', items: [] },
-reducers: {
-    setCategory: () => {},
-    addItem: () => {},
-    removeItem: () => {},
-    resetTempMaterial: () => ({ category: '', items: [] });
-}
-```
+- **Final Hand-off**: Data is only moved to the permanent `materialSlice.ts` once the use completes the **Reconciliation** phase (Step 3.3).
 
-- [ ] Create a `LoadMaterialCategory` component that returns a JSX form
 
-- [ ] Dispatch `setCategory` action on form submit with payload
+##### 3.2. Stage Orchestration
 
-- [ ] Use Expo Router `router.replace()` to move to next form step 
+1. **Category Selection**: Establishes the thematic anchor for the Material Array.
 
-3.2. Add Items: User adds 1 or more Items[^5] (2 form fields each: word, definition)
+2. **Item Factory (The "Add More" Loop)**: An iterative DTO[^5] factory utilizing a `NumericKeyObjectRecord` to ensure index-stability during rapid entry.
+
+3. **Review & Reconciliation**: A final audit step where users prune the transient buffer via `handleRemoveItem` before final persistence.
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/5b2490fe-0458-4b55-8934-5aef706c696b" />
 
 <img width="234" height="295" alt="Image" src="https://github.com/user-attachments/assets/8b81bebe-e2f6-4b98-b76e-6a9408386754" />
 
-- [ ] Create a `LoadMaterialItems` component with a Chip displaying our current Category
-        and "+" button to display the bottomSheet that will hold the form
 
-- [ ] Create a `ConfirmMaterialItems` component that displays the list of Items
-        added to `tempMaterial` (currently empty)
+##### 3.3. Data Transformation (Persistence)
 
-- [ ] In `LoadMaterialItems`, use `ConfirmMaterialItems` to display a list of
-        Items added to `tempMaterial` (currently empty)
+Upon pressing "Continue," the `handleConfirm` logic performs the following:
 
-- [ ] Create a `LoadItem` component to be displayed in the bottomSheet
-        that returns the two-field JSX form for loading Items
+- Merges `tempMaterial` in the global `materialSlice`.
 
-- [ ] In `LoadItem`, create a `handleAddItem` function responsible for
-        dispatching `addItem` containing the form-data
+- Updates the `activeCategory` pointer to the newly created set.
 
-- [ ] The "Add More" displays a new form after submitting an Item, while "Done"
-        submits the Item then closes the bottomSheet revealing `LoadMaterialItems`
-        which is now populated with our temporary loaded material Items for review
-
-
-3.3. User Confirmation: User is shown list of items for confirmation and is given the
-        option to remove Items (x) and/or add more (+) before continuing
+- Triggers `resetTempMaterial` to purge the transient buffer.
 
 <img width="230" height="732" alt="Image" src="https://github.com/user-attachments/assets/19cbd4f4-e43f-470b-973f-f10e2d861543" />
-
-- [ ] In `ConfirmMaterialItems`, create a `handleRemoveItem` (filter) function
-        responsible for dispatching `removeItem` with the unwanted Item as a payload
-
-3.4. User Submits by pressing "Continue": Pressing "Continue" dispatches the
-        action responsible for moving our new Custom Material Array from our
-        "temporary" slice, to the Redux stores `category` object in `materialSlice.ts`
-        AND setting the `activeCategory` to the name of our new custom category
-
-- [ ] Create a `handleConfirm` function responsible for dispatching
-        `addCustomCategory` that uses our temp data payload to move our data from the
-        "temporary" to "permanent" slice, and `resetTempMaterial` to clear the temp
-        state
-
-
 
 
 [^1]: Discovery-terms: The scrambled terms a user is tasked with finding in the word-grid.
