@@ -209,6 +209,25 @@ jest.mock('react-native-paper', () => {
       Icon: () => null,
     }),
 
+    List: Object.assign(
+      ({children}) => React.createElement('View', {}, children), 
+      {
+        Item: ({ children, left, right, title, description }) => (
+          React.createElement('View', {}, [
+            // Ensure props are rendered so RNTL can find them
+            left ? left({ color: '#000', style: {}}) : null,
+            title ? React.createElement('Text', {}, title) : null,
+            description ? React.createElement('Text', {}, description) : null,
+            children,
+            right ? right({ color: '#000', style: {}}) : null,
+          ])
+        ),
+        // Add Section and Accordion to prevent 'undefined' crashes
+        Section: ({children}) => React.createElement('View', {}, children),
+        Accordion: ({children}) => React.createElement('View', {}, children),
+        Icon: () => null,
+      }),
+
     // --- Typography & Logic Stubs ---
     configureFonts: jest.fn(config => config),
     useTheme: () => baseThemeData,
