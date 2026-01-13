@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { useEffect, useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { setCategory as setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
+import { setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
 import { selectTempCustomCategory } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useLocalSearchParams, useRouter } from 'expo-router';

@@ -24,7 +24,7 @@ export type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
 
 export interface TempMaterialState {
   category: string;
-  discoveryTerms: DiscoveryTermObject[];
+  items: NumericKeyObjectRecord;
 }
 
 // export interface AppTheme {

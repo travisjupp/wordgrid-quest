@@ -6,37 +6,40 @@ import {
 
 const initialState: TempMaterialState = {
   category: '',
-  discoveryTerms: [],
+  items: {},
 };
+
+interface AddItemPayload {
+  id: number;
+  data: DiscoveryTermObject;
+}
 
 const tempMaterialSlice = createSlice({
   name: 'tempMaterial',
   initialState,
   reducers: {
-    setCategory: (state, action: PayloadAction<string>) => {
+    setTempCategory: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
-    addItem: (state, action: PayloadAction<DiscoveryTermObject>) => {
-      state.discoveryTerms.push(action.payload);
+    updateTempItem: (state, action: PayloadAction<AddItemPayload>) => {
+      const { id, data } = action.payload;
+      state.items[id] = data;
     },
-    removeItem: (state, action: PayloadAction<DiscoveryTermObject>) => {
-      const CMAwithRemovedDTO = state.discoveryTerms.filter(DTO => {
-        return DTO.dt !== action.payload.dt;
-      });
-      state.discoveryTerms = CMAwithRemovedDTO;
+    removeTempItem: (state, action: PayloadAction<number>) => {
+      delete state.items[action.payload];
     },
-    resetTempMaterial: () => ({ category: '', discoveryTerms: [] }),
+    resetTempMaterial: () => ({ category: '', items: {} }),
     resetTempCategory: state => ({
       category: '',
-      discoveryTerms: state.discoveryTerms,
+      items: state.items,
     }),
   },
 });
 
 export const {
-  setCategory,
-  addItem,
-  removeItem,
+  setTempCategory,
+  updateTempItem,
+  removeTempItem,
   resetTempMaterial,
   resetTempCategory,
 } = tempMaterialSlice.actions;
