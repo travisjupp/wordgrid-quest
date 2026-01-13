@@ -1,9 +1,7 @@
 jest.unmock('@theme/themeConfig');
-import { style } from '../../../../../Javascript/styles';
-const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
-import { render, screen, fireEvent, act } from '../../../test-utils';
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { render, screen } from '../../../test-utils';
+import { TempMaterialState } from '@custom-types/AppTheme';
 import ConfirmMaterialItems from '@components/customMaterial/ConfirmMaterialItems';
 
 jest.useFakeTimers();
@@ -22,18 +20,18 @@ describe('ConfirmMaterialItems Logic Flow', () => {
   });
 
   it('Should render mock items from preloaded state', async () => {
-    const items: DiscoveryTermObject[] = [
-      { dt: 'Platypus', def: 'Egg-laying marsupial' },
-      { dt: 'Wombat', def: 'Thick-bodied marsupial' },
-      { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
-    ];
+    const initialState: TempMaterialState = {
+      category: 'Marsupials',
+      items: {
+        0: { dt: 'Platypus', def: 'Egg-laying marsupial' },
+        1: { dt: 'Wombat', def: 'Thick-bodied marsupial' },
+        2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
+      },
+    };
 
     render(<ConfirmMaterialItems />, {
       preloadedState: {
-        tempMaterial: {
-          category: 'Marsupials',
-          discoveryTerms: items,
-        },
+        tempMaterial: initialState,
       },
     });
     expect(await screen.findByText('Platypus')).toBeTruthy();

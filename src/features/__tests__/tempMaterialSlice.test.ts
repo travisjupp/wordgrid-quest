@@ -1,59 +1,67 @@
-import { InitialTempMaterialSliceState } from '@custom-types/AppTheme';
+import { TempMaterialState } from '@custom-types/AppTheme';
 import tempMaterialReducer, {
-  setCategory,
-  addItem,
-  removeItem,
+  setTempCategory,
+  updateTempItem,
+  removeTempItem,
   resetTempMaterial,
 } from '@features/tempMaterial/tempMaterialSlice';
 
 describe('tempMaterialSlice', () => {
-  it('should set the category when setCategory is dispatched', () => {
-    const initialState: InitialTempMaterialSliceState = {
+  it('should set the category when setTempCategory is dispatched', () => {
+    const initialState: TempMaterialState = {
       category: '',
-      discoveryTerms: [],
+      items: {},
     };
-    const action = setCategory('Mammals');
+    const action = setTempCategory('Mammals');
     const nextState = tempMaterialReducer(initialState, action);
 
     expect(nextState.category).toBe('Mammals');
-    expect(nextState.discoveryTerms).toEqual([]);
+    expect(nextState.items).toEqual({});
   });
 
-  it('should add item when addItem is dispatched', () => {
-    const initialState: InitialTempMaterialSliceState = {
+  it('should add item when updateTempItem is dispatched', () => {
+    const initialState: TempMaterialState = {
       category: '',
-      discoveryTerms: [],
+      items: {},
     };
-    const action = addItem({ dt: 'Whale', def: 'Largest mammals on Earth' });
+    const action = updateTempItem({
+      id: 0,
+      data: { dt: 'Whale', def: 'Largest mammals on Earth' },
+    });
     const nextState = tempMaterialReducer(initialState, action);
 
     expect(nextState.category).toBe('');
-    expect(nextState.discoveryTerms).toEqual([
-      { dt: 'Whale', def: 'Largest mammals on Earth' },
-    ]);
+    expect(nextState.items[0]).toEqual({
+      dt: 'Whale',
+      def: 'Largest mammals on Earth',
+    });
   });
 
-  it('should remove item when removeItem is dispatched', () => {
-    const initialState: InitialTempMaterialSliceState = {
+  it('should remove item when removeTempItem is dispatched', () => {
+    const initialState: TempMaterialState = {
       category: 'Mammals',
-      discoveryTerms: [{ dt: 'Whale', def: 'Largest mammals on Earth' }],
+      items: {
+        0: { dt: 'Whale', def: 'Largest mammals on Earth' },
+        1: { dt: 'Platypus', def: 'Egg-layer' },
+      },
     };
-    const action = removeItem({ dt: 'Whale', def: 'Largest mammals on Earth' });
+    const action = removeTempItem(0);
     const nextState = tempMaterialReducer(initialState, action);
 
-    expect(nextState.category).toBe('Mammals');
-    expect(nextState.discoveryTerms).toEqual([]);
+    expect(nextState.items[1].dt).toBe('Platypus');
   });
 
   it('should reset tempMaterial when resetTempMaterial is dispatched', () => {
-    const initialState: InitialTempMaterialSliceState = {
+    const initialState: TempMaterialState = {
       category: 'Mammals',
-      discoveryTerms: [{ dt: 'Whale', def: 'Largest mammals on Earth' }],
+      items: {
+        0: { dt: 'Whale', def: 'Largest mammals on Earth' },
+      },
     };
     const action = resetTempMaterial();
     const nextState = tempMaterialReducer(initialState, action);
 
     expect(nextState.category).toBe('');
-    expect(nextState.discoveryTerms).toEqual([]);
+    expect(nextState.items).toEqual({});
   });
 });
