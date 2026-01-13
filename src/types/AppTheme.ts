@@ -22,7 +22,7 @@ export interface InitialMaterialSliceState {
 
 export type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
 
-export interface InitialTempMaterialSliceState {
+export interface TempMaterialState {
   category: string;
   discoveryTerms: DiscoveryTermObject[];
 }

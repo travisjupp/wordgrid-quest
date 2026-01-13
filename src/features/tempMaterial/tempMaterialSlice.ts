@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   DiscoveryTermObject,
-  InitialTempMaterialSliceState,
+  TempMaterialState,
 } from '@custom-types/AppTheme';
 
-const initialState: InitialTempMaterialSliceState = {
+const initialState: TempMaterialState = {
   category: '',
   discoveryTerms: [],
 };
