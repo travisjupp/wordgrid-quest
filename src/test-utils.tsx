@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { ThemeProvider } from '@providers/ThemeProvider';
 // Import real reducer/slice to test actual logic flow
 import rootReducer from '@store/rootReducer';
@@ -21,20 +21,45 @@ const createMockStore = (preloadedState = {}) =>
 
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Partial<RootState>;
+  store?: EnhancedStore;
 }
 
-// Override the standard render method
+interface CustomRenderResult extends ReturnType<typeof render> {
+  store: ReturnType<typeof createMockStore>;
+}
+
+/**
+ * CUSTOM RENDER UTILITY
+ * 
+ * Purpose: 
+ * Orchestrates a hardened testing environment by wrapping components 
+ * in the "Wall of Providers" (Redux, Theme, Overlay, etc.).
+ * 
+ * Features:
+ * 1. Fresh Store Pattern: Instantiates a unique Redux store per test to 
+ *    prevent state leakage and resolve environment fragility.
+ * 2. High-Fidelity State Access: Returns the 'store' instance alongside 
+ *    standard RNTL utilities to enable direct verification of the data-pipe.
+ * 3. Environmental Parity: Hydrates the theme and native stubs to match 
+ *    production behavior within a Node.js ecosystem.
+ * 
+ * Usage:
+ * const { store } = render(<MyComponent />, { preloadedState: { ... } });
+ * fireEvent.press(screen.getByText('Submit'));
+ * expect(store.getState().slice.data).toBe('Expected Value');
+ */
+
 const customRender = (
   ui: ReactElement,
   {
     preloadedState = {},
-    ...options
-  }: CustomRenderOptions = {}
-) => {
+    store = createMockStore(preloadedState),
+    ...renderOptions
+  }: CustomRenderOptions = {},
+): CustomRenderResult => {
 
-const store = createMockStore();
-// The (boilerplate abstracting) Wrapper Component
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
+  // The (boilerplate abstracting) Wrapper Component
+  const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <SafeAreaProvider>
         <KeyboardProvider>
@@ -53,7 +78,10 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
     </Provider>
   );
 
-  return render(ui, { wrapper: AllTheProviders, ...options });
+  return {
+    store,
+    ...render(ui, { wrapper: AllTheProviders, ...renderOptions }),
+  };
 };
 
 // Re-export everything from RNTL + custom render
