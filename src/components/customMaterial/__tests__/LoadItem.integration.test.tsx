@@ -13,12 +13,14 @@ describe('LoadItem Logic Flow', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
+    console.log(style.color(255,0,255),'▷',style.reset,style.color(39),expect.getState().currentTestName,style.reset,'\n'); 
   });
 
   afterEach(() => {
     // Clear timers and switch back to real time to prevent leakages
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
+    console.log(style.color(99), style.hr.double, style.reset);
   });
 
   it('Should render and provide the theme context automatically', () => {
@@ -91,5 +93,16 @@ describe('LoadItem Logic Flow', () => {
         );
       }
     }
+  });
+
+  it('Should sync DTO data with the Redux store on input blur', async () => {
+    const { store } = render(<LoadItem />);
+
+    const input = screen.getByTestId('Discovery Term Text Input');
+    fireEvent.changeText(input, 'Platypus');
+    fireEvent(input, 'blur'); // Trigger sync
+
+    const state = store.getState();
+    expect(state.tempMaterial.items[0].dt).toBe('Platypus');
   });
 });

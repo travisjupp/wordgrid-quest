@@ -7,6 +7,7 @@ import { useAppTheme } from '@theme/themeConfig';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import LoadItem from './LoadItem';
 import Chip from '@components/Chip';
+import ConfirmMaterialItems from '@components/customMaterial/ConfirmMaterialItems';
 
 export function LoadMaterialItems() {
   const tempCategory = useAppSelector(selectTempCustomCategory);
@@ -31,6 +32,7 @@ export function LoadMaterialItems() {
     <>
       <View style={sharedInputWrapper} testID='InputWrapper'>
         <Chip content={tempCategory} onPress={handleEditCategory} />
+        <ConfirmMaterialItems />
         <Button
           disabled={expandedBottomSheet ? true : false}
           onPress={() => {

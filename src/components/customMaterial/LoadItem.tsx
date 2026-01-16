@@ -7,6 +7,8 @@ import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
 import { DiscoveryTermObject, NumericKeyObjectRecord } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
+import { useAppDispatch } from '@hooks/useAppHooks';
+import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
 
 export default function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -26,6 +28,7 @@ export default function LoadItem() {
     0: { dt: '', def: '' },
   });
 
+  const dispatch = useAppDispatch();
   const updateItemFormData = (
     index: number,
     discoveryTerm: DiscoveryTermObject,
@@ -34,6 +37,7 @@ export default function LoadItem() {
       ...prev,
       [index]: discoveryTerm,
     }));
+    dispatch(updateTempItem({id: index, data: discoveryTerm }));
   };
 
   const scrollViewRef = useRef<ScrollView | null>(null);
