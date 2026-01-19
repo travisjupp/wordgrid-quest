@@ -129,6 +129,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'red',
       // borderWidth: 1,
     },
+    resetPassView: {
+      width: 380,
+      padding: 25,
+      borderRadius: 28,
+      backgroundColor: colors.surfaceContainerHigh,
+    },
     authSubtextContainer: {
       // marginTop: 30,
       gap: 10,
@@ -384,6 +390,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
         customChipContentContainer: customProperties.customChipContentContainer,
       },
       authScreens: {
+        resetPassView: customProperties.resetPassView,
         signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
         loginScreenAnimatedView: customProperties.loginScreenAnimatedView,
         authSubtext: {

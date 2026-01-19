@@ -1,10 +1,11 @@
 import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
-import { TextInput, Button, Surface } from 'react-native-paper';
+import { Platform, View } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import { auth } from 'src/services/firebaseConfig';
 import { ShowSnackbar } from '@custom-types/SnackbarTypes';
 import { HideModal } from '@custom-types/ModalTypes';
+import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
   hideModal: HideModal;
@@ -13,8 +14,14 @@ interface Props {
 
 export function ResetPass({ hideModal, showSnackbar }: Props) {
   const [email, setEmail] = useState<string>('');
-  // pass this from login screen
-  // const { showSnackbar } = useSnackbar();
+
+  // Retrieve Custom Theme-properties
+  const {
+    preGameConfig: {
+      authScreens: { resetPassView },
+    },
+    shared: { inputWrapper: sharedInputWrapper },
+  } = useAppTheme();
 
   const handlePasswordReset = () => {
     sendPasswordResetEmail(auth, email)
@@ -34,25 +41,13 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
           message: errorMessage,
           icon: 'alert',
           calledFromModal: true,
-          // iconPressCb: () => {console.log('ICON PRESS CALLBACK FIRED')}
         });
         console.error(errorCode, errorMessage);
       });
   };
 
   return (
-    <Surface
-      elevation={0}
-      style={{
-        gap: 8,
-        width: 380,
-        padding: 25,
-        borderRadius: 28,
-        borderWidth: 1,
-        borderColor: 'yellow',
-      }}
-      testID='ResetPass Surface'
-    >
+    <View style={[sharedInputWrapper, resetPassView]} testID='ResetPass View'>
       <TextInput
         label='Reset Email'
         id='ResetEmailInput'
@@ -76,7 +71,6 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
       />
       <Button
         contentStyle={{ height: 50 }}
-        style={{ marginTop: 6 }}
         mode='contained'
         onPress={handlePasswordReset}
       >
@@ -84,12 +78,11 @@ export function ResetPass({ hideModal, showSnackbar }: Props) {
       </Button>
       <Button
         contentStyle={{ height: 50 }}
-        style={{ marginTop: 6 }}
         mode='contained'
         onPress={hideModal}
       >
         Cancel
       </Button>
-    </Surface>
+    </View>
   );
 }
