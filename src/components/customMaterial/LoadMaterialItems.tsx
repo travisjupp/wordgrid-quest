@@ -1,5 +1,5 @@
 import { Button, Icon } from 'react-native-paper';
-import { selectTempCustomCategory } from '@features/tempMaterial/tempMaterialSelectors';
+import { selectTempCustomCategory, selectTempCustomMaterialItems } from '@features/tempMaterial/tempMaterialSelectors';
 import { useAppSelector } from '@hooks/useAppHooks';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -28,11 +28,12 @@ export function LoadMaterialItems() {
     shared: { inputWrapper: sharedInputWrapper },
   } = useAppTheme();
 
+  const rawItems = useAppSelector(selectTempCustomMaterialItems);
   return (
     <>
       <View style={sharedInputWrapper} testID='InputWrapper'>
         <Chip content={tempCategory} onPress={handleEditCategory} />
-        <ConfirmMaterialItems />
+        { rawItems[0] && <ConfirmMaterialItems /> }
         <Button
           disabled={expandedBottomSheet ? true : false}
           onPress={() => {
@@ -44,7 +45,6 @@ export function LoadMaterialItems() {
             alignItems: 'center',
           }}
           mode='contained'
-          style={{ marginTop: 21 }}
           testID='Button Add Material'
         >
           <Icon
@@ -56,7 +56,6 @@ export function LoadMaterialItems() {
         <Button
           disabled={expandedBottomSheet ? true : false}
           contentStyle={{ height: 50 }}
-          style={{ marginTop: 6 }}
           mode='contained'
         >
           Cancel

@@ -58,33 +58,20 @@ export function LoadMaterialCategory() {
           value={category}
           onChangeText={category => setCategory(category)}
           spellCheck={false}
-          style={{}}
           aria-label='Your material category'
           testID='EmailInput'
           returnKeyType='next'
           onSubmitEditing={handleSetCategory}
-          onFocus={() => {
-            // handleScaleLogo(50);
-          }}
-          onBlur={() => {
-            // handleScaleLogo();
-          }}
         />
         <Button
           contentStyle={{ height: 50 }}
-          style={{ marginTop: 6 }}
           mode='contained'
           onPress={handleSetCategory}
           disabled={!category}
         >
           Continue
         </Button>
-        <Button
-          contentStyle={{ height: 50 }}
-          style={{ marginTop: 6 }}
-          mode='contained'
-          // onPress={}
-        >
+        <Button contentStyle={{ height: 50 }} mode='contained'>
           Cancel
         </Button>
       </View>

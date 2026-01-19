@@ -9,8 +9,6 @@ import { useSnackbar } from '@hooks/useSnackbar';
 import { useAppTheme } from '@theme/themeConfig';
 
 export function LogIn() {
-  // const navigator = useNavigation();
-  // const parentNavigator = navigator.getParent();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
@@ -46,10 +44,6 @@ export function LogIn() {
           content:
             'Load your own words with categories and definitions to WordGrid Quest or use the default preloaded material. You can always load material from the Load Material menu later!',
         });
-        // parentNavigator?.setOptions({
-        //   headerShown: true,
-        //   headerRight: () => <Menu />,
-        // });
       })
       .catch(e => console.error(e.message));
   };
@@ -57,7 +51,7 @@ export function LogIn() {
   const passwordFieldRef = useRef<RNTextInput | null>(null);
 
   return (
-    <View style={sharedInputWrapper} testID='InputWrapper'>
+    <View style={[sharedInputWrapper, { gap: 8 }]} testID='InputWrapper'>
       <TextInput
         label='Email'
         id='EmailInput'
@@ -71,17 +65,10 @@ export function LogIn() {
         value={email}
         onChangeText={email => setEmail(email)}
         spellCheck={false}
-        style={{}}
         aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
         onSubmitEditing={() => passwordFieldRef.current?.focus()}
-        onFocus={() => {
-          // handleScaleLogo(50);
-        }}
-        onBlur={() => {
-          // handleScaleLogo();
-        }}
       />
       <TextInput
         ref={passwordFieldRef}
@@ -95,10 +82,8 @@ export function LogIn() {
         autoCorrect={false}
         autoComplete={Platform.OS === 'ios' ? 'off' : 'current-password'}
         textContentType='password' // iOS only (dont use with autoComplete)
-        //       passwordRules='minlength: 20; required: lower; required: upper; required: digit; required: [-];' // iOS only value={password}
         onChangeText={password => setPassword(password)}
         spellCheck={false}
-        style={{}}
         aria-label='Your password'
         testID='PasswordInput'
         returnKeyType='done'
@@ -120,7 +105,7 @@ export function LogIn() {
       />
       <Button
         contentStyle={{ height: 50 }}
-        style={{ marginTop: 6 }}
+        style={{ marginTop: 7 }}
         mode='contained'
         onPress={handleSignIn}
       >

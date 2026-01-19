@@ -90,10 +90,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     // START Shared Styles
     sharedInputWrapper: {
       width: '100%',
-      gap: 8,
-      borderWidth: 3,
-      borderColor: 'red',
-      borderStyle: 'dotted',
+      gap: 15,
+      // borderWidth: 3,
+      // borderColor: 'red',
+      // borderStyle: 'dotted',
     },
     centeredView: {
       flex: 1,
@@ -181,6 +181,18 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       flexDirection: 'row',
       justifyContent: 'center',
       gap: 12,
+    },
+    confirmItemsListItemContainer: {
+      backgroundColor: colors.secondaryContainer,
+      color: colors.onSecondaryContainer,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.outline,
+      marginBlockEnd: 5,
+    },
+    confirmItemsScrollView: {
+      marginBlockStart: 5,
+      flex: 0,
+      maxHeight: 140,
     },
     // END PreGameConfig Styles
 
@@ -309,7 +321,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-      : {
+        : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -408,6 +420,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           discoveryTermTextInput: customProperties.discoveryTermTextInput,
           definitionTextInput: customProperties.definitionTextInput,
           loadItemButtonsContainer: customProperties.loadItemButtonsContainer,
+          confirmItemsListItemContainer: customProperties.confirmItemsListItemContainer,
+          confirmItemsScrollView: customProperties.confirmItemsScrollView,
         },
       },
     },

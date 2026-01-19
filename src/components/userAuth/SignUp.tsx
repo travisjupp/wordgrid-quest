@@ -34,7 +34,7 @@ export function SignUp() {
   const passwordFieldRef = useRef<RNTextInput | null>(null);
 
   return (
-    <View style={sharedInputWrapper} testID='InputWrapper'>
+    <View style={[sharedInputWrapper, { gap: 8 }]} testID='InputWrapper'>
       <TextInput
         label='Email'
         id='EmailInput'
@@ -48,17 +48,10 @@ export function SignUp() {
         value={email}
         onChangeText={email => setEmail(email)}
         spellCheck={false}
-        style={{}}
         aria-label='Your email address'
         testID='EmailInput'
         returnKeyType='next'
         onSubmitEditing={() => passwordFieldRef.current?.focus()}
-        onFocus={() => {
-          // handleScaleLogo(12);
-        }}
-        onBlur={() => {
-          // handleScaleLogo();
-        }}
         right={<TextInput.Icon icon={'pencil-outline'} />}
       />
       <TextInput
@@ -77,20 +70,17 @@ export function SignUp() {
         value={newPassword}
         onChangeText={newPassword => setNewPassword(newPassword)}
         spellCheck={false}
-        style={{}}
         aria-label='Your password'
         testID='newPasswordInput'
         returnKeyType='done'
         onFocus={() => {
           setFocusedPasswordField(true);
-          // handleScaleLogo(75);
         }}
         onBlur={() => {
           setFocusedPasswordField(false);
           // Mask P/W when field deselected
           // Breaks show/hide P/W toggle on web, non-web only
           if (Platform.OS !== 'web') setSecureTextEntry(true);
-          // handleScaleLogo();
         }}
         right={
           <TextInput.Icon
@@ -111,7 +101,7 @@ export function SignUp() {
       />
       <Button
         contentStyle={{ height: 50 }}
-        style={{ marginTop: 6 }}
+        style={{ marginTop: 7 }}
         mode='contained'
         onPress={handleSignUp}
       >
