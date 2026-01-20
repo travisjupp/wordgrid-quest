@@ -7,3 +7,12 @@ export const selectTempCustomMaterialItems = (state: RootState) => {
 export const selectTempCustomCategory = (state: RootState) => {
   return state.tempMaterial.category || '';
 };
+
+export const selectIsInitialState = (state: RootState) => {
+  return state.tempMaterial.isInitialState;
+};
+
+export const selectActiveItemIndex = (state: RootState) => {
+  return state.tempMaterial.activeItemIndex;
+};
+

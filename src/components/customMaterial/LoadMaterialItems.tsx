@@ -1,5 +1,8 @@
 import { Button, Icon } from 'react-native-paper';
-import { selectTempCustomCategory, selectTempCustomMaterialItems } from '@features/tempMaterial/tempMaterialSelectors';
+import {
+  selectIsInitialState,
+  selectTempCustomCategory,
+} from '@features/tempMaterial/tempMaterialSelectors';
 import { useAppSelector } from '@hooks/useAppHooks';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -28,12 +31,12 @@ export function LoadMaterialItems() {
     shared: { inputWrapper: sharedInputWrapper },
   } = useAppTheme();
 
-  const rawItems = useAppSelector(selectTempCustomMaterialItems);
+  const isInitialState = useAppSelector(selectIsInitialState);
   return (
     <>
       <View style={sharedInputWrapper} testID='InputWrapper'>
         <Chip content={tempCategory} onPress={handleEditCategory} />
-        { rawItems[0] && <ConfirmMaterialItems /> }
+        {!isInitialState && <ConfirmMaterialItems />}
         <Button
           disabled={expandedBottomSheet ? true : false}
           onPress={() => {

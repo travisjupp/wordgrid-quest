@@ -5,8 +5,12 @@ import {
 } from '@custom-types/AppTheme';
 
 const initialState: TempMaterialState = {
+  isInitialState: true,
+  activeItemIndex: null,
   category: '',
-  items: {},
+  items: {
+    0: { dt: '', def: '' },
+  },
 };
 
 interface AddItemPayload {
@@ -22,14 +26,19 @@ const tempMaterialSlice = createSlice({
       state.category = action.payload;
     },
     updateTempItem: (state, action: PayloadAction<AddItemPayload>) => {
+      state.isInitialState = false;
       const { id, data } = action.payload;
       state.items[id] = data;
     },
     removeTempItem: (state, action: PayloadAction<number>) => {
       delete state.items[action.payload];
     },
-    resetTempMaterial: () => ({ category: '', items: {} }),
+    setActiveItem: (state, action: PayloadAction<number>) => {
+      state.activeItemIndex = action.payload;
+    },
+    resetTempMaterial: () => ({ isInitialState: true, category: '', items: {} }),
     resetTempCategory: state => ({
+      isInitialState: state.isInitialState,
       category: '',
       items: state.items,
     }),

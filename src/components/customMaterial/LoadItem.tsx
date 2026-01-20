@@ -1,14 +1,15 @@
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { useAppTheme } from '@theme/themeConfig';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Keyboard, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
 import { DiscoveryTermObject, NumericKeyObjectRecord } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
-import { useAppDispatch } from '@hooks/useAppHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
+import { selectTempCustomMaterialItems } from '@features/tempMaterial/tempMaterialSelectors';
 
 export default function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -49,11 +50,15 @@ export default function LoadItem() {
       ...prev,
       [itemIdx]: { dt: '', def: '' },
     }));
+    dispatch(updateTempItem({id: itemIdx, data: {dt: '', def: ''}}));
   };
 
   useEffect(() => {
     scrollViewRef.current?.scrollToEnd();
   }, [itemsFormData]);
+
+  const rawItems = useAppSelector(selectTempCustomMaterialItems);
+  const tempItems = useMemo(() => Object.entries(rawItems), [rawItems]);
 
   const { setBottomSheetSnap } = useBottomSheetCustom();
   return (
@@ -84,7 +89,7 @@ export default function LoadItem() {
           borderColor: 'slateblue',
         }}
       >
-        {Object.entries(itemsFormData).map(([key, val]) => {
+        {tempItems.map(([key, val]) => {
           logItems(Number(key), val, itemsFormData);
           return (
             <Item
