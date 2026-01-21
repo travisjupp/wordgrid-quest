@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Keyboard, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
-import { DiscoveryTermObject, NumericKeyObjectRecord } from '@custom-types/AppTheme';
+import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
@@ -25,20 +25,12 @@ export default function LoadItem() {
   const { hideBottomSheet } = useBottomSheetCustom();
   const [itemCount, setItemCount] = useState<number>(0);
 
-  const [itemsFormData, setItemsFormData] = useState<NumericKeyObjectRecord>({
-    0: { dt: '', def: '' },
-  });
-
   const dispatch = useAppDispatch();
   const updateItemFormData = (
     index: number,
     discoveryTerm: DiscoveryTermObject,
   ) => {
-    setItemsFormData(prev => ({
-      ...prev,
-      [index]: discoveryTerm,
-    }));
-    dispatch(updateTempItem({id: index, data: discoveryTerm }));
+    dispatch(updateTempItem({ id: index, data: discoveryTerm }));
   };
 
   const scrollViewRef = useRef<ScrollView | null>(null);
@@ -46,16 +38,12 @@ export default function LoadItem() {
   const handleAddMore = () => {
     const itemIdx = itemCount + 1;
     setItemCount(prev => prev + 1);
-    setItemsFormData(prev => ({
-      ...prev,
-      [itemIdx]: { dt: '', def: '' },
-    }));
-    dispatch(updateTempItem({id: itemIdx, data: {dt: '', def: ''}}));
+    dispatch(updateTempItem({ id: itemIdx, data: { dt: '', def: '' } }));
   };
 
   useEffect(() => {
     scrollViewRef.current?.scrollToEnd();
-  }, [itemsFormData]);
+  }, [itemCount]);
 
   const rawItems = useAppSelector(selectTempCustomMaterialItems);
   const tempItems = useMemo(() => Object.entries(rawItems), [rawItems]);
@@ -90,7 +78,7 @@ export default function LoadItem() {
         }}
       >
         {tempItems.map(([key, val]) => {
-          logItems(Number(key), val, itemsFormData);
+          logItems(Number(key), val, rawItems);
           return (
             <Item
               key={`item-${key}`}
