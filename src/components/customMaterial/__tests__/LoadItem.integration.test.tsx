@@ -4,7 +4,7 @@ const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { render, screen, fireEvent, act } from '../../../test-utils';
 import LoadItem from '../LoadItem';
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
 
 jest.useFakeTimers();
 import nodeConsole from 'console';
@@ -106,3 +106,51 @@ describe('LoadItem Logic Flow', () => {
     expect(state.tempMaterial.items[0].dt).toBe('Platypus');
   });
 });
+
+describe('LoadItem Layout Registry', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    global.console = nodeConsole; // Less noise
+    console.log(style.color(255,0,255),'▷',style.reset,style.color(39),expect.getState().currentTestName,style.reset,'\n'); 
+  });
+
+  afterEach(() => {
+    // Clear timers and switch back to real time to prevent leakages
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+    console.log(style.color(99), style.hr.double, style.reset);
+  });
+  it('Should hydrate the offsets registry when items mount', async () => {
+    const initialState: TempMaterialState = {
+      category: 'Marsupials',
+      isInitialState: false,
+      activeItemIndex: null,
+      items: {
+        0: { dt: 'Platypus', def: 'Egg-laying marsupial' },
+        1: { dt: 'Wombat', def: 'Thick-bodied marsupial' },
+        2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
+      },
+    };
+    const { store } = render(<LoadItem />, {
+      preloadedState: {
+        tempMaterial: initialState,
+      },
+    });
+    // Target Item containers
+    const item0 = screen.getByTestId('Item View 0');
+    const item1 = screen.getByTestId('Item View 1');
+
+    act(() => {
+      fireEvent(item0, 'layout', {
+        nativeEvent: { layout: { y: 100 } },
+      });
+      fireEvent(item1, 'layout', {
+        nativeEvent: { layout: { y: 450 } },
+      });
+    });
+
+    expect(item0).toBeDefined();
+
+  });
+});
+
