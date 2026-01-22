@@ -134,9 +134,14 @@ jest.mock('@gorhom/bottom-sheet', () => {
     default: ViewStub,
     BottomSheetView: ViewStub,
     // Functional mock to allow children rendering
-    BottomSheetScrollView: React.forwardRef(({ children, ...props }, ref) => (
-      <View {...props} ref={ref}>{children}</View>
-    )),
+    BottomSheetScrollView: React.forwardRef(({ children, ...props }, ref) => {
+      // Hydrate ref
+      React.useImperativeHandle(ref, () => ({
+        scrollTo: jest.fn(),
+        scrollToEnd: jest.fn(),
+      }));
+      return <View {...props} ref={ref}>{children}</View>
+    }),
     // Map the custom input to a standard RN TextInput for fireEvent compatibility
     BottomSheetTextInput: React.forwardRef((props, ref) => (
       <TextInput {...props} ref={ref} />

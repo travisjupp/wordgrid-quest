@@ -33,7 +33,7 @@ const tempMaterialSlice = createSlice({
     removeTempItem: (state, action: PayloadAction<number>) => {
       delete state.items[action.payload];
     },
-    setActiveItem: (state, action: PayloadAction<number>) => {
+    setActiveItemIndex: (state, action: PayloadAction<number>) => {
       state.activeItemIndex = action.payload;
     },
     resetTempMaterial: () => ({ isInitialState: true, category: '', items: {} }),
@@ -47,6 +47,7 @@ const tempMaterialSlice = createSlice({
 
 export const {
   setTempCategory,
+  setActiveItemIndex,
   updateTempItem,
   removeTempItem,
   resetTempMaterial,

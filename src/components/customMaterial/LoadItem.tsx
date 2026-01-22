@@ -9,7 +9,7 @@ import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
-import { selectTempCustomMaterialItems } from '@features/tempMaterial/tempMaterialSelectors';
+import { selectTempCustomMaterialItems, selectActiveItemIndex } from '@features/tempMaterial/tempMaterialSelectors';
 
 export default function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -34,6 +34,7 @@ export default function LoadItem() {
   };
 
   const scrollViewRef = useRef<ScrollView | null>(null);
+  const itemOffsetsRef = useRef<Record<number, number>>({});
 
   const handleAddMore = () => {
     const itemIdx = itemCount + 1;
@@ -45,10 +46,23 @@ export default function LoadItem() {
     scrollViewRef.current?.scrollToEnd();
   }, [itemCount]);
 
+  const activeItemIndex = useAppSelector(selectActiveItemIndex);
+  useEffect(() => {
+    const targetY = itemOffsetsRef.current[activeItemIndex ?? -1];
+
+    if (activeItemIndex !== null && targetY !== undefined) {
+      scrollViewRef.current?.scrollTo({
+        y: targetY,
+        animated: true,
+      });
+    }
+  }, [activeItemIndex, itemOffsetsRef.current[Number(activeItemIndex)]]);
+
   const rawItems = useAppSelector(selectTempCustomMaterialItems);
   const tempItems = useMemo(() => Object.entries(rawItems), [rawItems]);
 
   const { setBottomSheetSnap } = useBottomSheetCustom();
+
   return (
     <View
       onLayout={event => {
@@ -76,13 +90,16 @@ export default function LoadItem() {
           borderWidth: 1,
           borderColor: 'slateblue',
         }}
+        testID='LoadItem BS ScrollView'
       >
-        {tempItems.map(([key, val]) => {
-          logItems(Number(key), val, rawItems);
+        {tempItems.map(([numericKey, val]) => {
+          logItems(Number(numericKey), val, rawItems);
           return (
             <Item
-              key={`item-${key}`}
-              updateItemFormData={DTO => updateItemFormData(Number(key), DTO)}
+              key={`item-${numericKey}`}
+              index={Number(numericKey)}
+              offsetsBucket={itemOffsetsRef}
+              updateItemFormData={DTO => updateItemFormData(Number(numericKey), DTO)}
             />
           );
         })}

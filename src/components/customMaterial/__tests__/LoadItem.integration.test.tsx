@@ -1,4 +1,5 @@
 jest.unmock('@theme/themeConfig');
+import { setActiveItemIndex } from '@features/tempMaterial/tempMaterialSlice';
 import { style } from '../../../../../Javascript/styles';
 const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
@@ -120,7 +121,7 @@ describe('LoadItem Layout Registry', () => {
     jest.useRealTimers();
     console.log(style.color(99), style.hr.double, style.reset);
   });
-  it('Should hydrate the offsets registry when items mount', async () => {
+  it('Should hydrate the offsets registry via onLayout orchestration', async () => {
     const initialState: TempMaterialState = {
       category: 'Marsupials',
       isInitialState: false,
@@ -140,14 +141,28 @@ describe('LoadItem Layout Registry', () => {
     const item0 = screen.getByTestId('Item View 0');
     const item1 = screen.getByTestId('Item View 1');
 
+    // Simulate 'onLayout' events
     act(() => {
       fireEvent(item0, 'layout', {
         nativeEvent: { layout: { y: 100 } },
       });
       fireEvent(item1, 'layout', {
-        nativeEvent: { layout: { y: 450 } },
+        nativeEvent: { layout: { y: 480 } },
       });
     });
+
+    // ASSERT: Verify the registry has the data.
+    // Trigger 'activeItemIndex' (cannot see internal 'ref' easily)
+    const scrollView = screen.getByTestId('LoadItem BS ScrollView');
+
+    act(() => {
+      store.dispatch(setActiveItemIndex(1));
+    });
+
+    // Lookup '480' and scroll to it
+    expect(scrollView.props.ref.current.scrollTo).toHaveBeenCalledWith(
+      expect.objectContaining({ y: 480 })
+    );
 
     expect(item0).toBeDefined();
 

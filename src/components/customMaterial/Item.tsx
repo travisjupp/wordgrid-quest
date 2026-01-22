@@ -1,15 +1,21 @@
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { ComponentProps, useEffect, useRef, useState } from 'react';
+import { ComponentProps, useEffect, useRef, useState, RefObject } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
 interface Props {
   updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
+  index?: number;
+  offsetsBucket?: RefObject<Record<number, number>>;
 }
 
-export default function Item({ updateItemFormData }: Props) {
+export default function Item({
+  updateItemFormData,
+  index,
+  offsetsBucket,
+}: Props) {
   const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
   const definitionTextInputRef = useRef<RNTextInput | null>(null);
 
@@ -55,6 +61,14 @@ export default function Item({ updateItemFormData }: Props) {
       style={{
         marginBlockEnd: 8,
       }}
+      onLayout={(e) => {
+        const y = e.nativeEvent.layout.y;
+        // Hardened: Ensure we write to .current using a consistent Number key
+        if (offsetsBucket?.current) {
+          offsetsBucket.current[Number(index)] = y;
+        }
+      }}
+      testID={`Item View ${index}`}
     >
       <TextInput
         ref={discoveryTermTextInputRef}
