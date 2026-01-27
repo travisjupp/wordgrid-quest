@@ -1,5 +1,8 @@
 jest.unmock('@theme/themeConfig');
-import { setActiveItemIndex } from '@features/tempMaterial/tempMaterialSlice';
+import {
+  setActiveItemIndex,
+  setUIReadyForScroll,
+} from '@features/tempMaterial/tempMaterialSlice';
 import { style } from '../../../../../Javascript/styles';
 const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
@@ -14,7 +17,15 @@ describe('LoadItem Logic Flow', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
-    console.log(style.color(255,0,255),'▷',style.reset,style.color(39),expect.getState().currentTestName,style.reset,'\n'); 
+    console.log(
+      style.color(255, 0, 255),
+      '▷',
+      style.reset,
+      style.color(39),
+      expect.getState().currentTestName,
+      style.reset,
+      '\n',
+    );
   });
 
   afterEach(() => {
@@ -112,7 +123,15 @@ describe('LoadItem Layout Registry', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
-    console.log(style.color(255,0,255),'▷',style.reset,style.color(39),expect.getState().currentTestName,style.reset,'\n'); 
+    console.log(
+      style.color(255, 0, 255),
+      '▷',
+      style.reset,
+      style.color(39),
+      expect.getState().currentTestName,
+      style.reset,
+      '\n',
+    );
   });
 
   afterEach(() => {
@@ -124,13 +143,13 @@ describe('LoadItem Layout Registry', () => {
   it('Should hydrate the offsets registry via onLayout orchestration', async () => {
     const initialState: TempMaterialState = {
       category: 'Marsupials',
-      isInitialState: false,
-      activeItemIndex: null,
       items: {
         0: { dt: 'Platypus', def: 'Egg-laying marsupial' },
         1: { dt: 'Wombat', def: 'Thick-bodied marsupial' },
         2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
       },
+      activeItemIndex: null,
+      UIReadyForScroll: false,
     };
     const { store } = render(<LoadItem />, {
       preloadedState: {
@@ -157,15 +176,14 @@ describe('LoadItem Layout Registry', () => {
 
     act(() => {
       store.dispatch(setActiveItemIndex(1));
+      store.dispatch(setUIReadyForScroll(true));
     });
 
     // Lookup '480' and scroll to it
     expect(scrollView.props.ref.current.scrollTo).toHaveBeenCalledWith(
-      expect.objectContaining({ y: 480 })
+      expect.objectContaining({ y: 480 }),
     );
 
     expect(item0).toBeDefined();
-
   });
 });
-

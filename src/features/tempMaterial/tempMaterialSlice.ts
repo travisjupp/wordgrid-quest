@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  DiscoveryTermObject,
-  TempMaterialState,
-} from '@custom-types/AppTheme';
+import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
 
 const initialState: TempMaterialState = {
   isInitialState: true,
   activeItemIndex: null,
+  scrollPulse: 0,
+  UIReadyForScroll: false,
   category: '',
   items: {
     0: { dt: '', def: '' },
@@ -35,8 +34,18 @@ const tempMaterialSlice = createSlice({
     },
     setActiveItemIndex: (state, action: PayloadAction<number>) => {
       state.activeItemIndex = action.payload;
+      if (state.scrollPulse !== undefined) {
+        state.scrollPulse += 1;
+      }
     },
-    resetTempMaterial: () => ({ isInitialState: true, category: '', items: {} }),
+    setUIReadyForScroll: (state, action: PayloadAction<boolean>) => {
+      state.UIReadyForScroll = action.payload;
+    },
+    resetTempMaterial: () => ({
+      isInitialState: true,
+      category: '',
+      items: {},
+    }),
     resetTempCategory: state => ({
       isInitialState: state.isInitialState,
       category: '',
@@ -48,6 +57,7 @@ const tempMaterialSlice = createSlice({
 export const {
   setTempCategory,
   setActiveItemIndex,
+  setUIReadyForScroll,
   updateTempItem,
   removeTempItem,
   resetTempMaterial,

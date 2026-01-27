@@ -19,9 +19,11 @@ export interface InitialMaterialSliceState {
 export type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
 
 export interface TempMaterialState {
-  isInitialState?: boolean;
-  activeItemIndex?: number | null;
   category: string;
   items: NumericKeyObjectRecord;
+  isInitialState?: boolean;
+  activeItemIndex?: number | null;
+  scrollPulse?: number;
+  UIReadyForScroll?: boolean;
 }
 

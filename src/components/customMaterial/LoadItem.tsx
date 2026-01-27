@@ -9,7 +9,12 @@ import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
-import { selectTempCustomMaterialItems, selectActiveItemIndex } from '@features/tempMaterial/tempMaterialSelectors';
+import {
+  selectTempCustomMaterialItems,
+  selectActiveItemIndex,
+  selectScrollPulse,
+  selectUIReadyForScroll,
+} from '@features/tempMaterial/tempMaterialSelectors';
 
 export default function LoadItem() {
   // Retrieve Custom Theme-properties
@@ -47,16 +52,20 @@ export default function LoadItem() {
   }, [itemCount]);
 
   const activeItemIndex = useAppSelector(selectActiveItemIndex);
+  const scrollPulse = useAppSelector(selectScrollPulse);
+  const isUIReadyForScroll = useAppSelector(selectUIReadyForScroll);
   useEffect(() => {
     const targetY = itemOffsetsRef.current[activeItemIndex ?? -1];
+    const isAuditToEditReady =
+      activeItemIndex !== null && targetY !== undefined && isUIReadyForScroll;
 
-    if (activeItemIndex !== null && targetY !== undefined) {
+    if (isAuditToEditReady) {
       scrollViewRef.current?.scrollTo({
         y: targetY,
         animated: true,
       });
     }
-  }, [activeItemIndex, itemOffsetsRef.current[Number(activeItemIndex)]]);
+  }, [scrollPulse, activeItemIndex, isUIReadyForScroll]);
 
   const rawItems = useAppSelector(selectTempCustomMaterialItems);
   const tempItems = useMemo(() => Object.entries(rawItems), [rawItems]);
@@ -86,20 +95,28 @@ export default function LoadItem() {
         ref={scrollViewRef}
         style={{
           flex: 1, // Must have bounded height
+          height: 150, // A Non-Bounded height breaks scrollToEnd
           maxHeight: 150,
           borderWidth: 1,
           borderColor: 'slateblue',
         }}
         testID='LoadItem BS ScrollView'
       >
-        {tempItems.map(([numericKey, val]) => {
-          logItems(Number(numericKey), val, rawItems);
+        {tempItems.map(([numericKey]) => {
+          logItems(
+            Number(numericKey),
+            itemOffsetsRef.current,
+            rawItems,
+            activeItemIndex,
+          );
           return (
             <Item
               key={`item-${numericKey}`}
               index={Number(numericKey)}
               offsetsBucket={itemOffsetsRef}
-              updateItemFormData={DTO => updateItemFormData(Number(numericKey), DTO)}
+              updateItemFormData={DTO =>
+                updateItemFormData(Number(numericKey), DTO)
+              }
             />
           );
         })}

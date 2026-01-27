@@ -33,6 +33,8 @@ import {
   ExpandedBottomSheet,
   SetBottomSheetSnap,
 } from '@custom-types/BottomSheetTypes';
+import { useAppDispatch } from '@hooks/useAppHooks';
+import { setUIReadyForScroll } from '@features/tempMaterial/tempMaterialSlice';
 
 const BOTTOM_SHEET_MAX_WIDTH = 500;
 const BOTTOM_SHEET_SNAP_POINT = 300;
@@ -231,6 +233,7 @@ export function OverlayProvider({ children }: Props) {
   };
 
   const { theme } = useTheme();
+  const dispatch = useAppDispatch();
 
   return (
     <ModalContext value={{ showModal, hideModal }}>
@@ -290,14 +293,21 @@ export function OverlayProvider({ children }: Props) {
                 enableBlurKeyboardOnGesture={false}
                 /* Callbacks */
                 onChange={idx => {
-                  /* Get snapPoint idx on change */
-                  // console.log('BottomSheet pos chngd, i:', idx);
+                  const isSettled = idx >= 0;
+                  isSettled ? 
+                    dispatch(setUIReadyForScroll(true)) :
+                    dispatch(setUIReadyForScroll(false));
                 }}
-                onAnimate={(fromIdx, toIdx, fromPos, toPos) => {
-                  // console.log(`About to animate:
-                  //              IDX: From ${fromIdx} To ${toIdx}
-                  //              POS: From ${fromPos} To ${toPos}`);
-                }}
+                onAnimate={(
+                  // fromIdx, 
+                  // toIdx, 
+                  // fromPos, 
+                  // toPos
+                ) => {
+                    // console.log(`About to animate:
+                    //              IDX: From ${fromIdx} To ${toIdx}
+                    //              POS: From ${fromPos} To ${toPos}`);
+                  }}
               >
                 <BottomSheetView
                   key='BottomSheet-View'
@@ -314,7 +324,7 @@ export function OverlayProvider({ children }: Props) {
             }
             {dialogState.visible && !modalVisible ?
               <RNPDialog {...RNPDialogProps} />
-            : null}
+              : null}
             {modalVisible ?
               /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
                * (SNACKBARS OVERLAY MODALS) */
@@ -346,7 +356,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 </RNModal>
               </Portal>
-            : null}
+              : null}
             {!modalVisible && snackbarState.visible ?
               /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
                * (SNACKBARS DEFAULT) */
@@ -370,7 +380,7 @@ export function OverlayProvider({ children }: Props) {
                   >
                     {snackbarState.message}
                   </RNPSnackbar>
-                : <KeyboardAvoidingView behavior='padding'>
+                  : <KeyboardAvoidingView behavior='padding'>
                     <RNPSnackbar /* MOBILE */
                       {...RNPSnackbarProps}
                       icon={
@@ -392,7 +402,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 }
               </>
-            : null}
+              : null}
           </BottomSheetContext>
         </DialogContext>
       </SnackbarContext>

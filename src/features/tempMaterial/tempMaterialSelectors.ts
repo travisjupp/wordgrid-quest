@@ -16,3 +16,10 @@ export const selectActiveItemIndex = (state: RootState) => {
   return state.tempMaterial.activeItemIndex;
 };
 
+export const selectScrollPulse = (state: RootState) => {
+  return state.tempMaterial.scrollPulse;
+};
+
+export const selectUIReadyForScroll = (state: RootState) => {
+  return state.tempMaterial.UIReadyForScroll;
+};

@@ -6,8 +6,9 @@ const logItems = (
   currentKey: number,
   externalItem: any,
   items: NumericKeyObjectRecord,
+  activeItemIndex?: any,
 ) => {
-  const { dim, bold, purple, reset, cyan, green, bolditalic } = style;
+  const { dim, bold, purple, reset, cyan, green, orange, bolditalic } = style;
   const currentItem = items[currentKey];
   const formatString = (str: string, MAX_LENGTH: number) => {
     if (!str.length) return '·'.repeat(MAX_LENGTH);
@@ -21,6 +22,11 @@ const logItems = (
   const dt = formatString(currentItem.dt, 6);
   const def = formatString(currentItem.def, 16);
   const key = formatString(currentKey.toString(), 6);
+  const ext =
+    externalItem[currentKey] === undefined ?
+      'NULL'
+    : externalItem[currentKey].toFixed(2);
+  const act = activeItemIndex === currentKey ? '<~' : '';
   const isJest = typeof process !== 'undefined' && process.env.JEST_WORKER_ID;
 
   if (currentKey === 0) {
@@ -33,6 +39,8 @@ const logItems = (
     dim, bold, 'KEY ', reset, key,
     dim, bold, purple, ' DT ', reset, bolditalic, purple, dt, '\t', reset, 
     dim, bold, cyan, ' DEF ', reset, bolditalic, cyan, def, '\t', reset,
+    dim, bold, orange, ' EXT ', reset, bolditalic, orange, ext, '\t', reset,
+    dim, bold, green, '', reset, bolditalic, green, act, '\t', reset,
   ].join('');
 
   // Route the output
