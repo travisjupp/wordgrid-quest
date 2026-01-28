@@ -32,7 +32,7 @@ const tempMaterialSlice = createSlice({
     removeTempItem: (state, action: PayloadAction<number>) => {
       delete state.items[action.payload];
     },
-    setActiveItemIndex: (state, action: PayloadAction<number>) => {
+    setActiveItemIndex: (state, action: PayloadAction<number | null>) => {
       state.activeItemIndex = action.payload;
       if (state.scrollPulse !== undefined) {
         state.scrollPulse += 1;
