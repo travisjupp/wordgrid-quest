@@ -221,8 +221,8 @@ jest.mock('react-native-paper', () => {
           React.createElement('View', {}, [
             // Ensure props are rendered so RNTL can find them
             left ? left({ color: '#000', style: {}}) : null,
-            title ? React.createElement('Text', {}, title) : null,
-            description ? React.createElement('Text', {}, description) : null,
+            title ? React.createElement('Text', {key: 'title-text'}, title) : null,
+            description ? React.createElement('Text', {key: 'desc-text'}, description) : null,
             children,
             right ? right({ color: '#000', style: {}}) : null,
           ])
