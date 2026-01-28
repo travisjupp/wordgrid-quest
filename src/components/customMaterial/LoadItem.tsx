@@ -102,7 +102,7 @@ export default function LoadItem() {
         }}
         testID='LoadItem BS ScrollView'
       >
-        {tempItems.map(([numericKey]) => {
+        {tempItems.map(([numericKey, val]) => {
           logItems(
             Number(numericKey),
             itemOffsetsRef.current,
@@ -111,6 +111,7 @@ export default function LoadItem() {
           );
           return (
             <Item
+              data={val}
               key={`item-${numericKey}`}
               index={Number(numericKey)}
               offsetsBucket={itemOffsetsRef}

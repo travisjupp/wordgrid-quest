@@ -7,12 +7,14 @@ import { RenderProps } from 'react-native-paper/lib/typescript/components/TextIn
 
 interface Props {
   updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
+  data: DiscoveryTermObject;
   index?: number;
   offsetsBucket?: RefObject<Record<number, number>>;
 }
 
 export default function Item({
   updateItemFormData,
+  data,
   index,
   offsetsBucket,
 }: Props) {
@@ -29,8 +31,8 @@ export default function Item({
   }, []);
 
   const [DTO, setDTO] = useState<DiscoveryTermObject>({
-    dt: '',
-    def: '',
+    dt: data.dt,
+    def: data.def,
   });
 
   const handleDiscoveryTerm = (term: string) => {
