@@ -1,7 +1,7 @@
 jest.unmock('@theme/themeConfig');
 import { style } from '../../../../../Javascript/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
-import { render, screen } from '../../../test-utils';
+import { fireEvent, render, screen } from '../../../test-utils';
 import { TempMaterialState } from '@custom-types/AppTheme';
 import ConfirmMaterialItems from '@components/customMaterial/ConfirmMaterialItems';
 
@@ -39,16 +39,47 @@ describe('ConfirmMaterialItems Logic Flow', () => {
         2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
       },
     };
+
     render(<ConfirmMaterialItems />, {
       preloadedState: {
         tempMaterial: initialState,
       },
     });
+
     expect(await screen.findByText(initialState.items[0].dt)).toBeTruthy();
     expect(await screen.findByText(initialState.items[0].def)).toBeTruthy();
     expect(await screen.findByText(initialState.items[1].dt)).toBeTruthy();
     expect(await screen.findByText(initialState.items[1].def)).toBeTruthy();
     expect(await screen.findByText(initialState.items[2].dt)).toBeTruthy();
     expect(await screen.findByText(initialState.items[2].def)).toBeTruthy();
+  });
+
+  it('Should verify removal of a DTO from the audit list', () => {
+    const initialState: TempMaterialState = {
+      category: 'Marsupials',
+      items: {
+        0: { dt: 'Platypus', def: 'Egg-laying marsupial' },
+        1: { dt: 'Wombat', def: 'Thick-bodied marsupial' },
+        2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
+      },
+    };
+
+    render(<ConfirmMaterialItems />, {
+      preloadedState: {
+        tempMaterial: initialState,
+      },
+    });
+
+    const platypus = screen.getByTestId('List Item Icon Pressable 0');
+    const kangaroo = screen.getByTestId('List Item Icon Pressable 2');
+
+    // Simulate Item removal
+    fireEvent.press(platypus);
+    fireEvent.press(kangaroo);
+
+    // Verify
+    expect(screen.queryByText('Platypus')).not.toBeOnTheScreen();
+    expect(screen.queryByText('Wombat')).toBeOnTheScreen();
+    expect(screen.queryByText('Kangaroo')).not.toBeOnTheScreen();
   });
 });

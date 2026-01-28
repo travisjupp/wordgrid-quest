@@ -10,6 +10,8 @@ const mockRN = {
   Text: 'Text',
   ScrollView: 'ScrollView',
   TouchableOpacity: 'View',
+  Pressable: ({ children, ...props }) =>
+    React.createElement('View', props, children),
   useColorScheme: jest.fn(() => 'light'),
 
   // ThemeProvider often uses this for layout/status bar

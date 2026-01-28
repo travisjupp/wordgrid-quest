@@ -1,5 +1,6 @@
 jest.unmock('@theme/themeConfig');
 import {
+  removeTempItem,
   setActiveItemIndex,
   setUIReadyForScroll,
 } from '@features/tempMaterial/tempMaterialSlice';
@@ -80,7 +81,7 @@ describe('LoadItem Logic Flow', () => {
         '\n', dim, green, hr.short, ' › Add More ', hr.short, reset,
       ].join('');
 
-      // process.stdout.write(TERM_BLURRED);
+      process.stdout.write(TERM_BLURRED);
 
       // Verify items text
       expect(dtInputs[i].props.value).toBe(el.dt);
@@ -117,6 +118,33 @@ describe('LoadItem Logic Flow', () => {
     const state = store.getState();
     expect(state.tempMaterial.items[0].dt).toBe('Platypus');
   });
+
+  it('Should remove Item from the form-factory', () => {
+    const initialState: TempMaterialState = {
+      category: 'Marsupials',
+      items: {
+        0: { dt: 'Platypus', def: 'Egg-laying marsupial' },
+        1: { dt: 'Wombat', def: 'Thick-bodied marsupial' },
+        2: { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
+      },
+      activeItemIndex: null,
+      UIReadyForScroll: false,
+    };
+
+    const { store } = render(<LoadItem />, {
+      preloadedState: {
+        tempMaterial: initialState,
+      },
+    });
+
+    // Simulate Item removal 'onPress' events
+    act(() => {
+      store.dispatch(removeTempItem(2));
+    });
+
+    expect(screen.getByDisplayValue('Platypus')).toBeOnTheScreen();
+    expect(screen.queryByDisplayValue('Kangaroo')).toBeNull();
+  });
 });
 
 describe('LoadItem Layout Registry', () => {
@@ -151,11 +179,13 @@ describe('LoadItem Layout Registry', () => {
       activeItemIndex: null,
       UIReadyForScroll: false,
     };
+
     const { store } = render(<LoadItem />, {
       preloadedState: {
         tempMaterial: initialState,
       },
     });
+
     // Target Item containers
     const item0 = screen.getByTestId('Item View 0');
     const item1 = screen.getByTestId('Item View 1');
