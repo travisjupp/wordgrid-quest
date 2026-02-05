@@ -1,4 +1,4 @@
-# Redux Strategy (TS)
+# ADR-000 Redux Strategy (TS)
 
     wordgrid-quest/
     ├── app/                  # Expo Router routes

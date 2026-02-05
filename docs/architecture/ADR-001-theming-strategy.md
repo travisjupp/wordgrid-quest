@@ -1,3 +1,5 @@
+# ADR-001: Theming Strategy
+
 > ## Using, Reusing, and Extending Theme Styles
 > 
 > Currently, we have this nasty, verbose setup where a RNP `useTheme` hook in the body of our HomeScreen sub-component grabs `theme` from our Paper Theme, then uses React Native's `StyleSheet.create` method to create a stylesheet in the **BODY** of the component (`theme` is only available there) and applies `theme` properties (E.g., `color: theme.colors.onSurface`) to HomeScreen's JSX.
