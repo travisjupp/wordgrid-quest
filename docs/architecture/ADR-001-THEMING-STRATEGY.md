@@ -1,9 +1,9 @@
 # ADR-001: Centralized Theming and Atomic Style Governance
 
-**Status:** Accepted  
-**Owner:** Engineering  
+**Status:** `Accepted` (Living Document)  
+**Owner:** `Engineering`  
 **Decisions Linked:** [#61], [#102], [#172]  
-**Date:** February 6, 2026 (Revised)  
+**Last Updated:** `2026-02-06`  
 
 ## 1. Context and Problem Statement
 Early development was characterized by the **"Drifter Pattern"**—a practice where `StyleSheet.create` was invoked inside functional component bodies. This led to:
