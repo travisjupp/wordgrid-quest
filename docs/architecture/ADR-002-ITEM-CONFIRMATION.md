@@ -1,10 +1,10 @@
 # ADR-002: Form Factory State Reconciliation
 
-**Status:** `Accepted`
-**Date:** `2026-01-20`
-**Decisions Linked:** [#98], [#102], [#104], [#166]
-**Scope**: `Infrastructure / Architecture`
-**Parent Epic:** Epic: Custom Material (#98)
+**Status:** `Accepted`  
+**Date:** `2026-01-20`  
+**Decisions Linked:** [#98], [#102], [#104], [#166]  
+**Scope**: `Infrastructure / Architecture`  
+**Parent Epic:** Epic: Custom Material (#98)  
 
 ## Status
 Proposed (Pivot to Single Source of Truth)

@@ -1,10 +1,10 @@
 # ADR-003: Firebase Identity and Sanitized Persistence Strategy
 
-**Status:** `Accepted`
-**Date:** `2026-02-05`
-**Decisions Linked:** [Epic #111], [Epic #36], [Issue #171], [Issue #115]
-**Scope**: `Infrastructure / Architecture`
-**Parent Epic:** Epic: Infrastructure & DX (#35)
+**Status:** `Accepted`  
+**Date:** `2026-02-05`  
+**Decisions Linked:** [Epic #111], [Epic #36], [Issue #171], [Issue #115]  
+**Scope**: `Infrastructure / Architecture`  
+**Parent Epic:** Epic: Infrastructure & DX (#35)  
 
 ## 1. Context and Problem Statement
 The application requires a robust method for persisting transient "audit" data from Redux to a cloud-based database (Firestore). Previous testing identified three critical architectural gaps:

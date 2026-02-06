@@ -1,8 +1,8 @@
 # ADR-005: Provider Orchestration & Context Encapsulation
 
-**Status:** `Accepted` (Implemented 2024, Validated via Expo 53 Migration 2026)
-**Scope:** `Infrastructure / Architecture`
-**Parent Epic:** Epic: Infrastructure & DX (#35)
+**Status:** `Accepted` (Implemented 2024, Validated via Expo 53 Migration 2026)  
+**Scope:** `Infrastructure / Architecture`  
+**Parent Epic:** Epic: Infrastructure & DX (#35)  
 
 ## Context
 Providing React Contexts "nakedly" within `_layout.tsx` leads to high cognitive load, cluttered entry files, and unnecessary re-renders due to non-memoized value objects. Standardized state isolation is required to maintain 60fps performance and developer velocity.
