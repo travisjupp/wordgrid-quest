@@ -9,7 +9,10 @@ const logItems = (
   activeItemIndex?: any,
 ) => {
   const { dim, bold, purple, reset, cyan, green, orange, bolditalic } = style;
-  const currentItem = items[currentKey];
+  const currentItem = items[currentKey] ?? {
+    dt: 'NULL',
+    def: 'NO CURRENT ITEM',
+  };
   const formatString = (str: string, MAX_LENGTH: number) => {
     if (!str.length) return '·'.repeat(MAX_LENGTH);
     if (str.length <= MAX_LENGTH) {
@@ -31,7 +34,11 @@ const logItems = (
 
   if (currentKey === 0) {
     const header = `\n${style.h2('LogItems')}\n`;
-    isJest ? process.stdout.write(header) : console.log(header);
+    if (isJest) {
+      process.stdout.write(header);
+    } else {
+      console.log(header);
+    }
   }
 
   // prettier-ignore
@@ -40,11 +47,15 @@ const logItems = (
     dim, bold, purple, ' DT ', reset, bolditalic, purple, dt, '\t', reset, 
     dim, bold, cyan, ' DEF ', reset, bolditalic, cyan, def, '\t', reset,
     dim, bold, orange, ' EXT ', reset, bolditalic, orange, ext, '\t', reset,
-    dim, bold, green, '', reset, bolditalic, green, act, '\t', reset,
+    dim, bold, green, '', reset, bolditalic, green, act, '\t', reset, '\n',
   ].join('');
 
   // Route the output
-  isJest ? process.stdout.write(message + '\n') : console.log(message);
+  if (isJest) {
+    process.stdout.write(message);
+  } else {
+    console.log(message);
+  }
 };
 
 export { logItems };

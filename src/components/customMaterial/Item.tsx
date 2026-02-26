@@ -1,34 +1,64 @@
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
-import { ComponentProps, useEffect, useRef, useState, RefObject } from 'react';
+import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import {
+  selectActiveItemIndex,
+  selectItemFocusDisabled,
+  selectUIReadyForScroll,
+} from '@features/tempMaterial/tempMaterialSelectors';
+import { useAppSelector } from '@hooks/useAppHooks';
+import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 
 interface Props {
   updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
   data: DiscoveryTermObject;
   index?: number;
-  offsetsBucket?: RefObject<Record<number, number>>;
+  updateItemOffsets: (index: number, y: number) => void;
 }
 
 export default function Item({
   updateItemFormData,
   data,
   index,
-  offsetsBucket,
+  updateItemOffsets,
 }: Props) {
   const discoveryTermTextInputRef = useRef<RNTextInput | null>(null);
   const definitionTextInputRef = useRef<RNTextInput | null>(null);
 
+  const activeItemIndex = useAppSelector(selectActiveItemIndex);
+  const isActiveItem = activeItemIndex === index;
+  const isBottomSheetReady = useAppSelector(selectUIReadyForScroll);
+  const isItemFocusDisabled = useAppSelector(selectItemFocusDisabled);
+  const { expandedBottomSheet } = useBottomSheetCustom();
+
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (discoveryTermTextInputRef.current) {
-        discoveryTermTextInputRef.current.focus();
-      }
-    }, 500);
-    return () => clearTimeout(timeoutId);
-  }, []);
+    if (
+      !isItemFocusDisabled /* Prevent focus (KB hidden by BS pull) */ &&
+      expandedBottomSheet /* Prevent offscreen focus (KB hidden by BS pull) */ &&
+      isActiveItem /* Only focus the active `Item` */ &&
+      isBottomSheetReady /* BottomSheet is open? */ &&
+      discoveryTermTextInputRef.current
+    ) {
+      /* Force Android to show KB */
+      discoveryTermTextInputRef.current?.setNativeProps({
+        showSoftInputOnFocus: true,
+      });
+      const frameId = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          discoveryTermTextInputRef.current?.focus();
+        });
+      });
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [
+    expandedBottomSheet,
+    isItemFocusDisabled,
+    isActiveItem,
+    isBottomSheetReady,
+  ]);
 
   const [DTO, setDTO] = useState<DiscoveryTermObject>({
     dt: data.dt,
@@ -61,14 +91,11 @@ export default function Item({
   return (
     <View
       style={{
-        marginBlockEnd: 8,
+        marginBlockEnd: 12 /* Creates the gap between `Item`s, also helps trigger BS ScrollView onContentSizeChange when a new Item is added (ensure scrollToEnd fires on 2nd Item creation) */,
       }}
-      onLayout={(e) => {
+      onLayout={e => {
         const y = e.nativeEvent.layout.y;
-        // Hardened: Ensure we write to .current using a consistent Number key
-        if (offsetsBucket?.current) {
-          offsetsBucket.current[Number(index)] = y;
-        }
+        updateItemOffsets(Number(index), y);
       }}
       testID={`Item View ${index}`}
     >

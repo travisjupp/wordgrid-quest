@@ -4,7 +4,7 @@ import {
   WithSpringConfig,
   WithTimingConfig,
 } from 'react-native-reanimated';
-import { View, Button as RNButton } from 'react-native';
+import { View } from 'react-native';
 import { FAB, Button, Switch } from 'react-native-paper';
 import { useAppTheme } from '@theme/themeConfig';
 // import { FirebaseTest } from '@features/firebase/firebaseTest';
@@ -16,10 +16,7 @@ import { Text } from '@components/Text';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
-import {
-  useBottomSheet,
-  useBottomSheetSpringConfigs,
-} from '@gorhom/bottom-sheet';
+import { useBottomSheet } from '@gorhom/bottom-sheet';
 import { MajorHUD } from '@features/majorHUD/MajorHUD';
 
 export default function HomeScreen() {
@@ -33,7 +30,9 @@ export default function HomeScreen() {
   const {
     shared: { centeredContainer },
   } = useAppTheme();
+
   const BottomSheetContent = () => {
+    /* eslint-disable-next-line */
     const { close } = useBottomSheet(); // Using Gorhoms hook
     const customSpringConfig: WithSpringConfig = {
       damping: 10,

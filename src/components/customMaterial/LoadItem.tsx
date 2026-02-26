@@ -8,7 +8,11 @@ import Item from '@components/customMaterial/Item';
 import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { logItems } from '@utils/logger';
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
-import { updateTempItem } from '@features/tempMaterial/tempMaterialSlice';
+import {
+  setActiveItemIndex,
+  setItemFocusDisabled,
+  updateTempItem,
+} from '@features/tempMaterial/tempMaterialSlice';
 import {
   selectTempCustomMaterialItems,
   selectActiveItemIndex,
@@ -29,6 +33,7 @@ export default function LoadItem() {
 
   const { hideBottomSheet } = useBottomSheetCustom();
   const [itemCount, setItemCount] = useState<number>(0);
+  const lastScrolledCount = useRef(itemCount);
 
   const dispatch = useAppDispatch();
   const updateItemFormData = (
@@ -42,29 +47,43 @@ export default function LoadItem() {
   const itemOffsetsRef = useRef<Record<number, number>>({});
 
   const handleAddMore = () => {
+    dispatch(setItemFocusDisabled(false)); /* Re-Enable `Item` focus() */
     const itemIdx = itemCount + 1;
     setItemCount(prev => prev + 1);
+    dispatch(setActiveItemIndex(itemIdx));
     dispatch(updateTempItem({ id: itemIdx, data: { dt: '', def: '' } }));
   };
-
-  useEffect(() => {
-    scrollViewRef.current?.scrollToEnd();
-  }, [itemCount]);
 
   const activeItemIndex = useAppSelector(selectActiveItemIndex);
   const scrollPulse = useAppSelector(selectScrollPulse);
   const isUIReadyForScroll = useAppSelector(selectUIReadyForScroll);
+
+  const updateItemOffsets = (index: number, y: number) => {
+    if (itemOffsetsRef.current) {
+      itemOffsetsRef.current[Number(index)] = y;
+    }
+  };
+
   useEffect(() => {
     const targetY = itemOffsetsRef.current[activeItemIndex ?? -1];
     const isAuditToEditReady =
       activeItemIndex !== null && targetY !== undefined && isUIReadyForScroll;
+    let frameId: number;
 
     if (isAuditToEditReady) {
-      scrollViewRef.current?.scrollTo({
-        y: targetY,
-        animated: true,
+      frameId = requestAnimationFrame(() => {
+        scrollViewRef.current?.scrollTo({
+          y: targetY,
+          animated: true,
+        });
       });
     }
+
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+    };
   }, [scrollPulse, activeItemIndex, isUIReadyForScroll]);
 
   const rawItems = useAppSelector(selectTempCustomMaterialItems);
@@ -81,7 +100,7 @@ export default function LoadItem() {
       style={[
         sharedInputWrapper,
         {
-          flex: 1, // Must have bounded height
+          flex: 1 /* Must have bounded height */,
           paddingInline: 12,
           height: 'auto',
         },
@@ -89,16 +108,27 @@ export default function LoadItem() {
       testID='LoadItem View'
     >
       <BottomSheetScrollView
+        // scrollEventThrottle={16}
+        onContentSizeChange={() => {
+          if (itemCount > lastScrolledCount.current) {
+            scrollViewRef.current?.scrollToEnd({ animated: true });
+            lastScrolledCount.current = itemCount; /* Sync the ref */
+          }
+        }}
+        /* View that wraps `Item`s */
+        contentContainerStyle={{
+          /* minHeight Same as `maxDynamicContentSize` or
+           * break 2nd `Item` `scrollToEnd` functionality */
+          minHeight: 250,
+        }}
         nestedScrollEnabled={false}
         keyboardShouldPersistTaps='always'
         keyboardDismissMode='interactive'
         ref={scrollViewRef}
+        /* ScrollView `Item`s Viewport */
         style={{
-          flex: 1, // Must have bounded height
-          height: 150, // A Non-Bounded height breaks scrollToEnd
-          maxHeight: 150,
-          borderWidth: 1,
-          borderColor: 'slateblue',
+          flex: 1 /* Must have bounded height */,
+          height: 150 /* A Non-Bounded height breaks scrollToEnd */,
         }}
         testID='LoadItem BS ScrollView'
       >
@@ -114,7 +144,7 @@ export default function LoadItem() {
               data={val}
               key={`item-${numericKey}`}
               index={Number(numericKey)}
-              offsetsBucket={itemOffsetsRef}
+              updateItemOffsets={updateItemOffsets}
               updateItemFormData={DTO =>
                 updateItemFormData(Number(numericKey), DTO)
               }

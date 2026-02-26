@@ -13,6 +13,7 @@ import {
 } from '@features/tempMaterial/tempMaterialSlice';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import LoadItem from './LoadItem';
+import { logItems } from '@utils/logger';
 
 export default function ConfirmMaterialItems() {
   // Retrieve Custom Theme-properties
@@ -49,6 +50,7 @@ export default function ConfirmMaterialItems() {
     <ScrollView style={confirmItemsScrollView}>
       {tempItems.map(([id, DTO]) => {
         const numericId = Number(id);
+        logItems(numericId, { 0: 0 }, rawItems, activeItemIndex);
         return (
           <MemoizedListItem
             style={confirmItemsListItemContainer}
@@ -63,6 +65,7 @@ export default function ConfirmMaterialItems() {
                 onPressIn={() => setPressedId(numericId)}
                 onPressOut={() => setPressedId(null)}
                 testID={`List Item Icon Pressable ${id}`}
+                hitSlop={10}
               >
                 <List.Icon
                   {...props}

@@ -6,6 +6,10 @@ export type SnapBottomSheet = (
   position: number | string,
   animationConfigs?: WithSpringConfig | WithTimingConfig,
 ) => void;
+export type SnapBottomSheetToIndex = (
+  idx: number,
+  animationConfigs?: WithSpringConfig | WithTimingConfig,
+) => void;
 export type ExpandedBottomSheet = boolean;
 export type SetBottomSheetSnap = (snapPoint: string | number) => void;
 
@@ -23,6 +27,10 @@ export interface BottomSheetContextType {
    * Snap BottomSheet to position in pixel or percentage
    */
   snapBottomSheet: SnapBottomSheet;
+  /**
+   * Snap to one of the provided points from `snapPoints`.
+   */
+  snapBottomSheetToIndex: SnapBottomSheetToIndex;
   /**
    * Check if BottomSheet is expanded
    */

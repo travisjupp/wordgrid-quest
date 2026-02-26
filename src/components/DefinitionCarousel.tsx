@@ -71,6 +71,7 @@ export function DefinitionCarousel({ definitions, width, height }: Props) {
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         onScroll={handlePagination}
+        scrollEventThrottle={16}
         alwaysBounceHorizontal={true}
         bounces={true}
         contentContainerStyle={

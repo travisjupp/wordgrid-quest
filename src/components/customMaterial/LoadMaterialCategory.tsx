@@ -22,15 +22,8 @@ export function LoadMaterialCategory() {
         message: `${tempCategory} category ${currentCategory ? 'updated' : 'created'}`,
       });
     }
-    /* TODO Configure React Compiler then re-enable the showSnackbar
-     * dependency to verify RC injected useCallback to memoize
-     * the function in OverlayProvider
-     *
-     * Confirm with React DevTools; should display a "Memo" badge
-     * next to optimized components. Remove linter ignore comment */
+  }, [tempCategory, currentCategory, showSnackbar]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tempCategory /*, showSnackbar */]);
   const handleSetCategory = () => {
     dispatch(setTempCategory(category));
     router.navigate('/loaditems');

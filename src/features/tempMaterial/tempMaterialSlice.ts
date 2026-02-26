@@ -3,9 +3,10 @@ import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
 
 const initialState: TempMaterialState = {
   isInitialState: true,
-  activeItemIndex: null,
+  activeItemIndex: 0,
   scrollPulse: 0,
   UIReadyForScroll: false,
+  itemFocusDisabled: false,
   category: '',
   items: {
     0: { dt: '', def: '' },
@@ -41,6 +42,9 @@ const tempMaterialSlice = createSlice({
     setUIReadyForScroll: (state, action: PayloadAction<boolean>) => {
       state.UIReadyForScroll = action.payload;
     },
+    setItemFocusDisabled: (state, action: PayloadAction<boolean>) => {
+      state.itemFocusDisabled = action.payload;
+    },
     resetTempMaterial: () => ({
       isInitialState: true,
       category: '',
@@ -58,6 +62,7 @@ export const {
   setTempCategory,
   setActiveItemIndex,
   setUIReadyForScroll,
+  setItemFocusDisabled,
   updateTempItem,
   removeTempItem,
   resetTempMaterial,

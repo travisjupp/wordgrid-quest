@@ -23,3 +23,7 @@ export const selectScrollPulse = (state: RootState) => {
 export const selectUIReadyForScroll = (state: RootState) => {
   return state.tempMaterial.UIReadyForScroll;
 };
+
+export const selectItemFocusDisabled = (state: RootState) => {
+  return state.tempMaterial.itemFocusDisabled;
+};
