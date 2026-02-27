@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: getAppName(),
   slug: "wordgrid-quest",
-  version: "1.0.0",
+  version: "1.1.0",
   orientation: "default",
   icon: "./assets/images/icon.png",
   scheme: "myapp",
@@ -44,6 +44,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: materialColors.schemes.light.background
   },
   ios: {
+    buildNumber: "2",
     supportsTablet: true,
     bundleIdentifier: getUniqueIdentifier(),
     userInterfaceStyle: "automatic",
@@ -57,6 +58,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     }
   },
   android: {
+    versionCode: 2,
     edgeToEdgeEnabled: true,
     userInterfaceStyle: "automatic",
     adaptiveIcon: {
@@ -121,6 +123,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ]
   ],
   experiments: {
+    reactCompiler: true,
     typedRoutes: true
   },
   extra: {

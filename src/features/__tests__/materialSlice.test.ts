@@ -3,8 +3,44 @@ import materialReducer, {
   addCustomCategory,
   setActiveCategory,
 } from '@features/material/materialSlice';
+import { style } from '../../../../Javascript/styles';
+import nodeConsole from 'console';
+jest.unmock('@theme/themeConfig');
 
-describe('materialSlice', () => {
+describe(style.wrap('bolditalic', 'materialSlice\n'), () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    global.console = nodeConsole; // Less noise
+    // prettier-ignore
+    const TEST_BEFORE = [
+      '\n',
+      style.color(255, 0, 255),
+      '▷ ',
+      style.reset,
+      style.color(39),
+      expect.getState().currentTestName,
+      style.reset,
+      '\n',
+    ].join('');
+
+    process.stdout.write(TEST_BEFORE);
+  });
+
+  afterEach(() => {
+    // Clear timers and switch back to real time to prevent leakages
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+    const TEST_AFTER = [
+      '\n',
+      style.color(99),
+      style.hr.double,
+      style.reset,
+      '\n',
+    ].join('');
+
+    process.stdout.write(TEST_AFTER);
+  });
+
   it('should set the add custom category when addCustomCategory is dispatched', () => {
     const initialState: InitialMaterialSliceState = {
       category: {

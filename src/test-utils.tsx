@@ -30,19 +30,19 @@ interface CustomRenderResult extends ReturnType<typeof render> {
 
 /**
  * CUSTOM RENDER UTILITY
- * 
- * Purpose: 
- * Orchestrates a hardened testing environment by wrapping components 
+ *
+ * Purpose:
+ * Orchestrates a hardened testing environment by wrapping components
  * in the "Wall of Providers" (Redux, Theme, Overlay, etc.).
- * 
+ *
  * Features:
- * 1. Fresh Store Pattern: Instantiates a unique Redux store per test to 
+ * 1. Fresh Store Pattern: Instantiates a unique Redux store per test to
  *    prevent state leakage and resolve environment fragility.
- * 2. High-Fidelity State Access: Returns the 'store' instance alongside 
+ * 2. High-Fidelity State Access: Returns the 'store' instance alongside
  *    standard RNTL utilities to enable direct verification of the data-pipe.
- * 3. Environmental Parity: Hydrates the theme and native stubs to match 
+ * 3. Environmental Parity: Hydrates the theme and native stubs to match
  *    production behavior within a Node.js ecosystem.
- * 
+ *
  * Usage:
  * const { store } = render(<MyComponent />, { preloadedState: { ... } });
  * fireEvent.press(screen.getByText('Submit'));
@@ -57,7 +57,6 @@ const customRender = (
     ...renderOptions
   }: CustomRenderOptions = {},
 ): CustomRenderResult => {
-
   // The (boilerplate abstracting) Wrapper Component
   const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>

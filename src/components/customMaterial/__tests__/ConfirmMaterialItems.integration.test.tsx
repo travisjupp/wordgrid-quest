@@ -1,33 +1,46 @@
-jest.unmock('@theme/themeConfig');
 import { style } from '../../../../../Javascript/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { fireEvent, render, screen } from '../../../test-utils';
 import { TempMaterialState } from '@custom-types/AppTheme';
 import ConfirmMaterialItems from '@components/customMaterial/ConfirmMaterialItems';
+import nodeConsole from 'console';
+jest.unmock('@theme/themeConfig');
+const { dim, green, hr, reset } = style;
 
 jest.useFakeTimers();
-import nodeConsole from 'console';
 
-describe('ConfirmMaterialItems Logic Flow', () => {
+describe(style.wrap('bolditalic', 'ConfirmMaterialItems Logic Flow\n'), () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
-    console.log(
+    // prettier-ignore
+    const TEST_BEFORE = [
+      '\n',
       style.color(255, 0, 255),
-      '▷',
+      '▷ ',
       style.reset,
       style.color(39),
       expect.getState().currentTestName,
       style.reset,
       '\n',
-    );
+    ].join('');
+
+    process.stdout.write(TEST_BEFORE);
   });
 
   afterEach(() => {
     // Clear timers and switch back to real time to prevent leakages
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    console.log(style.color(99), style.hr.double, style.reset);
+    const TEST_AFTER = [
+      '\n',
+      style.color(99),
+      style.hr.double,
+      style.reset,
+      '\n',
+    ].join('');
+
+    process.stdout.write(TEST_AFTER);
   });
 
   it('Should render mock items from preloaded state', async () => {
@@ -54,7 +67,7 @@ describe('ConfirmMaterialItems Logic Flow', () => {
     expect(await screen.findByText(initialState.items[2].def)).toBeTruthy();
   });
 
-  it('Should verify removal of a DTO from the audit list', () => {
+  it('Should verify removal of first & last DTOs from the audit list', () => {
     const initialState: TempMaterialState = {
       category: 'Marsupials',
       items: {
@@ -70,11 +83,17 @@ describe('ConfirmMaterialItems Logic Flow', () => {
       },
     });
 
+    // prettier-ignore
+    const REMOVAL = [
+      '\n', dim, green, hr.short, ' REMOVAL EVENT ', hr.short, reset, '\n'
+    ].join('');
     const platypus = screen.getByTestId('List Item Icon Pressable 0');
     const kangaroo = screen.getByTestId('List Item Icon Pressable 2');
 
     // Simulate Item removal
+    process.stdout.write(REMOVAL);
     fireEvent.press(platypus);
+    process.stdout.write(REMOVAL);
     fireEvent.press(kangaroo);
 
     // Verify

@@ -13,8 +13,6 @@ import { useAppTheme } from '@theme/themeConfig';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useLogo } from '@hooks/useLogo';
 
-const AnimatedSvg = Animated.createAnimatedComponent(Svg);
-
 interface Props {
   width?: number;
   height?: number;
@@ -44,18 +42,20 @@ export function Logo({
   });
 
   return gradient ?
-      <View style={[logo, { ...styles }]} testID='Color Logo View'>
-        <AnimatedSvg
-          style={animatedStyle}
-          width={width}
-          height={height}
+      <Animated.View
+        style={[logo, styles, animatedStyle]}
+        testID='Color Logo View'
+      >
+        <Svg
+          width={animatedStyle.width}
+          height={animatedStyle.height}
           viewBox='0 0 849 849'
           fill='none'
         >
-          <G clip-path='url(#clip0_669_3687)'>
+          <G clipPath='url(#clip0_669_3687)'>
             <Mask
               id='mask06693687'
-              maskType='alpha'
+              // b='alpha'
               maskUnits='userSpaceOnUse'
               x='0'
               y='0'
@@ -119,9 +119,9 @@ export function Logo({
               <Rect width='848.528' height='848.528' fill='white' />
             </ClipPath>
           </Defs>
-        </AnimatedSvg>
-      </View>
-    : <View style={[logo, { ...styles }]} testID='Logo View'>
+        </Svg>
+      </Animated.View>
+    : <View style={[logo, styles]} testID='Logo View'>
         <Svg width={width} height={height} viewBox='0 0 1046 849' fill='none'>
           <G id='wgq-logo-plain'>
             <Rect

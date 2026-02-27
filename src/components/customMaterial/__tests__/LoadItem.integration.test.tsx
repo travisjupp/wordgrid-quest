@@ -1,39 +1,51 @@
-jest.unmock('@theme/themeConfig');
 import {
   removeTempItem,
   setActiveItemIndex,
   setUIReadyForScroll,
 } from '@features/tempMaterial/tempMaterialSlice';
 import { style } from '../../../../../Javascript/styles';
-const { dim, green, hr, reset } = style;
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { render, screen, fireEvent, act } from '../../../test-utils';
 import LoadItem from '../LoadItem';
 import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
+import nodeConsole from 'console';
+jest.unmock('@theme/themeConfig');
+const { dim, green, hr, reset } = style;
 
 jest.useFakeTimers();
-import nodeConsole from 'console';
 
-describe('LoadItem Logic Flow', () => {
+describe(style.wrap('bolditalic', 'LoadItem Logic Flow\n'), () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
-    console.log(
+    // prettier-ignore
+    const TEST_BEFORE = [
+      '\n',
       style.color(255, 0, 255),
-      '▷',
+      '▷ ',
       style.reset,
       style.color(39),
       expect.getState().currentTestName,
       style.reset,
       '\n',
-    );
+    ].join('');
+
+    process.stdout.write(TEST_BEFORE);
   });
 
   afterEach(() => {
     // Clear timers and switch back to real time to prevent leakages
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    console.log(style.color(99), style.hr.double, style.reset);
+    const TEST_AFTER = [
+      '\n',
+      style.color(99),
+      style.hr.double,
+      style.reset,
+      '\n',
+    ].join('');
+
+    process.stdout.write(TEST_AFTER);
   });
 
   it('Should render and provide the theme context automatically', () => {
@@ -52,7 +64,6 @@ describe('LoadItem Logic Flow', () => {
       { dt: 'Wombat', def: 'Thick-bodied marsupial' },
       { dt: 'Kangaroo', def: 'Strong-legged marsupial' },
     ];
-
     render(<LoadItem />);
 
     act(() => {
@@ -73,7 +84,7 @@ describe('LoadItem Logic Flow', () => {
 
       // prettier-ignore
       const TERM_BLURRED = [
-        '\n', dim, green, hr.short, 'TERM BLURRED', hr.short, reset,
+        '\n', dim, green, hr.short, ' BLUR EVENT ', hr.short, reset,
       ].join('');
 
       // prettier-ignore
@@ -147,27 +158,40 @@ describe('LoadItem Logic Flow', () => {
   });
 });
 
-describe('LoadItem Layout Registry', () => {
+describe(style.wrap('bolditalic', 'LoadItem Layout Registry\n'), () => {
   beforeEach(() => {
     jest.useFakeTimers();
     global.console = nodeConsole; // Less noise
-    console.log(
+    // prettier-ignore
+    const TEST_BEFORE = [
+      '\n',
       style.color(255, 0, 255),
-      '▷',
+      '▷ ',
       style.reset,
       style.color(39),
       expect.getState().currentTestName,
       style.reset,
       '\n',
-    );
+    ].join('');
+
+    process.stdout.write(TEST_BEFORE);
   });
 
   afterEach(() => {
     // Clear timers and switch back to real time to prevent leakages
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    console.log(style.color(99), style.hr.double, style.reset);
+    const TEST_AFTER = [
+      '\n',
+      style.color(99),
+      style.hr.double,
+      style.reset,
+      '\n',
+    ].join('');
+
+    process.stdout.write(TEST_AFTER);
   });
+
   it('Should hydrate the offsets registry via onLayout orchestration', async () => {
     const initialState: TempMaterialState = {
       category: 'Marsupials',
@@ -207,6 +231,10 @@ describe('LoadItem Layout Registry', () => {
     act(() => {
       store.dispatch(setActiveItemIndex(1));
       store.dispatch(setUIReadyForScroll(true));
+    });
+
+    act(() => {
+      jest.runAllTimers();
     });
 
     // Lookup '480' and scroll to it

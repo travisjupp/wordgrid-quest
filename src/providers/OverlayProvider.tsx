@@ -3,13 +3,14 @@ import {
   Modal as RNModal,
   Platform,
   useWindowDimensions,
+  Keyboard,
 } from 'react-native';
 import { useAppTheme } from '@theme/themeConfig';
 import ModalContext from '@contexts/ModalContext';
 import BottomSheetContext from '@contexts/BottomSheetContext';
 import SnackbarContext from '@contexts/SnackbarContext';
 import DialogContext from '@contexts/DialogContext';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Dialog as RNPDialog,
   DialogProps as RNPDialogProps,
@@ -34,7 +35,11 @@ import {
   SetBottomSheetSnap,
 } from '@custom-types/BottomSheetTypes';
 import { useAppDispatch } from '@hooks/useAppHooks';
-import { setUIReadyForScroll } from '@features/tempMaterial/tempMaterialSlice';
+import {
+  setItemFocusDisabled,
+  setUIReadyForScroll,
+} from '@features/tempMaterial/tempMaterialSlice';
+import { WithSpringConfig, WithTimingConfig } from 'react-native-reanimated';
 
 const BOTTOM_SHEET_MAX_WIDTH = 500;
 const BOTTOM_SHEET_SNAP_POINT = 300;
@@ -92,6 +97,7 @@ export function OverlayProvider({ children }: Props) {
   };
 
   // BottomSheet Logic
+  const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
   const { width: screenWidth } = useWindowDimensions();
   /* -- Centering Equation (start_pos = (total_space - item_size)/2) --
    * E.g., Calc a 500px wide BS from 1024px wide Screen:
@@ -122,8 +128,7 @@ export function OverlayProvider({ children }: Props) {
   const [snapPoint, setSnapPoint] = useState<string | number>(
     BOTTOM_SHEET_SNAP_POINT,
   );
-  const snapPoints = useMemo(() => [snapPoint], [snapPoint]);
-  // console.log('SNAP POINTS', snapPoints);
+  const snapPoints = [snapPoint];
 
   const setBottomSheetSnap: SetBottomSheetSnap = (
     snapPoint: string | number,
@@ -131,7 +136,12 @@ export function OverlayProvider({ children }: Props) {
     setSnapPoint(snapPoint);
   };
 
-  const expandedBottomSheet: ExpandedBottomSheet = bottomSheetVisible;
+  const snapBottomSheetToIndex = (
+    idx: number,
+    animationConfigs?: WithSpringConfig | WithTimingConfig,
+  ) => {
+    bottomSheetRef.current?.snapToIndex(idx, animationConfigs);
+  };
 
   // Snackbar Logic
   const showSnackbar = (snackbarConfig: SnackbarTypes.SnackbarConfig) => {
@@ -158,7 +168,7 @@ export function OverlayProvider({ children }: Props) {
   const dismissSnackbarFunction = snackbarState.iconPressCb ?? hideSnackbar;
   const onDismissSnackbar = () => {
     dismissSnackbarFunction();
-    hideSnackbar(); // Ensure orphaned Snackbars hide
+    hideSnackbar(); /* Ensure orphaned Snackbars hide */
   };
 
   // Dialog Logic
@@ -244,6 +254,7 @@ export function OverlayProvider({ children }: Props) {
               showBottomSheet,
               hideBottomSheet,
               snapBottomSheet,
+              snapBottomSheetToIndex,
               expandedBottomSheet,
               setBottomSheetSnap,
             }}
@@ -252,6 +263,7 @@ export function OverlayProvider({ children }: Props) {
             {
               <BottomSheet
                 // enablePanDownToClose={true}
+                enableOverDrag={false} /* Fixes "scrollTo Reset Bug" */
                 detached={false}
                 ref={bottomSheetRef}
                 backgroundStyle={{
@@ -261,8 +273,10 @@ export function OverlayProvider({ children }: Props) {
                   backgroundColor: theme?.colors.outline,
                 }}
                 index={-1} /* Hide initial load */
-                snapPoints={snapPoints} // Can only remove if Dynamic Sizing enabled
-                enableDynamicSizing={true} // If false, provide snapPoints
+                //snapPoints={
+                //  snapPoints
+                //} /* Can only remove if Dynamic Sizing enabled */
+                enableDynamicSizing={true} /* If false, provide snapPoints */
                 containerStyle={{
                   marginBlockStart: insets.top,
                   borderWidth: 4,
@@ -271,9 +285,6 @@ export function OverlayProvider({ children }: Props) {
                 }}
                 style={{
                   marginInline,
-                  borderWidth: 4,
-                  borderColor: 'yellow',
-                  borderStyle: 'dashed',
                 }}
                 /* Layout Config */
                 // handleHeight={24} // Not a prop type
@@ -288,34 +299,56 @@ export function OverlayProvider({ children }: Props) {
                 })}
                 maxDynamicContentSize={250}
                 /* Keyboard Config */
-                keyboardBehavior='interactive' // Follow KB 'interactive'
-                keyboardBlurBehavior='restore' // Follow KB 'restore'
+                keyboardBehavior='interactive' /* Follow KB 'interactive' */
+                keyboardBlurBehavior='restore' /* Follow KB 'restore' */
                 enableBlurKeyboardOnGesture={false}
                 /* Callbacks */
                 onChange={idx => {
                   const isSettled = idx >= 0;
-                  isSettled ? 
-                    dispatch(setUIReadyForScroll(true)) :
+                  if (isSettled) {
+                    dispatch(setUIReadyForScroll(true));
+                  } else {
                     dispatch(setUIReadyForScroll(false));
+                  }
+                  /* Re-Enable `Item` focus() when BS hides on "Done" */
+                  if (idx === -1) {
+                    dispatch(setItemFocusDisabled(false));
+                  }
                 }}
                 onAnimate={(
-                  // fromIdx, 
-                  // toIdx, 
-                  // fromPos, 
-                  // toPos
+                  fromIdx: number | boolean,
+                  toIdx: number | boolean,
+                  fromPos: number,
+                  toPos: number,
                 ) => {
-                    // console.log(`About to animate:
-                    //              IDX: From ${fromIdx} To ${toIdx}
-                    //              POS: From ${fromPos} To ${toPos}`);
-                  }}
+                  // KB DISMISSING DRAGS
+                  // USE WHEN SNAP POINTS ENABLED
+                  // if (fromIdx === 1 && toIdx !== 1) {
+                  //   /* Disable the KB Triggering `Item` focus() when
+                  //    * user dismisses with a BS Down Drag */
+                  //   dispatch(setItemFocusDisabled(true));
+                  //   Keyboard.dismiss();
+                  // }
+                  // USE WHEN NO SNAP POINTS ENABLED
+                  if (fromIdx === 0 && toIdx !== -1) {
+                    console.log('KB DISMISSING DRAG (Disable Focus,Dismiss KB');
+                    /* Disable the KB Triggering `Item` focus() when
+                     * user dismisses with a BS Down Drag */
+                    dispatch(setItemFocusDisabled(true));
+                    Keyboard.dismiss();
+                  }
+
+                  console.log(
+                    `ANIMATING 
+                        FROM IDX: ${fromIdx} TO IDX: ${toIdx}
+                        FROM POS: ${fromPos} TO POS: ${toPos}
+                    `,
+                  );
+                }}
               >
                 <BottomSheetView
                   key='BottomSheet-View'
                   focusable={true}
-                  style={{
-                    borderColor: 'green',
-                    borderWidth: 1,
-                  }}
                   testID='BottomSheetView'
                 >
                   {bottomSheetContent}
@@ -324,7 +357,7 @@ export function OverlayProvider({ children }: Props) {
             }
             {dialogState.visible && !modalVisible ?
               <RNPDialog {...RNPDialogProps} />
-              : null}
+            : null}
             {modalVisible ?
               /* DISPLAY SNACKBARS WHILE MODALS OPEN CONFIG
                * (SNACKBARS OVERLAY MODALS) */
@@ -356,7 +389,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 </RNModal>
               </Portal>
-              : null}
+            : null}
             {!modalVisible && snackbarState.visible ?
               /* DISPLAY SNACKBARS NO MODAL OPEN CONFIG
                * (SNACKBARS DEFAULT) */
@@ -380,7 +413,7 @@ export function OverlayProvider({ children }: Props) {
                   >
                     {snackbarState.message}
                   </RNPSnackbar>
-                  : <KeyboardAvoidingView behavior='padding'>
+                : <KeyboardAvoidingView behavior='padding'>
                     <RNPSnackbar /* MOBILE */
                       {...RNPSnackbarProps}
                       icon={
@@ -402,7 +435,7 @@ export function OverlayProvider({ children }: Props) {
                   </KeyboardAvoidingView>
                 }
               </>
-              : null}
+            : null}
           </BottomSheetContext>
         </DialogContext>
       </SnackbarContext>

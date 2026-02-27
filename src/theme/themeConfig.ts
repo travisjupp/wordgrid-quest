@@ -71,6 +71,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     isDarkTheme ?
       figmaMaterialThemeBuilderExport.schemes.dark
     : figmaMaterialThemeBuilderExport.schemes.light;
+
+  // eslint-disable-next-line
   const RNPCustomColors =
     isDarkTheme ? CustomDarkColorScheme.colors : CustomLightColorScheme.colors;
   const colors = {
@@ -321,7 +323,7 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           borderColor: 'purple',
           alignSelf: 'center',
         }
-        : {
+      : {
           borderWidth: 6,
           borderColor: 'orange',
           position: 'absolute' /* <- Fit Snackbar inside Modal */,
@@ -420,7 +422,8 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           discoveryTermTextInput: customProperties.discoveryTermTextInput,
           definitionTextInput: customProperties.definitionTextInput,
           loadItemButtonsContainer: customProperties.loadItemButtonsContainer,
-          confirmItemsListItemContainer: customProperties.confirmItemsListItemContainer,
+          confirmItemsListItemContainer:
+            customProperties.confirmItemsListItemContainer,
           confirmItemsScrollView: customProperties.confirmItemsScrollView,
         },
       },
@@ -463,14 +466,11 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 };
 
 // Sub-components can access Custom Theme-properties
-// export const useAppTheme = () => useTheme<AppTheme>();
-
 export const useAppTheme = () => {
-  const context = useContext(ThemeContext);
-  // If the context is missing, fallback to the RNP theme 
-  // (Handles the case where Provider is not used)
-  if (!context || !context.theme) {
-     return useTheme<AppTheme>(); 
-  }
-  return context.theme;
+  const customContext = useContext(ThemeContext);
+  const paperTheme = useTheme<AppTheme>();
+  /* Return the custom theme if available,
+   * otherwise fallback to RNP theme
+   * (Handles the case where Provider is not used) */
+  return customContext?.theme ?? paperTheme;
 };

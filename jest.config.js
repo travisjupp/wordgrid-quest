@@ -66,4 +66,5 @@ module.exports = {
   // Point to the Native Mock Registry
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'node',
+  maxWorkers: 1,
 };

@@ -25,5 +25,5 @@ export interface TempMaterialState {
   activeItemIndex?: number | null;
   scrollPulse?: number;
   UIReadyForScroll?: boolean;
+  itemFocusDisabled?: boolean;
 }
-

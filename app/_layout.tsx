@@ -1,6 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme, Platform } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, StrictMode } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { store } from '@store/index';
@@ -78,7 +78,9 @@ export default function RootLayout() {
             <GestureHandlerRootView style={{ flex: 1 }}>
               <OverlayProvider>
                 <LogoProvider>
-                  <JsStack screenOptions={screenOptions} />
+                  <StrictMode>
+                    <JsStack screenOptions={screenOptions} />
+                  </StrictMode>
                 </LogoProvider>
               </OverlayProvider>
             </GestureHandlerRootView>
