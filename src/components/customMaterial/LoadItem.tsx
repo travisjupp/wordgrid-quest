@@ -129,6 +129,7 @@ export default function LoadItem() {
         style={{
           flex: 1 /* Must have bounded height */,
           height: 150 /* A Non-Bounded height breaks scrollToEnd */,
+          maxHeight: 150,
         }}
         testID='LoadItem BS ScrollView'
       >

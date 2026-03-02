@@ -43,15 +43,21 @@ export default function Item({
       discoveryTermTextInputRef.current
     ) {
       /* Force Android to show KB */
-      discoveryTermTextInputRef.current?.setNativeProps({
-        showSoftInputOnFocus: true,
-      });
-      const frameId = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          discoveryTermTextInputRef.current?.focus();
+      if (Platform.OS === 'android') {
+        discoveryTermTextInputRef.current?.setNativeProps({
+          showSoftInputOnFocus: true,
         });
-      });
-      return () => cancelAnimationFrame(frameId);
+      }
+      if (Platform.OS !== 'web') {
+        const frameId = requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            discoveryTermTextInputRef.current?.focus();
+          });
+        });
+        return () => cancelAnimationFrame(frameId);
+      } else {
+        discoveryTermTextInputRef.current?.focus();
+      }
     }
   }, [
     expandedBottomSheet,
