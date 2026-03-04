@@ -11,6 +11,7 @@ import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import LoadItem from './LoadItem';
 import Chip from '@components/Chip';
 import ConfirmMaterialItems from '@components/customMaterial/ConfirmMaterialItems';
+import { ConfirmStartButton } from './ConfirmStartButton';
 
 export function LoadMaterialItems() {
   const tempCategory = useAppSelector(selectTempCustomCategory);
@@ -63,6 +64,7 @@ export function LoadMaterialItems() {
         >
           Cancel
         </Button>
+        <ConfirmStartButton />
       </View>
     </>
   );
