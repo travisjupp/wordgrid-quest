@@ -28,17 +28,28 @@ export const selectItemFocusDisabled = (state: RootState) => {
   return state.tempMaterial.itemFocusDisabled;
 };
 
+const MIN_ITEMS_REQUIRED = 3;
+
 export const selectValidationErrors = (state: RootState) => {
-  const { category, items } = state.tempMaterial;
+  const { isInitialState, category, items } = state.tempMaterial;
   const itemEntries = Object.values(items);
+  const numItems = itemEntries.length;
 
   if (!category.trim()) return 'Assign a Category to begin';
-  if (itemEntries.length < 3) return `Add ${3 - itemEntries.length} more items`;
+
+  if (isInitialState) {
+    return `At least ${MIN_ITEMS_REQUIRED} items required`;
+  }
+
+  const itemsRequired = numItems < MIN_ITEMS_REQUIRED;
+  if (itemsRequired) {
+    const remainingCount = MIN_ITEMS_REQUIRED - numItems;
+    const unit = remainingCount === 1 ? 'item' : 'items';
+    return `Add ${remainingCount} more ${unit}`;
+  }
 
   const hasIncompleteFields = itemEntries.some(
     i => !i.dt.trim() || !i.def.trim(),
   );
-  if (hasIncompleteFields) return 'Complete all Discovery fields';
-
-  return null;
+  return hasIncompleteFields ? 'Complete all Discovery fields' : null;
 };
