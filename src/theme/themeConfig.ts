@@ -11,6 +11,7 @@ import CustomLightColorScheme from '@theme/CustomLightColors.json';
 import CustomDarkColorScheme from '@theme/CustomDarkColors.json';
 import { useContext } from 'react';
 import ThemeContext from '@contexts/ThemeContext';
+import { WithSpringConfig, WithTimingConfig } from 'react-native-reanimated';
 
 const fontConfig = {
   brand: {
@@ -91,27 +92,18 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   // START Animated Styles
   const animatedStyles = {
     pulse: {
-      scale: 1.08,
-      duration: 800,
+      pulseToScale: 1.08,
+      pulseTimingConfig: {
+        duration: 800,
+      } satisfies WithTimingConfig,
     },
-    // snappySpring: {
-    //   stiffness: 200,
-    //   damping: 20,
-    //   mass: 0.5,
-    // },
     snappySpring: {
-      stiffness: 200,
-      damping: 3,
-      mass: 0.5,
-    },
-    spring: {
-      pop: {
-        damping: 2,
-        stiffness: 100,
-      },
-      settle: {
-        damping: 10,
-      },
+      springToScale: 1.15,
+      springConfig: {
+        stiffness: 200,
+        damping: 20,
+        mass: 0.5,
+      } satisfies WithSpringConfig,
     },
   };
   // END Animated Styles
@@ -424,7 +416,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
     ...RNPColors,
     animatedStyles: {
       pulse: animatedStyles.pulse,
-      spring: animatedStyles.spring,
       snappySpring: animatedStyles.snappySpring,
     },
     shared: {

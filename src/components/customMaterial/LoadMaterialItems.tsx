@@ -40,7 +40,7 @@ export function LoadMaterialItems() {
     colors: { onPrimary, onSurfaceDisabled },
     shared: { inputWrapper: sharedInputWrapper },
     animatedStyles: {
-      pulse: { scale: pulseScale, duration: pulseDuration },
+      pulse: { pulseToScale, pulseTimingConfig },
     },
   } = useAppTheme();
 
@@ -53,8 +53,8 @@ export function LoadMaterialItems() {
     if (!isReady && !expandedBottomSheet) {
       scale.value = withRepeat(
         withSequence(
-          withTiming(pulseScale, { duration: pulseDuration }),
-          withTiming(1, { duration: pulseDuration }),
+          withTiming(pulseToScale, pulseTimingConfig),
+          withTiming(1, pulseTimingConfig),
         ),
         -1,
         true,
@@ -67,8 +67,8 @@ export function LoadMaterialItems() {
     expandedBottomSheet,
     isReady,
     scale,
-    pulseDuration,
-    pulseScale,
+    pulseToScale,
+    pulseTimingConfig,
   ]);
 
   const animatedButtonStyle = useAnimatedStyle(() => ({

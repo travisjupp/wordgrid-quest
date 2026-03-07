@@ -15,7 +15,9 @@ export function ConfirmStartButton() {
   // Retrieve Custom Theme-properties
   const {
     colors: { onSurfaceDisabled, primary },
-    animatedStyles: { snappySpring },
+    animatedStyles: {
+      snappySpring: { springToScale, springConfig },
+    },
   } = useAppTheme();
 
   const validationError = useAppSelector(selectValidationErrors);
@@ -25,10 +27,10 @@ export function ConfirmStartButton() {
 
   useEffect(() => {
     if (isReady && !expandedBottomSheet) {
-      scale.value = 1.15;
-      scale.value = withSpring(1, snappySpring);
+      scale.value = springToScale;
+      scale.value = withSpring(1, springConfig);
     }
-  }, [isReady, scale, snappySpring, expandedBottomSheet]);
+  }, [isReady, scale, expandedBottomSheet, springToScale, springConfig]);
 
   const animatedButtonStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
