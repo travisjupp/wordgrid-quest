@@ -23,9 +23,9 @@ export default function Chip({ onPress, content }: Props) {
       mode='outlined'
       onPress={onPress}
       theme={{ roundness: 2 }}
-      style={{
-        alignSelf: 'center',
-      }}
+      style={{ flexShrink: 1, minWidth: 100, alignSelf: 'center' }}
+      textStyle={{ flexShrink: 1 }}
+      ellipsizeMode='tail'
     >
       <View style={customChipContentContainer}>
         <Text variant='chip' style={{ marginInlineEnd: 6 }}>

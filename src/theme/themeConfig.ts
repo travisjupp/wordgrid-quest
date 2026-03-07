@@ -88,6 +88,34 @@ export const themeBuilder = (isDarkTheme: boolean) => {
   const isIOS = Platform.OS === 'ios';
   const isPad = () => isIOS && (Platform as PlatformIOSStatic).isPad;
 
+  // START Animated Styles
+  const animatedStyles = {
+    pulse: {
+      scale: 1.08,
+      duration: 800,
+    },
+    // snappySpring: {
+    //   stiffness: 200,
+    //   damping: 20,
+    //   mass: 0.5,
+    // },
+    snappySpring: {
+      stiffness: 200,
+      damping: 3,
+      mass: 0.5,
+    },
+    spring: {
+      pop: {
+        damping: 2,
+        stiffness: 100,
+      },
+      settle: {
+        damping: 10,
+      },
+    },
+  };
+  // END Animated Styles
+
   const customProperties = StyleSheet.create({
     // START Shared Styles
     sharedInputWrapper: {
@@ -394,6 +422,11 @@ export const themeBuilder = (isDarkTheme: boolean) => {
 
   return {
     ...RNPColors,
+    animatedStyles: {
+      pulse: animatedStyles.pulse,
+      spring: animatedStyles.spring,
+      snappySpring: animatedStyles.snappySpring,
+    },
     shared: {
       inputWrapper: customProperties.sharedInputWrapper,
       centeredView: customProperties.centeredView,

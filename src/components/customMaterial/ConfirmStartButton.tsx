@@ -6,29 +6,29 @@ import { useAppTheme } from '@theme/themeConfig';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSequence,
   withSpring,
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
+import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 
 export function ConfirmStartButton() {
   // Retrieve Custom Theme-properties
   const {
     colors: { onSurfaceDisabled, primary },
+    animatedStyles: { snappySpring },
   } = useAppTheme();
 
   const validationError = useAppSelector(selectValidationErrors);
   const isReady = !validationError;
+  const { expandedBottomSheet } = useBottomSheetCustom();
   const scale = useSharedValue(1);
 
   useEffect(() => {
-    if (isReady) {
-      scale.value = withSequence(
-        withSpring(1.05, { damping: 2, stiffness: 80 }),
-        withSpring(1),
-      );
+    if (isReady && !expandedBottomSheet) {
+      scale.value = 1.15;
+      scale.value = withSpring(1, snappySpring);
     }
-  }, [isReady, scale]);
+  }, [isReady, scale, snappySpring, expandedBottomSheet]);
 
   const animatedButtonStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
