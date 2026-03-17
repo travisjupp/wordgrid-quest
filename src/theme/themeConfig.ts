@@ -173,11 +173,12 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       borderColor: 'orange',
       // borderWidth: 3,
     },
-    customChipContentContainer: {
-      paddingInlineStart: 10,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
+    customChipText: {
+      marginLeft: 30,
+    },
+    customChipSurface: {
+      /* Don't add padding here */
+      alignSelf: 'center',
     },
     discoveryTermTextInput: {
       backgroundColor: colors.secondaryContainer,
@@ -424,9 +425,6 @@ export const themeBuilder = (isDarkTheme: boolean) => {
       centeredContainer: customProperties.centeredContainer,
     },
     preGameConfig: {
-      layout: {
-        customChipContentContainer: customProperties.customChipContentContainer,
-      },
       authScreens: {
         resetPassView: customProperties.resetPassView,
         signupScreenAnimatedView: customProperties.signupScreenAnimatedView,
@@ -441,6 +439,10 @@ export const themeBuilder = (isDarkTheme: boolean) => {
           loadcatScreenAnimatedView: customProperties.loadcatScreenAnimatedView,
         },
         loaditems: {
+          customChip: {
+            text: customProperties.customChipText,
+            surface: customProperties.customChipSurface,
+          },
           loaditemsScreenAnimatedView:
             customProperties.loaditemsScreenAnimatedView,
           discoveryTermTextInput: customProperties.discoveryTermTextInput,

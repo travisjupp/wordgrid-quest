@@ -1,6 +1,4 @@
-import { View } from 'react-native';
 import { Icon, Chip as RNPChip } from 'react-native-paper';
-import { Text } from '@components/Text';
 import { useAppTheme } from '@theme/themeConfig';
 
 interface Props {
@@ -13,7 +11,9 @@ export default function Chip({ onPress, content }: Props) {
   const {
     colors: { outline },
     preGameConfig: {
-      layout: { customChipContentContainer },
+      customMaterialScreens: {
+        loaditems: { customChip },
+      },
     },
   } = useAppTheme();
 
@@ -23,16 +23,17 @@ export default function Chip({ onPress, content }: Props) {
       mode='outlined'
       onPress={onPress}
       theme={{ roundness: 2 }}
-      style={{ flexShrink: 1, minWidth: 100, alignSelf: 'center' }}
-      textStyle={{ flexShrink: 1 }}
+      onClose={onPress}
+      closeIcon={() => (
+        /* Display our "edit" icon on the right */
+        <Icon source='pencil-outline' size={18} color={outline} />
+      )}
+      closeIconAccessibilityLabel='Edit Category'
+      style={customChip.surface}
+      textStyle={customChip.text}
       ellipsizeMode='tail'
     >
-      <View style={customChipContentContainer}>
-        <Text variant='chip' style={{ marginInlineEnd: 6 }}>
-          {content}
-        </Text>
-        <Icon source='pencil-outline' size={18} color={outline} />
-      </View>
+      {content}
     </RNPChip>
   );
 }
