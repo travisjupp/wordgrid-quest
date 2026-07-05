@@ -44,4 +44,4 @@ app-example
 assets/images/trash/
 
 # disabled template files
-+html.tsx
++html.tsx.disabled
