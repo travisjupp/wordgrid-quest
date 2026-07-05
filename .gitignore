@@ -42,3 +42,6 @@ yarn-error.*
 
 app-example
 assets/images/trash/
+
+# disabled template files
++html.tsx
