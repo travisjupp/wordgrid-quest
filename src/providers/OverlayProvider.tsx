@@ -321,15 +321,15 @@ export function OverlayProvider({ children }: Props) {
                   fromPos: number,
                   toPos: number,
                 ) => {
-                  // KB DISMISSING DRAGS
-                  // USE WHEN SNAP POINTS ENABLED
+                  // -- KB DISMISSING DRAGS --
+                  // USE WHEN SNAP POINTS ENABLED:
                   // if (fromIdx === 1 && toIdx !== 1) {
                   //   /* Disable the KB Triggering `Item` focus() when
                   //    * user dismisses with a BS Down Drag */
                   //   dispatch(setItemFocusDisabled(true));
                   //   Keyboard.dismiss();
                   // }
-                  // USE WHEN NO SNAP POINTS ENABLED
+                  // USE WHEN NO SNAP POINTS ENABLED:
                   if (fromIdx === 0 && toIdx !== -1) {
                     console.log('KB DISMISSING DRAG (Disable Focus,Dismiss KB');
                     /* Disable the KB Triggering `Item` focus() when
