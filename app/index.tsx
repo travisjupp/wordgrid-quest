@@ -64,7 +64,6 @@ export default function HomeScreen() {
       <View style={centeredContainer}>
         <MajorHUD />
         <Switch value={isDarkTheme} onValueChange={toggleTheme} />
-        <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
         <View
           style={{
             justifyContent: 'center',
