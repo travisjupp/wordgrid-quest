@@ -65,145 +65,156 @@ export default function HomeScreen() {
         <MajorHUD />
         <Switch value={isDarkTheme} onValueChange={toggleTheme} />
         <FAB icon='skull-outline' onPress={() => console.log('Pressed')} />
-        <Button
-          mode='outlined'
-          onPress={() =>
-            showModal(
-              <View
-                style={{
-                  width: 400,
-                }}
-              >
-                <Button
-                  onPress={() =>
-                    showSnackbar({ message: 'SNACKBAR ABOVE MODAL?' })
-                  }
+        <View
+          style={{
+            justifyContent: 'center',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            width: 360,
+          }}
+        >
+          <Button
+            mode='outlined'
+            onPress={() =>
+              showModal(
+                <View
+                  style={{
+                    width: 400,
+                  }}
                 >
-                  SHOW SNACKBAR FROM MODAL
-                </Button>
-                <Button
-                  onPress={() =>
-                    showDialog({
-                      title: 'DIALOG ABOVE MODAL?',
-                      icon: 'cat',
-                      content: 'Content',
-                    })
-                  }
-                >
-                  SHOW DIALOG FROM MODAL
-                </Button>
-                <Button onPress={hideModal}>x</Button>
-              </View>,
-            )
-          }
-        >
-          SHOW MODAL
-        </Button>
-        <Button
-          mode='outlined'
-          onPress={() => showSnackbar({ message: 'TEST' })}
-        >
-          SHOW SNACKBAR
-        </Button>
-        <Button
-          mode='outlined'
-          onPress={() =>
-            showDialog({
-              title: 'DIALOG TEST TITLE',
-              // content: 'This is the Dialog content',
-              content: <Text variant='timer'>This is the Dialog content</Text>,
-              actions: (
-                <>
-                  <Button onPress={hideDialog}>HIDE DIALOG</Button>
-                  <Button onPress={hideDialog}>HIDE DIALOG</Button>
-                </>
-              ),
-              icon: 'eye',
-            })
-          }
-        >
-          SHOW DIALOG
-        </Button>
-        <Button
-          mode='outlined'
-          onPress={() => showBottomSheet(<BottomSheetContent />)}
-        >
-          SHOW BOTTOMSHEET
-        </Button>
-        {/* <FirebaseTest /> */}
-        {/* <Text  */}
-        {/*   variant="bodyLarge" */}
-        {/*   style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text> */}
-        {/* <Text  */}
-        {/*   style={{fontFamily: "Inter24pt-Black"}} */}
-        {/* >NO variant, inline style fontFamily: Inter24pt-Black</Text> */}
-        {/**/}
-        {/* <Text  */}
-        {/*   style={{fontFamily: "InriaSerif-Regular"}} */}
-        {/* >NO variant, inline style fontFamily: InriaSerif-Regular</Text> */}
-        {/**/}
-        {/* <Text>NO variant, NO inline style</Text> */}
-        {/**/}
-        {/* <Text style={text}>NO variant, object style</Text> */}
-        {/**/}
-        <Button
-          onPress={() => {
-            router.navigate({
-              pathname: '/loadcat',
-              params: { itemId: '123' },
-            });
-          }}
-        >
-          Loadcat
-        </Button>
-        <Button
-          onPress={() => {
-            router.navigate({
-              pathname: '/loaditems',
-              params: { itemId: '123' },
-            });
-          }}
-        >
-          Loaditems
-        </Button>
-        <Button
-          onPress={() => {
-            router.navigate({
-              pathname: '/profile',
-              params: { itemId: '123' },
-            });
-          }}
-        >
-          Profile
-        </Button>
-        <Button
-          onPress={() => {
-            router.navigate('/login');
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          onPress={() => {
-            router.navigate('/upload');
-          }}
-        >
-          Upload
-        </Button>
-        {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
-        {/**/}
-        {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}
-        {/* <Text variant="category">CUSTOM variant (category), No inline style</Text> */}
-        {/**/}
-        {/* <Text  */}
-        {/*   variant="bodyLarge" */}
-        {/*   style={{fontFamily: "Inter24pt-Black"}} */}
-        {/* >YES variant (bodyLarge), inline style fontFamily: Inter24pt-Black</Text> */}
-        {/**/}
-        {/* {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */}
-        {/* <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button> */}
-        {/* <Button mode='outlined'>TEST</Button> */}
-        {/* <Button icon="camera" disabled={true} mode="contained">Disabled</Button> */}
+                  <Button
+                    onPress={() =>
+                      showSnackbar({ message: 'SNACKBAR ABOVE MODAL?' })
+                    }
+                  >
+                    SHOW SNACKBAR FROM MODAL
+                  </Button>
+                  <Button
+                    onPress={() =>
+                      showDialog({
+                        title: 'DIALOG ABOVE MODAL?',
+                        icon: 'cat',
+                        content: 'Content',
+                      })
+                    }
+                  >
+                    SHOW DIALOG FROM MODAL
+                  </Button>
+                  <Button onPress={hideModal}>x</Button>
+                </View>,
+              )
+            }
+          >
+            SHOW MODAL
+          </Button>
+          <Button
+            mode='outlined'
+            onPress={() => showSnackbar({ message: 'TEST' })}
+          >
+            SHOW SNACKBAR
+          </Button>
+          <Button
+            mode='outlined'
+            onPress={() =>
+              showDialog({
+                title: 'DIALOG TEST TITLE',
+                // content: 'This is the Dialog content',
+                content: (
+                  <Text variant='timer'>This is the Dialog content</Text>
+                ),
+                actions: (
+                  <>
+                    <Button onPress={hideDialog}>HIDE DIALOG</Button>
+                    <Button onPress={hideDialog}>HIDE DIALOG</Button>
+                  </>
+                ),
+                icon: 'eye',
+              })
+            }
+          >
+            SHOW DIALOG
+          </Button>
+          <Button
+            mode='outlined'
+            onPress={() => showBottomSheet(<BottomSheetContent />)}
+          >
+            SHOW BOTTOMSHEET
+          </Button>
+          {/* <FirebaseTest /> */}
+          {/* <Text  */}
+          {/*   variant="bodyLarge" */}
+          {/*   style={{fontFamily: "InriaSerif-BoldItalic"}}>Home `app/index.tsx`</Text> */}
+          {/* <Text  */}
+          {/*   style={{fontFamily: "Inter24pt-Black"}} */}
+          {/* >NO variant, inline style fontFamily: Inter24pt-Black</Text> */}
+          {/**/}
+          {/* <Text  */}
+          {/*   style={{fontFamily: "InriaSerif-Regular"}} */}
+          {/* >NO variant, inline style fontFamily: InriaSerif-Regular</Text> */}
+          {/**/}
+          {/* <Text>NO variant, NO inline style</Text> */}
+          {/**/}
+          {/* <Text style={text}>NO variant, object style</Text> */}
+          {/**/}
+          <Button
+            onPress={() => {
+              router.navigate({
+                pathname: '/loadcat',
+                params: { itemId: '123' },
+              });
+            }}
+          >
+            Loadcat
+          </Button>
+          <Button
+            onPress={() => {
+              router.navigate({
+                pathname: '/loaditems',
+                params: { itemId: '123' },
+              });
+            }}
+          >
+            Loaditems
+          </Button>
+          <Button
+            onPress={() => {
+              router.navigate({
+                pathname: '/profile',
+                params: { itemId: '123' },
+              });
+            }}
+          >
+            Profile
+          </Button>
+          <Button
+            onPress={() => {
+              router.navigate('/login');
+            }}
+          >
+            Login
+          </Button>
+          <Button
+            onPress={() => {
+              router.navigate('/upload');
+            }}
+          >
+            Upload
+          </Button>
+          {/* <Text variant="brand">CUSTOM variant (brand), No inline style</Text> */}
+          {/**/}
+          {/* <Text variant="letterTile">CUSTOM variant (letterTile), No inline style</Text> */}
+          {/* <Text variant="category">CUSTOM variant (category), No inline style</Text> */}
+          {/**/}
+          {/* <Text  */}
+          {/*   variant="bodyLarge" */}
+          {/*   style={{fontFamily: "Inter24pt-Black"}} */}
+          {/* >YES variant (bodyLarge), inline style fontFamily: Inter24pt-Black</Text> */}
+          {/**/}
+          {/* {/* <Text variant="displayLarge" style={text}>WordGrid Quest</Text> */}
+          {/* <Button icon="camera" onTouchMove={() => console.log('Pressed')} mode="contained">SSS</Button> */}
+          {/* <Button mode='outlined'>TEST</Button> */}
+          {/* <Button icon="camera" disabled={true} mode="contained">Disabled</Button> */}
+        </View>
       </View>
     </>
   );
