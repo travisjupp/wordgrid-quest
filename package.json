@@ -1,7 +1,7 @@
 {
   "name": "wordgrid-quest-expo",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -9,7 +9,10 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -55,6 +58,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
     "@types/jest": "^29.5.12",
     "@types/react": "~19.1.10",
     "eslint": "^9.0.0",
@@ -63,10 +68,12 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
     "jest": "^29.2.1",
     "jest-expo": "~54.0.17",
     "prettier": "^3.6.2",
     "react-test-renderer": "^19.1.0",
+    "standard-version": "^9.5.0",
     "typescript": "~5.9.2"
   },
   "private": true
