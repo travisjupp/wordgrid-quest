@@ -5,9 +5,9 @@ import { PageHeading } from '@components/PageHeading';
 import { GuidanceText } from '@components/GuidanceText';
 import { ThemeAwareScreenOptions } from '@components/ThemeAwareScreenOptions';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, ScrollView, Dimensions } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import { useState } from 'react';
+import { useOrientation } from '@hooks/useOrientation';
 
 export default function PreGameConfigLayout() {
   // Retrieve Custom Properties
@@ -16,10 +16,7 @@ export default function PreGameConfigLayout() {
     colors: { background },
   } = useAppTheme();
 
-  const [isLandscape, setIsLandscape] = useState<boolean | null>(null);
-  Dimensions.addEventListener('change', ({ window }) => {
-    setIsLandscape(window.width > window.height);
-  });
+  const { isLandscape } = useOrientation();
 
   return (
     <SafeAreaView
