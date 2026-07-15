@@ -114,11 +114,48 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
-// Stubbing Reanimated (Animations are ignored in Jest)
+// Stubbing Reanimated v4 (Animations are ignored in Jest)
 jest.mock('react-native-reanimated', () => {
-  const Reanimated = require('react-native-reanimated/mock');
-  Reanimated.default.call = () => {};
-  return Reanimated;
+  // react-native-reanimated/mock is old (keep to reference):
+  // const Reanimated = require('react-native-reanimated/mock');
+  // Reanimated.default.call = () => {};
+  // return Reanimated;
+  const ID = (t) => t;
+	 const ReanimatedMock = {
+		__esModule: true,
+		default: {
+			createAnimatedComponent: (component) => component,
+		},
+		Easing: {
+      linear: ID,
+      ease: ID,
+      quad: ID,
+      cubic: ID,
+      poly: ID,
+      sin: ID,
+      circle: ID,
+      exp: ID,
+      elastic: ID,
+      back: ID,
+      bounce: ID,
+      bezier: () => ({ factory: ID }),
+      bezierFn: ID,
+      steps: ID,
+      in: ID,
+      out: ID,
+      inOut: ID,
+    },
+		useSharedValue: (initialValue) => ({ value: initialValue }),
+		useAnimatedStyle: () => ({}),
+		withTiming: (toValue) => toValue,
+		withSpring: (toValue) => toValue,
+		runOnJS: (fn) => fn,
+		runOnUI: (fn) => fn,
+		createAnimatedComponent: (component) => component,
+	};
+	return {
+    ...ReanimatedMock
+  };
 });
 
 // Manually stub Bottom Sheet to avoid circular dependency crashes

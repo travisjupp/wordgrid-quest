@@ -25,6 +25,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "src/@types/**/*.d.ts",
+    "jest.setup.js",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "../Javascript/styles.js",

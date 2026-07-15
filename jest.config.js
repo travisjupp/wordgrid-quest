@@ -18,6 +18,7 @@ const transformWhitelist = [
   'react-native-safe-area-context',
   '@gorhom/bottom-sheet',
   'react-native-paper',
+  'react-native-reanimated',
   'react-native-screens',
   'react-native-webview',
   'firebase',
