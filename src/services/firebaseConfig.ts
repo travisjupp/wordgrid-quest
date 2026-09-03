@@ -1,16 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import Constants from 'expo-constants';
 
-// Import the functions you need from the SDKs you need
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
-import { connectFirestoreEmulator, doc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  connectFirestoreEmulator,
+  doc,
+  getFirestore,
+  setDoc,
+} from 'firebase/firestore';
 import { Platform } from 'react-native';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
   authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
@@ -24,30 +24,37 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
-console.log('process.env.EXPO_PUBLIC_USE_EMULATOR', process.env.EXPO_PUBLIC_USE_EMULATOR);
+
 const useEmulator = process.env.EXPO_PUBLIC_USE_EMULATOR === 'true';
 if (useEmulator) {
-  console.log("---===USING FIREBASE EMULATORS===---");
+  console.log('---=== USING FIREBASE EMULATORS ===---');
   const emulatorHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
 
   connectFirestoreEmulator(db, emulatorHost, 8086);
   console.log(`Connected to Firestore Emulator at ${emulatorHost}:8086`);
   (async () => {
-    await setDoc(doc(db, "cities", "LA"), {
-      name: "Los Angeles",
-      state: "CA",
-      country: "USA"
-    });
+    try {
+      await setDoc(doc(db, 'cities', 'LA'), {
+        name: 'Los Angeles',
+        state: 'CA',
+        country: 'USA',
+      });
+    } catch (e: any) {
+      console.log('Error writing to Firestore emulator: ', e.message);
+    }
   })();
-
 } else {
-  console.log("---===NOT USING FIREBASE EMULATORS===---");
+  console.log('---=== NOT USING FIREBASE EMULATORS ===---');
   (async () => {
-    await setDoc(doc(db, "cities", "Baltimore"), {
-      name: "Baltimore",
-      state: "MD",
-      country: "USA"
-    });
+    try {
+      await setDoc(doc(db, 'cities', 'Baltimore'), {
+        name: 'Baltimore',
+        state: 'MD',
+        country: 'USA',
+      });
+    } catch (e: any) {
+      console.log('Error writing to remote Firestore: ', e.message);
+    }
   })();
 }
 
