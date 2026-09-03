@@ -4,7 +4,8 @@ import Constants from 'expo-constants';
 // Import the functions you need from the SDKs you need
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
-// import { getFirestore } from 'firebase/firestore';
+import { connectFirestoreEmulator, doc, getFirestore, setDoc } from 'firebase/firestore';
+import { Platform } from 'react-native';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +23,33 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+console.log('process.env.EXPO_PUBLIC_USE_EMULATOR', process.env.EXPO_PUBLIC_USE_EMULATOR);
+const useEmulator = process.env.EXPO_PUBLIC_USE_EMULATOR === 'true';
+if (useEmulator) {
+  console.log("---===USING FIREBASE EMULATORS===---");
+  const emulatorHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
+
+  connectFirestoreEmulator(db, emulatorHost, 8086);
+  console.log(`Connected to Firestore Emulator at ${emulatorHost}:8086`);
+  (async () => {
+    await setDoc(doc(db, "cities", "LA"), {
+      name: "Los Angeles",
+      state: "CA",
+      country: "USA"
+    });
+  })();
+
+} else {
+  console.log("---===NOT USING FIREBASE EMULATORS===---");
+  (async () => {
+    await setDoc(doc(db, "cities", "Baltimore"), {
+      name: "Baltimore",
+      state: "MD",
+      country: "USA"
+    });
+  })();
+}
 
 // Export services
 // Initialize Analytics if supported in environment
