@@ -3,7 +3,7 @@ import materialReducer, {
   addCustomCategory,
   setActiveCategory,
 } from '@features/material/materialSlice';
-import { style } from '../../../../Javascript/styles';
+import { style } from '@utils/styles';
 import nodeConsole from 'console';
 jest.unmock('@theme/themeConfig');
 

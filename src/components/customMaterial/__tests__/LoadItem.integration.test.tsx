@@ -3,7 +3,7 @@ import {
   setActiveItemIndex,
   setUIReadyForScroll,
 } from '@features/tempMaterial/tempMaterialSlice';
-import { style } from '../../../../../Javascript/styles';
+import { style } from '@utils/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { render, screen, fireEvent, act } from '../../../test-utils';
 import LoadItem from '../LoadItem';

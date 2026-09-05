@@ -5,7 +5,7 @@ import tempMaterialReducer, {
   removeTempItem,
   resetTempMaterial,
 } from '@features/tempMaterial/tempMaterialSlice';
-import { style } from '../../../../Javascript/styles';
+import { style } from '@utils/styles';
 import { logItems } from '@utils/logger';
 import nodeConsole from 'console';
 jest.unmock('@theme/themeConfig');

@@ -1,4 +1,4 @@
-import { style } from '../../../../../Javascript/styles';
+import { style } from '@utils/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { fireEvent, render, screen } from '../../../test-utils';
 import { TempMaterialState } from '@custom-types/AppTheme';
