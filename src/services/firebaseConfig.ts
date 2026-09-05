@@ -1,8 +1,14 @@
-import { initializeApp } from 'firebase/app';
-import Constants from 'expo-constants';
-
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
-import { getAuth } from 'firebase/auth';
+// import { initializeAuth, browserLocalPersistence } from '@firebase/auth';
+import { 
+  initializeAuth, 
+  getReactNativePersistence, 
+  getAuth, 
+  // @ts-ignore
+  browserLocalPersistence
+} from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import {
   connectFirestoreEmulator,
   doc,
@@ -10,6 +16,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { Platform } from 'react-native';
+import Constants from 'expo-constants';
 
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
@@ -22,9 +29,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const appInitialized = getApps().length > 0;
+const app = appInitialized ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore();
 
+// Connect Emulators
 const useEmulator = process.env.EXPO_PUBLIC_USE_EMULATOR === 'true';
 if (useEmulator) {
   console.log('---=== USING FIREBASE EMULATORS ===---');
@@ -33,6 +42,7 @@ if (useEmulator) {
   connectFirestoreEmulator(db, emulatorHost, 8086);
   console.log(`Connected to Firestore Emulator at ${emulatorHost}:8086`);
   (async () => {
+    /* Test writing to emulator DB */
     try {
       await setDoc(doc(db, 'cities', 'LA'), {
         name: 'Los Angeles',
@@ -46,6 +56,7 @@ if (useEmulator) {
 } else {
   console.log('---=== NOT USING FIREBASE EMULATORS ===---');
   (async () => {
+    /* Test writing to remote DB */
     try {
       await setDoc(doc(db, 'cities', 'Baltimore'), {
         name: 'Baltimore',
@@ -58,8 +69,8 @@ if (useEmulator) {
   })();
 }
 
-// Export services
-// Initialize Analytics if supported in environment
+// EXPORT SERVICES
+// -- Initialize Analytics if supported in environment
 isSupported().then(supported => {
   if (supported) {
     // Firebase Analytics only works for Web when using
@@ -72,6 +83,24 @@ isSupported().then(supported => {
   }
 });
 
-// Initialize Auth
-export const auth = getAuth(app);
+// -- Initialize Auth
+const auth = (() => {
+  // Setup persistence RN or Web platforms
+  const persistence =
+    Platform.OS === 'web' ?
+      browserLocalPersistence
+    : getReactNativePersistence(ReactNativeAsyncStorage);
+
+  if (appInitialized) {
+    try {
+      return getAuth(app); /* Get existing instance */
+    } catch (e) {
+      return initializeAuth(app, { persistence });
+    }
+  }
+  // Fallback for standard initialization
+  return initializeAuth(app, { persistence });
+})();
+
+export { auth };
 export default app;
