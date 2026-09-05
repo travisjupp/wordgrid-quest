@@ -10,7 +10,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { OverlayProvider } from '@providers/OverlayProvider';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { RootState } from './store';
+import { RootState } from '@store/index';
 
 // Create a "Fresh" store for every test to avoid state pollution
 const createMockStore = (preloadedState = {}) =>

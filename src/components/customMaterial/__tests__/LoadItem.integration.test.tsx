@@ -5,7 +5,7 @@ import {
 } from '@features/tempMaterial/tempMaterialSlice';
 import { style } from '@utils/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
-import { render, screen, fireEvent, act } from '../../../test-utils';
+import { render, screen, fireEvent, act } from '@utils/test-utils';
 import LoadItem from '../LoadItem';
 import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
 import nodeConsole from 'console';

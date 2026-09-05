@@ -14,7 +14,7 @@ else
   set shortmess=aoO
 endif
 badd +3 src/components/customMaterial/__tests__/LoadItem.integration.test.tsx
-badd +2 src/test-utils.tsx
+badd +2 src/utils/test-utils.tsx
 badd +1 jest.config.js
 badd +21 jest.setup.js
 argglobal
