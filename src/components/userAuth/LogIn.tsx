@@ -3,7 +3,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { View, Platform, TextInput as RNTextInput } from 'react-native';
 import { router } from 'expo-router';
-import { auth } from 'src/services/firebaseConfig';
+import { auth } from '@services/firebaseConfig';
 import { useDialog } from '@hooks/useDialog';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useAppTheme } from '@theme/themeConfig';
