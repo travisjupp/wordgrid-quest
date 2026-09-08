@@ -76,6 +76,7 @@
     "prettier": "^3.6.2",
     "react-test-renderer": "^19.1.0",
     "standard-version": "^9.5.0",
+    "tsx": "^4.23.13",
     "typescript": "~5.9.2"
   },
   "private": true
