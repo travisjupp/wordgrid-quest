@@ -1,12 +1,12 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 // import { initializeAuth, browserLocalPersistence } from '@firebase/auth';
-import { 
-  initializeAuth, 
-  getReactNativePersistence, 
-  getAuth, 
+import {
+  initializeAuth,
+  getReactNativePersistence,
+  getAuth,
   // @ts-ignore
-  browserLocalPersistence
+  browserLocalPersistence,
 } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -95,6 +95,7 @@ const auth = (() => {
     try {
       return getAuth(app); /* Get existing instance */
     } catch (e) {
+      console.log('Error getting existing auth instance: ', e);
       return initializeAuth(app, { persistence });
     }
   }
