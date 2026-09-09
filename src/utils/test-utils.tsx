@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { OverlayProvider } from '@providers/OverlayProvider';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { RootState } from '@store/index';
+import { LogoProvider } from '@providers/LogoProvider';
 
 // Create a "Fresh" store for every test to avoid state pollution
 const createMockStore = (preloadedState = {}) =>
@@ -66,8 +67,10 @@ const customRender = (
             <GestureHandlerRootView style={{ flex: 1 }}>
               <BottomSheetModalProvider>
                 <OverlayProvider>
+                  <LogoProvider>
                   {/* add Keyboard, SafeArea, Overlay... */}
                   {children}
+                  </LogoProvider>
                 </OverlayProvider>
               </BottomSheetModalProvider>
             </GestureHandlerRootView>
