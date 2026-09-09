@@ -22,6 +22,7 @@ const transformWhitelist = [
   'react-native-screens',
   'react-native-webview',
   'firebase',
+  '@react-native-async-storage/',
   '@expo/vector-icons',
 ];
 
