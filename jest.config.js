@@ -30,6 +30,9 @@ module.exports = {
   transformIgnorePatterns: [
     `node_modules/(?!(${transformWhitelist.join('|')}))`,
   ],
+  testPathIgnorePatterns: [
+    '/templates/',
+  ],
   moduleNameMapper: {
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@contexts/(.*)$': '<rootDir>/src/contexts/$1',
