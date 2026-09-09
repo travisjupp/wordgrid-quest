@@ -46,6 +46,7 @@ module.exports = {
     '^@store/(.*)$': '<rootDir>/src/store/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@providers/(.*)$': '<rootDir>/src/providers/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
     // Force Redux Toolkit to use the CommonJS entry point
     // Core RTK: Maps "@reduxjs/toolkit", handles "import ... from '@reduxjs/toolkit'"
     '^@reduxjs/toolkit$':
