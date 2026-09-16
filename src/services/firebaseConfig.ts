@@ -1,13 +1,7 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
-// import { initializeAuth, browserLocalPersistence } from '@firebase/auth';
-import {
-  initializeAuth,
-  getReactNativePersistence,
-  getAuth,
-  // @ts-ignore
-  browserLocalPersistence,
-} from 'firebase/auth';
+import { browserLocalPersistence } from '@firebase/auth';
+import { getReactNativePersistence, initializeAuth, getAuth } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import {
   connectFirestoreEmulator,
