@@ -7,6 +7,33 @@ jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock.js')
 );
 
+// Mock expo-constants to provide dummy strings for the Firebase initialization configuration
+jest.mock('expo-constants', () => {
+  return {
+    __esModule: true,
+    default: {
+      expoConfig: {
+        extra: {
+          firebaseApiKey: "fake-api-key-for-testing-purposes-only",
+          firebaseAuthDomain: "://firebaseapp.com",
+          firebaseProjectId: "demo-project",
+          firebaseStorageBucket: "://appspot.com",
+          firebaseMessagingSenderId: "1234567890",
+          firebaseAppId: "1:1234567890:web:abcdef123456",
+          firebaseMeasurementId: "G-EXAMPLE"
+        }
+      }
+    }
+  };
+});
+
+// Mock expo-splash-screen
+jest.mock('expo-splash-screen', () => ({
+  preventAutoHideAsync: jest.fn().mockResolvedValue(true),
+  hideAsync: jest.fn().mockResolvedValue(true),
+  setOptions: jest.fn(),
+}));
+
 // React Native Mock (synchronous)
 const React = require('react');
 const mockRN = {
