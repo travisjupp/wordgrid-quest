@@ -21,7 +21,6 @@ const transformWhitelist = [
   'react-native-reanimated',
   'react-native-screens',
   'react-native-webview',
-  'firebase',
   '@react-native-async-storage/',
   '@expo/vector-icons',
 ];
@@ -48,6 +47,7 @@ module.exports = {
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@providers/(.*)$': '<rootDir>/src/providers/$1',
     '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@layouts/(.*)$': '<rootDir>/layouts/$1',
     // Force Redux Toolkit to use the CommonJS entry point
     // Core RTK: Maps "@reduxjs/toolkit", handles "import ... from '@reduxjs/toolkit'"
     '^@reduxjs/toolkit$':
@@ -68,6 +68,9 @@ module.exports = {
     '^@theme/CustomLightColors.json$': '<rootDir>/src/theme/CustomLightColors.json',
     // RNP Standard Light Theme
     '^@theme/MD3LightTheme.json$': '<rootDir>/src/theme/MD3LightTheme.json',
+    // Force Firebase modules to use CJS entry point
+    '^firebase/app$': '<rootDir>/node_modules/@firebase/app/dist/index.cjs.js',
+    '^firebase/auth$': '<rootDir>/node_modules/@firebase/auth/dist/browser-cjs/index.js',
   },
   // Point to the Native Mock Registry
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],

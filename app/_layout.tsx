@@ -10,7 +10,7 @@ import { Spinner } from '@components/Spinner';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { OverlayProvider } from '@providers/OverlayProvider';
 import { StackNavigationOptions } from '@react-navigation/stack';
-import { JsStack } from 'layouts/js-stack';
+import { JsStack } from '@layouts/js-stack';
 import { LogoProvider } from '@providers/LogoProvider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
