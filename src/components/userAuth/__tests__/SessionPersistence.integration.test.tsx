@@ -1,54 +1,14 @@
 /** @jest-environment jsdom */
+// Load environment mocks first
+import '@utils/jsdomMocks';
 
-import assert from 'node:assert/strict';
 import { jest } from '@jest/globals';
 import util from 'node:util';
-util.inspect.defaultOptions.depth = null; // show full objects
-// util.inspect.defaultOptions.depth = 0; // show truncated objects
-// util.inspect.defaultOptions.compact = true; // dont break objects to new lines
-// util.inspect.defaultOptions.compact = false; // break objects to new lines
-
-// IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
-import { fireEvent, render, screen, waitFor } from '@utils/test-utils';
-
-// Mock 'firebase/auth' to intercept imports before config evaluates it
-// Do not add this to jest.setup.js, must run after moduleNameMapper (jest.config.js)
-jest.mock('firebase/auth', () => {
-  // Grab all standard browser-cjs exports (like browserLocalPersistence, connectAuthEmulator)
-  const actualAuth = jest.requireActual('firebase/auth') as any;
-  return {
-    ...actualAuth,
-    // Provide a functional stub for the React Native specific method
-    // Redirects Firebase to use the working browser storage layer inside jsdom
-    getReactNativePersistence: () => actualAuth.browserLocalPersistence,
-  };
-});
-
-// Prevent Expo Router from importing the heavy UI views that break jsdom
-jest.mock('expo-router', () => {
-  return {
-    __esModule: true,
-    // Provide a mocked functional component for any layout boundary tags
-    Stack: Object.assign(({ children }: { children: any }) => <>{children}</>, {
-      Screen: () => null,
-    }),
-    router: {
-      replace: jest.fn(),
-      navigate: jest.fn(),
-      push: jest.fn(),
-    },
-  };
-});
-
-import { logItems } from '@utils/logger'; // Log NumericKeyObjectRecord
+util.inspect.defaultOptions.depth = null; // Show full objects
+import { render, waitFor } from '@utils/test-utils'; // Use local utility
 import nodeConsole from 'console';
 jest.unmock('@theme/themeConfig');
 import { style } from '@utils/styles';
-const { dim, green, hr, reset } = style;
-
-// Suppress jests tracing console logs
-import console from 'console';
-const jestConsole = console;
 import { auth } from '@services/firebaseConfig';
 import { connectAuthEmulator, signInWithEmailAndPassword } from 'firebase/auth';
 import { router } from 'expo-router';
