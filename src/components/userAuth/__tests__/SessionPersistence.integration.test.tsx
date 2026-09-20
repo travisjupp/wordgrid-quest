@@ -53,8 +53,6 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
   it('GREEN: should keep unauthenticated users on the public stack (no redirect)', async () => {
     render(<RootLayout />);
 
-    await waitFor(() => {
-      expect(router.replace).not.toHaveBeenCalledWith('/loadcat');
-    });
+    expect(router.replace).not.toHaveBeenCalledWith('/loadcat');
   });
 });
