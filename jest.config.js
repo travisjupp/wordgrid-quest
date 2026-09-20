@@ -9,6 +9,7 @@ const transformWhitelist = [
   '@unimodules/.*',
   'unimodules',
   'sentry-expo',
+  '@sentry/react-native',
   'native-base',
   'react-native-svg',
   'react-redux',
