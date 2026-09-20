@@ -48,17 +48,20 @@ jest.mock('expo-router', () => {
   };
 });
 
-// Stub native module system registries to prevent undefined 'get' logger loops
+// Stub native module system
 jest.mock('expo-modules-core', () => {
-  const actual = jest.requireActual('expo-modules-core') as any;
   return {
-    ...actual,
-    // Provide safe fallbacks so logger.get() doesn't explode in jsdom
-    ExpoModulesCoreJSLogger: {
-      get: () => ({ info: jest.fn(), warn: jest.fn(), error: jest.fn() }),
+    __esModule: true,
+    ExpoModulesCoreJSLogger: { 
+      get: () => ({ info: jest.fn(), warn: jest.fn(), error: jest.fn() }) 
     },
     NativeModulesProxy: {},
     requireNativeModule: jest.fn(() => ({})),
+    EventEmitter: class { addListener = jest.fn(() => ({ remove: jest.fn() })); },
+    SharedObject: class {},
+  };
+});
+
   };
 });
 
