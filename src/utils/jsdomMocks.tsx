@@ -65,3 +65,12 @@ jest.mock('expo-modules-core', () => {
   };
 });
 
+// Stub expo-font to simulate successful font loading
+jest.mock('expo-font', () => {
+  return {
+    __esModule: true,
+    // ...jest.requireActual('expo-font') as any, // Include utility functions
+    useFonts: () => [true, null], // Returns: [loaded = true, error = null]
+    loadAsync: () => Promise.resolve(),
+  };
+});
