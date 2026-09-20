@@ -1,3 +1,4 @@
+process.env.EXPO_PUBLIC_USE_EMULATOR = 'true'; // Enforce emulator execution state for Jest
 
 jest.mock('react-native-keyboard-controller', () =>
   require('react-native-keyboard-controller/jest'),
