@@ -10,6 +10,7 @@ import { auth } from '@services/firebaseConfig';
 import { connectAuthEmulator, signInWithEmailAndPassword } from 'firebase/auth';
 import { router } from 'expo-router';
 import RootLayout from '../../../../app/_layout';
+import { mockUseSegments } from '@utils/jsdomMocks';
 
 // Config overrides
 util.inspect.defaultOptions.depth = null; // Show full objects
@@ -24,6 +25,7 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
     await auth.signOut();
     jest.clearAllMocks();
     jest.useRealTimers();
+    mockUseSegments.mockReturnValue([]); // Reset to default root path
     global.console = nodeConsole; // Less noise
     const TEST_BEFORE = [ '\n', style.color(255, 0, 255), '▷ ', style.reset, style.color(39), expect.getState().currentTestName, style.reset, '\n', ].join('');
     process.stdout.write(TEST_BEFORE);
@@ -49,6 +51,9 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
   });
 
   it('Should keep unauthenticated users on the public stack (no redirect)', async () => {
+    // Simulate the app already resting safely inside the userAuth folder group directory
+    mockUseSegments.mockReturnValue(['(preGameConfig)', '(userAuth)', 'login']);
+
     render(<RootLayout />);
 
     expect(router.replace).not.toHaveBeenCalledWith('/loadcat');

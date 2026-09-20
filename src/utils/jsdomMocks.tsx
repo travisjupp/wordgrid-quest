@@ -31,6 +31,9 @@ jest.mock('firebase/auth', () => {
   };
 });
 
+// Reconfigurable tracker spy for mocking segments in tests
+export const mockUseSegments = jest.fn<() => string[]>().mockReturnValue([]);
+
 // Stub Expo Router and provide explicit types for the Stack components
 jest.mock('expo-router', () => {
   const StackMock = ({ children }: { children: ReactNode }) => <>{children}</>;
@@ -40,6 +43,7 @@ jest.mock('expo-router', () => {
   return {
     __esModule: true,
     Stack: StackMock,
+    useSegments: () => mockUseSegments(),
     router: {
       replace: jest.fn(),
       navigate: jest.fn(),
