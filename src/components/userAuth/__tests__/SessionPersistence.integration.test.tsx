@@ -1,18 +1,19 @@
 /** @jest-environment jsdom */
 // Load environment mocks first
 import '@utils/jsdomMocks';
-
 import { jest } from '@jest/globals';
 import util from 'node:util';
-util.inspect.defaultOptions.depth = null; // Show full objects
 import { render, waitFor } from '@utils/test-utils'; // Use local utility
 import nodeConsole from 'console';
-jest.unmock('@theme/themeConfig');
 import { style } from '@utils/styles';
 import { auth } from '@services/firebaseConfig';
 import { connectAuthEmulator, signInWithEmailAndPassword } from 'firebase/auth';
 import { router } from 'expo-router';
 import RootLayout from '../../../../app/_layout';
+
+// Config overrides
+util.inspect.defaultOptions.depth = null; // Show full objects
+jest.unmock('@theme/themeConfig');
 
 // Connect to local test auth instance
 connectAuthEmulator(auth, 'http://127.0.0.1:9099');
