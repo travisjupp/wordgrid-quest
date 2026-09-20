@@ -1,3 +1,5 @@
+import 'whatwg-fetch'; // Inject global fetch polyfill primitives for jsdom
+
 import React, { ReactNode } from 'react';
 import { jest } from '@jest/globals';
 
