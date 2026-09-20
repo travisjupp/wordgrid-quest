@@ -62,6 +62,11 @@ jest.mock('expo-modules-core', () => {
   };
 });
 
+// Stub Js-Stack layout container
+jest.mock('@layouts/js-stack', () => {
+  return {
+    __esModule: true,
+    JsStack: ({ children }: { children: ReactNode }) => <>{children}</>,
   };
 });
 
