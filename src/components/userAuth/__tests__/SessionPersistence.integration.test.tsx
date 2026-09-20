@@ -23,7 +23,7 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
   beforeEach(async () => {
     await auth.signOut();
     jest.clearAllMocks();
-    jest.useFakeTimers();
+    jest.useRealTimers();
     global.console = nodeConsole; // Less noise
     const TEST_BEFORE = [ '\n', style.color(255, 0, 255), '▷ ', style.reset, style.color(39), expect.getState().currentTestName, style.reset, '\n', ].join('');
     process.stdout.write(TEST_BEFORE);
@@ -31,13 +31,11 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
 
   afterEach(() => {
     // Clear timers and switch back to real time to prevent leakages
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
     const TEST_AFTER = [ '\n', style.color(99), style.hr.double, style.reset, '\n', ].join('');
     process.stdout.write(TEST_AFTER);
   });
 
-  it('RED: should automatically redirect an authenticated user to /loadcat if a persistent session exists', async () => {
+  it('Should automatically redirect an authenticated user to /loadcat if a persistent session exists', async () => {
     // 1. Arrange: Seed the running emulator with an authenticated user session
     await signInWithEmailAndPassword(auth, 'test@example.com', 'password123');
 
@@ -50,7 +48,7 @@ describe(style.wrap('bolditalic', 'Firebase Auth Session Persistence Flow\n'), (
     });
   });
 
-  it('GREEN: should keep unauthenticated users on the public stack (no redirect)', async () => {
+  it('Should keep unauthenticated users on the public stack (no redirect)', async () => {
     render(<RootLayout />);
 
     expect(router.replace).not.toHaveBeenCalledWith('/loadcat');
