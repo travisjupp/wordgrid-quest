@@ -1,4 +1,11 @@
 process.env.EXPO_PUBLIC_USE_EMULATOR = 'true'; // Enforce emulator execution state for Jest
+process.env.EXPO_PUBLIC_FIREBASE_API_KEY = 'mock-api-key-for-jest';
+process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN = '://firebaseapp.com';
+process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID = 'demo-wordgrid-quest';
+process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET = '://appspot.com';
+process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID = '123456789';
+process.env.EXPO_PUBLIC_FIREBASE_APP_ID = '1:123456:web:mockapp';
+process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID = 'G-MOCK';
 
 jest.mock('react-native-keyboard-controller', () =>
   require('react-native-keyboard-controller/jest'),
@@ -9,24 +16,24 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 );
 
 // Mock expo-constants to provide dummy strings for the Firebase initialization configuration
-jest.mock('expo-constants', () => {
-  return {
-    __esModule: true,
-    default: {
-      expoConfig: {
-        extra: {
-          firebaseApiKey: "fake-api-key-for-testing-purposes-only",
-          firebaseAuthDomain: "://firebaseapp.com",
-          firebaseProjectId: "demo-project",
-          firebaseStorageBucket: "://appspot.com",
-          firebaseMessagingSenderId: "1234567890",
-          firebaseAppId: "1:1234567890:web:abcdef123456",
-          firebaseMeasurementId: "G-EXAMPLE"
-        }
-      }
-    }
-  };
-});
+// jest.mock('expo-constants', () => {
+//   return {
+//     __esModule: true,
+//     default: {
+//       expoConfig: {
+//         extra: {
+//           firebaseApiKey: "fake-api-key-for-testing-purposes-only",
+//           firebaseAuthDomain: "://firebaseapp.com",
+//           firebaseProjectId: "demo-project",
+//           firebaseStorageBucket: "://appspot.com",
+//           firebaseMessagingSenderId: "1234567890",
+//           firebaseAppId: "1:1234567890:web:abcdef123456",
+//           firebaseMeasurementId: "G-EXAMPLE"
+//         }
+//       }
+//     }
+//   };
+// });
 
 // Mock expo-splash-screen
 jest.mock('expo-splash-screen', () => ({
