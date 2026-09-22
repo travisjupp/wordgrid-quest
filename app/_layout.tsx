@@ -10,10 +10,13 @@ import { Spinner } from '@components/Spinner';
 import { ThemeProvider } from '@providers/ThemeProvider';
 import { OverlayProvider } from '@providers/OverlayProvider';
 import { StackNavigationOptions } from '@react-navigation/stack';
-import { JsStack } from 'layouts/js-stack';
+import { JsStack } from '@layouts/js-stack';
 import { LogoProvider } from '@providers/LogoProvider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { router, useSegments } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({ duration: 1000, fade: true });
@@ -53,6 +56,26 @@ export default function RootLayout() {
       checkBrowserFontsLoaded();
     }
   }, []);
+
+  // Route users depending on authentication status
+  const auth = getAuth();
+  const segments = useSegments();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+      const inAuthGroup =
+        segments[0] === '(preGameConfig)' && segments[1] === '(userAuth)';
+
+      if (user) {
+        // Route authenticated users to Custom Material flow
+        router.replace('/loadcat');
+      } else if (!inAuthGroup) {
+        // Route unauthenticated users to LogIn/SignUp flow
+        router.replace('/login');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, segments]);
 
   if (!loaded && !error) {
     return null; // Keep Splash visible while fonts load (web)

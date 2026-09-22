@@ -19,6 +19,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
+      "@layouts/*": ["layouts/*"],
       "firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     },
     "resolveJsonModule": true,

@@ -2,8 +2,8 @@ import 'dotenv/config';
 import { ConfigContext, ExpoConfig } from 'expo/config';
 import materialColors from './src/theme/material-theme.json';
 
-const IS_DEV = process.env.APP_VARIANT === 'development';
-const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
+const IS_DEV = process.env.EXPO_PUBLIC_APP_VARIANT === 'development';
+const IS_PREVIEW = process.env.EXPO_PUBLIC_APP_VARIANT === 'preview';
 const getUniqueIdentifier = () => {
   if (IS_DEV) {
     return 'com.tjupp.wordgridquest.dev';
@@ -127,8 +127,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     typedRoutes: true
   },
   extra: {
-    firebaseApiKey: process.env.FIREBASE_API_KEY,
-    firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
     router: {
       origin: false
     },
