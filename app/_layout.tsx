@@ -62,15 +62,19 @@ export default function RootLayout() {
   const segments = useSegments();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-      const inAuthGroup =
-        segments[0] === '(preGameConfig)' && segments[1] === '(userAuth)';
+      const isAtLoginOrSignup = segments[1] === '(userAuth)';
+      const isAtBlankEntryPath = !segments[0];
 
       if (user) {
-        // Route authenticated users to Custom Material flow
-        router.replace('/loadcat');
-      } else if (!inAuthGroup) {
-        // Route unauthenticated users to LogIn/SignUp flow
-        router.replace('/login');
+        // ONLY redirect if they are at login/signup or /
+        if (isAtLoginOrSignup || isAtBlankEntryPath) {
+          router.replace('/loadcat');
+        }
+      } else {
+        // Kick unauthenticated users back to login/
+        if (!isAtLoginOrSignup) {
+          router.replace('/login');
+        }
       }
     });
 
