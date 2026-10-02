@@ -1,31 +1,33 @@
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, Platform } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { setTempCategory } from '@features/tempMaterial/tempMaterialSlice';
 import { selectTempCustomCategory } from '@features/tempMaterial/tempMaterialSelectors';
 import { useSnackbar } from '@hooks/useSnackbar';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
 
 export function LoadMaterialCategory() {
-  const tempCategory = useAppSelector(selectTempCustomCategory);
-  const [category, setCategory] = useState<string>(tempCategory);
+  const existingCategory = useAppSelector(selectTempCustomCategory);
+  const [category, setCategory] = useState<string>(existingCategory);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
-  const { currentCategory } = useLocalSearchParams();
-
-  useEffect(() => {
-    if (tempCategory && tempCategory !== currentCategory) {
-      showSnackbar({
-        message: `${tempCategory} category ${currentCategory ? 'updated' : 'created'}`,
-      });
-    }
-  }, [tempCategory, currentCategory, showSnackbar]);
 
   const handleSetCategory = () => {
+    const hasChanged = category !== existingCategory;
+    const isAnUpdate = existingCategory && existingCategory !== '';
+    const messageVerb = isAnUpdate ? 'updated' : 'created';
+
+    if (hasChanged && category !== '') {
+      showSnackbar({
+        message: `${category} category ${messageVerb}`,
+      });
+    }
+
     dispatch(setTempCategory(category));
+
     router.navigate('/loaditems');
   };
 
