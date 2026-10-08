@@ -28,6 +28,7 @@ yarn-error.*
 # MacOS
 .DS_Store
 *.pem
+.obsidian
 
 # Local env overrides
 .env
