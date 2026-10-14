@@ -75,6 +75,7 @@ module.exports = {
   },
   // Point to the Native Mock Registry
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  watchPathIgnorePatterns: ['/\.obsidian/'],
   testEnvironment: 'node',
   maxWorkers: 1,
 };

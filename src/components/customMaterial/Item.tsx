@@ -11,6 +11,7 @@ import {
 } from '@features/tempMaterial/tempMaterialSelectors';
 import { useAppSelector } from '@hooks/useAppHooks';
 import { useBottomSheetCustom } from '@hooks/useBottomSheet';
+import { MATERIAL_INPUT_LIMITS } from '@features/material/constants/materialConfig';
 
 interface Props {
   updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
@@ -113,6 +114,7 @@ export default function Item({
         returnKeyType='next'
         onSubmitEditing={() => definitionTextInputRef.current?.focus()}
         submitBehavior='submit'
+        maxLength={MATERIAL_INPUT_LIMITS.discoveryTerm.maxLength}
         aria-label='Your Discovery Term'
         onChangeText={dt => handleDiscoveryTerm(dt)}
         value={DTO.dt}
@@ -129,6 +131,7 @@ export default function Item({
         returnKeyType='default'
         multiline={true}
         submitBehavior='newline'
+        maxLength={MATERIAL_INPUT_LIMITS.definitionText.maxLength}
         aria-label='Your Definition Text'
         onChangeText={def => handleDefinition(def)}
         value={DTO.def}
