@@ -1,6 +1,6 @@
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
 import { style } from '@utils/styles';
-type NumericKeyObjectRecord = Record<number, DiscoveryTermObject>;
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
+type NumericKeyObjectRecord = Record<number, DiscoveryTermObjectInput>;
 
 const logItems = (
   currentKey: number,

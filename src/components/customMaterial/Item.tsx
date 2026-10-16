@@ -1,4 +1,4 @@
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { Platform, TextInput as RNTextInput, View } from 'react-native';
@@ -14,8 +14,8 @@ import { useBottomSheetCustom } from '@hooks/useBottomSheet';
 import { MATERIAL_INPUT_LIMITS } from '@features/material/constants/materialConfig';
 
 interface Props {
-  updateItemFormData: (discoveryTerm: DiscoveryTermObject) => void;
-  data: DiscoveryTermObject;
+  updateItemFormData: (discoveryTerm: DiscoveryTermObjectInput) => void;
+  data: DiscoveryTermObjectInput;
   index?: number;
   updateItemOffsets: (index: number, y: number) => void;
 }
@@ -67,7 +67,7 @@ export default function Item({
     isBottomSheetReady,
   ]);
 
-  const [DTO, setDTO] = useState<DiscoveryTermObject>({
+  const [DTO, setDTO] = useState<DiscoveryTermObjectInput>({
     dt: data.dt,
     def: data.def,
   });

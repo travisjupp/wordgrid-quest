@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Keyboard, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Item from '@components/customMaterial/Item';
-import { DiscoveryTermObject } from '@custom-types/AppTheme';
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
 import { logItems } from '@utils/logger';
 import { useAppDispatch, useAppSelector } from '@hooks/useAppHooks';
 import {
@@ -38,7 +38,7 @@ export default function LoadItem() {
   const dispatch = useAppDispatch();
   const updateItemFormData = (
     index: number,
-    discoveryTerm: DiscoveryTermObject,
+    discoveryTerm: DiscoveryTermObjectInput,
   ) => {
     dispatch(updateTempItem({ id: index, data: discoveryTerm }));
   };

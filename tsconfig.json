@@ -20,6 +20,7 @@
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
       "@layouts/*": ["layouts/*"],
+      "@shared/*": ["src/shared/*"],
       "firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     },
     "resolveJsonModule": true,

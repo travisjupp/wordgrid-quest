@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  DiscoveryTermObject,
-  // CustomMaterialArray,
-  InitialMaterialSliceState,
-} from '@custom-types/AppTheme';
+import { InitialMaterialSliceState } from '@custom-types/AppTheme';
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
 
 const initialState: InitialMaterialSliceState = {
   category: {
@@ -28,7 +25,7 @@ export const materialSlice = createSlice({
       state,
       action: PayloadAction<{
         category: string;
-        discoveryTerms: DiscoveryTermObject[];
+        discoveryTerms: DiscoveryTermObjectInput[];
       }>,
     ) => {
       state.category[action.payload.category] = action.payload.discoveryTerms;
