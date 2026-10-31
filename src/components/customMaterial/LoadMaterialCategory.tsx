@@ -7,6 +7,7 @@ import { selectTempCustomCategory } from '@features/tempMaterial/tempMaterialSel
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useRouter } from 'expo-router';
 import { useAppTheme } from '@theme/themeConfig';
+import { MATERIAL_INPUT_LIMITS } from '@features/material/constants/materialConfig';
 
 export function LoadMaterialCategory() {
   const existingCategory = useAppSelector(selectTempCustomCategory);
@@ -48,7 +49,7 @@ export function LoadMaterialCategory() {
           autoCapitalize='words'
           autoCorrect={true}
           autoComplete={Platform.OS === 'ios' ? 'off' : 'off'}
-          maxLength={25}
+          maxLength={MATERIAL_INPUT_LIMITS.category.maxLength}
           textContentType='none' // iOS only (dont use with autoComplete)
           value={category}
           onChangeText={category => setCategory(category)}

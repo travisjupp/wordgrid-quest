@@ -7,7 +7,8 @@ import { style } from '@utils/styles';
 // IMPORT FROM LOCAL UTILITY, NOT THE LIBRARY
 import { render, screen, fireEvent, act } from '@utils/test-utils';
 import LoadItem from '../LoadItem';
-import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
+import { TempMaterialState } from '@custom-types/AppTheme';
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
 import nodeConsole from 'console';
 jest.unmock('@theme/themeConfig');
 const { dim, green, hr, reset } = style;
@@ -59,7 +60,7 @@ describe(style.wrap('bolditalic', 'LoadItem Logic Flow\n'), () => {
   });
 
   it('Should sync multiple item DTOs', async () => {
-    const items: DiscoveryTermObject[] = [
+    const items: DiscoveryTermObjectInput[] = [
       { dt: 'Platypus', def: 'Egg-laying marsupial' },
       { dt: 'Wombat', def: 'Thick-bodied marsupial' },
       { dt: 'Kangaroo', def: 'Strong-legged marsupial' },

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DiscoveryTermObject, TempMaterialState } from '@custom-types/AppTheme';
+import { TempMaterialState } from '@custom-types/AppTheme';
+import { DiscoveryTermObjectInput } from '@shared/domain/customMaterial/discoverySchema';
 
 const initialState: TempMaterialState = {
   isInitialState: true,
@@ -15,7 +16,7 @@ const initialState: TempMaterialState = {
 
 interface AddItemPayload {
   id: number;
-  data: DiscoveryTermObject;
+  data: DiscoveryTermObjectInput;
 }
 
 const tempMaterialSlice = createSlice({
